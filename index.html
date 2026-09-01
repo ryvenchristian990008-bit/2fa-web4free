@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="km" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecuriAuth - Monetized 2FA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body, button, input, span, div, h1, p, label {
+            font-family: 'Hanuman', 'Plus Jakarta Sans', sans-serif !important;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-light-bg {
+            background: linear-gradient(-45deg, #f8fafc, #f1f5f9, #e2e8f0, #ede9fe);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        .glass-light-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 25px 50px -15px rgba(79, 70, 229, 0.12);
+        }
+        @keyframes coolGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+            50% { text-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+        }
+        .code-glow {
+            animation: coolGlow 3s infinite;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .toast-animate {
+            animation: slideIn 0.3s ease forwards;
+        }
+    </style>
+</head>
+<body class="animated-light-bg text-slate-800 min-h-screen flex items-center justify-center p-4 relative overflow-x-hidden">
+
+    <!-- Toast Notification Popup -->
+    <div id="toastNotification" class="fixed top-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-semibold hidden toast-animate border border-slate-700">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span id="toastText">បានចម្លងកូដជោគជ័យ!</span>
+    </div>
+
+    <!-- Language Switcher -->
+    <div class="absolute top-6 right-6 z-20">
+        <button onclick="toggleLanguage()" class="flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-full shadow-sm text-xs font-semibold text-slate-700 transition-all hover:scale-105 active:scale-95">
+            <span id="langIcon">🇰🇭</span>
+            <span id="langText">ភាសាខ្មែរ / EN</span>
+        </button>
+    </div>
+
+    <!-- Decorative background shapes -->
+    <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-200/40 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-200/40 rounded-full blur-3xl pointer-events-none animate-pulse" style="animation-delay: 2s;"></div>
+
+    <!-- Main Centered Container -->
+    <div class="glass-light-card rounded-3xl max-w-lg w-full p-8 space-y-6 relative z-10">
+        
+        <div class="flex items-center gap-4 border-b border-slate-200 pb-5">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 flex-shrink-0">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+            </div>
+            <div class="space-y-1">
+                <h1 class="text-xl font-bold tracking-tight text-slate-900" data-i18n="title">Online 2FA Security</h1>
+                <p class="text-xs text-slate-500 leading-relaxed" data-i18n="desc">ប្រព័ន្ធបង្កើតកូដសុវត្ថិភាព TOTP</p>
+            </div>
+        </div>
+
+        <div class="space-y-3 bg-slate-50/80 p-5 rounded-2xl border border-slate-200/60 shadow-sm">
+            <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider" data-i18n="labelKey">១. បញ្ចូល Secret Key</label>
+            <div class="relative">
+                <input type="text" id="secretInput" placeholder="ឧទាហរណ៍៖ SB2D FI3N F3P3..." 
+                    class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 text-slate-800 uppercase tracking-widest transition-all shadow-sm">
+            </div>
+            
+            <!-- hCaptcha Sitekey -->
+            <div class="flex justify-center py-1">
+                <div class="h-captcha" data-sitekey="a77812ee-37f8-4854-aaf0-7e74c0beb87e"></div>
+            </div>
+
+            <button onclick="generateCode()" 
+                class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition-all duration-300 text-sm shadow-lg shadow-indigo-600/25 hover:scale-[1.01] active:scale-[0.99]" data-i18n="btnGen">
+                បង្កើតលេខកូដ (Generate)
+            </button>
+        </div>
+
+        <div class="border border-indigo-100 rounded-2xl p-5 text-center space-y-4 bg-white/80 relative overflow-hidden shadow-sm">
+            <div class="flex justify-between items-center text-xs text-slate-500 border-b border-slate-100 pb-2">
+                <span data-i18n="activeKey" class="font-medium">Active Key:</span>
+                <span id="displayKey" class="font-mono text-indigo-600 max-w-[120px] truncate" data-i18n="noKey">មិនទាន់មាន</span>
+            </div>
+            
+            <div id="resultCode" class="text-4xl font-mono font-extrabold tracking-widest text-slate-900 py-2 cursor-pointer hover:text-indigo-600 transition-colors select-all drop-shadow-sm code-glow">
+                - - - - - -
+            </div>
+            
+            <div class="space-y-1.5">
+                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                    <div id="progressBar" class="bg-emerald-500 h-full rounded-full transition-all duration-1000 shadow-sm" style="width: 100%;"></div>
+                </div>
+                <div id="timerText" class="text-[11px] text-slate-500 font-mono font-medium" data-i18n="timerLabel">ពេលវេលាដែលនៅសល់៖ -- វិនាទី</div>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="text-xs bg-rose-50 border border-rose-200 text-rose-600 p-2.5 rounded-xl text-center font-medium hidden"></div>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let currentLang = 'km';
+
+        const translations = {
+            km: {
+                title: "Online 2FA Security",
+                desc: "ប្រព័ន្ធបង្កើតកូដសុវត្ថិភាព TOTP",
+                labelKey: "១. បញ្ចូល Secret Key",
+                btnGen: "បង្កើតលេខកូដ (Generate)",
+                activeKey: "Active Key:",
+                noKey: "មិនទាន់មាន",
+                timerLabel: "ពេលវេលាដែលនៅសល់៖",
+                errEmpty: "សូមបញ្ចូល Secret Key ជាមុនសិន!",
+                errCaptcha: "សូមដោះស្រាយ Captcha ជាមុនសិន!",
+                errServer: "មានបញ្ហាក្នុងការតភ្ជាប់ទៅ Server!",
+                toastMsg: "បានចម្លងកូដជោគជ័យ!",
+                expired: "កូដផុតកំណត់ សូមដោះស្រាយ Captcha ម្តងទៀត"
+            },
+            en: {
+                title: "Online 2FA Security",
+                desc: "Generate TOTP security codes",
+                labelKey: "1. Enter Secret Key",
+                btnGen: "Generate Code",
+                activeKey: "Active Key:",
+                noKey: "None",
+                timerLabel: "Expires in:",
+                errEmpty: "Please enter Secret Key first!",
+                errCaptcha: "Please complete the Captcha first!",
+                errServer: "Server connection error!",
+                toastMsg: "COPIED SUCCESSFULLY!",
+                expired: "Code expired. Complete Captcha again."
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'km' ? 'en' : 'km';
+            document.getElementById('langIcon').innerText = currentLang === 'km' ? '🇰🇭' : '🇺🇸';
+            document.getElementById('htmlRoot').setAttribute('lang', currentLang);
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
+            });
+            const displayKey = document.getElementById('displayKey');
+            if(displayKey.innerText === "មិនទាន់មាន" || displayKey.innerText === "None") {
+                displayKey.innerText = translations[currentLang].noKey;
+            }
+        }
+
+        let timerInterval = null;
+
+        async function generateCode() {
+            const secret = document.getElementById('secretInput').value.trim();
+            const errorEl = document.getElementById('errorMessage');
+            const displayKeyEl = document.getElementById('displayKey');
+            const captchaResponse = hcaptcha.getResponse(); 
+            
+            errorEl.classList.add('hidden');
+            errorEl.innerText = '';
+
+            if (!secret) {
+                errorEl.innerText = translations[currentLang].errEmpty;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            if (!captchaResponse) {
+                errorEl.innerText = translations[currentLang].errCaptcha;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            displayKeyEl.innerText = secret.substring(0, 10) + '...';
+
+            try {
+                const response = await fetch('/api/generate-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ secret, captcha: captchaResponse })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || translations[currentLang].errServer);
+                }
+
+                document.getElementById('resultCode').innerText = data.token;
+                hcaptcha.reset();
+                startTimer(data.timeLeft);
+
+            } catch (err) {
+                errorEl.innerText = translations[currentLang].errServer;
+                errorEl.classList.remove('hidden');
+                hcaptcha.reset(); 
+            }
+        }
+
+        function startTimer(timeLeft) {
+            if (timerInterval) clearInterval(timerInterval);
+            let currentLeft = timeLeft;
+            const progressBar = document.getElementById('progressBar');
+            const timerText = document.getElementById('timerText');
+
+            timerInterval = setInterval(() => {
+                currentLeft--;
+                const percent = (currentLeft / 30) * 100;
+                progressBar.style.width = `${percent}%`;
+                
+                timerText.innerText = currentLang === 'km' ? `ពេលវេលាដែលនៅសល់៖ ${currentLeft} វិនាទី` : `Expires in: ${currentLeft}s`;
+
+                if (currentLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('resultCode').innerText = '- - - - - -';
+                    timerText.innerText = translations[currentLang].expired;
+                    progressBar.style.width = '0%';
+                }
+            }, 1000);
+        }
+
+        document.getElementById('resultCode').addEventListener('click', () => {
+            const code = document.getElementById('resultCode').innerText;
+            if (code && code !== '- - - - - -') {
+                navigator.clipboard.writeText(code);
+                showToast();
+            }
+        });
+
+        function showToast() {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastText').innerText = translations[currentLang].toastMsg;
+            toast.classList.remove('hidden');
+            setTimeout(() => { toast.classList.add('hidden'); }, 2000);
+        }
+    </script>
+</body>
+</html>
