@@ -241,8 +241,16 @@
             <div id="vaultAuthSection" class="space-y-4 py-4 text-center">
                 <div id="vaultAuthTitle" class="text-xs font-bold text-indigo-500 uppercase tracking-widest">Unlock Your Vault</div>
                 <p id="vaultAuthDesc" class="text-xs text-slate-500">Enter your Master Password to decrypt and view saved accounts.</p>
-                <input type="password" id="masterPasswordInput" placeholder="Enter Master Password..." 
-                    class="w-full max-w-sm h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner mx-auto block">
+                
+                <!-- Visible Password Field with Eye Toggle -->
+                <div class="relative w-full max-w-sm mx-auto">
+                    <input type="password" id="masterPasswordInput" placeholder="Enter Master Password..." 
+                        class="w-full h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 pr-12 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner block">
+                    <button type="button" onclick="togglePasswordVisibility('masterPasswordInput', 'vaultEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                        <svg id="vaultEyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </button>
+                </div>
+
                 <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">Unlock Vault</button>
             </div>
 
@@ -252,7 +260,7 @@
                     <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline">Lock Vault</button>
                 </div>
                 <div id="vaultAccountsList" class="space-y-3 h-64 overflow-y-auto pr-2">
-                    <!-- Populated dynamically with Pin & Rename options -->
+                    <!-- Populated dynamically with Pin, Rename, Use -->
                 </div>
             </div>
         </div>
@@ -271,8 +279,14 @@
             </div>
 
             <div class="space-y-3">
-                <input type="password" id="adminPinInput" placeholder="Enter admin passcode..." 
-                    class="w-full h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner">
+                <!-- Visible Admin Password Field with Eye Toggle -->
+                <div class="relative w-full">
+                    <input type="password" id="adminPinInput" placeholder="Enter admin passcode..." 
+                        class="w-full h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 pr-12 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner">
+                    <button type="button" onclick="togglePasswordVisibility('adminPinInput', 'adminEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                        <svg id="adminEyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </button>
+                </div>
                 <p id="adminPasswordError" class="text-xs text-rose-500 text-center font-bold hidden">Incorrect Passcode!</p>
             </div>
 
@@ -369,6 +383,19 @@
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
             localStorage.setItem('theme', currentTheme);
             updateThemeClasses();
+        }
+
+        // Toggle password visibility (Eye icon helper)
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.542 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>`;
+            } else {
+                input.type = 'password';
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
+            }
         }
 
         const translations = {
@@ -508,7 +535,6 @@
             
             const rawStored = localStorage.getItem('globalauth_vault');
             if (!rawStored) {
-                // First time setup
                 const emptyEncrypted = await encryptData(password, []);
                 localStorage.setItem('globalauth_vault', JSON.stringify(emptyEncrypted));
                 decryptedVaultAccounts = [];
@@ -586,7 +612,7 @@
                 return;
             }
 
-            // Sort: Pinned items first
+            // Sort pinned accounts to the top
             decryptedVaultAccounts.sort((a, b) => (b.pinned === true) - (a.pinned === true));
 
             listEl.innerHTML = decryptedVaultAccounts.map((acc, index) => `
