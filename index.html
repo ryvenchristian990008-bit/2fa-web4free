@@ -446,7 +446,7 @@
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'km' : 'en';
             document.getElementById('langText').innerText = currentLang === 'en' ? 'EN / ខ្មែរ' : 'ខ្មែរ / EN';
-            document.getElementById('htmlRoot').setAttribute('lang', currentLang);
+            document.getElementById('htmlRoot')->setAttribute('lang', currentLang);
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang][key]) {
@@ -702,12 +702,13 @@
             generateCode();
         }
 
-        // --- Robust Base32 to Bytes Conversion & Correct jsSHA v3 Implementation ---
+        // --- Robust Base32 Decoder using standard Buffer/Uint8Array for jsSHA v3 ---
         function base32ToBytes(base32) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+            let cleaned = base32.replace(/=+$/, '').toUpperCase();
             let bits = "";
-            for (let i = 0; i < base32.length; i++) {
-                let val = base32Chars.indexOf(base32.charAt(i).toUpperCase());
+            for (let i = 0; i < cleaned.length; i++) {
+                let val = base32Chars.indexOf(cleaned.charAt(i));
                 if (val === -1) continue;
                 bits += val.toString(2).padStart(5, '0');
             }
@@ -731,10 +732,14 @@
 
                 const time = Math.floor(Date.now() / 1000);
                 const counter = Math.floor(time / epoch);
-                const counterHex = counter.toString(16).padStart(16, '0');
                 
-                // FIXED jsSHA v3 syntax for HMAC
-                const shaObj = new jsSHA("SHA-1", "HEX", { hmacKey: { value: keyHex, format: "HEX" } });
+                // Convert counter to 8-byte hex buffer
+                let counterHex = counter.toString(16).padStart(16, '0');
+                
+                // jsSHA v3 correct HMAC initialization and execution
+                const shaObj = new jsSHA("SHA-1", "HEX", {
+                    hmacKey: { value: keyHex, format: "HEX" }
+                });
                 shaObj.update(counterHex);
                 const hmacHex = shaObj.getHash("HEX");
                 
@@ -743,6 +748,7 @@
                 const otp = (binary % Math.pow(10, digits)).toString().padStart(digits, '0');
                 return otp;
             } catch (e) {
+                console.error("TOTP Gen Error:", e);
                 return null;
             }
         }
