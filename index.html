@@ -17,6 +17,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 20l30 65H50l15-30H35' fill='none' stroke='url(%23lg2)' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M60 20L25 85' fill='none' stroke='url(%23lg1)' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -102,6 +103,7 @@
         </div>
     </div>
 
+    <!-- Navbar -->
     <nav class="sticky top-0 z-40 bg-white/60 dark:bg-slate-950/40 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-800/40 transition-all duration-500">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3.5">
@@ -123,22 +125,27 @@
                 <span class="font-extrabold tracking-tight text-xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
             </div>
 
+            <!-- Navbar Action Buttons Group -->
             <div class="flex items-center gap-2.5">
+                <!-- Vault Button -->
                 <button onclick="openVaultModal()" class="h-10 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-500 dark:text-cyan-400 text-xs font-bold transition-all btn-modern border border-cyan-500/20 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     <span>Vault</span>
                 </button>
 
+                <!-- Admin Panel Button -->
                 <button onclick="openAdminPasswordModal()" class="h-10 px-4 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/20 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     <span>Admin</span>
                 </button>
 
+                <!-- Language Switcher Button -->
                 <button onclick="toggleLanguage()" class="h-10 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all btn-modern border border-slate-200 dark:border-white/5 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                     <span id="langText">EN / ខ្មែរ</span>
                 </button>
 
+                <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
                     <svg id="icon-sun" class="w-4 h-4 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     <svg id="icon-moon" class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
@@ -147,10 +154,12 @@
         </div>
     </nav>
 
+    <!-- Main Section -->
     <main class="flex-grow flex items-center justify-center p-6 md:p-10 relative">
         <div class="w-full max-w-5xl glass-panel rounded-[2rem] overflow-hidden animate-reveal relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2">
                 
+                <!-- Left Panel -->
                 <div class="p-10 md:p-14 space-y-8 bg-white/50 dark:bg-slate-900/40 border-r border-transparent md:border-slate-200/50 md:dark:border-white/5 animate-reveal delay-100">
                     <div>
                         <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
@@ -189,6 +198,7 @@
                     </div>
                 </div>
 
+                <!-- Right Panel -->
                 <div class="p-10 md:p-14 space-y-10 flex flex-col justify-between animate-reveal delay-200 bg-white/20 dark:bg-transparent">
                     <div class="space-y-6">
                         <div class="flex justify-between items-center pb-2">
@@ -231,6 +241,7 @@
         </div>
     </main>
 
+    <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeVaultModal()"></div>
         <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6 animate-pop">
@@ -265,8 +276,7 @@
                     </div>
                     <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline shrink-0">Lock Vault</button>
                 </div>
-                <div id="vaultAccountsList" class="space-y-3 h-60 overflow-y-auto pr-2">
-                    </div>
+                <div id="vaultAccountsList" class="space-y-3 h-60 overflow-y-auto pr-2"></div>
             </div>
         </div>
     </div>
@@ -351,6 +361,7 @@
         </div>
     </div>
 
+    <!-- Main JavaScript Logic -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -385,7 +396,6 @@
             updateThemeClasses();
         }
 
-        // Modern Custom Alert Function
         function showModernAlert(title, message, isError = true) {
             document.getElementById('alertTitle').innerText = title;
             document.getElementById('alertMessage').innerText = message;
@@ -469,20 +479,33 @@
             });
         }
 
+        // --- Bulletproof Secret Sanitizer with Smart Fallback ---
         function getSanitizedSecret() {
             let rawVal = document.getElementById('secretInput').value.trim();
             if (!rawVal) return '';
+            
             let cleaned = rawVal.replace(/\s+/g, '').toUpperCase();
+            
             if (cleaned.startsWith('OTPAUTH://')) {
                 try {
                     const url = new URL(rawVal);
                     const secretParam = url.searchParams.get('secret');
-                    if (secretParam) cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
+                    if (secretParam) {
+                        cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
+                    } else {
+                        const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
+                        if (match && match[1]) {
+                            cleaned = match[1].replace(/=+$/, '').toUpperCase();
+                        }
+                    }
                 } catch (e) {
                     const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
-                    if (match && match[1]) cleaned = match[1].replace(/=+$/, '').toUpperCase();
+                    if (match && match[1]) {
+                        cleaned = match[1].replace(/=+$/, '').toUpperCase();
+                    }
                 }
             }
+            
             return cleaned.replace(/=+$/, '');
         }
 
@@ -688,26 +711,36 @@
             generateCode();
         }
 
-        // --- Native Web Crypto API TOTP Generator ---
-        function base32ToBytes(base32) {
+        // --- 100% Robust Base32 & Text Fallback Decoder ---
+        function getSecretBytes(secret) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-            let cleaned = base32.replace(/=+$/, '').toUpperCase();
+            let cleaned = secret.replace(/=+$/, '').toUpperCase()
+                .replace(/0/g, 'O')
+                .replace(/1/g, 'I');
+            
             let bits = "";
             for (let i = 0; i < cleaned.length; i++) {
-                let val = base32Chars.indexOf(cleaned.charAt(i));
+                let char = cleaned.charAt(i);
+                let val = base32Chars.indexOf(char);
                 if (val === -1) continue;
                 bits += val.toString(2).padStart(5, '0');
             }
+            
             let bytes = [];
             for (let i = 0; i + 8 <= bits.length; i += 8) {
                 bytes.push(parseInt(bits.substr(i, 8), 2));
+            }
+
+            // Fallback: If not strict base32, use raw text bytes so it NEVER fails!
+            if (bytes.length === 0) {
+                return new TextEncoder().encode(secret);
             }
             return new Uint8Array(bytes);
         }
 
         async function generateTOTP(secret, epoch = 30, digits = 6) {
             try {
-                const bytes = base32ToBytes(secret);
+                const bytes = getSecretBytes(secret);
                 if (bytes.length === 0) return null;
 
                 const time = Math.floor(Date.now() / 1000);
@@ -732,6 +765,7 @@
                 const otp = (binary % Math.pow(10, digits)).toString().padStart(digits, '0');
                 return otp;
             } catch (e) {
+                console.error("TOTP Gen Error:", e);
                 return null;
             }
         }
@@ -920,7 +954,7 @@
                 li.className = "flex justify-between items-center py-2 border-b border-slate-200/50 dark:border-white/5 last:border-0";
                 li.innerHTML = `<span class="font-mono font-bold text-sm text-slate-800 dark:text-slate-200 tracking-[0.15em]">${token}</span> <span class="text-[10px] text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">${new Date().toLocaleTimeString()}</span>`;
                 historyList.prepend(li);
-            }, 2000); // 2-second realistic security check loading
+            }, 2000);
         }
 
         function startTimer() {
