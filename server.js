@@ -47,8 +47,7 @@ app.get('/api/admin/stats', (req, res) => {
     res.json(siteStats);
 });
 
-// ប្រើប្រាស់ Port របស់ Render ផ្ទាល់
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`GlobalAuth server running successfully on port ${PORT}`);
+    console.log(`GlobalAuth web server running successfully on port ${PORT}`);
 });
