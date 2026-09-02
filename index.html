@@ -17,7 +17,6 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 20l30 65H50l15-30H35' fill='none' stroke='url(%23lg2)' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M60 20L25 85' fill='none' stroke='url(%23lg1)' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -162,11 +161,7 @@
                             class="w-full h-14 bg-white/80 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
                     </div>
 
-                    <div class="flex justify-center py-1">
-                        <div class="h-captcha" data-sitekey="a77812ee-37f8-4854-aaf0-7e74c0beb87e"></div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3">
+                    <div class="grid grid-cols-2 gap-3 pt-2">
                         <button onclick="generateCode()" class="h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_8px_25px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                             <span data-i18n="btnGen">Generate</span>
@@ -221,7 +216,7 @@
         </div>
     </main>
 
-    <!-- Account Vault Modal with Search Bar & Delete Button -->
+    <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeVaultModal()"></div>
         <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6">
@@ -408,7 +403,6 @@
                 historyTitle: "Recent History",
                 noHistory: "No entries yet",
                 errEmpty: "Please enter a secret key.",
-                errCaptcha: "Verification required.",
                 errServer: "Connection error.",
                 errQR: "Invalid QR code image.",
                 toastMsg: "Copied Successfully",
@@ -431,7 +425,6 @@
                 historyTitle: "ប្រវត្តិថ្មីៗ",
                 noHistory: "មិនទាន់មានទិន្នន័យ",
                 errEmpty: "សូមបញ្ចូលលេខកូដសម្ងាត់។",
-                errCaptcha: "សូមផ្ទៀងផ្ទាត់ Captcha។",
                 errServer: "បញ្ហាការតភ្ជាប់។",
                 errQR: "រូបភាព QR មិនត្រឹមត្រូវទេ។",
                 toastMsg: "បានចម្លងជោគជ័យ",
@@ -445,7 +438,7 @@
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'km' : 'en';
             document.getElementById('langText').innerText = currentLang === 'en' ? 'EN / ខ្មែរ' : 'ខ្មែរ / EN';
-            document.getElementById('htmlRoot')->setAttribute('lang', currentLang);
+            document.getElementById('htmlRoot').setAttribute('lang', currentLang);
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang][key]) {
@@ -913,18 +906,12 @@
         async function generateCode() {
             const secret = getSanitizedSecret();
             const errorEl = document.getElementById('errorMessage');
-            const captchaResponse = hcaptcha.getResponse(); 
             
             errorEl.classList.add('hidden');
             errorEl.innerText = '';
 
             if (!secret) {
                 errorEl.innerText = translations[currentLang].errEmpty;
-                errorEl.classList.remove('hidden');
-                return;
-            }
-            if (!captchaResponse) {
-                errorEl.innerText = translations[currentLang].errCaptcha;
                 errorEl.classList.remove('hidden');
                 return;
             }
@@ -935,19 +922,17 @@
             if (!token) {
                 errorEl.innerText = "Invalid secret key format.";
                 errorEl.classList.remove('hidden');
-                hcaptcha.reset();
                 return;
             }
 
             document.getElementById('resultCode').innerText = token;
-            hcaptcha.reset();
             startTimer();
 
             try {
                 await fetch('/api/generate-code', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ secret, captcha: captchaResponse })
+                    body: JSON.stringify({ secret })
                 });
             } catch (e) {}
 
