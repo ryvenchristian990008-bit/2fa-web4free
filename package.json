@@ -4,9 +4,8 @@
   "description": "GlobalAuth Desktop App",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-builder"
-  },
+  "start": "node server.js"
+}
   "build": {
     "appId": "com.globalauth.desktop",
     "productName": "GlobalAuth",
