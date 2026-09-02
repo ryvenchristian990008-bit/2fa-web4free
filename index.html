@@ -14,7 +14,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Anti-Glitch: Zero-Flicker Pre-Render Theme Initialization -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -26,10 +25,7 @@
         })();
     </script>
 
-    <!-- Universal Cross-Browser Favicon -->
     <link id="appFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-    <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +33,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     
     <script>
         tailwind.config = { darkMode: 'class' }
@@ -51,274 +46,204 @@
             font-family: 'Outfit', 'Kantumruy Pro', 'Noto Sans SC', sans-serif !important;
             text-rendering: optimizeLegibility;
         }
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 9999px; }
         .dark ::-webkit-scrollbar-thumb { background: #334155; }
         
         .bg-ultra-light {
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(224, 231, 255, 0.8), transparent 35%),
-                radial-gradient(circle at 90% 85%, rgba(219, 234, 254, 0.85), transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(248, 250, 252, 0.7), transparent 60%);
+                radial-gradient(circle at 10% 10%, rgba(224, 231, 255, 0.7), transparent 30%),
+                radial-gradient(circle at 90% 85%, rgba(219, 234, 254, 0.7), transparent 35%);
         }
         .bg-ultra-dark {
-            background-color: #030712;
+            background-color: #020617;
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(30, 58, 138, 0.18), transparent 30%), 
-                radial-gradient(circle at 85% 30%, rgba(55, 48, 163, 0.18), transparent 30%);
+                radial-gradient(circle at 15% 50%, rgba(30, 58, 138, 0.15), transparent 30%), 
+                radial-gradient(circle at 85% 30%, rgba(55, 48, 163, 0.15), transparent 30%);
         }
         
         @keyframes siteSlideDownEntrance {
-            0% {
-                opacity: 0;
-                transform: translate3d(0, -32px, 0);
-            }
-            100% {
-                opacity: 1;
-                transform: translate3d(0, 0, 0);
-            }
+            0% { opacity: 0; transform: translate3d(0, -20px, 0); }
+            100% { opacity: 1; transform: translate3d(0, 0, 0); }
         }
         .animate-site-entrance {
-            animation: siteSlideDownEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transform: translateZ(0);
-            will-change: transform, opacity;
+            animation: siteSlideDownEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+        /* Pure Black Vignette (Active in both Light & Dark Mode) */
         .vignette-overlay {
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 1;
-            transition: background 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.5s ease;
         }
         body:not(.dark) .vignette-overlay {
-            background: radial-gradient(ellipse at center, transparent 40%, rgba(100, 116, 139, 0.18) 85%, rgba(71, 85, 105, 0.32) 130%);
+            background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.35) 80%, rgba(0, 0, 0, 0.7) 100%);
         }
         .dark .vignette-overlay {
-            background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.75) 85%, rgba(0, 0, 0, 0.95) 120%);
+            background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.75) 80%, rgba(0, 0, 0, 0.95) 100%);
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 
-                0 25px 60px -15px rgba(15, 23, 42, 0.08),
-                0 12px 28px -6px rgba(99, 102, 241, 0.06),
-                inset 0 1px 1px rgba(255, 255, 255, 1);
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(255, 255, 255, 1);
         }
         .dark .glass-panel {
-            background: rgba(15, 23, 42, 0.72);
+            background: rgba(15, 23, 42, 0.78);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 
-                0 30px 65px -15px rgba(0, 0, 0, 0.65),
-                0 0 0 1px rgba(255, 255, 255, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .soft-card {
             background: rgba(255, 255, 255, 0.95);
             border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 15px 35px -5px rgba(15, 23, 42, 0.05), 0 5px 15px -3px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
         }
         .dark .soft-card {
             background: rgba(15, 23, 42, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes btnShimmer {
-            0% { transform: translateX(-180%) skewX(-25deg); }
-            50%, 100% { transform: translateX(250%) skewX(-25deg); }
+            0% { transform: translateX(-180%) skewX(-20deg); }
+            50%, 100% { transform: translateX(250%) skewX(-20deg); }
         }
         .btn-shimmer-beam {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
-            animation: btnShimmer 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            top: 0; left: 0; width: 45%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            animation: btnShimmer 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             pointer-events: none;
         }
 
         @keyframes laserSweep {
             0% { top: 0%; opacity: 0; }
-            15% { opacity: 0.95; }
-            85% { opacity: 0.95; }
+            15%, 85% { opacity: 0.95; }
             100% { top: 100%; opacity: 0; }
         }
         .laser-scanner-line {
             position: absolute;
-            left: 0;
-            right: 0;
-            height: 2px;
+            left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent 5%, #00d2ff 35%, #6366f1 65%, transparent 95%);
-            box-shadow: 0 0 14px #00d2ff, 0 0 26px #6366f1;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 20;
+            box-shadow: 0 0 12px #00d2ff, 0 0 20px #6366f1;
+            opacity: 0; pointer-events: none; z-index: 20;
         }
-        .laser-active {
-            animation: laserSweep 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
+        .laser-active { animation: laserSweep 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 
         @keyframes slideDownCard {
-            0% {
-                opacity: 0;
-                transform: translate3d(0, -24px, 0) scale(0.98);
-            }
-            100% {
-                opacity: 1;
-                transform: translate3d(0, 0, 0) scale(1);
-            }
+            0% { opacity: 0; transform: translate3d(0, -16px, 0) scale(0.99); }
+            100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
         }
-        .animate-card-slide-down {
-            animation: slideDownCard 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
+        .animate-card-slide-down { animation: slideDownCard 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        @keyframes orbitCW {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes orbitCCW {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-360deg); }
-        }
-        .orbital-spinner-outer {
-            animation: orbitCW 0.9s linear infinite;
-        }
-        .orbital-spinner-inner {
-            animation: orbitCCW 0.6s linear infinite;
-        }
+        @keyframes orbitCW { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes orbitCCW { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+        .orbital-spinner-outer { animation: orbitCW 0.8s linear infinite; }
+        .orbital-spinner-inner { animation: orbitCCW 0.5s linear infinite; }
 
         @keyframes matrixSweepLine {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(200%); }
         }
         .matrix-sweep-bar {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.35), transparent);
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.3), transparent);
             animation: matrixSweepLine 0.75s ease-in-out infinite;
         }
 
-        @keyframes glowBarPulse {
-            0%, 100% { filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.6)) drop-shadow(0 0 8px rgba(99, 102, 241, 0.4)); }
-            50% { filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.95)) drop-shadow(0 0 16px rgba(99, 102, 241, 0.7)); }
-        }
-        .animate-glow-bar {
-            animation: glowBarPulse 2s ease-in-out infinite;
-        }
-
         @keyframes popIn {
-            0% { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.95); }
-            100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-        }
-        .animate-pop {
-            animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            backface-visibility: hidden;
-        }
-
-        @keyframes springPop {
-            0% { opacity: 0; transform: scale(0.85) translateY(8px); }
-            60% { opacity: 1; transform: scale(1.04) translateY(-2px); }
+            0% { opacity: 0; transform: scale(0.96) translateY(8px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .animate-spring-pop {
-            animation: springPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        .animate-pop { animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        @keyframes springPop {
+            0% { opacity: 0; transform: scale(0.9) translateY(4px); }
+            60% { opacity: 1; transform: scale(1.03) translateY(-1px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
+        .animate-spring-pop { animation: springPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
         .btn-modern {
-            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s, box-shadow 0.2s, color 0.2s;
+            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.15s, box-shadow 0.15s, color 0.15s, border-color 0.15s;
             will-change: transform;
-            backface-visibility: hidden;
         }
-        .btn-modern:hover { transform: translate3d(0, -2px, 0); }
+        .btn-modern:hover { transform: translate3d(0, -1.5px, 0); }
         .btn-modern:active { transform: translate3d(0, 1px, 0) scale(0.98); }
     </style>
 </head>
 <body id="bodyRoot" class="bg-ultra-dark text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden">
 
     <div class="vignette-overlay"></div>
-
     <iframe id="silentAdFrame" class="hidden" style="display:none;width:0;height:0;border:0;"></iframe>
 
     <!-- Toast Notification -->
-    <div id="toastNotification" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 dark:bg-white/95 text-white dark:text-slate-900 px-6 py-3 rounded-xl shadow-[0_15px_45px_rgba(0,0,0,0.25)] flex items-center gap-2.5 text-sm font-bold hidden transition-opacity duration-300 opacity-0 border border-slate-700/50 dark:border-white/50 backdrop-blur-xl">
-        <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+    <div id="toastNotification" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 dark:bg-white/95 text-white dark:text-slate-900 px-5 py-2.5 rounded-xl shadow-xl flex items-center gap-2 text-xs font-bold hidden transition-opacity duration-300 opacity-0 border border-slate-700/50 dark:border-white/50 backdrop-blur-xl">
+        <svg class="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
         <span id="toastText">Action Successful</span>
     </div>
 
-    <!-- Notice Modal -->
+    <!-- Alert Modal -->
     <div id="modernAlertModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeModernAlert()"></div>
-        <div class="relative w-full max-w-sm glass-panel rounded-[2.5rem] p-8 z-10 text-center space-y-5 animate-pop">
-            <div id="alertIconContainer" class="w-14 h-14 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModernAlert()"></div>
+        <div class="relative w-full max-w-xs glass-panel rounded-2xl p-6 z-10 text-center space-y-4 animate-pop">
+            <div id="alertIconContainer" class="w-11 h-11 bg-indigo-500/10 text-indigo-500 rounded-xl flex items-center justify-center mx-auto">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
-            <h3 id="alertTitle" class="text-xl font-black text-slate-900 dark:text-white">Notice</h3>
-            <p id="alertMessage" class="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed"></p>
-            <button onclick="closeModernAlert()" class="w-full h-12 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_10px_25px_rgba(79,70,229,0.3)]">OK</button>
+            <h3 id="alertTitle" class="text-lg font-black text-slate-900 dark:text-white">Notice</h3>
+            <p id="alertMessage" class="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed"></p>
+            <button onclick="closeModernAlert()" class="w-full h-10 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">OK</button>
         </div>
     </div>
 
     <!-- Prompt Modal -->
     <div id="modernPromptModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeModernPrompt()"></div>
-        <div class="relative w-full max-w-md glass-panel rounded-[2.5rem] p-8 md:p-10 z-10 space-y-6 animate-pop shadow-2xl">
-            <div class="text-center space-y-2">
-                <div class="w-14 h-14 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                </div>
-                <h3 id="promptTitle" class="text-2xl font-black text-slate-900 dark:text-white">Rename Account</h3>
-                <p id="promptDesc" class="text-xs text-slate-500 dark:text-slate-400 font-medium">Enter a friendly label for this account.</p>
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModernPrompt()"></div>
+        <div class="relative w-full max-w-sm glass-panel rounded-2xl p-6 z-10 space-y-4 animate-pop">
+            <div class="text-center space-y-1">
+                <h3 id="promptTitle" class="text-lg font-black text-slate-900 dark:text-white">Rename Account</h3>
+                <p id="promptDesc" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Enter a friendly label for this account.</p>
             </div>
-
-            <div class="space-y-2">
-                <input type="text" id="promptInput" 
-                    class="w-full h-14 bg-white/90 dark:bg-black/40 border border-slate-300 dark:border-white/10 rounded-2xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 text-slate-900 dark:text-slate-100 shadow-inner transition-all">
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 pt-2">
-                <button onclick="closeModernPrompt()" class="h-12 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-2xl text-xs font-bold btn-modern">Cancel</button>
-                <button id="promptConfirmBtn" class="h-12 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xs font-bold btn-modern shadow-[0_8px_20px_rgba(79,70,229,0.3)]">Save Changes</button>
+            <input type="text" id="promptInput" class="w-full h-11 bg-white/90 dark:bg-black/40 border border-slate-300 dark:border-white/10 rounded-xl px-4 text-xs font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 shadow-inner">
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <button onclick="closeModernPrompt()" class="h-10 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold btn-modern">Cancel</button>
+                <button id="promptConfirmBtn" class="h-10 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">Save Changes</button>
             </div>
         </div>
     </div>
 
     <!-- Confirm Modal -->
     <div id="modernConfirmModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeModernConfirm()"></div>
-        <div class="relative w-full max-w-sm glass-panel rounded-[2.5rem] p-8 z-10 text-center space-y-5 animate-pop shadow-2xl">
-            <div class="w-14 h-14 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModernConfirm()"></div>
+        <div class="relative w-full max-w-xs glass-panel rounded-2xl p-6 z-10 text-center space-y-4 animate-pop shadow-xl">
+            <div class="w-11 h-11 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
             </div>
-            <h3 id="confirmTitle" class="text-xl font-black text-slate-900 dark:text-white">Delete Account?</h3>
-            <p id="confirmDesc" class="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed">Are you sure you want to remove this account? This action cannot be undone.</p>
-            <div class="grid grid-cols-2 gap-3 pt-2">
-                <button onclick="closeModernConfirm()" class="h-12 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-2xl text-xs font-bold btn-modern">Cancel</button>
-                <button id="confirmActionBtn" class="h-12 bg-rose-600 hover:bg-rose-500 text-white rounded-2xl text-xs font-bold btn-modern shadow-[0_8px_20px_rgba(225,29,72,0.35)]">Delete</button>
+            <h3 id="confirmTitle" class="text-base font-black text-slate-900 dark:text-white">Delete Account?</h3>
+            <p id="confirmDesc" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Are you sure? This cannot be undone.</p>
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <button onclick="closeModernConfirm()" class="h-10 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold btn-modern">Cancel</button>
+                <button id="confirmActionBtn" class="h-10 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">Delete</button>
             </div>
         </div>
     </div>
 
-    <!-- Whole Website Slide-Down Container -->
+    <!-- Site Wrapper -->
     <div id="wholeSiteContainer" class="animate-site-entrance flex-grow flex flex-col">
 
-        <!-- Navbar -->
+        <!-- Navbar (Compact Sizing) -->
         <nav class="sticky top-0 z-40 bg-white/70 dark:bg-slate-950/40 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/40 transition-all duration-500">
-            <div class="w-full px-6 md:px-12 h-20 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 flex items-center justify-center shrink-0">
-                        <svg class="w-full h-full drop-shadow-md transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <div class="w-full px-4 md:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 flex items-center justify-center shrink-0">
+                        <svg class="w-full h-full drop-shadow transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
                                 <linearGradient id="lg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
@@ -332,83 +257,96 @@
                             <path d="M78 74l5 5 10-10" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <span class="font-extrabold tracking-tight text-xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
+                    <span class="font-extrabold tracking-tight text-lg text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
                 </div>
 
                 <!-- Right Action Cluster -->
-                <div class="flex items-center gap-2 md:gap-2.5 ml-auto">
-                    <button onclick="triggerSmoothRefresh()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 btn-modern border border-slate-200/80 dark:border-white/5 shadow-sm" title="Smooth Refresh">
-                        <svg id="refreshIcon" class="w-4 h-4 text-indigo-500 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                <div class="flex items-center gap-1.5 md:gap-2 ml-auto">
+                    <!-- Smooth Refresh -->
+                    <button onclick="triggerSmoothRefresh()" class="w-8 h-8 flex items-center justify-center rounded-lg bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 btn-modern border border-slate-200/80 dark:border-white/5 shadow-sm" title="Smooth Refresh">
+                        <svg id="refreshIcon" class="w-3.5 h-3.5 text-indigo-500 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                     </button>
 
-                    <button onclick="openVaultModal()" class="h-9 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-xs font-bold transition-all btn-modern border border-cyan-500/25 flex items-center gap-1.5 shadow-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    <!-- Multi-Account Dashboard Quick View -->
+                    <button onclick="openMultiAccountDashboard()" class="h-8 px-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold transition-all btn-modern border border-emerald-500/25 flex items-center gap-1.5 shadow-sm" title="Live Accounts Grid">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        <span data-i18n="navGrid">Live Grid</span>
+                    </button>
+
+                    <!-- Vault Button -->
+                    <button onclick="openVaultModal()" class="h-8 px-2.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-xs font-bold transition-all btn-modern border border-cyan-500/25 flex items-center gap-1.5 shadow-sm">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         <span data-i18n="vault">Vault</span>
                     </button>
 
-                    <button onclick="openAdminPasswordModal()" class="h-9 px-3 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/25 flex items-center gap-1.5 shadow-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <!-- Admin Button -->
+                    <button onclick="openAdminPasswordModal()" class="h-8 px-2.5 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/25 flex items-center gap-1.5 shadow-sm">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         <span data-i18n="admin">Admin</span>
                     </button>
 
-                    <button onclick="toggleLanguage()" class="h-9 px-3 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all btn-modern border border-slate-200/80 dark:border-white/5 flex items-center gap-1.5 shadow-sm">
-                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                    <!-- Language Cycle Button -->
+                    <button onclick="toggleLanguage()" class="h-8 px-2.5 rounded-lg bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all btn-modern border border-slate-200/80 dark:border-white/5 flex items-center gap-1.5 shadow-sm">
+                        <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                         <span id="langText">EN</span>
                     </button>
 
-                    <button onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200/80 dark:border-white/5 shadow-sm">
-                        <svg id="icon-sun" class="w-4 h-4 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        <svg id="icon-moon" class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-lg bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200/80 dark:border-white/5 shadow-sm">
+                        <svg id="icon-sun" class="w-3.5 h-3.5 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="icon-moon" class="w-3.5 h-3.5 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     </button>
                 </div>
             </div>
         </nav>
 
-        <!-- Main Workspace Container -->
-        <main class="flex-grow flex items-center justify-center p-6 md:p-12 lg:p-16 relative">
-            <div class="w-full max-w-7xl glass-panel rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden relative z-10 transition-shadow duration-500">
+        <!-- Main Workspace (Compact Scale) -->
+        <main class="flex-grow flex items-center justify-center p-4 md:p-8 lg:p-10 relative">
+            <div class="w-full max-w-5xl glass-panel rounded-3xl overflow-hidden relative z-10 transition-shadow duration-500 shadow-2xl">
                 
                 <div id="totpSection" class="grid grid-cols-1 lg:grid-cols-2">
                     <!-- Left Panel -->
-                    <div class="p-10 md:p-16 xl:p-20 space-y-8 bg-white/40 dark:bg-slate-900/40 border-r border-transparent lg:border-slate-200/60 lg:dark:border-white/5">
+                    <div class="p-6 md:p-10 xl:p-12 space-y-6 bg-white/30 dark:bg-slate-900/30 border-r border-transparent lg:border-slate-200/60 lg:dark:border-white/5">
                         <div>
-                            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
-                            <p class="text-base font-medium text-slate-500 dark:text-slate-400 mt-2.5" data-i18n="desc">Secure Global Access</p>
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
+                                <span class="text-[10px] font-mono text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-2 py-0.5 rounded">Ctrl+V / Ctrl+C</span>
+                            </div>
+                            <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1" data-i18n="desc">Secure Global Access</p>
                         </div>
 
-                        <div class="space-y-4">
+                        <div class="space-y-3">
                             <div class="flex justify-between items-center">
-                                <label class="text-sm font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400" data-i18n="labelKey">Secret Key</label>
-                                <label class="px-4 py-2 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-xl text-xs uppercase tracking-widest font-bold cursor-pointer flex items-center gap-2 transition-colors shadow-sm">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                                <label class="text-xs font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400" data-i18n="labelKey">Secret Key</label>
+                                <label class="px-2.5 py-1 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-lg text-[11px] uppercase tracking-wider font-bold cursor-pointer flex items-center gap-1.5 transition-colors shadow-sm">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
                                     <span data-i18n="btnUpload">Upload QR</span>
                                     <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
                                 </label>
                             </div>
-                            <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="Paste your key or otpauth:// link here..." 
-                                class="w-full h-16 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-6 text-base font-semibold focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
+                            <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="Paste your key or otpauth:// link..." 
+                                class="w-full h-12 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-sm font-semibold focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all shadow-sm">
 
-                            <!-- Feature 1: Algorithm & Digit Flexibility Controls -->
-                            <div class="grid grid-cols-3 gap-3 pt-1">
+                            <div class="grid grid-cols-3 gap-2 pt-0.5">
                                 <div>
-                                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1" data-i18n="cfgAlgo">Algorithm</label>
-                                    <select id="otpAlgorithmSelect" class="w-full h-11 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-xl px-3 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500">
-                                        <option value="SHA-1">SHA-1 (Default)</option>
+                                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5" data-i18n="cfgAlgo">Algorithm</label>
+                                    <select id="otpAlgorithmSelect" class="w-full h-9 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-lg px-2 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500">
+                                        <option value="SHA-1">SHA-1 (Standard)</option>
                                         <option value="SHA-256">SHA-256</option>
                                         <option value="SHA-512">SHA-512</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1" data-i18n="cfgDigits">Digits</label>
-                                    <select id="otpDigitsSelect" class="w-full h-11 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-xl px-3 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500">
+                                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5" data-i18n="cfgDigits">Digits</label>
+                                    <select id="otpDigitsSelect" class="w-full h-9 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-lg px-2 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500">
                                         <option value="6">6 Digits</option>
                                         <option value="7">7 Digits</option>
                                         <option value="8">8 Digits</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1" data-i18n="cfgPeriod">Period</label>
-                                    <select id="otpPeriodSelect" class="w-full h-11 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-xl px-3 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500">
+                                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-0.5" data-i18n="cfgPeriod">Period</label>
+                                    <select id="otpPeriodSelect" class="w-full h-9 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-lg px-2 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500">
                                         <option value="30">30 Seconds</option>
                                         <option value="60">60 Seconds</option>
                                     </select>
@@ -416,119 +354,104 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 pt-2">
-                            <button id="genBtn" onclick="initiateGenerateFlow()" class="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-base font-bold btn-modern shadow-[0_12px_30px_rgba(79,70,229,0.35)] flex items-center justify-center gap-2.5 relative overflow-hidden group">
+                        <div class="grid grid-cols-2 gap-3 pt-1">
+                            <button id="genBtn" onclick="initiateGenerateFlow()" class="h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-sm font-bold btn-modern shadow-md flex items-center justify-center gap-2 relative overflow-hidden group">
                                 <div class="btn-shimmer-beam"></div>
-                                <span id="genBtnText" class="flex items-center gap-2.5 relative z-10 transition-transform duration-200 group-hover:scale-105">
-                                    <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                <span id="genBtnText" class="flex items-center gap-2 relative z-10 transition-transform duration-200 group-hover:scale-105">
+                                    <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                     <span data-i18n="btnGen">Generate</span>
                                 </span>
-
-                                <div id="genBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-3 bg-indigo-600 z-20">
-                                    <div class="relative w-6 h-6 flex items-center justify-center">
+                                <div id="genBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-2 bg-indigo-600 z-20">
+                                    <div class="relative w-4 h-4 flex items-center justify-center">
                                         <div class="orbital-spinner-outer absolute inset-0 rounded-full border-2 border-transparent border-t-cyan-300 border-b-cyan-300"></div>
-                                        <div class="orbital-spinner-inner absolute inset-1 rounded-full border-2 border-transparent border-l-white border-r-white"></div>
+                                        <div class="orbital-spinner-inner absolute inset-0.5 rounded-full border-2 border-transparent border-l-white border-r-white"></div>
                                     </div>
-                                    <span class="text-sm font-bold tracking-wider text-cyan-100" data-i18n="analyzing">Analyzing Key...</span>
+                                    <span class="text-xs font-bold text-cyan-100" data-i18n="analyzing">Analyzing...</span>
                                 </div>
                             </button>
                             
-                            <button onclick="saveAccountToVault()" class="h-16 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl text-sm font-bold btn-modern border border-slate-200/90 dark:border-white/5 flex items-center justify-center gap-2.5 shadow-sm">
-                                <svg class="w-5 h-5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                            <button onclick="saveAccountToVault()" class="h-12 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 flex items-center justify-center gap-2 shadow-sm">
+                                <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
                                 <span data-i18n="btnSaveVault">Save to Vault</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- Right Panel -->
-                    <div class="p-10 md:p-16 xl:p-20 space-y-8 flex flex-col justify-center bg-slate-50/40 dark:bg-slate-900/20">
-                        
-                        <div id="codeCardBox" class="relative p-10 rounded-[2.5rem] soft-card overflow-hidden transition-all duration-300">
+                    <div class="p-6 md:p-10 xl:p-12 space-y-6 flex flex-col justify-center bg-slate-50/40 dark:bg-slate-900/20">
+                        <div id="codeCardBox" class="relative p-6 md:p-8 rounded-2xl soft-card overflow-hidden transition-all duration-300">
                             <div id="laserScanner" class="laser-scanner-line"></div>
 
-                            <!-- Active Code View -->
                             <div id="codeDisplaySection" class="transition-all duration-300">
-                                <div class="flex justify-between items-center pb-4 relative z-10">
+                                <div class="flex justify-between items-center pb-2 relative z-10">
                                     <div class="flex items-center gap-2">
-                                        <span class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
-                                        <span id="verifiedStatusBadge" class="hidden px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold flex items-center gap-1">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
+                                        <span id="verifiedStatusBadge" class="hidden px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[10px] font-bold flex items-center gap-1">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                                             <span data-i18n="verified">Verified</span>
                                         </span>
                                     </div>
-                                    <span id="timerText" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-4 py-2 rounded-xl shadow-sm" data-i18n="timerLabel">--s</span>
+                                    <span id="timerText" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-1 rounded-lg" data-i18n="timerLabel">--s</span>
                                 </div>
 
-                                <div class="text-center py-8 relative z-10">
-                                    <div id="resultCode" class="text-5xl md:text-6xl xl:text-7xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white mb-8 drop-shadow-sm ml-2 select-all cursor-pointer">
+                                <div class="text-center py-4 relative z-10">
+                                    <div id="resultCode" class="text-4xl md:text-5xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white mb-4 select-all cursor-pointer">
                                         ------
                                     </div>
-                                    
-                                    <div class="w-full h-2.5 bg-slate-200/80 dark:bg-black/50 rounded-full overflow-hidden p-0.5 shadow-inner">
-                                        <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 h-full rounded-full transition-all duration-1000 ease-linear animate-glow-bar" style="width: 0%;"></div>
+                                    <div class="w-full h-1.5 bg-slate-200 dark:bg-black/50 rounded-full overflow-hidden p-0.5 shadow-inner">
+                                        <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
                                     </div>
                                 </div>
 
-                                <div class="w-full pt-2 relative z-10">
-                                    <button id="copyBtn" class="w-full h-14 flex items-center justify-center gap-2.5 bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-2xl text-base font-bold btn-modern border border-slate-200 dark:border-white/5 transition-all duration-300 shadow-sm">
-                                        <svg id="copyIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                <div class="w-full pt-1 relative z-10">
+                                    <button id="copyBtn" class="w-full h-11 flex items-center justify-center gap-2 bg-slate-100/90 hover:bg-slate-200/90 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
+                                        <svg id="copyIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                                         <span id="copyText" data-i18n="btnCopy">Copy Code</span>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- In-Page Security Gate -->
-                            <div id="verificationGateSection" class="hidden py-4 text-center space-y-5 relative z-10 transition-all duration-300 animate-spring-pop">
-                                <div class="w-16 h-16 bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 text-indigo-500 dark:text-cyan-400 rounded-2xl flex items-center justify-center mx-auto border border-indigo-500/20 shadow-lg">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            <div id="verificationGateSection" class="hidden py-3 text-center space-y-3 relative z-10 animate-spring-pop">
+                                <div class="w-12 h-12 bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 text-indigo-500 dark:text-cyan-400 rounded-xl flex items-center justify-center mx-auto border border-indigo-500/20">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                 </div>
-                                
                                 <div>
-                                    <h3 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white" data-i18n="verifyTitle">Security Clearance Required</h3>
-                                    <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1.5 max-w-sm mx-auto" data-i18n="verifyDesc">Complete a 1-click sponsor verification to reveal your live 6-digit TOTP security code.</p>
+                                    <h3 class="text-lg font-black text-slate-900 dark:text-white" data-i18n="verifyTitle">Security Clearance Required</h3>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-xs mx-auto" data-i18n="verifyDesc">Complete 1-click verification to reveal your live code.</p>
                                 </div>
-
-                                <div class="pt-2">
-                                    <button id="monetagVerifyBtn" onclick="executeVerificationAndReveal()" 
-                                        class="w-full h-16 bg-gradient-to-r from-emerald-500 via-teal-600 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white rounded-2xl text-base font-black btn-modern shadow-[0_12px_30px_rgba(16,185,129,0.35)] flex items-center justify-center gap-3 relative overflow-hidden group">
+                                <div class="pt-1">
+                                    <button id="monetagVerifyBtn" onclick="executeVerificationAndReveal()" class="w-full h-12 bg-gradient-to-r from-emerald-500 via-teal-600 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white rounded-xl text-xs font-black btn-modern shadow-md flex items-center justify-center gap-2 relative overflow-hidden group">
                                         <div class="btn-shimmer-beam"></div>
-
-                                        <span id="verifyBtnContent" class="flex items-center gap-2.5 relative z-10 transition-transform duration-200 group-hover:scale-105">
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                        <span id="verifyBtnContent" class="flex items-center gap-2 relative z-10">
+                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                                             <span data-i18n="btnVerify">Verify & Reveal Code (Free)</span>
                                         </span>
-
-                                        <div id="verifyBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-3 bg-emerald-600/95 z-20 backdrop-blur-sm">
+                                        <div id="verifyBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-2 bg-emerald-600/95 z-20 backdrop-blur-sm">
                                             <div class="matrix-sweep-bar"></div>
-                                            <svg class="animate-spin w-5 h-5 text-emerald-100" fill="none" viewBox="0 0 24 24"><circle class="opacity-30" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-90" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                            <span class="text-sm font-extrabold tracking-widest uppercase text-white relative z-10" data-i18n="authorizing">Decrypting Token...</span>
+                                            <span class="text-xs font-bold uppercase text-white relative z-10" data-i18n="authorizing">Decrypting...</span>
                                         </div>
                                     </button>
-                                    <button onclick="cancelVerification()" class="mt-3 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" data-i18n="btnBack">← Return to Key Input</button>
+                                    <button onclick="cancelVerification()" class="mt-2 text-[11px] font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" data-i18n="btnBack">← Return to Key Input</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Feature 2: History Card with Filter and Clear Button -->
-                        <div class="relative p-7 rounded-[2.5rem] soft-card transition-all duration-300 space-y-3">
+                        <!-- History Section -->
+                        <div class="relative p-5 rounded-2xl soft-card space-y-2.5">
                             <div class="flex items-center justify-between">
-                                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2" data-i18n="historyTitle">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5" data-i18n="historyTitle">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     Recent History
                                 </h3>
-                                <button onclick="clearHistoryEntries()" class="text-[11px] font-bold text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors" data-i18n="btnClearHistory">
-                                    Clear History
-                                </button>
+                                <button onclick="clearHistoryEntries()" class="text-[10px] font-bold text-rose-500 hover:text-rose-600 transition-colors" data-i18n="btnClearHistory">Clear History</button>
                             </div>
 
-                            <!-- Search Filter Input for History -->
-                            <div class="relative">
-                                <input type="text" id="historySearchInput" oninput="filterHistoryList()" placeholder="Filter history..." 
-                                    class="w-full h-9 bg-white dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-3 text-xs font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 shadow-inner">
-                            </div>
+                            <input type="text" id="historySearchInput" oninput="filterHistoryList()" placeholder="Filter history..." 
+                                class="w-full h-8 bg-white dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-lg px-2.5 text-xs font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 shadow-inner">
 
-                            <ul id="historyList" class="space-y-2.5 h-24 overflow-y-auto pr-2">
-                                <li class="text-sm font-medium text-slate-400 italic" data-i18n="noHistory">No entries yet</li>
+                            <ul id="historyList" class="space-y-1.5 h-20 overflow-y-auto pr-1">
+                                <li class="text-xs font-medium text-slate-400 italic" data-i18n="noHistory">No entries yet</li>
                             </ul>
                         </div>
                     </div>
@@ -538,116 +461,166 @@
         </main>
     </div>
 
-    <!-- Account Vault Modal -->
+    <!-- Account Vault Modal (With Backup & Restore + Dashboard Navigation) -->
     <div id="vaultModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeVaultModal()"></div>
-        <div class="relative w-full max-w-3xl glass-panel rounded-[3rem] p-10 z-10 space-y-8 animate-pop shadow-2xl">
-            <div class="flex justify-between items-center border-b border-slate-200/80 dark:border-slate-800 pb-5">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeVaultModal()"></div>
+        <div class="relative w-full max-w-2xl glass-panel rounded-3xl p-6 md:p-8 z-10 space-y-5 animate-pop shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-3.5">
                 <div>
-                    <h3 class="text-2xl font-black text-slate-900 dark:text-white">🛡️ Encrypted Account Vault</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">AES-256 client-side encrypted local storage</p>
+                    <h3 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                        <span>🛡️ Encrypted Account Vault</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Client-side AES-GCM 256-bit encrypted storage</p>
                 </div>
-                <button onclick="closeVaultModal()" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
+                <button onclick="closeVaultModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors text-xs font-bold">✕</button>
             </div>
 
-            <div id="vaultAuthSection" class="space-y-6 py-6 text-center">
-                <div id="vaultAuthTitle" class="text-sm font-bold text-indigo-500 uppercase tracking-widest">Unlock Your Vault</div>
-                <p id="vaultAuthDesc" class="text-sm text-slate-500 dark:text-slate-400">Enter your Master Password to decrypt and view saved accounts.</p>
+            <div id="vaultAuthSection" class="space-y-4 py-4 text-center">
+                <div id="vaultAuthTitle" class="text-xs font-bold text-indigo-500 uppercase tracking-wider">Unlock Your Vault</div>
+                <p id="vaultAuthDesc" class="text-xs text-slate-500 dark:text-slate-400">Enter your Master Password to decrypt saved keys.</p>
                 
-                <div class="relative w-full max-w-md mx-auto">
-                    <input type="password" id="masterPasswordInput" placeholder="Enter Master Password..." 
-                        class="w-full h-14 bg-white dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-2xl px-5 pr-14 text-base font-semibold focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner block">
-                    <button type="button" onclick="togglePasswordVisibility('masterPasswordInput', 'vaultEyeIcon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
-                        <svg id="vaultEyeIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                <div class="relative w-full max-w-sm mx-auto">
+                    <input type="password" id="masterPasswordInput" placeholder="Master Password..." 
+                        class="w-full h-11 bg-white dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 pr-10 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-wider shadow-inner block">
+                    <button type="button" onclick="togglePasswordVisibility('masterPasswordInput', 'vaultEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                        <svg id="vaultEyeIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                     </button>
                 </div>
 
-                <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-bold transition-all btn-modern shadow-[0_10px_25px_rgba(79,70,229,0.3)]">Unlock Vault</button>
+                <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">Unlock Vault</button>
             </div>
 
-            <div id="vaultContentSection" class="space-y-6 hidden">
-                <div class="flex justify-between items-center gap-5">
-                    <div class="relative flex-grow">
-                        <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search accounts (e.g. TikTok, Facebook)..." 
-                            class="w-full h-12 bg-white dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 text-slate-900 dark:text-slate-100 shadow-inner">
+            <div id="vaultContentSection" class="space-y-4 hidden">
+                <!-- Search & Action Bar -->
+                <div class="flex flex-wrap items-center justify-between gap-2.5">
+                    <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search accounts..." 
+                        class="flex-grow min-w-[180px] h-9 bg-white dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-lg px-3 text-xs font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 shadow-inner">
+                    
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <!-- Backup Export -->
+                        <button onclick="exportVaultBackupFile()" class="h-9 px-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold btn-modern border border-emerald-500/25 flex items-center gap-1">
+                            <span>📥</span>
+                            <span data-i18n="btnExport">Export</span>
+                        </button>
+                        
+                        <!-- Backup Restore -->
+                        <label class="h-9 px-2.5 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold btn-modern border border-blue-500/25 flex items-center gap-1 cursor-pointer">
+                            <span>📤</span>
+                            <span data-i18n="btnImport">Import</span>
+                            <input type="file" id="backupFileInput" accept=".json" class="hidden" onchange="importVaultBackupFile(event)">
+                        </label>
+
+                        <!-- Multi-Account Dashboard Switch -->
+                        <button onclick="closeVaultModal(); openMultiAccountDashboard();" class="h-9 px-2.5 rounded-lg bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold btn-modern border border-indigo-500/25 flex items-center gap-1">
+                            <span>⚡</span>
+                            <span>Grid</span>
+                        </button>
+
+                        <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline ml-1">Lock</button>
                     </div>
-                    <button onclick="lockVault()" class="text-sm text-rose-500 font-bold hover:underline shrink-0">Lock Vault</button>
                 </div>
-                <div id="vaultAccountsList" class="space-y-4 h-72 overflow-y-auto pr-3"></div>
+
+                <div id="vaultAccountsList" class="space-y-2 h-64 overflow-y-auto pr-1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Batch Generator / Multi-Account Live Dashboard Modal -->
+    <div id="dashboardModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-md" onclick="closeMultiAccountDashboard()"></div>
+        <div class="relative w-full max-w-4xl max-h-[85vh] glass-panel rounded-3xl p-6 md:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div>
+                    <h3 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                        <span>⚡ Multi-Account Live Authenticator</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Synchronous codes for all your saved vault accounts</p>
+                </div>
+                <button onclick="closeMultiAccountDashboard()" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors text-xs font-bold">✕</button>
+            </div>
+
+            <!-- Global Timer Bar -->
+            <div class="flex items-center justify-between text-xs font-bold px-1">
+                <span class="text-slate-500 dark:text-slate-400">Next Code Cycle:</span>
+                <span id="dashboardTimerBadge" class="font-mono text-indigo-500 bg-indigo-50 dark:bg-indigo-500/10 px-2 py-0.5 rounded">--s</span>
+            </div>
+            <div class="w-full h-1 bg-slate-200 dark:bg-black/50 rounded-full overflow-hidden">
+                <div id="dashboardGlobalProgress" class="bg-gradient-to-r from-cyan-400 to-indigo-500 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
+            </div>
+
+            <!-- Accounts Grid Container -->
+            <div id="dashboardGridContainer" class="flex-grow overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 pr-1 py-1">
+                <!-- Dynamically Rendered -->
             </div>
         </div>
     </div>
 
     <!-- Admin Password Modal -->
     <div id="adminPasswordModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeAdminPasswordModal()"></div>
-        <div class="relative w-full max-w-sm glass-panel rounded-[2.5rem] p-10 z-10 space-y-8 animate-pop shadow-2xl">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAdminPasswordModal()"></div>
+        <div class="relative w-full max-w-xs glass-panel rounded-2xl p-6 z-10 space-y-4 animate-pop shadow-xl">
             <div class="text-center">
-                <div class="w-16 h-16 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-inner">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <div class="w-12 h-12 bg-indigo-500/10 text-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-inner">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
-                <h3 class="text-xl font-black text-slate-900 dark:text-white">Admin Access</h3>
-                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Please enter your passcode</p>
+                <h3 class="text-base font-black text-slate-900 dark:text-white">Admin Access</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Enter passcode</p>
             </div>
 
-            <div class="space-y-4">
-                <div class="relative w-full">
-                    <input type="password" id="adminPinInput" placeholder="Passcode..." 
-                        class="w-full h-14 bg-white dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-2xl px-5 pr-14 text-base font-semibold focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner">
-                    <button type="button" onclick="togglePasswordVisibility('adminPinInput', 'adminEyeIcon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
-                        <svg id="adminEyeIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                    </button>
-                </div>
-                <p id="adminPasswordError" class="text-xs text-rose-500 text-center font-bold hidden">Incorrect Passcode!</p>
+            <div class="space-y-2">
+                <input type="password" id="adminPinInput" placeholder="Passcode..." 
+                    class="w-full h-11 bg-white dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner">
+                <p id="adminPasswordError" class="text-[11px] text-rose-500 text-center font-bold hidden">Incorrect Passcode!</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
-                <button onclick="closeAdminPasswordModal()" class="h-12 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-2xl text-sm font-bold btn-modern">Cancel</button>
-                <button onclick="verifyAdminPasscode()" class="h-12 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_8px_20px_rgba(79,70,229,0.3)]">Confirm</button>
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="closeAdminPasswordModal()" class="h-10 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold btn-modern">Cancel</button>
+                <button onclick="verifyAdminPasscode()" class="h-10 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">Confirm</button>
             </div>
         </div>
     </div>
 
     <!-- Admin Dashboard Modal -->
     <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeAdminPanel()"></div>
-        <div class="relative w-full max-w-3xl glass-panel rounded-[3rem] p-10 z-10 space-y-8 animate-pop shadow-2xl">
-            <div class="flex justify-between items-center border-b border-slate-200/80 dark:border-slate-800 pb-5">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAdminPanel()"></div>
+        <div class="relative w-full max-w-2xl glass-panel rounded-3xl p-6 md:p-8 z-10 space-y-5 animate-pop shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-3">
                 <div>
-                    <h3 class="text-2xl font-black text-slate-900 dark:text-white">🛠️ Admin Panel</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Real-time visitor and usage analytics</p>
+                    <h3 class="text-lg font-black text-slate-900 dark:text-white">🛠️ Admin Panel</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Visitor and usage analytics</p>
                 </div>
-                <button onclick="closeAdminPanel()" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
+                <button onclick="closeAdminPanel()" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors text-xs">✕</button>
             </div>
 
-            <div class="grid grid-cols-2 gap-5">
-                <div class="soft-card p-6 rounded-3xl">
-                    <span class="text-sm font-bold text-slate-400 uppercase">Total Visitors</span>
-                    <h4 id="statVisitors" class="text-4xl font-black text-indigo-600 dark:text-indigo-400 mt-2">0</h4>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="soft-card p-4 rounded-xl">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Total Visitors</span>
+                    <h4 id="statVisitors" class="text-2xl font-black text-indigo-600 dark:text-indigo-400 mt-1">0</h4>
                 </div>
-                <div class="soft-card p-6 rounded-3xl">
-                    <span class="text-sm font-bold text-slate-400 uppercase">Codes Generated</span>
-                    <h4 id="statGenerations" class="text-4xl font-black text-emerald-500 mt-2">0</h4>
+                <div class="soft-card p-4 rounded-xl">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Codes Generated</span>
+                    <h4 id="statGenerations" class="text-2xl font-black text-emerald-500 mt-1">0</h4>
                 </div>
             </div>
 
             <div>
-                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Live Generated Logs</h4>
-                <div id="adminLogsList" class="space-y-3 h-56 overflow-y-auto pr-3 bg-white/70 dark:bg-slate-950/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm shadow-inner">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Live Generated Logs</h4>
+                <div id="adminLogsList" class="space-y-2 h-44 overflow-y-auto pr-2 bg-white/70 dark:bg-slate-950/50 p-3 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-xs shadow-inner">
                     <span class="text-slate-400 italic">No activity recorded yet...</span>
                 </div>
             </div>
 
-            <button onclick="fetchAdminStats()" class="w-full h-14 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_10px_25px_rgba(79,70,229,0.3)]">
+            <button onclick="fetchAdminStats()" class="w-full h-11 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">
                 🔄 Refresh Stats
             </button>
         </div>
     </div>
 
-    <!-- Main Logic Script -->
+    <!-- Script Logic -->
     <script>
         const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
         let sessionHistory = [];
+        let dashboardInterval = null;
 
         function initFavicon() {
             const svgData = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
@@ -669,16 +642,11 @@
             img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgData);
             img.onload = function() {
                 const canvas = document.createElement('canvas');
-                canvas.width = 64;
-                canvas.height = 64;
+                canvas.width = 64; canvas.height = 64;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, 64, 64);
-                const pngUri = canvas.toDataURL('image/png');
                 let link = document.getElementById('appFavicon');
-                if (link) {
-                    link.type = 'image/png';
-                    link.href = pngUri;
-                }
+                if (link) { link.type = 'image/png'; link.href = canvas.toDataURL('image/png'); }
             };
         }
         initFavicon();
@@ -686,21 +654,11 @@
         function triggerSmoothRefresh() {
             const container = document.getElementById('wholeSiteContainer');
             const refreshIcon = document.getElementById('refreshIcon');
-            
             refreshIcon.classList.add('rotate-180');
             container.classList.remove('animate-site-entrance');
             void container.offsetWidth; 
             container.classList.add('animate-site-entrance');
-
-            setTimeout(() => {
-                refreshIcon.classList.remove('rotate-180');
-            }, 700);
-        }
-
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => {});
-            });
+            setTimeout(() => { refreshIcon.classList.remove('rotate-180'); }, 700);
         }
 
         let currentLang = 'en';
@@ -734,22 +692,18 @@
             document.getElementById('alertTitle').innerText = title;
             document.getElementById('alertMessage').innerText = message;
             const iconContainer = document.getElementById('alertIconContainer');
-            if (isError) {
-                iconContainer.className = "w-14 h-14 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto shadow-inner";
-            } else {
-                iconContainer.className = "w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mx-auto shadow-inner";
-            }
+            iconContainer.className = isError 
+                ? "w-11 h-11 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto" 
+                : "w-11 h-11 bg-emerald-500/10 text-emerald-500 rounded-xl flex items-center justify-center mx-auto";
             document.getElementById('modernAlertModal').classList.remove('hidden');
         }
 
-        function closeModernAlert() {
-            document.getElementById('modernAlertModal').classList.add('hidden');
-        }
+        function closeModernAlert() { document.getElementById('modernAlertModal').classList.add('hidden'); }
 
         let promptCallback = null;
         function showModernPrompt({ title, desc, defaultValue = '', onConfirm }) {
             document.getElementById('promptTitle').innerText = title || "Input Required";
-            document.getElementById('promptDesc').innerText = desc || "Please enter a value to proceed:";
+            document.getElementById('promptDesc').innerText = desc || "Please enter a value:";
             const input = document.getElementById('promptInput');
             input.value = defaultValue;
             promptCallback = onConfirm;
@@ -763,15 +717,13 @@
         }
 
         document.getElementById('promptConfirmBtn').addEventListener('click', () => {
-            const val = document.getElementById('promptInput').value;
-            if (promptCallback) promptCallback(val);
+            if (promptCallback) promptCallback(document.getElementById('promptInput').value);
             closeModernPrompt();
         });
 
         document.getElementById('promptInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                const val = document.getElementById('promptInput').value;
-                if (promptCallback) promptCallback(val);
+                if (promptCallback) promptCallback(document.getElementById('promptInput').value);
                 closeModernPrompt();
             }
         });
@@ -811,6 +763,7 @@
                 siteName: "GlobalAuth",
                 vault: "Vault",
                 admin: "Admin",
+                navGrid: "Live Grid",
                 title: "Authentication",
                 desc: "Secure Global Access",
                 labelKey: "Secret Key",
@@ -826,10 +779,12 @@
                 cfgAlgo: "Algorithm",
                 cfgDigits: "Digits",
                 cfgPeriod: "Period",
+                btnExport: "Export",
+                btnImport: "Import",
                 errEmpty: "Please enter a secret key.",
                 toastMsg: "Copied Successfully",
                 verifyTitle: "Security Clearance Required",
-                verifyDesc: "Complete a 1-click sponsor verification to reveal your live TOTP security code.",
+                verifyDesc: "Complete 1-click sponsor verification to reveal your live TOTP security code.",
                 btnVerify: "Verify & Reveal Code (Free)",
                 btnBack: "← Return to Key Input",
                 verified: "Verified",
@@ -840,6 +795,7 @@
                 siteName: "GlobalAuth",
                 vault: "កន្លែងផ្ទុក",
                 admin: "អ្នកគ្រប់គ្រង",
+                navGrid: "ផ្ទាំងកូដបន្តផ្ទាល់",
                 title: "ប្រព័ន្ធផ្ទៀងផ្ទាត់",
                 desc: "សុវត្ថិភាពកម្រិតសកល",
                 labelKey: "លេខកូដសម្ងាត់",
@@ -855,6 +811,8 @@
                 cfgAlgo: "ក្បួនដោះស្រាយ",
                 cfgDigits: "ខ្ទង់លេខ",
                 cfgPeriod: "រយៈពេល",
+                btnExport: "ទាញយកទុក",
+                btnImport: "បញ្ចូលទិន្នន័យ",
                 errEmpty: "សូមបញ្ចូលលេខកូដសម្ងាត់។",
                 toastMsg: "បានចម្លងជោគជ័យ",
                 verifyTitle: "ការផ្ទៀងផ្ទាត់សុវត្ថិភាព",
@@ -869,6 +827,7 @@
                 siteName: "GlobalAuth",
                 vault: "密码库",
                 admin: "管理后台",
+                navGrid: "实时仪表盘",
                 title: "双重身份验证",
                 desc: "全球安全访问系统",
                 labelKey: "密钥 (Secret Key)",
@@ -884,6 +843,8 @@
                 cfgAlgo: "加密算法",
                 cfgDigits: "代码位数",
                 cfgPeriod: "更新周期",
+                btnExport: "备份导出",
+                btnImport: "备份恢复",
                 errEmpty: "请输入密钥。",
                 toastMsg: "已成功复制到剪贴板",
                 verifyTitle: "需要安全授权",
@@ -917,7 +878,6 @@
             });
         }
 
-        // Automatic URL parameter parsing for algorithm, digits, and period
         function parseSecretUriParams() {
             let rawVal = document.getElementById('secretInput').value.trim();
             if (rawVal.toUpperCase().startsWith('OTPAUTH://')) {
@@ -1014,19 +974,17 @@
                 document.getElementById('masterPasswordInput').value = '';
                 if (!hasVault) {
                     document.getElementById('vaultAuthTitle').innerText = "Create Master Password";
-                    document.getElementById('vaultAuthDesc').innerText = "Set a secure password to encrypt your account vault.";
+                    document.getElementById('vaultAuthDesc').innerText = "Set a secure password to encrypt your vault.";
                     document.getElementById('vaultAuthBtn').innerText = "Create Password";
                 } else {
                     document.getElementById('vaultAuthTitle').innerText = "Unlock Your Vault";
-                    document.getElementById('vaultAuthDesc').innerText = "Enter your Master Password to decrypt and view saved accounts.";
+                    document.getElementById('vaultAuthDesc').innerText = "Enter your Master Password to decrypt saved keys.";
                     document.getElementById('vaultAuthBtn').innerText = "Unlock Vault";
                 }
             }
         }
 
-        function closeVaultModal() {
-            document.getElementById('vaultModal').classList.add('hidden');
-        }
+        function closeVaultModal() { document.getElementById('vaultModal').classList.add('hidden'); }
 
         async function handleVaultAuth() {
             const password = document.getElementById('masterPasswordInput').value;
@@ -1104,13 +1062,13 @@
             const listEl = document.getElementById('vaultAccountsList');
             const searchVal = document.getElementById('vaultSearchInput').value.toLowerCase();
             if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
-                listEl.innerHTML = `<span class="text-sm text-slate-400 italic">No saved accounts in vault...</span>`;
+                listEl.innerHTML = `<span class="text-xs text-slate-400 italic">No saved accounts in vault...</span>`;
                 return;
             }
             const filtered = decryptedVaultAccounts.filter(acc => acc.name.toLowerCase().includes(searchVal) || acc.secret.toLowerCase().includes(searchVal));
             filtered.sort((a, b) => (b.pinned === true) - (a.pinned === true));
             if (filtered.length === 0) {
-                listEl.innerHTML = `<span class="text-sm text-slate-400 italic">No matching accounts found...</span>`;
+                listEl.innerHTML = `<span class="text-xs text-slate-400 italic">No matching accounts found...</span>`;
                 return;
             }
             listEl.innerHTML = filtered.map((acc) => {
@@ -1118,20 +1076,20 @@
                 const algoTag = acc.algorithm || 'SHA-1';
                 const digitTag = acc.digits || '6';
                 return `
-                    <div class="flex items-center justify-between p-4 bg-white/80 dark:bg-slate-800/60 rounded-2xl border border-slate-200/80 dark:border-white/5 transition-all shadow-sm">
-                        <div>
+                    <div class="flex items-center justify-between p-3 bg-white/80 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-white/5 shadow-sm">
+                        <div class="truncate mr-2">
                             <div class="flex items-center gap-2">
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white">${acc.name}</h4>
-                                <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-500 rounded text-[10px] font-mono font-bold">${algoTag} / ${digitTag}D</span>
-                                ${acc.pinned ? '<span class="px-2 py-0.5 bg-amber-500/10 text-amber-500 rounded-md text-[10px] font-bold">Pinned</span>' : ''}
+                                <h4 class="text-xs font-bold text-slate-900 dark:text-white truncate">${acc.name}</h4>
+                                <span class="px-1.5 py-0.5 bg-indigo-500/10 text-indigo-500 rounded text-[9px] font-mono font-bold">${algoTag}/${digitTag}D</span>
+                                ${acc.pinned ? '<span class="px-1.5 py-0.5 bg-amber-500/10 text-amber-500 rounded text-[9px] font-bold">Pinned</span>' : ''}
                             </div>
-                            <span class="text-[11px] font-mono text-slate-400 uppercase">${acc.secret}</span>
+                            <span class="text-[10px] font-mono text-slate-400 uppercase truncate block mt-0.5">${acc.secret}</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="togglePinAccount(${realIndex})" class="px-3 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold transition-all shadow-sm" title="Pin / Unpin">📌</button>
-                            <button onclick="renameAccount(${realIndex})" class="px-3 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold transition-all shadow-sm">✏️ Rename</button>
-                            <button onclick="loadVaultAccount(${realIndex})" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-sm">Use</button>
-                            <button onclick="deleteVaultAccount(${realIndex})" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shadow-sm">🗑️ Delete</button>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button onclick="togglePinAccount(${realIndex})" class="w-7 h-7 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-bold btn-modern" title="Pin / Unpin">📌</button>
+                            <button onclick="renameAccount(${realIndex})" class="w-7 h-7 flex items-center justify-center bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-bold btn-modern" title="Rename">✏️</button>
+                            <button onclick="loadVaultAccount(${realIndex})" class="px-2.5 h-7 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold btn-modern">Use</button>
+                            <button onclick="deleteVaultAccount(${realIndex})" class="w-7 h-7 flex items-center justify-center bg-rose-500/10 text-rose-500 rounded-lg text-xs font-bold btn-modern" title="Delete">🗑️</button>
                         </div>
                     </div>
                 `;
@@ -1145,11 +1103,9 @@
         }
 
         function renameAccount(index) {
-            const currentName = decryptedVaultAccounts[index].name;
             showModernPrompt({
                 title: "Rename Account",
-                desc: "Enter new name for this account (e.g. TikTok, Facebook, IG):",
-                defaultValue: currentName,
+                defaultValue: decryptedVaultAccounts[index].name,
                 onConfirm: async (newName) => {
                     if (newName && newName.trim() !== "") {
                         decryptedVaultAccounts[index].name = newName.trim();
@@ -1161,10 +1117,9 @@
         }
 
         function deleteVaultAccount(index) {
-            const accName = decryptedVaultAccounts[index].name;
             showModernConfirm({
                 title: "Delete Account?",
-                desc: `Are you sure you want to permanently delete "${accName}" from your encrypted vault?`,
+                desc: `Permanently delete "${decryptedVaultAccounts[index].name}" from your encrypted vault?`,
                 onConfirm: async () => {
                     decryptedVaultAccounts.splice(index, 1);
                     await updateVaultStorage();
@@ -1183,32 +1138,199 @@
             initiateGenerateFlow();
         }
 
+        /* Feature 1: Backup & Restore .json */
+        function exportVaultBackupFile() {
+            const rawStored = localStorage.getItem('globalauth_vault');
+            if (!rawStored) {
+                showModernAlert("Empty Vault", "No vault data found to export.");
+                return;
+            }
+            const blob = new Blob([rawStored], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `GlobalAuth_Backup_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("Backup downloaded successfully!");
+        }
+
+        function importVaultBackupFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (parsed.ciphertext && parsed.iv && parsed.salt) {
+                        showModernConfirm({
+                            title: "Restore Backup?",
+                            desc: "Restoring this file will replace your current encrypted vault data. Continue?",
+                            onConfirm: () => {
+                                localStorage.setItem('globalauth_vault', JSON.stringify(parsed));
+                                lockVault();
+                                showModernAlert("Restored", "Backup imported! Please enter the backup's master password to unlock.", false);
+                            }
+                        });
+                    } else {
+                        showModernAlert("Invalid Format", "This file is not a valid encrypted GlobalAuth backup.");
+                    }
+                } catch (err) {
+                    showModernAlert("Import Error", "Failed to parse JSON backup file.");
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        /* Feature 2: Batch Multi-Account Live Dashboard */
+        function openMultiAccountDashboard() {
+            if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
+                openVaultModal();
+                showModernAlert("Unlock Required", "Please unlock your vault first to view the live dashboard.");
+                return;
+            }
+            document.getElementById('dashboardModal').classList.remove('hidden');
+            renderDashboardLiveGrid();
+            startDashboardTimer();
+        }
+
+        function closeMultiAccountDashboard() {
+            document.getElementById('dashboardModal').classList.add('hidden');
+            if (dashboardInterval) clearInterval(dashboardInterval);
+        }
+
+        async function renderDashboardLiveGrid() {
+            const container = document.getElementById('dashboardGridContainer');
+            if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-8 text-xs text-slate-400">No accounts in vault.</div>`;
+                return;
+            }
+
+            container.innerHTML = (await Promise.all(decryptedVaultAccounts.map(async (acc, idx) => {
+                const period = parseInt(acc.period || '30', 10);
+                const digits = parseInt(acc.digits || '6', 10);
+                const algo = acc.algorithm || 'SHA-1';
+                const code = await generateTOTP(acc.secret, period, digits, algo) || '------';
+                return `
+                    <div class="p-4 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/5 flex flex-col justify-between space-y-2 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
+                            <span class="text-[9px] font-mono text-indigo-500 bg-indigo-500/10 px-1.5 py-0.5 rounded font-bold">${algo}/${digits}D</span>
+                        </div>
+                        <div class="text-center py-1">
+                            <span class="font-mono text-2xl font-black tracking-widest text-slate-900 dark:text-white select-all" id="gridCode_${idx}">${code}</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-1 border-t border-slate-100 dark:border-white/5">
+                            <button onclick="copyExplicitCode('${code}')" class="text-[11px] font-bold text-indigo-500 hover:text-indigo-600">Copy</button>
+                            <button onclick="loadVaultAccount(${idx}); closeMultiAccountDashboard();" class="text-[11px] font-bold text-slate-400 hover:text-slate-600">Focus</button>
+                        </div>
+                    </div>
+                `;
+            }))).join('');
+        }
+
+        function startDashboardTimer() {
+            if (dashboardInterval) clearInterval(dashboardInterval);
+            const progressBar = document.getElementById('dashboardGlobalProgress');
+            const timerBadge = document.getElementById('dashboardTimerBadge');
+
+            dashboardInterval = setInterval(async () => {
+                const epoch = 30;
+                const timeNow = Math.floor(Date.now() / 1000);
+                const currentLeft = epoch - (timeNow % epoch);
+                const percent = (currentLeft / epoch) * 100;
+
+                progressBar.style.width = `${percent}%`;
+                timerBadge.innerText = currentLeft + 's';
+
+                if (currentLeft === epoch) {
+                    renderDashboardLiveGrid();
+                }
+            }, 1000);
+        }
+
+        function copyExplicitCode(code) {
+            if (code && !code.includes('-')) {
+                navigator.clipboard.writeText(code);
+                showToast("Code copied to clipboard!");
+            }
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastText').innerText = text;
+            toast.classList.remove('hidden');
+            requestAnimationFrame(() => { toast.classList.remove('opacity-0'); });
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 2000);
+        }
+
+        /* Feature 3: Global Keyboard Shortcuts */
+        window.addEventListener('keydown', (e) => {
+            const activeTag = document.activeElement.tagName.toLowerCase();
+            const isTyping = activeTag === 'input' || activeTag === 'textarea';
+
+            // Escape closes modals
+            if (e.key === 'Escape') {
+                closeVaultModal();
+                closeMultiAccountDashboard();
+                closeModernAlert();
+                closeModernPrompt();
+                closeModernConfirm();
+                closeAdminPasswordModal();
+                closeAdminPanel();
+                return;
+            }
+
+            // Ctrl/Cmd + C (Copies active code when outside input)
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c' && !isTyping) {
+                const code = document.getElementById('resultCode').innerText;
+                if (code && !code.includes('-')) {
+                    navigator.clipboard.writeText(code);
+                    showToast("Code copied to clipboard!");
+                }
+            }
+
+            // Ctrl/Cmd + V (Auto-pastes into secret field when outside input)
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v' && !isTyping) {
+                navigator.clipboard.readText().then(text => {
+                    if (text) {
+                        const input = document.getElementById('secretInput');
+                        input.value = text.trim();
+                        parseSecretUriParams();
+                        showToast("Key pasted from clipboard!");
+                    }
+                }).catch(() => {});
+            }
+
+            // Ctrl/Cmd + K or Ctrl/Cmd + B (Opens Vault)
+            if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'k' || e.key.toLowerCase() === 'b') && !isTyping) {
+                e.preventDefault();
+                openVaultModal();
+            }
+        });
+
         function getSecretBytes(secret) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-            let cleaned = secret.replace(/=+$/, '').toUpperCase()
-                .replace(/0/g, 'O')
-                .replace(/1/g, 'I');
-            
+            let cleaned = secret.replace(/=+$/, '').toUpperCase().replace(/0/g, 'O').replace(/1/g, 'I');
             let bits = "";
             for (let i = 0; i < cleaned.length; i++) {
-                let char = cleaned.charAt(i);
-                let val = base32Chars.indexOf(char);
+                let val = base32Chars.indexOf(cleaned.charAt(i));
                 if (val === -1) continue;
                 bits += val.toString(2).padStart(5, '0');
             }
-            
             let bytes = [];
             for (let i = 0; i + 8 <= bits.length; i += 8) {
                 bytes.push(parseInt(bits.substr(i, 8), 2));
             }
-
-            if (bytes.length === 0) {
-                return new TextEncoder().encode(secret);
-            }
-            return new Uint8Array(bytes);
+            return bytes.length === 0 ? new TextEncoder().encode(secret) : new Uint8Array(bytes);
         }
 
-        // Multi-Hash (SHA-1, SHA-256, SHA-512) and Flexible Digits TOTP Generator
         async function generateTOTP(secret, epoch = 30, digits = 6, algo = "SHA-1") {
             try {
                 const bytes = getSecretBytes(secret);
@@ -1223,7 +1345,6 @@
                 const cryptoKey = await window.crypto.subtle.importKey(
                     "raw", bytes, { name: "HMAC", hash: { name: algo } }, false, ["sign"]
                 );
-
                 const signature = await window.crypto.subtle.sign("HMAC", cryptoKey, buffer);
                 const hmacResult = new Uint8Array(signature);
                 const offset = hmacResult[hmacResult.length - 1] & 0x0f;
@@ -1233,8 +1354,7 @@
                     ((hmacResult[offset + 2] & 0xff) << 8) |
                     (hmacResult[offset + 3] & 0xff);
 
-                const otp = (binary % Math.pow(10, digits)).toString().padStart(digits, '0');
-                return otp;
+                return (binary % Math.pow(10, digits)).toString().padStart(digits, '0');
             } catch (e) {
                 return null;
             }
@@ -1247,9 +1367,7 @@
             document.getElementById('adminPinInput').focus();
         }
 
-        function closeAdminPasswordModal() {
-            document.getElementById('adminPasswordModal').classList.add('hidden');
-        }
+        function closeAdminPasswordModal() { document.getElementById('adminPasswordModal').classList.add('hidden'); }
 
         async function verifyAdminPasscode() {
             let pin = document.getElementById('adminPinInput').value;
@@ -1276,9 +1394,7 @@
             if (e.key === 'Enter') verifyAdminPasscode();
         });
 
-        function closeAdminPanel() {
-            document.getElementById('adminModal').classList.add('hidden');
-        }
+        function closeAdminPanel() { document.getElementById('adminModal').classList.add('hidden'); }
 
         async function fetchAdminStats() {
             try {
@@ -1289,9 +1405,9 @@
                 const logsContainer = document.getElementById('adminLogsList');
                 if (data.generationLogs && data.generationLogs.length > 0) {
                     logsContainer.innerHTML = data.generationLogs.log.map(log => `
-                        <div class="flex justify-between items-center py-2 px-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div class="flex justify-between items-center py-1.5 px-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
                             <span class="font-bold text-indigo-500 tracking-wider">CODE: ${log.code}</span>
-                            <span class="text-slate-400 text-xs">${log.time}</span>
+                            <span class="text-slate-400 text-[10px]">${log.time}</span>
                         </div>
                     `).join('');
                 } else {
@@ -1309,8 +1425,7 @@
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
+                    canvas.width = img.width; canvas.height = img.height;
                     context.drawImage(img, 0, 0, img.width, img.height);
                     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
                     const code = jsQR(imageData.data, imageData.width, imageData.height);
@@ -1349,23 +1464,14 @@
                 genBtnText.classList.remove('opacity-0');
                 genBtnLoading.classList.add('hidden');
 
-                const codeSection = document.getElementById('codeDisplaySection');
-                const gateSection = document.getElementById('verificationGateSection');
-
-                codeSection.classList.add('hidden');
-                codeSection.classList.remove('animate-card-slide-down');
-
-                gateSection.classList.remove('hidden');
-                gateSection.classList.add('animate-pop');
-            }, 2000);
+                document.getElementById('codeDisplaySection').classList.add('hidden');
+                document.getElementById('verificationGateSection').classList.remove('hidden');
+            }, 1200);
         }
 
         function cancelVerification() {
-            const codeSection = document.getElementById('codeDisplaySection');
-            const gateSection = document.getElementById('verificationGateSection');
-
-            gateSection.classList.add('hidden');
-            codeSection.classList.remove('hidden');
+            document.getElementById('verificationGateSection').classList.add('hidden');
+            document.getElementById('codeDisplaySection').classList.remove('hidden');
         }
 
         function executeVerificationAndReveal() {
@@ -1399,19 +1505,13 @@
                 const verifiedBadge = document.getElementById('verifiedStatusBadge');
 
                 gateSection.classList.add('hidden');
-
                 codeSection.classList.remove('hidden');
-                codeSection.classList.remove('animate-card-slide-down');
-                void codeSection.offsetWidth;
-                codeSection.classList.add('animate-card-slide-down');
-
                 verifiedBadge.classList.remove('hidden');
 
                 laser.classList.remove('laser-active');
                 void laser.offsetWidth;
                 laser.classList.add('laser-active');
 
-                codeEl.classList.remove('animate-spring-pop');
                 codeEl.style.opacity = '0.35';
 
                 const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
@@ -1423,7 +1523,7 @@
                     const min = Math.pow(10, digits - 1);
                     const max = Math.pow(10, digits) - 1;
                     codeEl.innerText = Math.floor(min + Math.random() * (max - min)).toString();
-                }, 50);
+                }, 40);
 
                 setTimeout(async () => {
                     clearInterval(scrambleInterval);
@@ -1438,6 +1538,7 @@
 
                     codeEl.innerText = token;
                     codeEl.style.opacity = '1';
+                    codeEl.classList.remove('animate-spring-pop');
                     void codeEl.offsetWidth;
                     codeEl.classList.add('animate-spring-pop');
 
@@ -1457,8 +1558,8 @@
                         meta: `${algo} • ${digits}D`
                     });
                     renderHistoryList();
-                }, 800);
-            }, 2000);
+                }, 600);
+            }, 1200);
         }
 
         function startTimer() {
@@ -1482,10 +1583,7 @@
                     const newToken = await generateTOTP(currentActiveSecret, epoch, digits, algo);
                     if (newToken) {
                         const codeEl = document.getElementById('resultCode');
-                        codeEl.classList.remove('animate-spring-pop');
-                        void codeEl.offsetWidth;
                         codeEl.innerText = newToken;
-                        codeEl.classList.add('animate-spring-pop');
                     }
                 }
             }, 1000);
@@ -1499,24 +1597,23 @@
             );
 
             if (filtered.length === 0) {
-                list.innerHTML = `<li class="text-sm font-medium text-slate-400 italic">${translations[currentLang].noHistory}</li>`;
+                list.innerHTML = `<li class="text-xs font-medium text-slate-400 italic">${translations[currentLang].noHistory}</li>`;
                 return;
             }
 
             list.innerHTML = filtered.map(item => `
-                <li class="flex justify-between items-center py-2 border-b border-slate-200/50 dark:border-white/5 last:border-0">
-                    <div class="flex items-center gap-2">
-                        <span class="font-mono font-bold text-base text-slate-800 dark:text-slate-200 tracking-[0.15em]">${item.token}</span>
-                        <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-500">${item.meta}</span>
+                <li class="flex justify-between items-center py-1.5 border-b border-slate-200/50 dark:border-white/5 last:border-0">
+                    <div class="flex items-center gap-1.5">
+                        <span class="font-mono font-bold text-xs text-slate-800 dark:text-slate-200 tracking-wider">${item.token}</span>
+                        <span class="text-[9px] font-mono font-bold px-1 py-0.5 rounded bg-indigo-500/10 text-indigo-500">${item.meta}</span>
                     </div>
-                    <span class="text-xs text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-lg">${item.time}</span>
+                    <span class="text-[10px] text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">${item.time}</span>
                 </li>
             `).join('');
         }
 
         function filterHistoryList() {
-            const search = document.getElementById('historySearchInput').value;
-            renderHistoryList(search);
+            renderHistoryList(document.getElementById('historySearchInput').value);
         }
 
         function clearHistoryEntries() {
@@ -1529,32 +1626,7 @@
             const code = document.getElementById('resultCode').innerText;
             if (code && !code.includes('-')) {
                 navigator.clipboard.writeText(code);
-                
-                const toast = document.getElementById('toastNotification');
-                document.getElementById('toastText').innerText = translations[currentLang].toastMsg;
-                toast.classList.remove('hidden');
-                requestAnimationFrame(() => { toast.classList.remove('opacity-0'); });
-                
-                const copyBtn = document.getElementById('copyBtn');
-                const copyIcon = document.getElementById('copyIcon');
-                const copyText = document.getElementById('copyText');
-                
-                copyBtn.classList.remove('bg-slate-100/80', 'dark:bg-slate-800/60', 'text-slate-800', 'dark:text-slate-200');
-                copyBtn.classList.add('bg-emerald-500/10', 'text-emerald-600', 'dark:text-emerald-400', 'border-emerald-500/30');
-                
-                copyIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>`;
-                copyText.innerText = currentLang === 'en' ? "Copied!" : (currentLang === 'km' ? "បានចម្លង!" : "已复制!");
-                
-                setTimeout(() => { 
-                    toast.classList.add('opacity-0'); 
-                    setTimeout(() => toast.classList.add('hidden'), 300);
-                    
-                    copyBtn.classList.remove('bg-emerald-500/10', 'text-emerald-600', 'dark:text-emerald-400', 'border-emerald-500/30');
-                    copyBtn.classList.add('bg-slate-100/80', 'dark:bg-slate-800/60', 'text-slate-800', 'dark:text-slate-200');
-                    
-                    copyIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>`;
-                    copyText.innerText = translations[currentLang].btnCopy;
-                }, 2000);
+                showToast(translations[currentLang].toastMsg);
             }
         });
     </script>
