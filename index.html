@@ -455,7 +455,7 @@
             });
         }
 
-        // --- Robust Secret Sanitization for Social Media Links & Base32 ---
+        // --- Robust Secret Sanitization & Byte Alignment ---
         function getSanitizedSecret() {
             let rawVal = document.getElementById('secretInput').value.trim();
             if (!rawVal) return '';
@@ -702,33 +702,41 @@
             generateCode();
         }
 
-        // --- TOTP Generation Client-Side Helper using jsSHA v3 (Fixed getHash syntax) ---
-        function base32ToHex(base32) {
+        // --- Robust Base32 to Bytes Conversion for jsSHA ---
+        function base32ToBytes(base32) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             let bits = "";
-            let hex = "";
             for (let i = 0; i < base32.length; i++) {
                 let val = base32Chars.indexOf(base32.charAt(i).toUpperCase());
                 if (val === -1) continue;
                 bits += val.toString(2).padStart(5, '0');
             }
-            for (let i = 0; i + 4 <= bits.length; i += 4) {
-                let chunk = bits.substr(i, 4);
-                hex += parseInt(chunk, 2).toString(16);
+            
+            let bytes = [];
+            for (let i = 0; i + 8 <= bits.length; i += 8) {
+                bytes.push(parseInt(bits.substr(i, 8), 2));
             }
-            return hex;
+            return new Uint8Array(bytes);
+        }
+
+        function bytesToHex(bytes) {
+            return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
         function generateTOTP(secret, epoch = 30, digits = 6) {
             try {
-                const keyHex = base32ToHex(secret);
+                const bytes = base32ToBytes(secret);
+                if (bytes.length === 0) return null;
+                const keyHex = bytesToHex(bytes);
+
                 const time = Math.floor(Date.now() / 1000);
                 const counter = Math.floor(time / epoch);
                 const counterHex = counter.toString(16).padStart(16, '0');
                 
-                const shaObj = new jsSHA("SHA-1", "HEX", { hmacKey: { value: keyHex, format: "HEX" } });
+                const shaObj = new jsSHA("SHA-1", "HEX");
+                shaObj.setHMACKey(keyHex, "HEX");
                 shaObj.update(counterHex);
-                const hmacHex = shaObj.getHash("HEX");
+                const hmacHex = shaObj.getHMAC("HEX");
                 
                 const offset = parseInt(hmacHex.slice(-1), 16);
                 const binary = ((parseInt(hmacHex.substr(offset * 2, 8), 16) & 0x7fffffff));
