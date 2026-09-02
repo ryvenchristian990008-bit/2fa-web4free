@@ -186,9 +186,29 @@
             -webkit-backface-visibility: hidden;
         }
 
-        /* Smooth Tab & Section Transition Effects */
-        .tab-content-transition {
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        /* Smooth Left/Right Swap Slide Transitions */
+        .swap-pane {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .swap-slide-left-out {
+            opacity: 0;
+            transform: translate3d(-60px, 0, 0);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+        .swap-slide-right-out {
+            opacity: 0;
+            transform: translate3d(60px, 0, 0);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+        .swap-slide-in {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            position: relative;
         }
 
         /* Dual-Ring Orbital Spinner */
@@ -345,15 +365,13 @@
                     <span class="font-extrabold tracking-tight text-2xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
                 </div>
 
-                <!-- Modern Sleek Dual-Button Taskbar Mode Switcher with Smooth Transition Effects -->
-                <div class="hidden md:flex items-center bg-slate-200/70 dark:bg-slate-900/80 p-1.5 rounded-2xl border border-slate-300/80 dark:border-slate-800 shadow-inner backdrop-blur-md">
-                    <button id="tabTotpBtn" onclick="switchAppMode('totp')" class="px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 bg-indigo-600 text-white shadow-lg flex items-center gap-2">
-                        <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                        TOTP Authenticator
+                <!-- Dual-Button Taskbar Mode Switcher -->
+                <div class="hidden md:flex items-center bg-slate-200/70 dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-300 dark:border-slate-800 shadow-inner">
+                    <button id="tabTotpBtn" onclick="switchAppMode('totp')" class="px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-indigo-600 text-white shadow-md">
+                        🔐 TOTP Authenticator
                     </button>
-                    <button id="tabSmsBtn" onclick="switchAppMode('sms')" class="px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2">
-                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                        SMS OTP Tool
+                    <button id="tabSmsBtn" onclick="switchAppMode('sms')" class="px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                        📱 SMS OTP Tool
                     </button>
                 </div>
 
@@ -363,17 +381,17 @@
                     </button>
 
                     <button onclick="openVaultModal()" class="h-12 px-5 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-sm font-bold transition-all btn-modern border border-cyan-500/25 flex items-center gap-2.5 shadow-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         <span>Vault</span>
                     </button>
 
                     <button onclick="openAdminPasswordModal()" class="h-12 px-5 rounded-2xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-sm font-bold transition-all btn-modern border border-indigo-500/25 flex items-center gap-2.5 shadow-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         <span>Admin</span>
                     </button>
 
                     <button onclick="toggleLanguage()" class="h-12 px-5 rounded-2xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-bold transition-all btn-modern border border-slate-200/80 dark:border-white/5 flex items-center gap-2.5 shadow-sm">
-                        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                         <span id="langText">EN / ខ្មែរ</span>
                     </button>
 
@@ -390,7 +408,7 @@
             <div class="w-full max-w-7xl glass-panel rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden relative z-10 transition-shadow duration-500">
                 
                 <!-- SECTION 1: TOTP AUTHENTICATOR VIEW -->
-                <div id="totpSection" class="grid grid-cols-1 lg:grid-cols-2 tab-content-transition">
+                <div id="totpSection" class="swap-pane swap-slide-in grid grid-cols-1 lg:grid-cols-2">
                     <!-- Left Panel -->
                     <div class="p-10 md:p-16 xl:p-20 space-y-10 bg-white/40 dark:bg-slate-900/40 border-r border-transparent lg:border-slate-200/60 lg:dark:border-white/5">
                         <div>
@@ -474,7 +492,7 @@
                                 </div>
                             </div>
 
-                            <!-- In-Page Security Gate with Smooth Popup Transition -->
+                            <!-- In-Page Security Gate -->
                             <div id="verificationGateSection" class="hidden py-4 text-center space-y-5 relative z-10 transition-all duration-300 animate-spring-pop">
                                 <div class="w-16 h-16 bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 text-indigo-500 dark:text-cyan-400 rounded-2xl flex items-center justify-center mx-auto border border-indigo-500/20 shadow-lg">
                                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -520,7 +538,7 @@
                 </div>
 
                 <!-- SECTION 2: SMS OTP SIMULATOR VIEW (Added Option) -->
-                <div id="smsSection" class="grid grid-cols-1 lg:grid-cols-2 hidden tab-content-transition">
+                <div id="smsSection" class="swap-pane swap-slide-right-out grid grid-cols-1 lg:grid-cols-2 hidden">
                     <div class="p-10 md:p-16 xl:p-20 space-y-10 bg-white/40 dark:bg-slate-900/40 border-r border-transparent lg:border-slate-200/60 lg:dark:border-white/5">
                         <div>
                             <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">SMS OTP Tool</h2>
@@ -546,6 +564,13 @@
                             <span class="text-xs font-bold uppercase tracking-widest text-emerald-500">Incoming Verification SMS</span>
                             <div id="smsResultDisplay" class="text-5xl md:text-6xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white">------</div>
                             <p id="smsStatusText" class="text-xs text-slate-400 italic">Enter your international number to generate formatting token.</p>
+                            
+                            <div class="pt-2">
+                                <button onclick="copySmsCode()" class="w-full h-14 flex items-center justify-center gap-2.5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-2xl text-base font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
+                                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                                    <span>Copy SMS Code</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -664,57 +689,88 @@
     <script>
         const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
 
-        // Upgraded Smooth Switcher Logic with Active State Styling & Transition Animations
-        function switchAppMode(mode) {
+        // Smooth Left/Right Swap Switcher with Active State Styling
+        function switchAppMode(targetMode) {
             const totpSec = document.getElementById('totpSection');
             const smsSec = document.getElementById('smsSection');
             const totpBtn = document.getElementById('tabTotpBtn');
             const smsBtn = document.getElementById('tabSmsBtn');
 
-            if (mode === 'totp') {
-                smsSec.style.opacity = '0';
-                smsSec.style.transform = 'translate3d(0, 10px, 0)';
+            if (targetMode === 'totp') {
+                smsSec.classList.remove('swap-slide-in');
+                smsSec.classList.add('swap-slide-right-out');
+                
+                totpSec.classList.remove('hidden', 'swap-slide-left-out');
+                totpSec.classList.add('swap-slide-in');
+
                 setTimeout(() => {
                     smsSec.classList.add('hidden');
-                    totpSec.classList.remove('hidden');
-                    totpSec.style.opacity = '0';
-                    totpSec.style.transform = 'translate3d(0, -10px, 0)';
-                    requestAnimationFrame(() => {
-                        totpSec.style.opacity = '1';
-                        totpSec.style.transform = 'translate3d(0, 0, 0)';
-                    });
-                }, 200);
+                }, 500);
 
-                totpBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 bg-indigo-600 text-white shadow-md flex items-center gap-2";
-                smsBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2";
+                totpBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-indigo-600 text-white shadow-md";
+                smsBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
             } else {
-                totpSec.style.opacity = '0';
-                totpSec.style.transform = 'translate3d(0, 10px, 0)';
+                totpSec.classList.remove('swap-slide-in');
+                totpSec.classList.add('swap-slide-left-out');
+
+                smsSec.classList.remove('hidden', 'swap-slide-right-out');
+                smsSec.classList.add('swap-slide-in');
+
                 setTimeout(() => {
                     totpSec.classList.add('hidden');
-                    smsSec.classList.remove('hidden');
-                    smsSec.style.opacity = '0';
-                    smsSec.style.transform = 'translate3d(0, -10px, 0)';
-                    requestAnimationFrame(() => {
-                        smsSec.style.opacity = '1';
-                        smsSec.style.transform = 'translate3d(0, 0, 0)';
-                    });
-                }, 200);
+                }, 500);
 
-                smsBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 bg-emerald-600 text-white shadow-md flex items-center gap-2";
-                totpBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center gap-2";
+                smsBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-emerald-600 text-white shadow-md";
+                totpBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
             }
         }
 
+        // Animated SMS Generator with Code Scramble Effect
         function generateSmsCodeAction() {
             const phone = document.getElementById('smsPhoneInput').value.trim();
             if (!phone) {
                 showModernAlert("Required", "Please enter a phone number first!");
                 return;
             }
-            const randomCode = Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('smsResultDisplay').innerText = randomCode;
-            document.getElementById('smsStatusText').innerText = `Simulated SMS code created successfully for: ${phone}`;
+
+            const displayEl = document.getElementById('smsResultDisplay');
+            const statusEl = document.getElementById('smsStatusText');
+            
+            displayEl.style.opacity = '0.3';
+            statusEl.innerText = "Encrypting & routing SMS gateway token...";
+
+            let counter = 0;
+            const scramble = setInterval(() => {
+                displayEl.innerText = Math.floor(100000 + Math.random() * 900000).toString();
+                counter++;
+                if (counter > 12) {
+                    clearInterval(scramble);
+                    const finalCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    displayEl.innerText = finalCode;
+                    displayEl.style.opacity = '1';
+                    displayEl.classList.remove('animate-spring-pop');
+                    void displayEl.offsetWidth;
+                    displayEl.classList.add('animate-spring-pop');
+                    statusEl.innerText = `SMS verification code successfully dispatched to: ${phone}`;
+                }
+            }, 50);
+        }
+
+        function copySmsCode() {
+            const code = document.getElementById('smsResultDisplay').innerText;
+            if (code && code !== '------') {
+                navigator.clipboard.writeText(code);
+                const toast = document.getElementById('toastNotification');
+                document.getElementById('toastText').innerText = "Copied SMS Code Successfully!";
+                toast.classList.remove('hidden');
+                requestAnimationFrame(() => { toast.classList.remove('opacity-0'); });
+                setTimeout(() => {
+                    toast.classList.add('opacity-0');
+                    setTimeout(() => toast.classList.add('hidden'), 300);
+                }, 2000);
+            } else {
+                showModernAlert("Notice", "Please generate an SMS code first!");
+            }
         }
 
         function initFavicon() {
@@ -1257,7 +1313,7 @@
                 document.getElementById('statGenerations').innerText = data.totalGenerations;
                 const logsContainer = document.getElementById('adminLogsList');
                 if (data.generationLogs && data.generationLogs.length > 0) {
-                    logsContainer.innerHTML = data.generationLogs.map(log => `
+                    logsContainer.innerHTML = data.generationLogs.log.map(log => `
                         <div class="flex justify-between items-center py-2 px-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <span class="font-bold text-indigo-500 tracking-wider">CODE: ${log.code}</span>
                             <span class="text-slate-400 text-xs">${log.time}</span>
