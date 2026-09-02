@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalAuth - Secure 2FA Two-Factor Authentication App</title>
+    
+    <meta name="description" content="GlobalAuth is a secure 2FA web and desktop application designed to generate and manage secure OTP verification codes easily.">
+    <meta name="keywords" content="2fa, two-factor authentication, globalauth, otp generator, security app, authenticator">
+    <meta name="author" content="GlobalAuth">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 20l30 65H50l15-30H35' fill='none' stroke='url(%23lg2)' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M60 20L25 85' fill='none' stroke='url(%23lg1)' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <style>
+        body, button, input, span, div, h1, p, label {
+            font-family: 'Outfit', 'Kantumruy Pro', sans-serif !important;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        .bg-ultra-light {
+            background-color: #f8fafc;
+            background-image: radial-gradient(circle at 0% 0%, rgba(219, 234, 254, 0.7), transparent 30%), radial-gradient(circle at 100% 100%, rgba(224, 231, 255, 0.7), transparent 30%);
+        }
+        .bg-ultra-dark {
+            background-color: #030712;
+            background-image: radial-gradient(circle at 15% 50%, rgba(30, 58, 138, 0.15), transparent 30%), radial-gradient(circle at 85% 30%, rgba(55, 48, 163, 0.15), transparent 30%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 1);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        @keyframes revealSmooth {
+            from { opacity: 0; transform: translate3d(0, 15px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+        .animate-reveal {
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: revealSmooth 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .btn-modern {
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s, box-shadow 0.2s;
+            will-change: transform;
+        }
+        .btn-modern:hover { transform: translate3d(0, -2px, 0); }
+        .btn-modern:active { transform: translate3d(0, 1px, 0) scale(0.98); }
+        .modal-transition {
+            transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+    </style>
+</head>
+<body id="bodyRoot" class="bg-ultra-dark text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-700">
+
+    <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3.5 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] flex items-center gap-3 text-sm font-bold hidden transition-opacity duration-300 opacity-0 border border-slate-700/50 dark:border-white/50">
+        <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        <span id="toastText">Action Successful</span>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-40 bg-white/60 dark:bg-slate-950/40 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-800/40 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 flex items-center justify-center shrink-0">
+                    <svg class="w-full h-full drop-shadow-md transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
+                            <linearGradient id="lg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
+                            <linearGradient id="lg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
+                        </defs>
+                        <g stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                            <path d="M60 20l30 65H50l15-30H35" stroke="url(#lg2)"/>
+                            <path d="M60 20L25 85" stroke="url(#lg1)"/>
+                        </g>
+                        <path d="M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z" fill="url(#lg3)" stroke="#ffffff" stroke-width="2.5"/>
+                        <path d="M78 74l5 5 10-10" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="font-extrabold tracking-tight text-xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="checkAdminAccess()" class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 text-xs font-bold transition-all btn-modern">
+                    ⚙️ Admin
+                </button>
+                <div class="h-5 w-px bg-slate-300 dark:bg-slate-700 mx-1"></div>
+
+                <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern">
+                    <svg id="icon-sun" class="w-4 h-4 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="icon-moon" class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <div class="h-5 w-px bg-slate-300 dark:bg-slate-700 mx-1"></div>
+                <button onclick="toggleLanguage()" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-xs font-bold text-slate-700 dark:text-slate-200 btn-modern">
+                    <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                    <span id="langText">EN / ខ្មែរ</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <main class="flex-grow flex items-center justify-center p-6 md:p-10 relative">
+        <div class="w-full max-w-5xl glass-panel rounded-[2rem] overflow-hidden animate-reveal relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                
+                <!-- Left Panel -->
+                <div class="p-10 md:p-14 space-y-8 bg-white/50 dark:bg-slate-900/40 border-r border-transparent md:border-slate-200/50 md:dark:border-white/5 animate-reveal delay-100">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
+                        <p class="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1.5" data-i18n="desc">Secure Global Access</p>
+                    </div>
+
+                    <div id="errorMessage" class="bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400 p-4 rounded-2xl text-sm font-bold hidden transition-all"></div>
+
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <label class="text-xs font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400" data-i18n="labelKey">Secret Key</label>
+                            <label class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-lg text-[10px] uppercase tracking-widest font-bold cursor-pointer flex items-center gap-1.5 transition-colors">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                                <span data-i18n="btnUpload">Upload QR</span>
+                                <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
+                            </label>
+                        </div>
+                        <input type="text" id="secretInput" placeholder="Paste your key here..." 
+                            class="w-full h-14 bg-white/80 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
+                    </div>
+
+                    <div class="flex justify-center py-1">
+                        <div class="h-captcha" data-sitekey="a77812ee-37f8-4854-aaf0-7e74c0beb87e"></div>
+                    </div>
+
+                    <button onclick="generateCode()" class="w-full h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_8px_25px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        <span data-i18n="btnGen">Generate</span>
+                    </button>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="p-10 md:p-14 space-y-10 flex flex-col justify-between animate-reveal delay-200 bg-white/20 dark:bg-transparent">
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center pb-2">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
+                            <span id="timerText" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1.5 rounded-lg" data-i18n="timerLabel">--s</span>
+                        </div>
+
+                        <div class="text-center py-4">
+                            <div id="resultCode" class="text-4xl md:text-5xl font-mono font-black tracking-[0.3em] text-slate-900 dark:text-white mb-6 drop-shadow-sm ml-2">
+                                ------
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-200 dark:bg-black/40 rounded-full overflow-hidden shadow-inner">
+                                <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="copyBtn" class="h-12 flex items-center justify-center gap-2 bg-white hover:bg-slate-50 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                <span data-i18n="btnCopy">Copy</span>
+                            </button>
+                            <button onclick="openQRModal()" class="h-12 flex items-center justify-center gap-2 bg-white hover:bg-slate-50 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                                <span data-i18n="btnShowQR">Show QR</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5" data-i18n="historyTitle">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Recent History
+                        </h3>
+                        <ul id="historyList" class="space-y-2 h-20 overflow-y-auto pr-2">
+                            <li class="text-xs font-medium text-slate-400 italic" data-i18n="noHistory">No entries yet</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- QR Export Modal -->
+    <div id="qrModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none modal-transition opacity-0">
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md" onclick="closeQRModal()"></div>
+        <div class="relative w-full max-w-sm bg-white dark:bg-[#0f172a] rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.3)] p-8 text-center border border-slate-200/50 dark:border-white/10 modal-transition translate-y-4 scale-95" id="modalContent">
+            <button onclick="closeQRModal()" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-1" data-i18n="qrModalTitle">Export Setup Key</h3>
+            <p class="text-xs font-medium text-slate-500 mb-6" data-i18n="qrModalDesc">Scan to save in your authenticator app.</p>
+            <div class="bg-white p-3 rounded-3xl inline-block shadow-sm border border-slate-200 dark:border-slate-800 mb-6" id="qrcode-container"></div>
+            <button onclick="downloadQR()" class="w-full h-12 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 rounded-xl text-sm font-bold btn-modern flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span data-i18n="btnDownload">Save Image</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeAdminPanel()"></div>
+        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <h3 class="text-xl font-black text-slate-900 dark:text-white">🛠️ Developer & Admin Panel</h3>
+                    <p class="text-xs text-slate-500">Real-time visitor and usage analytics</p>
+                </div>
+                <button onclick="closeAdminPanel()" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/50 dark:border-white/5">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Total Visitors</span>
+                    <h4 id="statVisitors" class="text-3xl font-black text-indigo-600 dark:text-indigo-400 mt-1">0</h4>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/50 dark:border-white/5">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Codes Generated</span>
+                    <h4 id="statGenerations" class="text-3xl font-black text-emerald-500 mt-1">0</h4>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Live Generated Code Digits Log</h4>
+                <div id="adminLogsList" class="space-y-2 h-48 overflow-y-auto pr-2 bg-slate-50 dark:bg-slate-950/50 p-3 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-xs">
+                    <span class="text-slate-400 italic">No activity recorded yet...</span>
+                </div>
+            </div>
+
+            <button onclick="fetchAdminStats()" class="w-full h-11 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all">
+                🔄 Refresh Stats
+            </button>
+        </div>
+    </div>
+
+    <!-- Main JavaScript Logic -->
+    <script>
+        let currentLang = 'en';
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        let currentActiveSecret = '';
+
+        function updateThemeClasses() {
+            const iconSun = document.getElementById('icon-sun');
+            const iconMoon = document.getElementById('icon-moon');
+            if (currentTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.getElementById('bodyRoot').className = "bg-ultra-dark text-slate-200 min-h-screen flex flex-col transition-colors duration-700";
+                iconSun.classList.remove('hidden');
+                iconMoon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('bodyRoot').className = "bg-ultra-light text-slate-800 min-h-screen flex flex-col transition-colors duration-700";
+                iconMoon.classList.remove('hidden');
+                iconSun.classList.add('hidden');
+            }
+        }
+        updateThemeClasses();
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+            updateThemeClasses();
+        }
+
+        const translations = {
+            en: {
+                siteName: "GlobalAuth",
+                title: "Authentication",
+                desc: "Secure Global Access",
+                labelKey: "Secret Key",
+                btnUpload: "Upload QR",
+                btnGen: "Generate",
+                labelCode: "Security Code",
+                timerLabel: "--s",
+                btnCopy: "Copy",
+                btnShowQR: "Show QR",
+                historyTitle: "Recent History",
+                noHistory: "No entries yet",
+                errEmpty: "Please enter a secret key.",
+                errCaptcha: "Verification required.",
+                errServer: "Connection error.",
+                errQR: "Invalid QR code image.",
+                toastMsg: "Copied Successfully",
+                expired: "Expired",
+                qrModalTitle: "Export Setup Key",
+                qrModalDesc: "Scan to save in your authenticator app.",
+                btnDownload: "Save Image"
+            },
+            km: {
+                siteName: "GlobalAuth",
+                title: "ប្រព័ន្ធផ្ទៀងផ្ទាត់",
+                desc: "សុវត្ថិភាពកម្រិតសកល",
+                labelKey: "លេខកូដសម្ងាត់",
+                btnUpload: "ស្កេន QR",
+                btnGen: "បង្កើតកូដ",
+                labelCode: "លេខកូដសុវត្ថិភាព",
+                timerLabel: "-- វិនាទី",
+                btnCopy: "ចម្លង",
+                btnShowQR: "បង្ហាញ QR",
+                historyTitle: "ប្រវត្តិថ្មីៗ",
+                noHistory: "មិនទាន់មានទិន្នន័យ",
+                errEmpty: "សូមបញ្ចូលលេខកូដសម្ងាត់។",
+                errCaptcha: "សូមផ្ទៀងផ្ទាត់ Captcha។",
+                errServer: "បញ្ហាការតភ្ជាប់។",
+                errQR: "រូបភាព QR មិនត្រឹមត្រូវទេ។",
+                toastMsg: "បានចម្លងជោគជ័យ",
+                expired: "ផុតកំណត់",
+                qrModalTitle: "នាំចេញកូដ QR",
+                qrModalDesc: "ស្កេនដើម្បីរក្សាទុកក្នុងកម្មវិធីរបស់អ្នក។",
+                btnDownload: "ទាញយករូបភាព"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'km' : 'en';
+            document.getElementById('langText').innerText = currentLang === 'en' ? 'EN / ខ្មែរ' : 'ខ្មែរ / EN';
+            document.getElementById('htmlRoot').setAttribute('lang', currentLang);
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+        }
+
+        function checkAdminAccess() {
+            let pin = prompt("Enter Admin Passcode:");
+            if (pin === "admin123") {
+                document.getElementById('adminModal').classList.remove('hidden');
+                fetchAdminStats();
+            } else {
+                alert("Incorrect Passcode!");
+            }
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        async function fetchAdminStats() {
+            try {
+                const res = await fetch('/api/admin/stats');
+                const data = await res.json();
+                document.getElementById('statVisitors').innerText = data.totalVisitors;
+                document.getElementById('statGenerations').innerText = data.totalGenerations;
+
+                const logsContainer = document.getElementById('adminLogsList');
+                if (data.generationLogs && data.generationLogs.length > 0) {
+                    logsContainer.innerHTML = data.generationLogs.map(log => `
+                        <div class="flex justify-between items-center py-1.5 px-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                            <span class="font-bold text-indigo-500 tracking-wider">CODE: ${log.code}</span>
+                            <span class="text-slate-400 text-[10px]">${log.time}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    logsContainer.innerHTML = `<span class="text-slate-400 italic">No activity recorded yet...</span>`;
+                }
+            } catch (err) {
+                console.error("Failed to load admin stats", err);
+            }
+        }
+
+        function getSanitizedSecret() {
+            let rawVal = document.getElementById('secretInput').value.trim();
+            let cleaned = rawVal.replace(/\s+/g, '').toUpperCase();
+            if (cleaned.startsWith('OTPAUTH://')) {
+                try {
+                    const url = new URL(rawVal);
+                    const secretParam = url.searchParams.get('secret');
+                    if (secretParam) cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
+                } catch (e) {}
+            }
+            return cleaned;
+        }
+
+        function handleQRCodeUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    context.drawImage(img, 0, 0, img.width, img.height);
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+                    
+                    const errorEl = document.getElementById('errorMessage');
+                    if (code) {
+                        let text = code.data;
+                        if (text.startsWith('otpauth://')) {
+                            try {
+                                const url = new URL(text);
+                                const secretParam = url.searchParams.get('secret');
+                                if (secretParam) text = secretParam;
+                            } catch (err) {}
+                        }
+                        document.getElementById('secretInput').value = text;
+                        errorEl.classList.add('hidden');
+                    } else {
+                        errorEl.innerText = translations[currentLang].errQR;
+                        errorEl.classList.remove('hidden');
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function openQRModal() {
+            const secret = getSanitizedSecret() || currentActiveSecret;
+            if (!secret) {
+                const errorEl = document.getElementById('errorMessage');
+                errorEl.innerText = translations[currentLang].errEmpty;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            
+            const container = document.getElementById('qrcode-container');
+            container.innerHTML = ''; 
+            const otpUri = `otpauth://totp/GlobalAuth?secret=${secret}&issuer=GlobalAuth`;
+            
+            QRCode.toCanvas(otpUri, { width: 180, margin: 1, color: { dark: '#000000', light: '#ffffff' } }, function (err, canvas) {
+                if (err) console.error(err);
+                canvas.id = 'qrCanvas';
+                container.appendChild(canvas);
+            });
+
+            const modal = document.getElementById('qrModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.remove('hidden', 'pointer-events-none');
+            
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('translate-y-4', 'scale-95');
+                content.classList.add('translate-y-0', 'scale-100');
+            });
+        }
+
+        function closeQRModal() {
+            const modal = document.getElementById('qrModal');
+            const content = document.getElementById('modalContent');
+            modal.classList.add('opacity-0');
+            content.classList.remove('translate-y-0', 'scale-100');
+            content.classList.add('translate-y-4', 'scale-95');
+            setTimeout(() => { modal.classList.add('hidden', 'pointer-events-none'); }, 300);
+        }
+
+        function downloadQR() {
+            const canvas = document.getElementById('qrCanvas');
+            if(canvas) {
+                const link = document.createElement('a');
+                link.download = 'GlobalAuth-QR.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            }
+        }
+
+        let timerInterval = null;
+
+        async function generateCode() {
+            const secret = getSanitizedSecret();
+            const errorEl = document.getElementById('errorMessage');
+            const captchaResponse = hcaptcha.getResponse(); 
+            
+            errorEl.classList.add('hidden');
+            errorEl.innerText = '';
+
+            if (!secret) {
+                errorEl.innerText = translations[currentLang].errEmpty;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+            if (!captchaResponse) {
+                errorEl.innerText = translations[currentLang].errCaptcha;
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            currentActiveSecret = secret;
+
+            try {
+                const response = await fetch('/api/generate-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ secret, captcha: captchaResponse })
+                });
+
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || translations[currentLang].errServer);
+
+                document.getElementById('resultCode').innerText = data.token;
+                hcaptcha.reset();
+                startTimer(data.timeLeft);
+
+                const historyList = document.getElementById('historyList');
+                if (historyList.children.length === 1 && historyList.children[0].classList.contains('italic')) {
+                    historyList.innerHTML = '';
+                }
+                const li = document.createElement('li');
+                li.className = "flex justify-between items-center py-2 border-b border-slate-200/50 dark:border-white/5 last:border-0";
+                li.innerHTML = `<span class="font-mono font-bold text-sm text-slate-800 dark:text-slate-200 tracking-[0.15em]">${data.token}</span> <span class="text-[10px] text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">${new Date().toLocaleTimeString()}</span>`;
+                historyList.prepend(li);
+
+            } catch (err) {
+                errorEl.innerText = translations[currentLang].errServer;
+                errorEl.classList.remove('hidden');
+                hcaptcha.reset(); 
+            }
+        }
+
+        function startTimer(timeLeft) {
+            if (timerInterval) clearInterval(timerInterval);
+            let currentLeft = timeLeft;
+            const progressBar = document.getElementById('progressBar');
+            const timerText = document.getElementById('timerText');
+
+            timerInterval = setInterval(() => {
+                currentLeft--;
+                const percent = (currentLeft / 30) * 100;
+                progressBar.style.width = `${percent}%`;
+                timerText.innerText = currentLeft + 's';
+
+                if (currentLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('resultCode').innerText = '------';
+                    timerText.innerText = translations[currentLang].expired;
+                    progressBar.style.width = '0%';
+                }
+            }, 1000);
+        }
+
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const code = document.getElementById('resultCode').innerText;
+            if (code && code !== '------') {
+                navigator.clipboard.writeText(code);
+                const toast = document.getElementById('toastNotification');
+                document.getElementById('toastText').innerText = translations[currentLang].toastMsg;
+                toast.classList.add('hidden');
+                requestAnimationFrame(() => { toast.classList.remove('opacity-0'); });
+                setTimeout(() => { 
+                    toast.classList.add('opacity-0'); 
+                    setTimeout(() => toast.classList.add('hidden'), 300);
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

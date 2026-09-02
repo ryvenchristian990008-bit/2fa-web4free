@@ -1,0 +1,54 @@
+const express = require('express');
+const path = require('path');
+const app = express();
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname)));
+
+// ទុកទិន្នន័យស្ថិតិសម្រាប់ Admin Dashboard
+let siteStats = {
+    totalVisitors: 0,
+    totalGenerations: 0,
+    generationLogs: []
+};
+
+// រាប់ចំនួនអ្នកចូលទស្សនាវេបសាយស្វ័យប្រវត្តិ
+app.use((req, res, next) => {
+    if (req.path === '/' || req.path === '/index.html' || req.path === '') {
+        siteStats.totalVisitors++;
+    }
+    next();
+});
+
+// API សម្រាប់ Generate Code និងកត់ត្រាប្រវត្តិ
+app.post('/api/generate-code', (req, res) => {
+    const { secret } = req.body;
+    if (!secret) {
+        return res.status(400).json({ error: 'Secret key is required' });
+    }
+
+    const mockToken = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    siteStats.totalGenerations++;
+    siteStats.generationLogs.unshift({
+        code: mockToken,
+        time: new Date().toLocaleTimeString() + ' ' + new Date().toLocaleDateString()
+    });
+
+    if (siteStats.generationLogs.length > 50) {
+        siteStats.generationLogs.pop();
+    }
+
+    res.json({ token: mockToken, timeLeft: 30 });
+});
+
+// API សម្រាប់ឱ្យ Admin ទាញយកទិន្នន័យស្ថិតិ
+app.get('/api/admin/stats', (req, res) => {
+    res.json(siteStats);
+});
+
+// ប្រើប្រាស់ Port របស់ Render ផ្ទាល់
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`GlobalAuth server running successfully on port ${PORT}`);
+});
