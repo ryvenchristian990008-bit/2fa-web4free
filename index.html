@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GlobalAuth - Secure 2FA Two-Factor Authentication App</title>
     
-    <meta name="description" content="GlobalAuth is a secure 2FA web and desktop application designed to generate and manage secure OTP verification codes easily.">
+    <meta name="description" content="GlobalAuth is a secure 2FA web application designed to generate and manage secure OTP verification codes easily.">
     <meta name="keywords" content="2fa, two-factor authentication, globalauth, otp generator, security app, authenticator">
     <meta name="author" content="GlobalAuth">
 
@@ -372,7 +372,7 @@
             });
         }
 
-        // Custom Admin Password Modal Logic
+        // Custom Admin Password Modal Logic with Server API Verification
         function openAdminPasswordModal() {
             document.getElementById('adminPinInput').value = '';
             document.getElementById('adminPasswordError').classList.add('hidden');
@@ -384,18 +384,28 @@
             document.getElementById('adminPasswordModal').classList.add('hidden');
         }
 
-        function verifyAdminPasscode() {
+        async function verifyAdminPasscode() {
             let pin = document.getElementById('adminPinInput').value;
-            if (pin === "admin123") {
-                closeAdminPasswordModal();
-                document.getElementById('adminModal').classList.remove('hidden');
-                fetchAdminStats();
-            } else {
-                document.getElementById('adminPasswordError').classList.remove('hidden');
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ passcode: pin })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    closeAdminPasswordModal();
+                    document.getElementById('adminModal').classList.remove('hidden');
+                    fetchAdminStats();
+                } else {
+                    document.getElementById('adminPasswordError').classList.remove('hidden');
+                }
+            } catch (err) {
+                alert("Connection error!");
             }
         }
 
-        // Allow pressing Enter key to submit admin password
         document.getElementById('adminPinInput')?.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') verifyAdminPasscode();
         });

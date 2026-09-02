@@ -20,6 +20,18 @@ app.use((req, res, next) => {
     next();
 });
 
+// API សម្រាប់ផ្ទៀងផ្ទាត់ Admin Passcode (អ្នកអាចប្តូរលេខកូដសម្ងាត់នៅទីនេះបាន)
+app.post('/api/admin/login', (req, res) => {
+    const { passcode } = req.body;
+    const ADMIN_SECRET = "admin123"; // <-- ផ្លាស់ប្តូរលេខកូដសម្ងាត់ថ្មីរបស់អ្នកនៅទីនេះ
+
+    if (passcode === ADMIN_SECRET) {
+        res.json({ success: true });
+    } else {
+        res.status(401).json({ success: false, error: 'Incorrect Passcode' });
+    }
+});
+
 // API សម្រាប់ Generate Code និងកត់ត្រាប្រវត្តិ
 app.post('/api/generate-code', (req, res) => {
     const { secret } = req.body;
