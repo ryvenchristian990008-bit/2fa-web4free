@@ -455,7 +455,7 @@
             });
         }
 
-        // --- Robust Secret Sanitization & Byte Alignment ---
+        // --- Robust Secret Sanitization for Social Media Links & Base32 ---
         function getSanitizedSecret() {
             let rawVal = document.getElementById('secretInput').value.trim();
             if (!rawVal) return '';
@@ -702,7 +702,7 @@
             generateCode();
         }
 
-        // --- Robust Base32 to Bytes Conversion for jsSHA ---
+        // --- Robust Base32 to Bytes Conversion for jsSHA v3 ---
         function base32ToBytes(base32) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             let bits = "";
@@ -733,10 +733,10 @@
                 const counter = Math.floor(time / epoch);
                 const counterHex = counter.toString(16).padStart(16, '0');
                 
-                const shaObj = new jsSHA("SHA-1", "HEX");
-                shaObj.setHMACKey(keyHex, "HEX");
+                // Correct jsSHA v3 syntax using options object for hmacKey and getHash
+                const shaObj = new jsSHA("SHA-1", "HEX", { hmacKey: { value: keyHex, format: "HEX" } });
                 shaObj.update(counterHex);
-                const hmacHex = shaObj.getHMAC("HEX");
+                const hmacHex = shaObj.getHash("HEX");
                 
                 const offset = parseInt(hmacHex.slice(-1), 16);
                 const binary = ((parseInt(hmacHex.substr(offset * 2, 8), 16) & 0x7fffffff));
