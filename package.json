@@ -1,32 +1,14 @@
 {
-  "name": "globalauth-desktop",
+  "name": "globalauth",
   "version": "1.0.0",
-  "description": "GlobalAuth Desktop App",
-  "main": "main.js",
+  "description": "Secure 2FA Web Application",
+  "main": "server.js",
   "scripts": {
-  "start": "node server.js"
-}
-  "build": {
-    "appId": "com.globalauth.desktop",
-    "productName": "GlobalAuth",
-    "directories": {
-      "output": "dist"
-    },
-    "win": {
-      "target": "nsis",
-      "icon": "Logo_and_Favicon-removebg-preview.jpg"
-    },
-    "mac": {
-      "target": "dmg",
-      "icon": "Logo_and_Favicon-removebg-preview.jpg"
-    }
+    "start": "node server.js"
   },
   "dependencies": {
+    "express": "^4.19.2",
     "jsqr": "^1.4.0",
     "qrcode": "^1.5.3"
-  },
-  "devDependencies": {
-    "electron": "^28.3.3",
-    "electron-builder": "^24.9.0"
   }
 }
