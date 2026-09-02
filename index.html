@@ -14,7 +14,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='100%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 20l30 65H50l15-30H35' fill='none' stroke='url(%23lg2)' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M60 20L25 85' fill='none' stroke='url(%23lg1)' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3Cdefs%3E%3Cpath d='M60 20l30 65H50l15-30H35' fill='none' stroke='url(%23lg2)' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M60 20L25 85' fill='none' stroke='url(%23lg1)' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
@@ -49,7 +49,7 @@
                 radial-gradient(circle at 85% 30%, rgba(55, 48, 163, 0.18), transparent 30%);
         }
         
-        /* Modern Vignette Overlay with Light & Dark Calibration */
+        /* Vignette Overlay */
         .vignette-overlay {
             position: fixed;
             inset: 0;
@@ -64,7 +64,6 @@
             background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.75) 85%, rgba(0, 0, 0, 0.95) 120%);
         }
 
-        /* Glass Panel with Soft Multi-layered Shadows */
         .glass-panel {
             background: rgba(255, 255, 255, 0.82);
             backdrop-filter: blur(28px);
@@ -93,6 +92,53 @@
             background: rgba(15, 23, 42, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.06);
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Button Shimmer Sweep Effect */
+        @keyframes btnShimmer {
+            0% { transform: translateX(-180%) skewX(-25deg); }
+            50%, 100% { transform: translateX(250%) skewX(-25deg); }
+        }
+        .btn-shimmer-beam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            animation: btnShimmer 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            pointer-events: none;
+        }
+
+        /* Cyber Laser Scanner Effect Across Code Card */
+        @keyframes laserSweep {
+            0% { top: 0%; opacity: 0; }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .laser-scanner-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 5%, #00d2ff 35%, #6366f1 65%, transparent 95%);
+            box-shadow: 0 0 12px #00d2ff, 0 0 24px #6366f1;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 20;
+        }
+        .laser-active {
+            animation: laserSweep 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        /* Neon Countdown Progress Bar Pulse */
+        @keyframes glowBarPulse {
+            0%, 100% { filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.6)) drop-shadow(0 0 8px rgba(99, 102, 241, 0.4)); }
+            50% { filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.95)) drop-shadow(0 0 16px rgba(99, 102, 241, 0.7)); }
+        }
+        .animate-glow-bar {
+            animation: glowBarPulse 2s ease-in-out infinite;
         }
 
         @keyframes revealSmooth {
@@ -134,7 +180,6 @@
 </head>
 <body id="bodyRoot" class="bg-ultra-dark text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-700">
 
-    <!-- Vignette Effect Overlay -->
     <div class="vignette-overlay"></div>
 
     <!-- Toast Notification -->
@@ -156,7 +201,7 @@
         </div>
     </div>
 
-    <!-- Modern Prompt Modal (Replaces ugly browser prompt for Rename) -->
+    <!-- Modern Prompt Modal -->
     <div id="modernPromptModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeModernPrompt()"></div>
         <div class="relative w-full max-w-md glass-panel rounded-[2.5rem] p-8 md:p-10 z-10 space-y-6 animate-pop shadow-2xl">
@@ -180,7 +225,7 @@
         </div>
     </div>
 
-    <!-- Modern Confirm Modal (Replaces ugly browser confirm for Delete) -->
+    <!-- Modern Confirm Modal -->
     <div id="modernConfirmModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeModernConfirm()"></div>
         <div class="relative w-full max-w-sm glass-panel rounded-[2.5rem] p-8 z-10 text-center space-y-5 animate-pop shadow-2xl">
@@ -205,7 +250,7 @@
                         <defs>
                             <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
                             <linearGradient id="lg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
-                            <linearGradient id="lg3" x1="0%" y1="100%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
+                            <linearGradient id="lg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
                         </defs>
                         <g stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none">
                             <path d="M60 20l30 65H50l15-30H35" stroke="url(#lg2)"/>
@@ -267,14 +312,18 @@
                             class="w-full h-16 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-6 text-base font-semibold focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
                     </div>
 
+                    <!-- Action Buttons with Animated Shimmer Sweep -->
                     <div class="grid grid-cols-2 gap-4 pt-4">
-                        <button id="genBtn" onclick="generateCode()" class="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-base font-bold btn-modern shadow-[0_12px_30px_rgba(79,70,229,0.32)] flex items-center justify-center gap-2.5 relative overflow-hidden">
-                            <span id="genBtnText" class="flex items-center gap-2.5">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        <button id="genBtn" onclick="generateCode()" class="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-base font-bold btn-modern shadow-[0_12px_30px_rgba(79,70,229,0.35)] flex items-center justify-center gap-2.5 relative overflow-hidden group">
+                            <!-- Shimmer beam element -->
+                            <div class="btn-shimmer-beam"></div>
+                            
+                            <span id="genBtnText" class="flex items-center gap-2.5 relative z-10 transition-transform duration-200 group-hover:scale-105">
+                                <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                 <span data-i18n="btnGen">Generate</span>
                             </span>
-                            <span id="genSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-indigo-600">
-                                <svg class="animate-spin w-6 h-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <span id="genSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-indigo-600/95 z-20 backdrop-blur-sm">
+                                <svg class="animate-spin w-6 h-6 text-cyan-300" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                             </span>
                         </button>
                         <button onclick="saveAccountToVault()" class="h-16 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl text-sm font-bold btn-modern border border-slate-200/90 dark:border-white/5 flex items-center justify-center gap-2.5 shadow-sm">
@@ -287,23 +336,28 @@
                 <!-- Right Panel -->
                 <div class="p-10 md:p-16 xl:p-20 space-y-8 flex flex-col justify-center animate-reveal delay-200 bg-slate-50/40 dark:bg-slate-900/20">
                     
-                    <!-- Code Card with Soft Shadow -->
-                    <div class="relative p-10 rounded-[2.5rem] soft-card transition-all">
-                        <div class="flex justify-between items-center pb-4">
+                    <!-- Code Card with Soft Shadow & Cyber Laser Scanner -->
+                    <div id="codeCardBox" class="relative p-10 rounded-[2.5rem] soft-card overflow-hidden transition-all">
+                        <!-- Laser Scanner Line -->
+                        <div id="laserScanner" class="laser-scanner-line"></div>
+
+                        <div class="flex justify-between items-center pb-4 relative z-10">
                             <span class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
                             <span id="timerText" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-4 py-2 rounded-xl shadow-sm" data-i18n="timerLabel">--s</span>
                         </div>
 
-                        <div class="text-center py-8">
-                            <div id="resultCode" class="text-5xl md:text-6xl xl:text-7xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white mb-8 drop-shadow-sm ml-2">
+                        <div class="text-center py-8 relative z-10">
+                            <div id="resultCode" class="text-5xl md:text-6xl xl:text-7xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white mb-8 drop-shadow-sm ml-2 select-all cursor-pointer">
                                 ------
                             </div>
-                            <div class="w-full h-2.5 bg-slate-100 dark:bg-black/40 rounded-full overflow-hidden shadow-inner">
-                                <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
+                            
+                            <!-- Animated Glow Progress Bar -->
+                            <div class="w-full h-2.5 bg-slate-200/80 dark:bg-black/50 rounded-full overflow-hidden p-0.5 shadow-inner">
+                                <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 h-full rounded-full transition-all duration-1000 ease-linear animate-glow-bar" style="width: 0%;"></div>
                             </div>
                         </div>
 
-                        <div class="w-full pt-2">
+                        <div class="w-full pt-2 relative z-10">
                             <button id="copyBtn" class="w-full h-14 flex items-center justify-center gap-2.5 bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-2xl text-base font-bold btn-modern border border-slate-200 dark:border-white/5 transition-all duration-300 shadow-sm">
                                 <svg id="copyIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                                 <span id="copyText" data-i18n="btnCopy">Copy Code</span>
@@ -467,7 +521,6 @@
             updateThemeClasses();
         }
 
-        // Modern Notice Alert
         function showModernAlert(title, message, isError = true) {
             document.getElementById('alertTitle').innerText = title;
             document.getElementById('alertMessage').innerText = message;
@@ -484,7 +537,6 @@
             document.getElementById('modernAlertModal').classList.add('hidden');
         }
 
-        // Modern Prompt Modal Controller (Replaces window.prompt)
         let promptCallback = null;
         function showModernPrompt({ title, desc, defaultValue = '', onConfirm }) {
             document.getElementById('promptTitle').innerText = title || "Input Required";
@@ -515,7 +567,6 @@
             }
         });
 
-        // Modern Confirm Modal Controller (Replaces window.confirm)
         let confirmCallback = null;
         function showModernConfirm({ title, desc, onConfirm }) {
             document.getElementById('confirmTitle').innerText = title || "Are you sure?";
@@ -778,7 +829,6 @@
             renderVaultAccounts();
         }
 
-        // Modern Custom Rename Function (Replaces window.prompt)
         function renameAccount(index) {
             const currentName = decryptedVaultAccounts[index].name;
             showModernPrompt({
@@ -795,7 +845,6 @@
             });
         }
 
-        // Modern Custom Delete Function (Replaces window.confirm)
         function deleteVaultAccount(index) {
             const accName = decryptedVaultAccounts[index].name;
             showModernConfirm({
@@ -970,12 +1019,18 @@
             const btnText = document.getElementById('genBtnText');
             const spinner = document.getElementById('genSpinner');
             const codeEl = document.getElementById('resultCode');
+            const laser = document.getElementById('laserScanner');
             
             btnText.classList.add('opacity-0');
             spinner.classList.remove('hidden');
             
             codeEl.classList.remove('animate-spring-pop');
-            codeEl.style.opacity = '0.5';
+            codeEl.style.opacity = '0.4';
+
+            // Trigger Cyber Laser Scanner Sweep
+            laser.classList.remove('laser-active');
+            void laser.offsetWidth;
+            laser.classList.add('laser-active');
             
             if (scrambleInterval) clearInterval(scrambleInterval);
             scrambleInterval = setInterval(() => {
@@ -997,6 +1052,7 @@
                 }
 
                 codeEl.innerText = token;
+                codeEl.style.opacity = '1';
                 void codeEl.offsetWidth; 
                 codeEl.classList.add('animate-spring-pop');
 
