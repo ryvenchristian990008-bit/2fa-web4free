@@ -20,7 +20,6 @@
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.3.1/jsSHA.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
@@ -347,7 +346,7 @@
         </div>
     </div>
 
-    <!-- Main JavaScript Logic -->
+    <!-- Main JavaScript Logic using Native Web Crypto API -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -455,7 +454,7 @@
             });
         }
 
-        // --- Robust Secret Sanitization for Social Media Links & Base32 ---
+        // --- Robust Secret Sanitization ---
         function getSanitizedSecret() {
             let rawVal = document.getElementById('secretInput').value.trim();
             if (!rawVal) return '';
@@ -702,7 +701,7 @@
             generateCode();
         }
 
-        // --- Robust Base32 Decoder for jsSHA v3 ---
+        // --- Native Web Crypto API Base32 & TOTP Generator (100% Reliable, Zero Dependency Bugs) ---
         function base32ToBytes(base32) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             let cleaned = base32.replace(/=+$/, '').toUpperCase();
@@ -720,34 +719,47 @@
             return new Uint8Array(bytes);
         }
 
-        function bytesToHex(bytes) {
-            return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        function generateTOTP(secret, epoch = 30, digits = 6) {
+        async function generateTOTP(secret, epoch = 30, digits = 6) {
             try {
                 const bytes = base32ToBytes(secret);
                 if (bytes.length === 0) return null;
-                const keyHex = bytesToHex(bytes);
 
                 const time = Math.floor(Date.now() / 1000);
                 const counter = Math.floor(time / epoch);
                 
-                let counterHex = counter.toString(16).padStart(16, '0');
-                
-                // jsSHA v3 correct instantiation
-                const shaObj = new jsSHA("SHA-1", "HEX", {
-                    hmacKey: { value: keyHex, format: "HEX" }
-                });
-                shaObj.update(counterHex);
-                const hmacHex = shaObj.getHMAC("HEX");
-                
-                const offset = parseInt(hmacHex.slice(-1), 16);
-                const binary = ((parseInt(hmacHex.substr(offset * 2, 8), 16) & 0x7fffffff));
+                // Convert counter to 8-byte buffer (Big-endian)
+                const buffer = new ArrayBuffer(8);
+                const view = new DataView(buffer);
+                view.setUint32(4, counter, false);
+
+                // Import key into Web Crypto API for HMAC-SHA1
+                const cryptoKey = await window.crypto.subtle.importKey(
+                    "raw",
+                    bytes,
+                    { name: "HMAC", hash: { name: "SHA-1" } },
+                    false,
+                    ["sign"]
+                );
+
+                // Sign using native browser crypto
+                const signature = await window.crypto.subtle.sign(
+                    "HMAC",
+                    cryptoKey,
+                    buffer
+                );
+
+                const hmacResult = new Uint8Array(signature);
+                const offset = hmacResult[hmacResult.length - 1] & 0x0f;
+                const binary = 
+                    ((hmacResult[offset] & 0x7f) << 24) |
+                    ((hmacResult[offset + 1] & 0xff) << 16) |
+                    ((hmacResult[offset + 2] & 0xff) << 8) |
+                    (hmacResult[offset + 3] & 0xff);
+
                 const otp = (binary % Math.pow(10, digits)).toString().padStart(digits, '0');
                 return otp;
             } catch (e) {
-                console.error("TOTP Gen Error:", e);
+                console.error("Native TOTP Error:", e);
                 return null;
             }
         }
@@ -919,7 +931,7 @@
 
             currentActiveSecret = secret;
 
-            const token = generateTOTP(secret);
+            const token = await generateTOTP(secret);
             if (!token) {
                 errorEl.innerText = "Invalid secret key format.";
                 errorEl.classList.remove('hidden');
@@ -954,7 +966,7 @@
             const progressBar = document.getElementById('progressBar');
             const timerText = document.getElementById('timerText');
 
-            timerInterval = setInterval(() => {
+            timerInterval = setInterval(async () => {
                 const epoch = 30;
                 const timeNow = Math.floor(Date.now() / 1000);
                 const currentLeft = epoch - (timeNow % epoch);
@@ -964,7 +976,7 @@
                 timerText.innerText = currentLeft + 's';
 
                 if (currentLeft === 30 && currentActiveSecret) {
-                    const newToken = generateTOTP(currentActiveSecret);
+                    const newToken = await generateTOTP(currentActiveSecret);
                     if (newToken) document.getElementById('resultCode').innerText = newToken;
                 }
             }, 1000);
