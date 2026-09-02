@@ -34,6 +34,7 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
         .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        
         .bg-ultra-light {
             background-color: #f8fafc;
             background-image: radial-gradient(circle at 0% 0%, rgba(219, 234, 254, 0.7), transparent 30%), radial-gradient(circle at 100% 100%, rgba(224, 231, 255, 0.7), transparent 30%);
@@ -42,6 +43,25 @@
             background-color: #030712;
             background-image: radial-gradient(circle at 15% 50%, rgba(30, 58, 138, 0.15), transparent 30%), radial-gradient(circle at 85% 30%, rgba(55, 48, 163, 0.15), transparent 30%);
         }
+        
+        /* Vignette Effect */
+        .vignette-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            transition: background 0.7s ease;
+        }
+        body:not(.dark) .vignette-overlay {
+            background: radial-gradient(ellipse at center, transparent 40%, rgba(15, 23, 42, 0.15) 130%);
+        }
+        .dark .vignette-overlay {
+            background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.85) 120%);
+        }
+
         .glass-panel {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(24px);
@@ -92,6 +112,9 @@
     </style>
 </head>
 <body id="bodyRoot" class="bg-ultra-dark text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-700">
+
+    <!-- Vignette Effect Overlay -->
+    <div class="vignette-overlay"></div>
 
     <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-4 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] flex items-center gap-3 text-base font-bold hidden transition-opacity duration-300 opacity-0 border border-slate-700/50 dark:border-white/50">
         <svg class="w-5 h-5 text-emerald-400 dark:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
@@ -157,7 +180,6 @@
     </nav>
 
     <main class="flex-grow flex items-center justify-center p-6 md:p-12 lg:p-16 relative">
-        <!-- Changed max-w-5xl to max-w-7xl for a significantly larger layout -->
         <div class="w-full max-w-7xl glass-panel rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden animate-reveal relative z-10 shadow-2xl shadow-indigo-500/10">
             <div class="grid grid-cols-1 lg:grid-cols-2">
                 
@@ -198,7 +220,7 @@
                     </div>
                 </div>
 
-                <!-- Right Panel (Code Cover Box) -->
+                <!-- Right Panel -->
                 <div class="p-10 md:p-16 xl:p-20 space-y-8 flex flex-col justify-center animate-reveal delay-200 bg-slate-50/50 dark:bg-slate-900/20">
                     
                     <div class="relative p-10 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl shadow-indigo-500/5">
@@ -208,7 +230,6 @@
                         </div>
 
                         <div class="text-center py-8">
-                            <!-- Increased text size to text-6xl or text-7xl for the larger layout -->
                             <div id="resultCode" class="text-5xl md:text-6xl xl:text-7xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white mb-8 drop-shadow-sm ml-2">
                                 ------
                             </div>
@@ -299,6 +320,7 @@
                         <svg id="adminEyeIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                     </button>
                 </div>
+                <p id="adminPasswordError" class="text-xs text-rose-500 text-center font-bold hidden">Incorrect Passcode!</p>
             </div>
 
             <div class="grid grid-cols-2 gap-4">
