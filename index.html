@@ -93,28 +93,28 @@
 </head>
 <body id="bodyRoot" class="bg-ultra-dark text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-700">
 
-    <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3.5 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] flex items-center gap-3 text-sm font-bold hidden transition-opacity duration-300 opacity-0 border border-slate-700/50 dark:border-white/50">
-        <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+    <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-4 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.2)] flex items-center gap-3 text-base font-bold hidden transition-opacity duration-300 opacity-0 border border-slate-700/50 dark:border-white/50">
+        <svg class="w-5 h-5 text-emerald-400 dark:text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
         <span id="toastText">Action Successful</span>
     </div>
 
     <div id="modernAlertModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeModernAlert()"></div>
-        <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 text-center space-y-4 animate-pop">
-            <div id="alertIconContainer" class="w-12 h-12 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 text-center space-y-5 animate-pop">
+            <div id="alertIconContainer" class="w-14 h-14 bg-indigo-500/10 text-indigo-500 rounded-[1.25rem] flex items-center justify-center mx-auto">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
-            <h3 id="alertTitle" class="text-lg font-black text-slate-900 dark:text-white">Notice</h3>
-            <p id="alertMessage" class="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed"></p>
-            <button onclick="closeModernAlert()" class="w-full h-11 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">OK</button>
+            <h3 id="alertTitle" class="text-xl font-black text-slate-900 dark:text-white">Notice</h3>
+            <p id="alertMessage" class="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed"></p>
+            <button onclick="closeModernAlert()" class="w-full h-12 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-bold transition-all shadow-md">OK</button>
         </div>
     </div>
 
     <!-- Navbar -->
     <nav class="sticky top-0 z-40 bg-white/60 dark:bg-slate-950/40 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-800/40 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3.5">
-                <div class="w-10 h-10 flex items-center justify-center shrink-0">
+        <div class="max-w-[90rem] mx-auto px-8 h-24 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 flex items-center justify-center shrink-0">
                     <svg class="w-full h-full drop-shadow-md transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
@@ -129,108 +129,109 @@
                         <path d="M78 74l5 5 10-10" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <span class="font-extrabold tracking-tight text-xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
+                <span class="font-extrabold tracking-tight text-2xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
             </div>
 
-            <div class="flex items-center gap-2.5">
-                <button onclick="openVaultModal()" class="h-10 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-500 dark:text-cyan-400 text-xs font-bold transition-all btn-modern border border-cyan-500/20 flex items-center gap-2 shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            <div class="flex items-center gap-3">
+                <button onclick="openVaultModal()" class="h-12 px-5 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-500 dark:text-cyan-400 text-sm font-bold transition-all btn-modern border border-cyan-500/20 flex items-center gap-2.5 shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     <span>Vault</span>
                 </button>
 
-                <button onclick="openAdminPasswordModal()" class="h-10 px-4 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/20 flex items-center gap-2 shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <button onclick="openAdminPasswordModal()" class="h-12 px-5 rounded-2xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 text-sm font-bold transition-all btn-modern border border-indigo-500/20 flex items-center gap-2.5 shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     <span>Admin</span>
                 </button>
 
-                <button onclick="toggleLanguage()" class="h-10 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all btn-modern border border-slate-200 dark:border-white/5 flex items-center gap-2 shadow-sm">
-                    <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                <button onclick="toggleLanguage()" class="h-12 px-5 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-bold transition-all btn-modern border border-slate-200 dark:border-white/5 flex items-center gap-2.5 shadow-sm">
+                    <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                     <span id="langText">EN / ខ្មែរ</span>
                 </button>
 
-                <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
-                    <svg id="icon-sun" class="w-4 h-4 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <svg id="icon-moon" class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                <button onclick="toggleTheme()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
+                    <svg id="icon-sun" class="w-5 h-5 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="icon-moon" class="w-5 h-5 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 </button>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow flex items-center justify-center p-6 md:p-10 relative">
-        <div class="w-full max-w-5xl glass-panel rounded-[2rem] overflow-hidden animate-reveal relative z-10 shadow-2xl shadow-indigo-500/10">
-            <div class="grid grid-cols-1 md:grid-cols-2">
+    <main class="flex-grow flex items-center justify-center p-6 md:p-12 lg:p-16 relative">
+        <!-- Changed max-w-5xl to max-w-7xl for a significantly larger layout -->
+        <div class="w-full max-w-7xl glass-panel rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden animate-reveal relative z-10 shadow-2xl shadow-indigo-500/10">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
                 
                 <!-- Left Panel -->
-                <div class="p-10 md:p-14 space-y-8 bg-white/50 dark:bg-slate-900/40 border-r border-transparent md:border-slate-200/50 md:dark:border-white/5 animate-reveal delay-100">
+                <div class="p-10 md:p-16 xl:p-20 space-y-10 bg-white/50 dark:bg-slate-900/40 border-r border-transparent lg:border-slate-200/50 lg:dark:border-white/5 animate-reveal delay-100">
                     <div>
-                        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
-                        <p class="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1.5" data-i18n="desc">Secure Global Access</p>
+                        <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
+                        <p class="text-base font-medium text-slate-500 dark:text-slate-400 mt-2.5" data-i18n="desc">Secure Global Access</p>
                     </div>
 
-                    <div class="space-y-4">
+                    <div class="space-y-5">
                         <div class="flex justify-between items-center">
-                            <label class="text-xs font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400" data-i18n="labelKey">Secret Key</label>
-                            <label class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-lg text-[10px] uppercase tracking-widest font-bold cursor-pointer flex items-center gap-1.5 transition-colors">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                            <label class="text-sm font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400" data-i18n="labelKey">Secret Key</label>
+                            <label class="px-4 py-2 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-xl text-xs uppercase tracking-widest font-bold cursor-pointer flex items-center gap-2 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
                                 <span data-i18n="btnUpload">Upload QR</span>
                                 <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
                             </label>
                         </div>
                         <input type="text" id="secretInput" placeholder="Paste your key or otpauth:// link here..." 
-                            class="w-full h-14 bg-white/80 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
+                            class="w-full h-16 bg-white/80 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-6 text-base font-semibold focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <button id="genBtn" onclick="generateCode()" class="h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_8px_25px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2 relative overflow-hidden">
-                            <span id="genBtnText" class="flex items-center gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <div class="grid grid-cols-2 gap-4 pt-4">
+                        <button id="genBtn" onclick="generateCode()" class="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-base font-bold btn-modern shadow-[0_8px_25px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2.5 relative overflow-hidden">
+                            <span id="genBtnText" class="flex items-center gap-2.5">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                 <span data-i18n="btnGen">Generate</span>
                             </span>
                             <span id="genSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-indigo-600">
-                                <svg class="animate-spin w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                <svg class="animate-spin w-6 h-6 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                             </span>
                         </button>
-                        <button onclick="saveAccountToVault()" class="h-14 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 flex items-center justify-center gap-2 shadow-sm">
-                            <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                        <button onclick="saveAccountToVault()" class="h-16 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl text-sm font-bold btn-modern border border-slate-200 dark:border-white/5 flex items-center justify-center gap-2.5 shadow-sm">
+                            <svg class="w-5 h-5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
                             <span>Save to Vault</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- Right Panel (Code Cover Box) -->
-                <div class="p-8 md:p-12 space-y-6 flex flex-col justify-center animate-reveal delay-200 bg-slate-50/50 dark:bg-slate-900/20">
+                <div class="p-10 md:p-16 xl:p-20 space-y-8 flex flex-col justify-center animate-reveal delay-200 bg-slate-50/50 dark:bg-slate-900/20">
                     
-                    <div class="relative p-8 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl shadow-indigo-500/5">
-                        <div class="flex justify-between items-center pb-2">
-                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
-                            <span id="timerText" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1.5 rounded-lg" data-i18n="timerLabel">--s</span>
+                    <div class="relative p-10 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl shadow-indigo-500/5">
+                        <div class="flex justify-between items-center pb-4">
+                            <span class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
+                            <span id="timerText" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-4 py-2 rounded-xl" data-i18n="timerLabel">--s</span>
                         </div>
 
-                        <div class="text-center py-6">
-                            <div id="resultCode" class="text-4xl md:text-5xl font-mono font-black tracking-[0.3em] text-slate-900 dark:text-white mb-6 drop-shadow-sm ml-2">
+                        <div class="text-center py-8">
+                            <!-- Increased text size to text-6xl or text-7xl for the larger layout -->
+                            <div id="resultCode" class="text-5xl md:text-6xl xl:text-7xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white mb-8 drop-shadow-sm ml-2">
                                 ------
                             </div>
-                            <div class="w-full h-1.5 bg-slate-100 dark:bg-black/40 rounded-full overflow-hidden shadow-inner">
+                            <div class="w-full h-2 bg-slate-100 dark:bg-black/40 rounded-full overflow-hidden shadow-inner">
                                 <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
                             </div>
                         </div>
 
-                        <!-- Full Width Dynamic Copy Button -->
-                        <div class="w-full">
-                            <button id="copyBtn" class="w-full h-12 flex items-center justify-center gap-2 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-sm font-bold btn-modern border border-slate-200 dark:border-white/5 transition-all duration-300">
-                                <svg id="copyIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                                <span id="copyText" data-i18n="btnCopy">Copy</span>
+                        <div class="w-full pt-2">
+                            <button id="copyBtn" class="w-full h-14 flex items-center justify-center gap-2.5 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-2xl text-base font-bold btn-modern border border-slate-200 dark:border-white/5 transition-all duration-300">
+                                <svg id="copyIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                <span id="copyText" data-i18n="btnCopy">Copy Code</span>
                             </button>
                         </div>
                     </div>
 
-                    <div class="relative p-6 rounded-[2rem] bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-lg shadow-indigo-500/5">
-                        <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5" data-i18n="historyTitle">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div class="relative p-8 rounded-[2.5rem] bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-lg shadow-indigo-500/5">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2" data-i18n="historyTitle">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             Recent History
                         </h3>
-                        <ul id="historyList" class="space-y-2 h-[4.5rem] overflow-y-auto pr-2">
-                            <li class="text-xs font-medium text-slate-400 italic" data-i18n="noHistory">No entries yet</li>
+                        <ul id="historyList" class="space-y-3 h-20 overflow-y-auto pr-2">
+                            <li class="text-sm font-medium text-slate-400 italic" data-i18n="noHistory">No entries yet</li>
                         </ul>
                     </div>
                 </div>
@@ -241,39 +242,39 @@
     <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeVaultModal()"></div>
-        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6 animate-pop">
-            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4">
+        <div class="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-[3rem] shadow-2xl p-10 border border-slate-200 dark:border-slate-800 z-10 space-y-8 animate-pop">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-5">
                 <div>
-                    <h3 class="text-xl font-black text-slate-900 dark:text-white">🛡️ Encrypted Account Vault</h3>
-                    <p class="text-xs text-slate-500">AES-256 client-side encrypted local storage</p>
+                    <h3 class="text-2xl font-black text-slate-900 dark:text-white">🛡️ Encrypted Account Vault</h3>
+                    <p class="text-sm text-slate-500 mt-1">AES-256 client-side encrypted local storage</p>
                 </div>
-                <button onclick="closeVaultModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
+                <button onclick="closeVaultModal()" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
             </div>
 
-            <div id="vaultAuthSection" class="space-y-4 py-4 text-center">
-                <div id="vaultAuthTitle" class="text-xs font-bold text-indigo-500 uppercase tracking-widest">Unlock Your Vault</div>
-                <p id="vaultAuthDesc" class="text-xs text-slate-500">Enter your Master Password to decrypt and view saved accounts.</p>
+            <div id="vaultAuthSection" class="space-y-6 py-6 text-center">
+                <div id="vaultAuthTitle" class="text-sm font-bold text-indigo-500 uppercase tracking-widest">Unlock Your Vault</div>
+                <p id="vaultAuthDesc" class="text-sm text-slate-500">Enter your Master Password to decrypt and view saved accounts.</p>
                 
-                <div class="relative w-full max-w-sm mx-auto">
+                <div class="relative w-full max-w-md mx-auto">
                     <input type="password" id="masterPasswordInput" placeholder="Enter Master Password..." 
-                        class="w-full h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 pr-12 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner block">
-                    <button type="button" onclick="togglePasswordVisibility('masterPasswordInput', 'vaultEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
-                        <svg id="vaultEyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        class="w-full h-14 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-2xl px-5 pr-14 text-base font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner block">
+                    <button type="button" onclick="togglePasswordVisibility('masterPasswordInput', 'vaultEyeIcon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                        <svg id="vaultEyeIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                     </button>
                 </div>
 
-                <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">Unlock Vault</button>
+                <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-bold transition-all shadow-md">Unlock Vault</button>
             </div>
 
-            <div id="vaultContentSection" class="space-y-4 hidden">
-                <div class="flex justify-between items-center gap-4">
+            <div id="vaultContentSection" class="space-y-6 hidden">
+                <div class="flex justify-between items-center gap-5">
                     <div class="relative flex-grow">
                         <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search accounts (e.g. Facebook, IG)..." 
-                            class="w-full h-11 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-xs font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 shadow-inner">
+                            class="w-full h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 shadow-inner">
                     </div>
-                    <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline shrink-0">Lock Vault</button>
+                    <button onclick="lockVault()" class="text-sm text-rose-500 font-bold hover:underline shrink-0">Lock Vault</button>
                 </div>
-                <div id="vaultAccountsList" class="space-y-3 h-60 overflow-y-auto pr-2"></div>
+                <div id="vaultAccountsList" class="space-y-4 h-72 overflow-y-auto pr-3"></div>
             </div>
         </div>
     </div>
@@ -281,63 +282,62 @@
     <!-- Admin Modal -->
     <div id="adminPasswordModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeAdminPasswordModal()"></div>
-        <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6 animate-pop">
+        <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl p-10 border border-slate-200 dark:border-slate-800 z-10 space-y-8 animate-pop">
             <div class="text-center">
-                <div class="w-12 h-12 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <div class="w-16 h-16 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 </div>
-                <h3 class="text-lg font-black text-slate-900 dark:text-white">Admin Access</h3>
-                <p class="text-xs text-slate-500 mt-1">Please enter your passcode to continue</p>
+                <h3 class="text-xl font-black text-slate-900 dark:text-white">Admin Access</h3>
+                <p class="text-sm text-slate-500 mt-1">Please enter your passcode</p>
             </div>
 
-            <div class="space-y-3">
+            <div class="space-y-4">
                 <div class="relative w-full">
-                    <input type="password" id="adminPinInput" placeholder="Enter admin passcode..." 
-                        class="w-full h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 pr-12 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner">
-                    <button type="button" onclick="togglePasswordVisibility('adminPinInput', 'adminEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
-                        <svg id="adminEyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    <input type="password" id="adminPinInput" placeholder="Passcode..." 
+                        class="w-full h-14 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-2xl px-5 pr-14 text-base font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner">
+                    <button type="button" onclick="togglePasswordVisibility('adminPinInput', 'adminEyeIcon')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                        <svg id="adminEyeIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                     </button>
                 </div>
-                <p id="adminPasswordError" class="text-xs text-rose-500 text-center font-bold hidden">Incorrect Passcode!</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
-                <button onclick="closeAdminPasswordModal()" class="h-11 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition-all">Cancel</button>
-                <button onclick="verifyAdminPasscode()" class="h-11 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">Confirm</button>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="closeAdminPasswordModal()" class="h-12 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-2xl text-sm font-bold transition-all">Cancel</button>
+                <button onclick="verifyAdminPasscode()" class="h-12 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-bold transition-all shadow-md">Confirm</button>
             </div>
         </div>
     </div>
 
     <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeAdminPanel()"></div>
-        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6 animate-pop">
-            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4">
+        <div class="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-[3rem] shadow-2xl p-10 border border-slate-200 dark:border-slate-800 z-10 space-y-8 animate-pop">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-5">
                 <div>
-                    <h3 class="text-xl font-black text-slate-900 dark:text-white">🛠️ Developer & Admin Panel</h3>
-                    <p class="text-xs text-slate-500">Real-time visitor and usage analytics</p>
+                    <h3 class="text-2xl font-black text-slate-900 dark:text-white">🛠️ Admin Panel</h3>
+                    <p class="text-sm text-slate-500 mt-1">Real-time visitor and usage analytics</p>
                 </div>
-                <button onclick="closeAdminPanel()" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
+                <button onclick="closeAdminPanel()" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/50 dark:border-white/5">
-                    <span class="text-xs font-bold text-slate-400 uppercase">Total Visitors</span>
-                    <h4 id="statVisitors" class="text-3xl font-black text-indigo-600 dark:text-indigo-400 mt-1">0</h4>
+            <div class="grid grid-cols-2 gap-5">
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200/50 dark:border-white/5">
+                    <span class="text-sm font-bold text-slate-400 uppercase">Total Visitors</span>
+                    <h4 id="statVisitors" class="text-4xl font-black text-indigo-600 dark:text-indigo-400 mt-2">0</h4>
                 </div>
-                <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/50 dark:border-white/5">
-                    <span class="text-xs font-bold text-slate-400 uppercase">Codes Generated</span>
-                    <h4 id="statGenerations" class="text-3xl font-black text-emerald-500 mt-1">0</h4>
+                <div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border border-slate-200/50 dark:border-white/5">
+                    <span class="text-sm font-bold text-slate-400 uppercase">Codes Generated</span>
+                    <h4 id="statGenerations" class="text-4xl font-black text-emerald-500 mt-2">0</h4>
                 </div>
             </div>
 
             <div>
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Live Generated Code Digits Log</h4>
-                <div id="adminLogsList" class="space-y-2 h-48 overflow-y-auto pr-2 bg-slate-50 dark:bg-slate-950/50 p-3 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-xs">
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Live Generated Logs</h4>
+                <div id="adminLogsList" class="space-y-3 h-56 overflow-y-auto pr-3 bg-slate-50 dark:bg-slate-950/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 font-mono text-sm">
                     <span class="text-slate-400 italic">No activity recorded yet...</span>
                 </div>
             </div>
 
-            <button onclick="fetchAdminStats()" class="w-full h-11 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all">
+            <button onclick="fetchAdminStats()" class="w-full h-14 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-sm font-bold transition-all">
                 🔄 Refresh Stats
             </button>
         </div>
@@ -383,9 +383,9 @@
             document.getElementById('alertMessage').innerText = message;
             const iconContainer = document.getElementById('alertIconContainer');
             if (isError) {
-                iconContainer.className = "w-12 h-12 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto";
+                iconContainer.className = "w-14 h-14 bg-rose-500/10 text-rose-500 rounded-[1.25rem] flex items-center justify-center mx-auto";
             } else {
-                iconContainer.className = "w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mx-auto";
+                iconContainer.className = "w-14 h-14 bg-emerald-500/10 text-emerald-500 rounded-[1.25rem] flex items-center justify-center mx-auto";
             }
             document.getElementById('modernAlertModal').classList.remove('hidden');
         }
@@ -416,7 +416,7 @@
                 btnGen: "Generate",
                 labelCode: "Security Code",
                 timerLabel: "--s",
-                btnCopy: "Copy",
+                btnCopy: "Copy Code",
                 historyTitle: "Recent History",
                 noHistory: "No entries yet",
                 errEmpty: "Please enter a secret key.",
@@ -432,7 +432,7 @@
                 btnGen: "បង្កើតកូដ",
                 labelCode: "លេខកូដសុវត្ថិភាព",
                 timerLabel: "-- វិនាទី",
-                btnCopy: "ចម្លង",
+                btnCopy: "ចម្លងកូដ",
                 historyTitle: "ប្រវត្តិថ្មីៗ",
                 noHistory: "មិនទាន់មានទិន្នន័យ",
                 errEmpty: "សូមបញ្ចូលលេខកូដសម្ងាត់។",
@@ -461,12 +461,7 @@
                 try {
                     const url = new URL(rawVal);
                     const secretParam = url.searchParams.get('secret');
-                    if (secretParam) {
-                        cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
-                    } else {
-                        const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
-                        if (match && match[1]) cleaned = match[1].replace(/=+$/, '').toUpperCase();
-                    }
+                    if (secretParam) cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
                 } catch (e) {
                     const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
                     if (match && match[1]) cleaned = match[1].replace(/=+$/, '').toUpperCase();
@@ -615,31 +610,31 @@
             const listEl = document.getElementById('vaultAccountsList');
             const searchVal = document.getElementById('vaultSearchInput').value.toLowerCase();
             if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
-                listEl.innerHTML = `<span class="text-xs text-slate-400 italic">No saved accounts in vault...</span>`;
+                listEl.innerHTML = `<span class="text-sm text-slate-400 italic">No saved accounts in vault...</span>`;
                 return;
             }
             const filtered = decryptedVaultAccounts.filter(acc => acc.name.toLowerCase().includes(searchVal) || acc.secret.toLowerCase().includes(searchVal));
             filtered.sort((a, b) => (b.pinned === true) - (a.pinned === true));
             if (filtered.length === 0) {
-                listEl.innerHTML = `<span class="text-xs text-slate-400 italic">No matching accounts found...</span>`;
+                listEl.innerHTML = `<span class="text-sm text-slate-400 italic">No matching accounts found...</span>`;
                 return;
             }
             listEl.innerHTML = filtered.map((acc) => {
                 const realIndex = decryptedVaultAccounts.indexOf(acc);
                 return `
-                    <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/50 dark:border-white/5 transition-all">
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/50 dark:border-white/5 transition-all">
                         <div>
-                            <div class="flex items-center gap-2">
-                                <h4 class="text-xs font-bold text-slate-900 dark:text-white">${acc.name}</h4>
-                                ${acc.pinned ? '<span class="px-1.5 py-0.5 bg-amber-500/10 text-amber-500 rounded text-[9px] font-bold">Pinned</span>' : ''}
+                            <div class="flex items-center gap-2.5">
+                                <h4 class="text-sm font-bold text-slate-900 dark:text-white">${acc.name}</h4>
+                                ${acc.pinned ? '<span class="px-2 py-0.5 bg-amber-500/10 text-amber-500 rounded-md text-[10px] font-bold">Pinned</span>' : ''}
                             </div>
-                            <span class="text-[10px] font-mono text-slate-400 uppercase">${acc.secret}</span>
+                            <span class="text-[11px] font-mono text-slate-400 uppercase">${acc.secret}</span>
                         </div>
-                        <div class="flex items-center gap-1.5">
-                            <button onclick="togglePinAccount(${realIndex})" class="px-2.5 py-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-[10px] font-bold transition-all" title="Pin / Unpin">📌</button>
-                            <button onclick="renameAccount(${realIndex})" class="px-2.5 py-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-[10px] font-bold transition-all" title="Rename">✏️ Rename</button>
-                            <button onclick="loadVaultAccount('${acc.secret}')" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[10px] font-bold transition-all shadow-sm">Use</button>
-                            <button onclick="deleteVaultAccount(${realIndex})" class="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1">🗑️ Delete</button>
+                        <div class="flex items-center gap-2">
+                            <button onclick="togglePinAccount(${realIndex})" class="px-3 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold transition-all" title="Pin / Unpin">📌</button>
+                            <button onclick="renameAccount(${realIndex})" class="px-3 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold transition-all" title="Rename">✏️ Rename</button>
+                            <button onclick="loadVaultAccount('${acc.secret}')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-sm">Use</button>
+                            <button onclick="deleteVaultAccount(${realIndex})" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-xl text-xs font-bold transition-all flex items-center gap-1">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -782,9 +777,9 @@
                 const logsContainer = document.getElementById('adminLogsList');
                 if (data.generationLogs && data.generationLogs.length > 0) {
                     logsContainer.innerHTML = data.generationLogs.map(log => `
-                        <div class="flex justify-between items-center py-1.5 px-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                        <div class="flex justify-between items-center py-2 px-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
                             <span class="font-bold text-indigo-500 tracking-wider">CODE: ${log.code}</span>
-                            <span class="text-slate-400 text-[10px]">${log.time}</span>
+                            <span class="text-slate-400 text-xs">${log.time}</span>
                         </div>
                     `).join('');
                 } else {
@@ -876,8 +871,8 @@
                     historyList.innerHTML = '';
                 }
                 const li = document.createElement('li');
-                li.className = "flex justify-between items-center py-2 border-b border-slate-200/50 dark:border-white/5 last:border-0";
-                li.innerHTML = `<span class="font-mono font-bold text-sm text-slate-800 dark:text-slate-200 tracking-[0.15em]">${token}</span> <span class="text-[10px] text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">${new Date().toLocaleTimeString()}</span>`;
+                li.className = "flex justify-between items-center py-2.5 border-b border-slate-200/50 dark:border-white/5 last:border-0";
+                li.innerHTML = `<span class="font-mono font-bold text-base text-slate-800 dark:text-slate-200 tracking-[0.15em]">${token}</span> <span class="text-xs text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg">${new Date().toLocaleTimeString()}</span>`;
                 historyList.prepend(li);
             }, 2000);
         }
@@ -909,19 +904,16 @@
             }, 1000);
         }
 
-        // Updated Copy Button Logic with Dynamic State Change
         document.getElementById('copyBtn').addEventListener('click', () => {
             const code = document.getElementById('resultCode').innerText;
             if (code && code !== '------') {
                 navigator.clipboard.writeText(code);
                 
-                // Show Toast Notification
                 const toast = document.getElementById('toastNotification');
                 document.getElementById('toastText').innerText = translations[currentLang].toastMsg;
                 toast.classList.remove('hidden');
                 requestAnimationFrame(() => { toast.classList.remove('opacity-0'); });
                 
-                // Update Copy Button to Success State
                 const copyBtn = document.getElementById('copyBtn');
                 const copyIcon = document.getElementById('copyIcon');
                 const copyText = document.getElementById('copyText');
@@ -932,7 +924,6 @@
                 copyIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>`;
                 copyText.innerText = currentLang === 'en' ? "Copied!" : "បានចម្លង!";
                 
-                // Revert Back After 2 Seconds
                 setTimeout(() => { 
                     toast.classList.add('opacity-0'); 
                     setTimeout(() => toast.classList.add('hidden'), 300);
