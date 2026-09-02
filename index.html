@@ -9,7 +9,6 @@
     <meta name="keywords" content="2fa, two-factor authentication, globalauth, otp generator, security app, authenticator">
     <meta name="author" content="GlobalAuth">
     
-    <!-- PWA Meta Tags & Manifest (Feature 2) -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#030712">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -164,7 +163,7 @@
                             class="w-full h-14 bg-white/80 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
                         
                         <!-- Account Name for Vault Save -->
-                        <input type="text" id="accountNameInput" placeholder="Account Name (e.g. Google, GitHub)..." 
+                        <input type="text" id="accountNameInput" placeholder="Account Name (e.g. Facebook, IG)..." 
                             class="w-full h-12 bg-white/60 dark:bg-black/10 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-xs font-semibold focus:outline-none focus:border-indigo-500/50 text-slate-900 dark:text-slate-100 shadow-sm">
                     </div>
 
@@ -239,11 +238,12 @@
                 <button onclick="closeVaultModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
             </div>
 
-            <div id="vaultUnlockSection" class="space-y-4 py-4 text-center">
-                <p class="text-xs text-slate-500">Enter your Master Password to decrypt and view saved accounts.</p>
+            <div id="vaultAuthSection" class="space-y-4 py-4 text-center">
+                <div id="vaultAuthTitle" class="text-xs font-bold text-indigo-500 uppercase tracking-widest">Unlock Your Vault</div>
+                <p id="vaultAuthDesc" class="text-xs text-slate-500">Enter your Master Password to decrypt and view saved accounts.</p>
                 <input type="password" id="masterPasswordInput" placeholder="Enter Master Password..." 
                     class="w-full max-w-sm h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner mx-auto block">
-                <button onclick="unlockVault()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">Unlock Vault</button>
+                <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">Unlock Vault</button>
             </div>
 
             <div id="vaultContentSection" class="space-y-4 hidden">
@@ -252,7 +252,7 @@
                     <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline">Lock Vault</button>
                 </div>
                 <div id="vaultAccountsList" class="space-y-3 h-64 overflow-y-auto pr-2">
-                    <!-- Populated dynamically -->
+                    <!-- Populated dynamically with Pin & Rename options -->
                 </div>
             </div>
         </div>
@@ -338,12 +338,9 @@
 
     <!-- Main JavaScript Logic -->
     <script>
-        // PWA Service Worker Registration (Feature 2)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(reg => console.log('PWA ServiceWorker registered successfully'))
-                    .catch(err => console.log('PWA ServiceWorker registration failed:', err));
+                navigator.serviceWorker.register('/sw.js').catch(err => {});
             });
         }
 
@@ -474,17 +471,30 @@
         }
 
         let decryptedVaultAccounts = null;
+        let activeMasterPassword = '';
 
         function openVaultModal() {
             document.getElementById('vaultModal').classList.remove('hidden');
+            const hasVault = localStorage.getItem('globalauth_vault');
+            
             if (decryptedVaultAccounts) {
-                document.getElementById('vaultUnlockSection').classList.add('hidden');
+                document.getElementById('vaultAuthSection').classList.add('hidden');
                 document.getElementById('vaultContentSection').classList.remove('hidden');
                 renderVaultAccounts();
             } else {
-                document.getElementById('vaultUnlockSection').classList.remove('hidden');
+                document.getElementById('vaultAuthSection').classList.remove('hidden');
                 document.getElementById('vaultContentSection').classList.add('hidden');
                 document.getElementById('masterPasswordInput').value = '';
+                
+                if (!hasVault) {
+                    document.getElementById('vaultAuthTitle').innerText = "Create Master Password";
+                    document.getElementById('vaultAuthDesc').innerText = "Set a secure password to encrypt your account vault.";
+                    document.getElementById('vaultAuthBtn').innerText = "Create Password";
+                } else {
+                    document.getElementById('vaultAuthTitle').innerText = "Unlock Your Vault";
+                    document.getElementById('vaultAuthDesc').innerText = "Enter your Master Password to decrypt and view saved accounts.";
+                    document.getElementById('vaultAuthBtn').innerText = "Unlock Vault";
+                }
             }
         }
 
@@ -492,14 +502,18 @@
             document.getElementById('vaultModal').classList.add('hidden');
         }
 
-        async function unlockVault() {
+        async function handleVaultAuth() {
             const password = document.getElementById('masterPasswordInput').value;
             if (!password) return alert("Please enter master password!");
             
             const rawStored = localStorage.getItem('globalauth_vault');
             if (!rawStored) {
+                // First time setup
+                const emptyEncrypted = await encryptData(password, []);
+                localStorage.setItem('globalauth_vault', JSON.stringify(emptyEncrypted));
                 decryptedVaultAccounts = [];
-                document.getElementById('vaultUnlockSection').classList.add('hidden');
+                activeMasterPassword = password;
+                document.getElementById('vaultAuthSection').classList.add('hidden');
                 document.getElementById('vaultContentSection').classList.remove('hidden');
                 renderVaultAccounts();
                 return;
@@ -508,31 +522,37 @@
             try {
                 const encryptedObj = JSON.parse(rawStored);
                 decryptedVaultAccounts = await decryptData(password, encryptedObj);
-                document.getElementById('vaultUnlockSection').classList.add('hidden');
+                activeMasterPassword = password;
+                document.getElementById('vaultAuthSection').classList.add('hidden');
                 document.getElementById('vaultContentSection').classList.remove('hidden');
                 renderVaultAccounts();
             } catch (err) {
-                alert("Incorrect Master Password or corrupted data!");
+                alert("Incorrect Master Password!");
             }
         }
 
         function lockVault() {
             decryptedVaultAccounts = null;
-            document.getElementById('vaultUnlockSection').classList.remove('hidden');
+            activeMasterPassword = '';
+            document.getElementById('vaultAuthSection').classList.remove('hidden');
             document.getElementById('vaultContentSection').classList.add('hidden');
             document.getElementById('masterPasswordInput').value = '';
         }
 
         async function saveAccountToVault() {
             const secret = getSanitizedSecret();
-            const name = document.getElementById('accountNameInput').value.trim() || "My Account";
+            const name = document.getElementById('accountNameInput').value.trim() || "Facebook / IG / Account";
             if (!secret) {
                 alert("Please enter or generate a valid secret key first.");
                 return;
             }
 
-            let password = prompt("Enter your Master Password to save securely:");
-            if (!password) return;
+            let password = activeMasterPassword;
+            if (!password) {
+                password = prompt("Enter your Master Password (or create one):");
+                if (!password) return;
+                activeMasterPassword = password;
+            }
 
             let accounts = [];
             const rawStored = localStorage.getItem('globalauth_vault');
@@ -541,16 +561,22 @@
                     const encryptedObj = JSON.parse(rawStored);
                     accounts = await decryptData(password, encryptedObj);
                 } catch (e) {
-                    alert("Incorrect Master Password for existing vault!");
+                    alert("Incorrect Master Password!");
                     return;
                 }
             }
 
-            accounts.push({ name, secret });
+            accounts.push({ name, secret, pinned: false });
             const encryptedNew = await encryptData(password, accounts);
             localStorage.setItem('globalauth_vault', JSON.stringify(encryptedNew));
             decryptedVaultAccounts = accounts;
-            alert("Account successfully saved and encrypted in Vault!");
+            alert("Account successfully saved to Vault!");
+        }
+
+        async function updateVaultStorage() {
+            if (!activeMasterPassword) return;
+            const encryptedNew = await encryptData(activeMasterPassword, decryptedVaultAccounts);
+            localStorage.setItem('globalauth_vault', JSON.stringify(encryptedNew));
         }
 
         function renderVaultAccounts() {
@@ -560,33 +586,57 @@
                 return;
             }
 
+            // Sort: Pinned items first
+            decryptedVaultAccounts.sort((a, b) => (b.pinned === true) - (a.pinned === true));
+
             listEl.innerHTML = decryptedVaultAccounts.map((acc, index) => `
-                <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/50 dark:border-white/5">
+                <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/50 dark:border-white/5 transition-all">
                     <div>
-                        <h4 class="text-xs font-bold text-slate-900 dark:text-white">${acc.name}</h4>
+                        <div class="flex items-center gap-2">
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white">${acc.name}</h4>
+                            ${acc.pinned ? '<span class="px-1.5 py-0.5 bg-amber-500/10 text-amber-500 rounded text-[9px] font-bold">Pinned</span>' : ''}
+                        </div>
                         <span class="text-[10px] font-mono text-slate-400 uppercase">${acc.secret}</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="loadVaultAccount('${acc.secret}', '${acc.name}')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[10px] font-bold">Use</button>
-                        <button onclick="deleteVaultAccount(${index})" class="px-2.5 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-lg text-[10px] font-bold">Delete</button>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="togglePinAccount(${index})" class="px-2.5 py-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-[10px] font-bold transition-all" title="Pin / Unpin">📌</button>
+                        <button onclick="renameAccount(${index})" class="px-2.5 py-1.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 rounded-lg text-[10px] font-bold transition-all" title="Rename">✏️ Rename</button>
+                        <button onclick="loadVaultAccount('${acc.secret}', '${acc.name}')" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[10px] font-bold transition-all shadow-sm">Use</button>
+                        <button onclick="deleteVaultAccount(${index})" class="px-2.5 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-lg text-[10px] font-bold transition-all">✕</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        async function deleteVaultAccount(index) {
-            let password = prompt("Enter Master Password to confirm deletion:");
-            if (!password) return;
-            decryptedVaultAccounts.splice(index, 1);
-            const encryptedNew = await encryptData(password, decryptedVaultAccounts);
-            localStorage.setItem('globalauth_vault', JSON.stringify(encryptedNew));
+        async function togglePinAccount(index) {
+            decryptedVaultAccounts[index].pinned = !decryptedVaultAccounts[index].pinned;
+            await updateVaultStorage();
             renderVaultAccounts();
+        }
+
+        async function renameAccount(index) {
+            const currentName = decryptedVaultAccounts[index].name;
+            const newName = prompt("Enter new name for this account (e.g. Facebook, IG):", currentName);
+            if (newName && newName.trim() !== "") {
+                decryptedVaultAccounts[index].name = newName.trim();
+                await updateVaultStorage();
+                renderVaultAccounts();
+            }
+        }
+
+        async function deleteVaultAccount(index) {
+            if (confirm("Are you sure you want to delete this account?")) {
+                decryptedVaultAccounts.splice(index, 1);
+                await updateVaultStorage();
+                renderVaultAccounts();
+            }
         }
 
         function loadVaultAccount(secret, name) {
             document.getElementById('secretInput').value = secret;
             document.getElementById('accountNameInput').value = name;
             closeVaultModal();
+            generateCode(); // Directly generate code digits!
         }
 
         // --- TOTP Generation Client-Side Helper using jsSHA ---
@@ -677,9 +727,6 @@
                 document.getElementById('statGenerations').innerText = data.totalGenerations;
 
                 const logsContainer = document.getElementById('adminLogsList');
-                if (data.generationLogs && data.generationLogs.length > 0) {
-                    logsContainer.innerHTML = data.generationLogs.log.map(log => ``).join(''); // Handled below correctly
-                }
                 if (data.generationLogs && data.generationLogs.length > 0) {
                     logsContainer.innerHTML = data.generationLogs.map(log => `
                         <div class="flex justify-between items-center py-1.5 px-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
