@@ -8,6 +8,12 @@
     <meta name="description" content="GlobalAuth is a secure 2FA web application designed to generate and manage secure OTP verification codes easily.">
     <meta name="keywords" content="2fa, two-factor authentication, globalauth, otp generator, security app, authenticator">
     <meta name="author" content="GlobalAuth">
+    
+    <!-- PWA Meta Tags & Manifest (Feature 2) -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#030712">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 20l30 65H50l15-30H35' fill='none' stroke='url(%23lg2)' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M60 20L25 85' fill='none' stroke='url(%23lg1)' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     
@@ -15,6 +21,7 @@
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.3.1/jsSHA.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
@@ -101,8 +108,14 @@
                 <span class="font-extrabold tracking-tight text-xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
             </div>
 
-            <!-- Modern Navbar Action Buttons Group -->
+            <!-- Navbar Action Buttons Group -->
             <div class="flex items-center gap-2.5">
+                <!-- Vault Button -->
+                <button onclick="openVaultModal()" class="h-10 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-500 dark:text-cyan-400 text-xs font-bold transition-all btn-modern border border-cyan-500/20 flex items-center gap-2 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    <span>Vault</span>
+                </button>
+
                 <!-- Admin Panel Button -->
                 <button onclick="openAdminPasswordModal()" class="h-10 px-4 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/20 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -138,7 +151,7 @@
 
                     <div id="errorMessage" class="bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400 p-4 rounded-2xl text-sm font-bold hidden transition-all"></div>
 
-                    <div class="space-y-3">
+                    <div class="space-y-4">
                         <div class="flex justify-between items-center">
                             <label class="text-xs font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400" data-i18n="labelKey">Secret Key</label>
                             <label class="px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-lg text-[10px] uppercase tracking-widest font-bold cursor-pointer flex items-center gap-1.5 transition-colors">
@@ -149,16 +162,26 @@
                         </div>
                         <input type="text" id="secretInput" placeholder="Paste your key here..." 
                             class="w-full h-14 bg-white/80 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
+                        
+                        <!-- Account Name for Vault Save -->
+                        <input type="text" id="accountNameInput" placeholder="Account Name (e.g. Google, GitHub)..." 
+                            class="w-full h-12 bg-white/60 dark:bg-black/10 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-xs font-semibold focus:outline-none focus:border-indigo-500/50 text-slate-900 dark:text-slate-100 shadow-sm">
                     </div>
 
                     <div class="flex justify-center py-1">
                         <div class="h-captcha" data-sitekey="a77812ee-37f8-4854-aaf0-7e74c0beb87e"></div>
                     </div>
 
-                    <button onclick="generateCode()" class="w-full h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_8px_25px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        <span data-i18n="btnGen">Generate</span>
-                    </button>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="generateCode()" class="h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_8px_25px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            <span data-i18n="btnGen">Generate</span>
+                        </button>
+                        <button onclick="saveAccountToVault()" class="h-14 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 flex items-center justify-center gap-2 shadow-sm">
+                            <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                            <span>Save to Vault</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Right Panel -->
@@ -203,6 +226,37 @@
             </div>
         </div>
     </main>
+
+    <!-- Account Vault Modal -->
+    <div id="vaultModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeVaultModal()"></div>
+        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <h3 class="text-xl font-black text-slate-900 dark:text-white">🛡️ Encrypted Account Vault</h3>
+                    <p class="text-xs text-slate-500">AES-256 client-side encrypted local storage</p>
+                </div>
+                <button onclick="closeVaultModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 transition-colors">✕</button>
+            </div>
+
+            <div id="vaultUnlockSection" class="space-y-4 py-4 text-center">
+                <p class="text-xs text-slate-500">Enter your Master Password to decrypt and view saved accounts.</p>
+                <input type="password" id="masterPasswordInput" placeholder="Enter Master Password..." 
+                    class="w-full max-w-sm h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner mx-auto block">
+                <button onclick="unlockVault()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">Unlock Vault</button>
+            </div>
+
+            <div id="vaultContentSection" class="space-y-4 hidden">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Saved Vault Accounts</span>
+                    <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline">Lock Vault</button>
+                </div>
+                <div id="vaultAccountsList" class="space-y-3 h-64 overflow-y-auto pr-2">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom Modern Admin Password Modal -->
     <div id="adminPasswordModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
@@ -284,6 +338,15 @@
 
     <!-- Main JavaScript Logic -->
     <script>
+        // PWA Service Worker Registration (Feature 2)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('PWA ServiceWorker registered successfully'))
+                    .catch(err => console.log('PWA ServiceWorker registration failed:', err));
+            });
+        }
+
         let currentLang = 'en';
         let currentTheme = localStorage.getItem('theme') || 'dark';
         let currentActiveSecret = '';
@@ -372,6 +435,198 @@
             });
         }
 
+        // --- Client-Side Encryption & Account Vault Helpers ---
+        async function deriveKey(password, salt) {
+            const enc = new TextEncoder();
+            const keyMaterial = await window.crypto.subtle.importKey(
+                "raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
+            );
+            return window.crypto.subtle.deriveKey(
+                { name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" },
+                keyMaterial,
+                { name: "AES-GCM", length: 256 },
+                false,
+                ["encrypt", "decrypt"]
+            );
+        }
+
+        async function encryptData(password, data) {
+            const salt = window.crypto.getRandomValues(new Uint8Array(16));
+            const iv = window.crypto.getRandomValues(new Uint8Array(12));
+            const key = await deriveKey(password, salt);
+            const encoded = new TextEncoder().encode(JSON.stringify(data));
+            const ciphertext = await window.crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, encoded);
+            
+            return {
+                ciphertext: Array.from(new Uint8Array(ciphertext)),
+                iv: Array.from(iv),
+                salt: Array.from(salt)
+            };
+        }
+
+        async function decryptData(password, encryptedObj) {
+            const salt = new Uint8Array(encryptedObj.salt);
+            const iv = new Uint8Array(encryptedObj.iv);
+            const ciphertext = new Uint8Array(encryptedObj.ciphertext);
+            const key = await deriveKey(password, salt);
+            const decrypted = await window.crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, ciphertext);
+            return JSON.parse(new TextDecoder().decode(decrypted));
+        }
+
+        let decryptedVaultAccounts = null;
+
+        function openVaultModal() {
+            document.getElementById('vaultModal').classList.remove('hidden');
+            if (decryptedVaultAccounts) {
+                document.getElementById('vaultUnlockSection').classList.add('hidden');
+                document.getElementById('vaultContentSection').classList.remove('hidden');
+                renderVaultAccounts();
+            } else {
+                document.getElementById('vaultUnlockSection').classList.remove('hidden');
+                document.getElementById('vaultContentSection').classList.add('hidden');
+                document.getElementById('masterPasswordInput').value = '';
+            }
+        }
+
+        function closeVaultModal() {
+            document.getElementById('vaultModal').classList.add('hidden');
+        }
+
+        async function unlockVault() {
+            const password = document.getElementById('masterPasswordInput').value;
+            if (!password) return alert("Please enter master password!");
+            
+            const rawStored = localStorage.getItem('globalauth_vault');
+            if (!rawStored) {
+                decryptedVaultAccounts = [];
+                document.getElementById('vaultUnlockSection').classList.add('hidden');
+                document.getElementById('vaultContentSection').classList.remove('hidden');
+                renderVaultAccounts();
+                return;
+            }
+
+            try {
+                const encryptedObj = JSON.parse(rawStored);
+                decryptedVaultAccounts = await decryptData(password, encryptedObj);
+                document.getElementById('vaultUnlockSection').classList.add('hidden');
+                document.getElementById('vaultContentSection').classList.remove('hidden');
+                renderVaultAccounts();
+            } catch (err) {
+                alert("Incorrect Master Password or corrupted data!");
+            }
+        }
+
+        function lockVault() {
+            decryptedVaultAccounts = null;
+            document.getElementById('vaultUnlockSection').classList.remove('hidden');
+            document.getElementById('vaultContentSection').classList.add('hidden');
+            document.getElementById('masterPasswordInput').value = '';
+        }
+
+        async function saveAccountToVault() {
+            const secret = getSanitizedSecret();
+            const name = document.getElementById('accountNameInput').value.trim() || "My Account";
+            if (!secret) {
+                alert("Please enter or generate a valid secret key first.");
+                return;
+            }
+
+            let password = prompt("Enter your Master Password to save securely:");
+            if (!password) return;
+
+            let accounts = [];
+            const rawStored = localStorage.getItem('globalauth_vault');
+            if (rawStored) {
+                try {
+                    const encryptedObj = JSON.parse(rawStored);
+                    accounts = await decryptData(password, encryptedObj);
+                } catch (e) {
+                    alert("Incorrect Master Password for existing vault!");
+                    return;
+                }
+            }
+
+            accounts.push({ name, secret });
+            const encryptedNew = await encryptData(password, accounts);
+            localStorage.setItem('globalauth_vault', JSON.stringify(encryptedNew));
+            decryptedVaultAccounts = accounts;
+            alert("Account successfully saved and encrypted in Vault!");
+        }
+
+        function renderVaultAccounts() {
+            const listEl = document.getElementById('vaultAccountsList');
+            if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
+                listEl.innerHTML = `<span class="text-xs text-slate-400 italic">No saved accounts in vault...</span>`;
+                return;
+            }
+
+            listEl.innerHTML = decryptedVaultAccounts.map((acc, index) => `
+                <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/50 dark:border-white/5">
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-900 dark:text-white">${acc.name}</h4>
+                        <span class="text-[10px] font-mono text-slate-400 uppercase">${acc.secret}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="loadVaultAccount('${acc.secret}', '${acc.name}')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[10px] font-bold">Use</button>
+                        <button onclick="deleteVaultAccount(${index})" class="px-2.5 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 rounded-lg text-[10px] font-bold">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function deleteVaultAccount(index) {
+            let password = prompt("Enter Master Password to confirm deletion:");
+            if (!password) return;
+            decryptedVaultAccounts.splice(index, 1);
+            const encryptedNew = await encryptData(password, decryptedVaultAccounts);
+            localStorage.setItem('globalauth_vault', JSON.stringify(encryptedNew));
+            renderVaultAccounts();
+        }
+
+        function loadVaultAccount(secret, name) {
+            document.getElementById('secretInput').value = secret;
+            document.getElementById('accountNameInput').value = name;
+            closeVaultModal();
+        }
+
+        // --- TOTP Generation Client-Side Helper using jsSHA ---
+        function base32ToHex(base32) {
+            const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+            let bits = "";
+            let hex = "";
+            for (let i = 0; i < base32.length; i++) {
+                let val = base32Chars.indexOf(base32.charAt(i).toUpperCase());
+                if (val === -1) continue;
+                bits += val.toString(2).padStart(5, '0');
+            }
+            for (let i = 0; i + 4 <= bits.length; i += 4) {
+                let chunk = bits.substr(i, 4);
+                hex += parseInt(chunk, 2).toString(16);
+            }
+            return hex;
+        }
+
+        function generateTOTP(secret, epoch = 30, digits = 6) {
+            try {
+                const keyHex = base32ToHex(secret);
+                const time = Math.floor(Date.now() / 1000);
+                const counter = Math.floor(time / epoch);
+                const counterHex = counter.toString(16).padStart(16, '0');
+                
+                const shaObj = new jsSHA("SHA-1", "HEX");
+                shaObj.setHMACKey(keyHex, "HEX");
+                shaObj.update(counterHex);
+                const hmacHex = shaObj.getHMAC("HEX");
+                
+                const offset = parseInt(hmacHex.slice(-1), 16);
+                const binary = ((parseInt(hmacHex.substr(offset * 2, 8), 16) & 0x7fffffff));
+                const otp = (binary % Math.pow(10, digits)).toString().padStart(digits, '0');
+                return otp;
+            } catch (e) {
+                return null;
+            }
+        }
+
         // Custom Admin Password Modal Logic with Server API Verification
         function openAdminPasswordModal() {
             document.getElementById('adminPinInput').value = '';
@@ -422,6 +677,9 @@
                 document.getElementById('statGenerations').innerText = data.totalGenerations;
 
                 const logsContainer = document.getElementById('adminLogsList');
+                if (data.generationLogs && data.generationLogs.length > 0) {
+                    logsContainer.innerHTML = data.generationLogs.log.map(log => ``).join(''); // Handled below correctly
+                }
                 if (data.generationLogs && data.generationLogs.length > 0) {
                     logsContainer.innerHTML = data.generationLogs.map(log => `
                         <div class="flex justify-between items-center py-1.5 px-3 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
@@ -559,53 +817,53 @@
 
             currentActiveSecret = secret;
 
+            const token = generateTOTP(secret);
+            if (!token) {
+                errorEl.innerText = "Invalid secret key format.";
+                errorEl.classList.remove('hidden');
+                hcaptcha.reset();
+                return;
+            }
+
+            document.getElementById('resultCode').innerText = token;
+            hcaptcha.reset();
+            startTimer();
+
             try {
-                const response = await fetch('/api/generate-code', {
+                await fetch('/api/generate-code', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ secret, captcha: captchaResponse })
                 });
+            } catch (e) {}
 
-                const data = await response.json();
-                if (!response.ok) throw new Error(data.error || translations[currentLang].errServer);
-
-                document.getElementById('resultCode').innerText = data.token;
-                hcaptcha.reset();
-                startTimer(data.timeLeft);
-
-                const historyList = document.getElementById('historyList');
-                if (historyList.children.length === 1 && historyList.children[0].classList.contains('italic')) {
-                    historyList.innerHTML = '';
-                }
-                const li = document.createElement('li');
-                li.className = "flex justify-between items-center py-2 border-b border-slate-200/50 dark:border-white/5 last:border-0";
-                li.innerHTML = `<span class="font-mono font-bold text-sm text-slate-800 dark:text-slate-200 tracking-[0.15em]">${data.token}</span> <span class="text-[10px] text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">${new Date().toLocaleTimeString()}</span>`;
-                historyList.prepend(li);
-
-            } catch (err) {
-                errorEl.innerText = translations[currentLang].errServer;
-                errorEl.classList.remove('hidden');
-                hcaptcha.reset(); 
+            const historyList = document.getElementById('historyList');
+            if (historyList.children.length === 1 && historyList.children[0].classList.contains('italic')) {
+                historyList.innerHTML = '';
             }
+            const li = document.createElement('li');
+            li.className = "flex justify-between items-center py-2 border-b border-slate-200/50 dark:border-white/5 last:border-0";
+            li.innerHTML = `<span class="font-mono font-bold text-sm text-slate-800 dark:text-slate-200 tracking-[0.15em]">${token}</span> <span class="text-[10px] text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">${new Date().toLocaleTimeString()}</span>`;
+            historyList.prepend(li);
         }
 
-        function startTimer(timeLeft) {
+        function startTimer() {
             if (timerInterval) clearInterval(timerInterval);
-            let currentLeft = timeLeft;
             const progressBar = document.getElementById('progressBar');
             const timerText = document.getElementById('timerText');
 
             timerInterval = setInterval(() => {
-                currentLeft--;
-                const percent = (currentLeft / 30) * 100;
+                const epoch = 30;
+                const timeNow = Math.floor(Date.now() / 1000);
+                const currentLeft = epoch - (timeNow % epoch);
+                const percent = (currentLeft / epoch) * 100;
+                
                 progressBar.style.width = `${percent}%`;
                 timerText.innerText = currentLeft + 's';
 
-                if (currentLeft <= 0) {
-                    clearInterval(timerInterval);
-                    document.getElementById('resultCode').innerText = '------';
-                    timerText.innerText = translations[currentLang].expired;
-                    progressBar.style.width = '0%';
+                if (currentLeft === 30 && currentActiveSecret) {
+                    const newToken = generateTOTP(currentActiveSecret);
+                    if (newToken) document.getElementById('resultCode').innerText = newToken;
                 }
             }, 1000);
         }
