@@ -702,7 +702,7 @@
             generateCode();
         }
 
-        // --- Robust Base32 to Bytes Conversion for jsSHA v3 ---
+        // --- Robust Base32 to Bytes Conversion & Correct jsSHA v3 Implementation ---
         function base32ToBytes(base32) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             let bits = "";
@@ -733,7 +733,7 @@
                 const counter = Math.floor(time / epoch);
                 const counterHex = counter.toString(16).padStart(16, '0');
                 
-                // Correct jsSHA v3 syntax using options object for hmacKey and getHash
+                // FIXED jsSHA v3 syntax for HMAC
                 const shaObj = new jsSHA("SHA-1", "HEX", { hmacKey: { value: keyHex, format: "HEX" } });
                 shaObj.update(counterHex);
                 const hmacHex = shaObj.getHash("HEX");
