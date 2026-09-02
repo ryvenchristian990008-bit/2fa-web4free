@@ -14,23 +14,42 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+    <!-- Anti-Glitch: Zero-Flicker Pre-Render Theme Initialization -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+
     <!-- Universal Cross-Browser Favicon -->
-    <link id="appFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='100%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-    <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='100%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link id="appFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = { darkMode: 'class' }
     </script>
     <style>
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
         body, button, input, span, div, h1, p, label {
             font-family: 'Outfit', 'Kantumruy Pro', sans-serif !important;
             text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
         }
         ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -51,7 +70,25 @@
                 radial-gradient(circle at 85% 30%, rgba(55, 48, 163, 0.18), transparent 30%);
         }
         
-        /* Vignette Overlay */
+        /* Hardware-Accelerated Smooth Whole-Site Slide-Down */
+        @keyframes siteSlideDownEntrance {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, -32px, 0);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .animate-site-entrance {
+            animation: siteSlideDownEntrance 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform, opacity;
+        }
+
         .vignette-overlay {
             position: fixed;
             inset: 0;
@@ -67,7 +104,7 @@
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(28px);
             -webkit-backdrop-filter: blur(28px);
             border: 1px solid rgba(255, 255, 255, 0.9);
@@ -77,7 +114,7 @@
                 inset 0 1px 1px rgba(255, 255, 255, 1);
         }
         .dark .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.72);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 
                 0 30px 65px -15px rgba(0, 0, 0, 0.65),
@@ -132,17 +169,24 @@
             animation: laserSweep 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        /* Slide-Down Animation */
-        @keyframes slideDownReveal {
-            0% { opacity: 0; transform: translateY(-30px) scale(0.96); }
-            65% { opacity: 1; transform: translateY(4px) scale(1.01); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+        /* In-Card Slide-Down Animation Without Glitch */
+        @keyframes slideDownCard {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, -24px, 0) scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) scale(1);
+            }
         }
-        .animate-slide-down {
-            animation: slideDownReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .animate-card-slide-down {
+            animation: slideDownCard 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
-        /* Style 1: Dual-Ring Orbital Spinner */
+        /* Dual-Ring Orbital Spinner */
         @keyframes orbitCW {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -158,16 +202,7 @@
             animation: orbitCCW 0.6s linear infinite;
         }
 
-        /* Style 2: Holographic Radar Scan Sweep for Verification */
-        @keyframes matrixPulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 16px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-        .matrix-verifying-pulse {
-            animation: matrixPulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
+        /* Matrix Sweep Radar */
         @keyframes matrixSweepLine {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(200%); }
@@ -175,7 +210,7 @@
         .matrix-sweep-bar {
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(52, 211, 153, 0.35), transparent);
             animation: matrixSweepLine 0.75s ease-in-out infinite;
         }
 
@@ -188,35 +223,37 @@
         }
 
         @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.92) translateY(12px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+            0% { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.95); }
+            100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
         }
         .animate-pop {
-            animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            backface-visibility: hidden;
         }
 
         @keyframes springPop {
-            0% { opacity: 0; transform: scale(0.8) translateY(10px); color: #818cf8; }
-            50% { opacity: 1; transform: scale(1.05) translateY(-2px); color: #c084fc; }
+            0% { opacity: 0; transform: scale(0.85) translateY(8px); }
+            60% { opacity: 1; transform: scale(1.04) translateY(-2px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
         .animate-spring-pop {
-            animation: springPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: springPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         .btn-modern {
             transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s, box-shadow 0.2s, color 0.2s;
             will-change: transform;
+            backface-visibility: hidden;
         }
         .btn-modern:hover { transform: translate3d(0, -2px, 0); }
         .btn-modern:active { transform: translate3d(0, 1px, 0) scale(0.98); }
     </style>
 </head>
-<body id="bodyRoot" class="bg-ultra-dark text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-700">
+<body id="bodyRoot" class="bg-ultra-dark text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden">
 
     <div class="vignette-overlay"></div>
 
-    <!-- Hidden background iframe for silent Monetag impressions (No tabs opened) -->
+    <!-- Hidden background iframe for silent Monetag impressions -->
     <iframe id="silentAdFrame" class="hidden" style="display:none;width:0;height:0;border:0;"></iframe>
 
     <!-- Toast Notification -->
@@ -278,192 +315,196 @@
         </div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-40 bg-white/70 dark:bg-slate-950/40 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/40 transition-all duration-500">
-        <div class="max-w-[90rem] mx-auto px-8 h-24 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 flex items-center justify-center shrink-0">
-                    <svg class="w-full h-full drop-shadow-md transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
-                            <linearGradient id="lg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
-                            <linearGradient id="lg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
-                        </defs>
-                        <g stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none">
-                            <path d="M60 20l30 65H50l15-30H35" stroke="url(#lg2)"/>
-                            <path d="M60 20L25 85" stroke="url(#lg1)"/>
-                        </g>
-                        <path d="M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z" fill="url(#lg3)" stroke="#ffffff" stroke-width="2.5"/>
-                        <path d="M78 74l5 5 10-10" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <span class="font-extrabold tracking-tight text-2xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
-            </div>
+    <!-- Whole Website Dynamic Slide-Down Container (Triggered on reload or smooth refresh) -->
+    <div id="wholeSiteContainer" class="animate-site-entrance flex-grow flex flex-col">
 
-            <div class="flex items-center gap-3">
-                <button onclick="openVaultModal()" class="h-12 px-5 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-sm font-bold transition-all btn-modern border border-cyan-500/25 flex items-center gap-2.5 shadow-sm">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                    <span>Vault</span>
-                </button>
-
-                <button onclick="openAdminPasswordModal()" class="h-12 px-5 rounded-2xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-sm font-bold transition-all btn-modern border border-indigo-500/25 flex items-center gap-2.5 shadow-sm">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <span>Admin</span>
-                </button>
-
-                <button onclick="toggleLanguage()" class="h-12 px-5 rounded-2xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-bold transition-all btn-modern border border-slate-200/80 dark:border-white/5 flex items-center gap-2.5 shadow-sm">
-                    <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
-                    <span id="langText">EN / ខ្មែរ</span>
-                </button>
-
-                <button onclick="toggleTheme()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200/80 dark:border-white/5 shadow-sm">
-                    <svg id="icon-sun" class="w-5 h-5 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <svg id="icon-moon" class="w-5 h-5 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Workspace Container -->
-    <main class="flex-grow flex items-center justify-center p-6 md:p-12 lg:p-16 relative">
-        <div class="w-full max-w-7xl glass-panel rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2">
-                
-                <!-- Left Panel -->
-                <div class="p-10 md:p-16 xl:p-20 space-y-10 bg-white/40 dark:bg-slate-900/40 border-r border-transparent lg:border-slate-200/60 lg:dark:border-white/5">
-                    <div>
-                        <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
-                        <p class="text-base font-medium text-slate-500 dark:text-slate-400 mt-2.5" data-i18n="desc">Secure Global Access</p>
+        <!-- Navbar -->
+        <nav class="sticky top-0 z-40 bg-white/70 dark:bg-slate-950/40 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/40 transition-all duration-500">
+            <div class="max-w-[90rem] mx-auto px-8 h-24 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 flex items-center justify-center shrink-0">
+                        <svg class="w-full h-full drop-shadow-md transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="lg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
+                                <linearGradient id="lg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
+                                <linearGradient id="lg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
+                            </defs>
+                            <g stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                                <path d="M60 20l30 65H50l15-30H35" stroke="url(#lg2)"/>
+                                <path d="M60 20L25 85" stroke="url(#lg1)"/>
+                            </g>
+                            <path d="M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z" fill="url(#lg3)" stroke="#ffffff" stroke-width="2.5"/>
+                            <path d="M78 74l5 5 10-10" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                     </div>
-
-                    <div class="space-y-5">
-                        <div class="flex justify-between items-center">
-                            <label class="text-sm font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400" data-i18n="labelKey">Secret Key</label>
-                            <label class="px-4 py-2 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-xl text-xs uppercase tracking-widest font-bold cursor-pointer flex items-center gap-2 transition-colors shadow-sm">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
-                                <span data-i18n="btnUpload">Upload QR</span>
-                                <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
-                            </label>
-                        </div>
-                        <input type="text" id="secretInput" placeholder="Paste your key or otpauth:// link here..." 
-                            class="w-full h-16 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-6 text-base font-semibold focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 pt-4">
-                        <!-- Generate Button (Style 1: Dual-Ring Orbital Scan animation) -->
-                        <button id="genBtn" onclick="initiateGenerateFlow()" class="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-base font-bold btn-modern shadow-[0_12px_30px_rgba(79,70,229,0.35)] flex items-center justify-center gap-2.5 relative overflow-hidden group">
-                            <div class="btn-shimmer-beam"></div>
-
-                            <!-- Regular State -->
-                            <span id="genBtnText" class="flex items-center gap-2.5 relative z-10 transition-transform duration-200 group-hover:scale-105">
-                                <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                                <span data-i18n="btnGen">Generate</span>
-                            </span>
-
-                            <!-- 2-Second Delay State: Dual Orbital Rings -->
-                            <div id="genBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-3 bg-indigo-600 z-20">
-                                <div class="relative w-6 h-6 flex items-center justify-center">
-                                    <div class="orbital-spinner-outer absolute inset-0 rounded-full border-2 border-transparent border-t-cyan-300 border-b-cyan-300"></div>
-                                    <div class="orbital-spinner-inner absolute inset-1 rounded-full border-2 border-transparent border-l-white border-r-white"></div>
-                                </div>
-                                <span class="text-sm font-bold tracking-wider text-cyan-100" data-i18n="analyzing">Analyzing Key...</span>
-                            </div>
-                        </button>
-                        
-                        <button onclick="saveAccountToVault()" class="h-16 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl text-sm font-bold btn-modern border border-slate-200/90 dark:border-white/5 flex items-center justify-center gap-2.5 shadow-sm">
-                            <svg class="w-5 h-5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
-                            <span>Save to Vault</span>
-                        </button>
-                    </div>
+                    <span class="font-extrabold tracking-tight text-2xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
                 </div>
 
-                <!-- Right Panel -->
-                <div class="p-10 md:p-16 xl:p-20 space-y-8 flex flex-col justify-center bg-slate-50/40 dark:bg-slate-900/20">
+                <div class="flex items-center gap-3">
+                    <!-- Smooth App-Refresh Button (Glides whole site down smoothly) -->
+                    <button onclick="triggerSmoothRefresh()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 btn-modern border border-slate-200/80 dark:border-white/5 shadow-sm" title="Smooth Refresh">
+                        <svg id="refreshIcon" class="w-5 h-5 text-indigo-500 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    </button>
+
+                    <button onclick="openVaultModal()" class="h-12 px-5 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-sm font-bold transition-all btn-modern border border-cyan-500/25 flex items-center gap-2.5 shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <span>Vault</span>
+                    </button>
+
+                    <button onclick="openAdminPasswordModal()" class="h-12 px-5 rounded-2xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-sm font-bold transition-all btn-modern border border-indigo-500/25 flex items-center gap-2.5 shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <span>Admin</span>
+                    </button>
+
+                    <button onclick="toggleLanguage()" class="h-12 px-5 rounded-2xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm font-bold transition-all btn-modern border border-slate-200/80 dark:border-white/5 flex items-center gap-2.5 shadow-sm">
+                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                        <span id="langText">EN / ខ្មែរ</span>
+                    </button>
+
+                    <button onclick="toggleTheme()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200/80 dark:border-white/5 shadow-sm">
+                        <svg id="icon-sun" class="w-5 h-5 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="icon-moon" class="w-5 h-5 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Workspace Container -->
+        <main class="flex-grow flex items-center justify-center p-6 md:p-12 lg:p-16 relative">
+            <div class="w-full max-w-7xl glass-panel rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden relative z-10 transition-shadow duration-500">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
                     
-                    <div id="codeCardBox" class="relative p-10 rounded-[2.5rem] soft-card overflow-hidden transition-all duration-500">
-                        <div id="laserScanner" class="laser-scanner-line"></div>
+                    <!-- Left Panel -->
+                    <div class="p-10 md:p-16 xl:p-20 space-y-10 bg-white/40 dark:bg-slate-900/40 border-r border-transparent lg:border-slate-200/60 lg:dark:border-white/5">
+                        <div>
+                            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
+                            <p class="text-base font-medium text-slate-500 dark:text-slate-400 mt-2.5" data-i18n="desc">Secure Global Access</p>
+                        </div>
 
-                        <!-- Active Code View -->
-                        <div id="codeDisplaySection" class="transition-all duration-500">
-                            <div class="flex justify-between items-center pb-4 relative z-10">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
-                                    <span id="verifiedStatusBadge" class="hidden px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                                        <span data-i18n="verified">Verified</span>
-                                    </span>
+                        <div class="space-y-5">
+                            <div class="flex justify-between items-center">
+                                <label class="text-sm font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400" data-i18n="labelKey">Secret Key</label>
+                                <label class="px-4 py-2 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-xl text-xs uppercase tracking-widest font-bold cursor-pointer flex items-center gap-2 transition-colors shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                                    <span data-i18n="btnUpload">Upload QR</span>
+                                    <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
+                                </label>
+                            </div>
+                            <input type="text" id="secretInput" placeholder="Paste your key or otpauth:// link here..." 
+                                class="w-full h-16 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-6 text-base font-semibold focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 pt-4">
+                            <!-- Generate Button with Dual-Ring Orbital Scan -->
+                            <button id="genBtn" onclick="initiateGenerateFlow()" class="h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-base font-bold btn-modern shadow-[0_12px_30px_rgba(79,70,229,0.35)] flex items-center justify-center gap-2.5 relative overflow-hidden group">
+                                <div class="btn-shimmer-beam"></div>
+
+                                <span id="genBtnText" class="flex items-center gap-2.5 relative z-10 transition-transform duration-200 group-hover:scale-105">
+                                    <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                    <span data-i18n="btnGen">Generate</span>
+                                </span>
+
+                                <div id="genBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-3 bg-indigo-600 z-20">
+                                    <div class="relative w-6 h-6 flex items-center justify-center">
+                                        <div class="orbital-spinner-outer absolute inset-0 rounded-full border-2 border-transparent border-t-cyan-300 border-b-cyan-300"></div>
+                                        <div class="orbital-spinner-inner absolute inset-1 rounded-full border-2 border-transparent border-l-white border-r-white"></div>
+                                    </div>
+                                    <span class="text-sm font-bold tracking-wider text-cyan-100" data-i18n="analyzing">Analyzing Key...</span>
                                 </div>
-                                <span id="timerText" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-4 py-2 rounded-xl shadow-sm" data-i18n="timerLabel">--s</span>
+                            </button>
+                            
+                            <button onclick="saveAccountToVault()" class="h-16 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl text-sm font-bold btn-modern border border-slate-200/90 dark:border-white/5 flex items-center justify-center gap-2.5 shadow-sm">
+                                <svg class="w-5 h-5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                                <span>Save to Vault</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel -->
+                    <div class="p-10 md:p-16 xl:p-20 space-y-8 flex flex-col justify-center bg-slate-50/40 dark:bg-slate-900/20">
+                        
+                        <div id="codeCardBox" class="relative p-10 rounded-[2.5rem] soft-card overflow-hidden transition-all duration-300">
+                            <div id="laserScanner" class="laser-scanner-line"></div>
+
+                            <!-- Active Code View (Slides down smoothly upon completion) -->
+                            <div id="codeDisplaySection" class="transition-all duration-300">
+                                <div class="flex justify-between items-center pb-4 relative z-10">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
+                                        <span id="verifiedStatusBadge" class="hidden px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-bold flex items-center gap-1">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                            <span data-i18n="verified">Verified</span>
+                                        </span>
+                                    </div>
+                                    <span id="timerText" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-4 py-2 rounded-xl shadow-sm" data-i18n="timerLabel">--s</span>
+                                </div>
+
+                                <div class="text-center py-8 relative z-10">
+                                    <div id="resultCode" class="text-5xl md:text-6xl xl:text-7xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white mb-8 drop-shadow-sm ml-2 select-all cursor-pointer">
+                                        ------
+                                    </div>
+                                    
+                                    <div class="w-full h-2.5 bg-slate-200/80 dark:bg-black/50 rounded-full overflow-hidden p-0.5 shadow-inner">
+                                        <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 h-full rounded-full transition-all duration-1000 ease-linear animate-glow-bar" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="w-full pt-2 relative z-10">
+                                    <button id="copyBtn" class="w-full h-14 flex items-center justify-center gap-2.5 bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-2xl text-base font-bold btn-modern border border-slate-200 dark:border-white/5 transition-all duration-300 shadow-sm">
+                                        <svg id="copyIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                        <span id="copyText" data-i18n="btnCopy">Copy Code</span>
+                                    </button>
+                                </div>
                             </div>
 
-                            <div class="text-center py-8 relative z-10">
-                                <div id="resultCode" class="text-5xl md:text-6xl xl:text-7xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white mb-8 drop-shadow-sm ml-2 select-all cursor-pointer">
-                                    ------
+                            <!-- In-Page Security Gate -->
+                            <div id="verificationGateSection" class="hidden py-4 text-center space-y-5 relative z-10 transition-all duration-300">
+                                <div class="w-16 h-16 bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 text-indigo-500 dark:text-cyan-400 rounded-2xl flex items-center justify-center mx-auto border border-indigo-500/20 shadow-lg">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                 </div>
                                 
-                                <div class="w-full h-2.5 bg-slate-200/80 dark:bg-black/50 rounded-full overflow-hidden p-0.5 shadow-inner">
-                                    <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 h-full rounded-full transition-all duration-1000 ease-linear animate-glow-bar" style="width: 0%;"></div>
+                                <div>
+                                    <h3 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white" data-i18n="verifyTitle">Security Clearance Required</h3>
+                                    <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1.5 max-w-sm mx-auto" data-i18n="verifyDesc">Complete a 1-click sponsor verification to reveal your live 6-digit TOTP security code.</p>
+                                </div>
+
+                                <div class="pt-2">
+                                    <button id="monetagVerifyBtn" onclick="executeVerificationAndReveal()" 
+                                        class="w-full h-16 bg-gradient-to-r from-emerald-500 via-teal-600 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white rounded-2xl text-base font-black btn-modern shadow-[0_12px_30px_rgba(16,185,129,0.35)] flex items-center justify-center gap-3 relative overflow-hidden group">
+                                        <div class="btn-shimmer-beam"></div>
+
+                                        <span id="verifyBtnContent" class="flex items-center gap-2.5 relative z-10 transition-transform duration-200 group-hover:scale-105">
+                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                            <span data-i18n="btnVerify">Verify & Reveal Code (Free)</span>
+                                        </span>
+
+                                        <div id="verifyBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-3 bg-emerald-600/95 z-20 backdrop-blur-sm">
+                                            <div class="matrix-sweep-bar"></div>
+                                            <svg class="animate-spin w-5 h-5 text-emerald-100" fill="none" viewBox="0 0 24 24"><circle class="opacity-30" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-90" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                            <span class="text-sm font-extrabold tracking-widest uppercase text-white relative z-10" data-i18n="authorizing">Decrypting Token...</span>
+                                        </div>
+                                    </button>
+                                    <button onclick="cancelVerification()" class="mt-3 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" data-i18n="btnBack">← Return to Key Input</button>
                                 </div>
                             </div>
 
-                            <div class="w-full pt-2 relative z-10">
-                                <button id="copyBtn" class="w-full h-14 flex items-center justify-center gap-2.5 bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-2xl text-base font-bold btn-modern border border-slate-200 dark:border-white/5 transition-all duration-300 shadow-sm">
-                                    <svg id="copyIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                                    <span id="copyText" data-i18n="btnCopy">Copy Code</span>
-                                </button>
-                            </div>
                         </div>
 
-                        <!-- In-Page Security Gate -->
-                        <div id="verificationGateSection" class="hidden py-4 text-center space-y-5 relative z-10">
-                            <div class="w-16 h-16 bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 text-indigo-500 dark:text-cyan-400 rounded-2xl flex items-center justify-center mx-auto border border-indigo-500/20 shadow-lg">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white" data-i18n="verifyTitle">Security Clearance Required</h3>
-                                <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1.5 max-w-sm mx-auto" data-i18n="verifyDesc">Complete a 1-click sponsor verification to reveal your live 6-digit TOTP security code.</p>
-                            </div>
-
-                            <!-- Verify Button (Style 2: Holographic Matrix Clearance animation) -->
-                            <div class="pt-2">
-                                <button id="monetagVerifyBtn" onclick="executeVerificationAndReveal()" 
-                                    class="w-full h-16 bg-gradient-to-r from-emerald-500 via-teal-600 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white rounded-2xl text-base font-black btn-modern shadow-[0_12px_30px_rgba(16,185,129,0.35)] flex items-center justify-center gap-3 relative overflow-hidden group">
-                                    <div class="btn-shimmer-beam"></div>
-
-                                    <!-- Normal State -->
-                                    <span id="verifyBtnContent" class="flex items-center gap-2.5 relative z-10 transition-transform duration-200 group-hover:scale-105">
-                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                                        <span data-i18n="btnVerify">Verify & Reveal Code (Free)</span>
-                                    </span>
-
-                                    <!-- 2-Second Delay State: Holographic Radar Matrix Bar -->
-                                    <div id="verifyBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-3 bg-emerald-600/95 z-20 backdrop-blur-sm">
-                                        <div class="matrix-sweep-bar"></div>
-                                        <svg class="animate-spin w-5 h-5 text-emerald-100" fill="none" viewBox="0 0 24 24"><circle class="opacity-30" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-90" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                        <span class="text-sm font-extrabold tracking-widest uppercase text-white relative z-10" data-i18n="authorizing">Decrypting Token...</span>
-                                    </div>
-                                </button>
-                                <button onclick="cancelVerification()" class="mt-3 text-xs font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" data-i18n="btnBack">← Return to Key Input</button>
-                            </div>
+                        <!-- History Card -->
+                        <div class="relative p-8 rounded-[2.5rem] soft-card transition-all duration-300">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2" data-i18n="historyTitle">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Recent History
+                            </h3>
+                            <ul id="historyList" class="space-y-3 h-20 overflow-y-auto pr-2">
+                                <li class="text-sm font-medium text-slate-400 italic" data-i18n="noHistory">No entries yet</li>
+                            </ul>
                         </div>
-
-                    </div>
-
-                    <!-- History Card -->
-                    <div class="relative p-8 rounded-[2.5rem] soft-card transition-all">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2" data-i18n="historyTitle">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Recent History
-                        </h3>
-                        <ul id="historyList" class="space-y-3 h-20 overflow-y-auto pr-2">
-                            <li class="text-sm font-medium text-slate-400 italic" data-i18n="noHistory">No entries yet</li>
-                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
@@ -571,9 +612,8 @@
         </div>
     </div>
 
-    <!-- Main JavaScript Logic -->
+    <!-- Main Logic -->
     <script>
-        // Monetag SmartLink Monetization Link
         const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
 
         function initFavicon() {
@@ -610,6 +650,21 @@
         }
         initFavicon();
 
+        // Smooth Whole-Site Refresh (Slides entire UI down cleanly without browser stutter)
+        function triggerSmoothRefresh() {
+            const container = document.getElementById('wholeSiteContainer');
+            const refreshIcon = document.getElementById('refreshIcon');
+            
+            refreshIcon.classList.add('rotate-180');
+            container.classList.remove('animate-site-entrance');
+            void container.offsetWidth; // force reflow for smooth re-entry
+            container.classList.add('animate-site-entrance');
+
+            setTimeout(() => {
+                refreshIcon.classList.remove('rotate-180');
+            }, 700);
+        }
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js').catch(err => {});
@@ -625,14 +680,14 @@
             const iconMoon = document.getElementById('icon-moon');
             if (currentTheme === 'dark') {
                 document.documentElement.classList.add('dark');
-                document.getElementById('bodyRoot').className = "bg-ultra-dark text-slate-200 min-h-screen flex flex-col transition-colors duration-700";
-                iconSun.classList.remove('hidden');
-                iconMoon.classList.add('hidden');
+                document.getElementById('bodyRoot').className = "bg-ultra-dark text-slate-200 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden";
+                iconSun?.classList.remove('hidden');
+                iconMoon?.classList.add('hidden');
             } else {
                 document.documentElement.classList.remove('dark');
-                document.getElementById('bodyRoot').className = "bg-ultra-light text-slate-800 min-h-screen flex flex-col transition-colors duration-700";
-                iconMoon.classList.remove('hidden');
-                iconSun.classList.add('hidden');
+                document.getElementById('bodyRoot').className = "bg-ultra-light text-slate-800 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden";
+                iconMoon?.classList.remove('hidden');
+                iconSun?.classList.add('hidden');
             }
         }
         updateThemeClasses();
@@ -1050,7 +1105,6 @@
                 const otp = (binary % Math.pow(10, digits)).toString().padStart(digits, '0');
                 return otp;
             } catch (e) {
-                console.error("TOTP Gen Error:", e);
                 return null;
             }
         }
@@ -1143,7 +1197,7 @@
         let timerInterval = null;
         let scrambleInterval = null;
 
-        // Step 1: User clicks "Generate" -> 2-Second Modern Delay (Style 1: Dual-Ring Orbital Scan)
+        // Step 1: User clicks "Generate" -> 2-Second Delay (Orbital Spinner)
         function initiateGenerateFlow() {
             const secret = getSanitizedSecret();
             if (!secret) {
@@ -1155,12 +1209,10 @@
             const genBtnText = document.getElementById('genBtnText');
             const genBtnLoading = document.getElementById('genBtnLoading');
 
-            // Trigger Style 1 Animation on Generate Button
             genBtn.disabled = true;
             genBtnText.classList.add('opacity-0');
             genBtnLoading.classList.remove('hidden');
 
-            // 2-Second Delay
             setTimeout(() => {
                 genBtn.disabled = false;
                 genBtnText.classList.remove('opacity-0');
@@ -1170,7 +1222,7 @@
                 const gateSection = document.getElementById('verificationGateSection');
 
                 codeSection.classList.add('hidden');
-                codeSection.classList.remove('animate-slide-down');
+                codeSection.classList.remove('animate-card-slide-down');
 
                 gateSection.classList.remove('hidden');
                 gateSection.classList.add('animate-pop');
@@ -1185,8 +1237,8 @@
             codeSection.classList.remove('hidden');
         }
 
-        // Step 2: User clicks "Verify & Reveal Code" -> 2-Second Modern Delay (Style 2: Holographic Matrix Radar Sweep)
-        // Stays strictly in the same tab, then reveals and slides down code
+        // Step 2: User clicks "Verify & Reveal Code" -> 2-Second Delay (Matrix Radar)
+        // Stays in the same tab, slides down code view without UI glitch
         function executeVerificationAndReveal() {
             const secret = getSanitizedSecret();
             if (!secret) return;
@@ -1195,22 +1247,17 @@
             const verifyContent = document.getElementById('verifyBtnContent');
             const verifyLoading = document.getElementById('verifyBtnLoading');
 
-            // Trigger Style 2 Animation on Verify Button
             verifyBtn.disabled = true;
             verifyContent.classList.add('opacity-0');
             verifyLoading.classList.remove('hidden');
 
-            // Trigger impression silently in background without leaving or opening new tab
             if (MONETAG_DIRECT_LINK) {
                 try {
                     const silentFrame = document.getElementById('silentAdFrame');
-                    if (silentFrame) {
-                        silentFrame.src = MONETAG_DIRECT_LINK;
-                    }
+                    if (silentFrame) silentFrame.src = MONETAG_DIRECT_LINK;
                 } catch (err) {}
             }
 
-            // 2-Second Delay
             setTimeout(() => {
                 verifyBtn.disabled = false;
                 verifyContent.classList.remove('opacity-0');
@@ -1222,23 +1269,20 @@
                 const laser = document.getElementById('laserScanner');
                 const verifiedBadge = document.getElementById('verifiedStatusBadge');
 
-                // Hide gate
                 gateSection.classList.add('hidden');
 
-                // Slide down code view smoothly
+                // Smooth slide-down without snapping
                 codeSection.classList.remove('hidden');
-                codeSection.classList.remove('animate-slide-down');
+                codeSection.classList.remove('animate-card-slide-down');
                 void codeSection.offsetWidth;
-                codeSection.classList.add('animate-slide-down');
+                codeSection.classList.add('animate-card-slide-down');
 
                 verifiedBadge.classList.remove('hidden');
 
-                // Laser scanline sweep
                 laser.classList.remove('laser-active');
                 void laser.offsetWidth;
                 laser.classList.add('laser-active');
 
-                // Quick digit scramble before reveal
                 codeEl.classList.remove('animate-spring-pop');
                 codeEl.style.opacity = '0.35';
 
