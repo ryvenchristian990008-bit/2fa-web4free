@@ -17,7 +17,6 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M60 20l30 65H50l15-30H35' fill='none' stroke='url(%23lg2)' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M60 20L25 85' fill='none' stroke='url(%23lg1)' stroke-width='22' stroke-linecap='round'/%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -70,6 +69,15 @@
         }
         .animate-pop {
             animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        /* New Spring Pop Animation for Code Digits */
+        @keyframes springPop {
+            0% { opacity: 0; transform: scale(0.8) translateY(10px); color: #818cf8; }
+            50% { opacity: 1; transform: scale(1.05) translateY(-2px); color: #c084fc; }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .animate-spring-pop {
+            animation: springPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
         .delay-100 { animation-delay: 100ms; }
         .delay-200 { animation-delay: 200ms; }
@@ -125,27 +133,22 @@
                 <span class="font-extrabold tracking-tight text-xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
             </div>
 
-            <!-- Navbar Action Buttons Group -->
             <div class="flex items-center gap-2.5">
-                <!-- Vault Button -->
                 <button onclick="openVaultModal()" class="h-10 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-500 dark:text-cyan-400 text-xs font-bold transition-all btn-modern border border-cyan-500/20 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     <span>Vault</span>
                 </button>
 
-                <!-- Admin Panel Button -->
                 <button onclick="openAdminPasswordModal()" class="h-10 px-4 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/20 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     <span>Admin</span>
                 </button>
 
-                <!-- Language Switcher Button -->
                 <button onclick="toggleLanguage()" class="h-10 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all btn-modern border border-slate-200 dark:border-white/5 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                     <span id="langText">EN / ខ្មែរ</span>
                 </button>
 
-                <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
                     <svg id="icon-sun" class="w-4 h-4 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     <svg id="icon-moon" class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
@@ -154,9 +157,8 @@
         </div>
     </nav>
 
-    <!-- Main Section -->
     <main class="flex-grow flex items-center justify-center p-6 md:p-10 relative">
-        <div class="w-full max-w-5xl glass-panel rounded-[2rem] overflow-hidden animate-reveal relative z-10">
+        <div class="w-full max-w-5xl glass-panel rounded-[2rem] overflow-hidden animate-reveal relative z-10 shadow-2xl shadow-indigo-500/10">
             <div class="grid grid-cols-1 md:grid-cols-2">
                 
                 <!-- Left Panel -->
@@ -198,41 +200,45 @@
                     </div>
                 </div>
 
-                <!-- Right Panel -->
-                <div class="p-10 md:p-14 space-y-10 flex flex-col justify-between animate-reveal delay-200 bg-white/20 dark:bg-transparent">
-                    <div class="space-y-6">
+                <!-- Right Panel (With New Cover Cards) -->
+                <div class="p-8 md:p-12 space-y-6 flex flex-col justify-center animate-reveal delay-200 bg-slate-50/50 dark:bg-slate-900/20">
+                    
+                    <!-- Code Cover Box -->
+                    <div class="relative p-8 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl shadow-indigo-500/5">
                         <div class="flex justify-between items-center pb-2">
                             <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
                             <span id="timerText" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 font-mono bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1.5 rounded-lg" data-i18n="timerLabel">--s</span>
                         </div>
 
-                        <div class="text-center py-4">
-                            <div id="resultCode" class="text-4xl md:text-5xl font-mono font-black tracking-[0.3em] text-slate-900 dark:text-white mb-6 drop-shadow-sm ml-2 transition-all duration-500 transform scale-100 opacity-100">
+                        <div class="text-center py-6">
+                            <!-- Code Digits with Spring Pop -->
+                            <div id="resultCode" class="text-4xl md:text-5xl font-mono font-black tracking-[0.3em] text-slate-900 dark:text-white mb-6 drop-shadow-sm ml-2">
                                 ------
                             </div>
-                            <div class="w-full h-1.5 bg-slate-200 dark:bg-black/40 rounded-full overflow-hidden shadow-inner">
+                            <div class="w-full h-1.5 bg-slate-100 dark:bg-black/40 rounded-full overflow-hidden shadow-inner">
                                 <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
-                            <button id="copyBtn" class="h-12 flex items-center justify-center gap-2 bg-white hover:bg-slate-50 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
+                            <button id="copyBtn" class="h-12 flex items-center justify-center gap-2 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                                 <span data-i18n="btnCopy">Copy</span>
                             </button>
-                            <button onclick="openQRModal()" class="h-12 flex items-center justify-center gap-2 bg-white hover:bg-slate-50 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
+                            <button onclick="openQRModal()" class="h-12 flex items-center justify-center gap-2 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
                                 <span data-i18n="btnShowQR">Show QR</span>
                             </button>
                         </div>
                     </div>
 
-                    <div>
+                    <!-- History Cover Box -->
+                    <div class="relative p-6 rounded-[2rem] bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-lg shadow-indigo-500/5">
                         <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5" data-i18n="historyTitle">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             Recent History
                         </h3>
-                        <ul id="historyList" class="space-y-2 h-20 overflow-y-auto pr-2">
+                        <ul id="historyList" class="space-y-2 h-[4.5rem] overflow-y-auto pr-2">
                             <li class="text-xs font-medium text-slate-400 italic" data-i18n="noHistory">No entries yet</li>
                         </ul>
                     </div>
@@ -276,7 +282,8 @@
                     </div>
                     <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline shrink-0">Lock Vault</button>
                 </div>
-                <div id="vaultAccountsList" class="space-y-3 h-60 overflow-y-auto pr-2"></div>
+                <div id="vaultAccountsList" class="space-y-3 h-60 overflow-y-auto pr-2">
+                    </div>
             </div>
         </div>
     </div>
@@ -479,7 +486,6 @@
             });
         }
 
-        // --- Bulletproof Secret Sanitizer with Smart Fallback ---
         function getSanitizedSecret() {
             let rawVal = document.getElementById('secretInput').value.trim();
             if (!rawVal) return '';
@@ -509,7 +515,6 @@
             return cleaned.replace(/=+$/, '');
         }
 
-        // --- Client-Side Encryption & Account Vault Helpers ---
         async function deriveKey(password, salt) {
             const enc = new TextEncoder();
             const keyMaterial = await window.crypto.subtle.importKey(
@@ -711,7 +716,6 @@
             generateCode();
         }
 
-        // --- 100% Robust Base32 & Text Fallback Decoder ---
         function getSecretBytes(secret) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             let cleaned = secret.replace(/=+$/, '').toUpperCase()
@@ -731,7 +735,6 @@
                 bytes.push(parseInt(bits.substr(i, 8), 2));
             }
 
-            // Fallback: If not strict base32, use raw text bytes so it NEVER fails!
             if (bytes.length === 0) {
                 return new TextEncoder().encode(secret);
             }
@@ -899,6 +902,7 @@
         }
 
         let timerInterval = null;
+        let scrambleInterval = null;
 
         async function generateCode() {
             const secret = getSanitizedSecret();
@@ -907,13 +911,24 @@
                 return;
             }
 
-            // Show 2-second smooth loading animation
             const btnText = document.getElementById('genBtnText');
             const spinner = document.getElementById('genSpinner');
+            const codeEl = document.getElementById('resultCode');
+            
             btnText.classList.add('opacity-0');
             spinner.classList.remove('hidden');
+            
+            // Remove previous pop animation and start Cyber-Scramble
+            codeEl.classList.remove('animate-spring-pop');
+            codeEl.style.opacity = '0.5';
+            
+            if (scrambleInterval) clearInterval(scrambleInterval);
+            scrambleInterval = setInterval(() => {
+                codeEl.innerText = Math.floor(100000 + Math.random() * 900000).toString();
+            }, 50);
 
             setTimeout(async () => {
+                clearInterval(scrambleInterval);
                 currentActiveSecret = secret;
                 const token = await generateTOTP(secret);
 
@@ -921,20 +936,15 @@
                 btnText.classList.remove('opacity-0');
 
                 if (!token) {
+                    codeEl.innerText = "------";
                     showModernAlert("Error", "Invalid secret key format.");
                     return;
                 }
 
-                // Smooth pop transition for code digits
-                const codeEl = document.getElementById('resultCode');
-                codeEl.style.transform = "scale(0.8)";
-                codeEl.style.opacity = "0";
+                // Apply new Spring Pop Animation
                 codeEl.innerText = token;
-                
-                setTimeout(() => {
-                    codeEl.style.transform = "scale(1)";
-                    codeEl.style.opacity = "1";
-                }, 50);
+                void codeEl.offsetWidth; // Trigger DOM reflow to restart animation
+                codeEl.classList.add('animate-spring-pop');
 
                 startTimer();
 
@@ -975,13 +985,10 @@
                     const newToken = await generateTOTP(currentActiveSecret);
                     if (newToken) {
                         const codeEl = document.getElementById('resultCode');
-                        codeEl.style.transform = "scale(0.9)";
-                        codeEl.style.opacity = "0.5";
+                        codeEl.classList.remove('animate-spring-pop');
+                        void codeEl.offsetWidth;
                         codeEl.innerText = newToken;
-                        setTimeout(() => {
-                            codeEl.style.transform = "scale(1)";
-                            codeEl.style.opacity = "1";
-                        }, 200);
+                        codeEl.classList.add('animate-spring-pop');
                     }
                 }
             }, 1000);
