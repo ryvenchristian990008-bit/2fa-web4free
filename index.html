@@ -251,7 +251,6 @@
 
             <div id="vaultContentSection" class="space-y-4 hidden">
                 <div class="flex justify-between items-center gap-4">
-                    <!-- Search Bar for Vault -->
                     <div class="relative flex-grow">
                         <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search accounts (e.g. Facebook, IG)..." 
                             class="w-full h-11 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-xs font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 shadow-inner">
@@ -463,7 +462,6 @@
             
             let cleaned = rawVal.replace(/\s+/g, '').toUpperCase();
             
-            // Handle full otpauth:// URIs commonly provided by social media platforms
             if (cleaned.startsWith('OTPAUTH://')) {
                 try {
                     const url = new URL(rawVal);
@@ -471,7 +469,6 @@
                     if (secretParam) {
                         cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
                     } else {
-                        // Fallback regex parsing if URL parsing encounters quirks
                         const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
                         if (match && match[1]) {
                             cleaned = match[1].replace(/=+$/, '').toUpperCase();
@@ -485,7 +482,6 @@
                 }
             }
             
-            // Remove padding characters for pure base32 compatibility
             return cleaned.replace(/=+$/, '');
         }
 
@@ -706,7 +702,7 @@
             generateCode();
         }
 
-        // --- TOTP Generation Client-Side Helper using jsSHA ---
+        // --- TOTP Generation Client-Side Helper using jsSHA v3 (Fixed getHash syntax) ---
         function base32ToHex(base32) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             let bits = "";
@@ -730,10 +726,9 @@
                 const counter = Math.floor(time / epoch);
                 const counterHex = counter.toString(16).padStart(16, '0');
                 
-                const shaObj = new jsSHA("SHA-1", "HEX");
-                shaObj.setHMACKey(keyHex, "HEX");
+                const shaObj = new jsSHA("SHA-1", "HEX", { hmacKey: { value: keyHex, format: "HEX" } });
                 shaObj.update(counterHex);
-                const hmacHex = shaObj.getHMAC("HEX");
+                const hmacHex = shaObj.getHash("HEX");
                 
                 const offset = parseInt(hmacHex.slice(-1), 16);
                 const binary = ((parseInt(hmacHex.substr(offset * 2, 8), 16) & 0x7fffffff));
