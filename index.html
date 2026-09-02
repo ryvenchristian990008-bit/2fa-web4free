@@ -186,31 +186,6 @@
             -webkit-backface-visibility: hidden;
         }
 
-        /* Smooth Left/Right Swap Slide Transitions */
-        .swap-pane {
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, opacity;
-        }
-        .swap-slide-left-out {
-            opacity: 0;
-            transform: translate3d(-60px, 0, 0);
-            pointer-events: none;
-            position: absolute;
-            width: 100%;
-        }
-        .swap-slide-right-out {
-            opacity: 0;
-            transform: translate3d(60px, 0, 0);
-            pointer-events: none;
-            position: absolute;
-            width: 100%;
-        }
-        .swap-slide-in {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-            position: relative;
-        }
-
         /* Dual-Ring Orbital Spinner */
         @keyframes orbitCW {
             0% { transform: rotate(0deg); }
@@ -327,7 +302,7 @@
     <!-- Modern Confirm Modal -->
     <div id="modernConfirmModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeModernConfirm()"></div>
-        <div class="relative w-full max-w-sm glass-panel rounded-[2.5rem] p-8 z-10 text-center space-y-5 animate-pop shadow-2xl">
+        <div class="relative w-full max-sm glass-panel rounded-[2.5rem] p-8 z-10 text-center space-y-5 animate-pop shadow-2xl">
             <div class="w-14 h-14 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto shadow-inner">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
             </div>
@@ -365,16 +340,6 @@
                     <span class="font-extrabold tracking-tight text-2xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
                 </div>
 
-                <!-- Dual-Button Taskbar Mode Switcher -->
-                <div class="hidden md:flex items-center bg-slate-200/70 dark:bg-slate-900 p-1.5 rounded-2xl border border-slate-300 dark:border-slate-800 shadow-inner">
-                    <button id="tabTotpBtn" onclick="switchAppMode('totp')" class="px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-indigo-600 text-white shadow-md">
-                        🔐 TOTP Authenticator
-                    </button>
-                    <button id="tabSmsBtn" onclick="switchAppMode('sms')" class="px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
-                        📱 SMS OTP Tool
-                    </button>
-                </div>
-
                 <div class="flex items-center gap-3">
                     <button onclick="triggerSmoothRefresh()" class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white hover:bg-slate-50 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 btn-modern border border-slate-200/80 dark:border-white/5 shadow-sm" title="Smooth Refresh">
                         <svg id="refreshIcon" class="w-5 h-5 text-indigo-500 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
@@ -407,8 +372,8 @@
         <main class="flex-grow flex items-center justify-center p-6 md:p-12 lg:p-16 relative">
             <div class="w-full max-w-7xl glass-panel rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden relative z-10 transition-shadow duration-500">
                 
-                <!-- SECTION 1: TOTP AUTHENTICATOR VIEW -->
-                <div id="totpSection" class="swap-pane swap-slide-in grid grid-cols-1 lg:grid-cols-2">
+                <!-- TOTP AUTHENTICATOR VIEW -->
+                <div id="totpSection" class="grid grid-cols-1 lg:grid-cols-2">
                     <!-- Left Panel -->
                     <div class="p-10 md:p-16 xl:p-20 space-y-10 bg-white/40 dark:bg-slate-900/40 border-r border-transparent lg:border-slate-200/60 lg:dark:border-white/5">
                         <div>
@@ -537,44 +502,6 @@
                     </div>
                 </div>
 
-                <!-- SECTION 2: SMS OTP SIMULATOR VIEW (Added Option) -->
-                <div id="smsSection" class="swap-pane swap-slide-right-out grid grid-cols-1 lg:grid-cols-2 hidden">
-                    <div class="p-10 md:p-16 xl:p-20 space-y-10 bg-white/40 dark:bg-slate-900/40 border-r border-transparent lg:border-slate-200/60 lg:dark:border-white/5">
-                        <div>
-                            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">SMS OTP Tool</h2>
-                            <p class="text-base font-medium text-slate-500 dark:text-slate-400 mt-2.5">Input your target phone number for test code formatting</p>
-                        </div>
-
-                        <div class="space-y-5">
-                            <label class="text-sm font-bold tracking-wider uppercase text-slate-700 dark:text-slate-400">Target Phone Number</label>
-                            <input type="text" id="smsPhoneInput" placeholder="+855 12 345 678 or +1 (555)..." 
-                                class="w-full h-16 bg-white dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-6 text-base font-semibold focus:outline-none focus:border-emerald-500 text-slate-900 dark:text-slate-100 shadow-sm">
-                        </div>
-
-                        <div class="pt-4">
-                            <button onclick="generateSmsCodeAction()" class="w-full h-16 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 text-white rounded-2xl text-base font-bold btn-modern shadow-xl flex items-center justify-center gap-2.5">
-                                <svg class="w-5 h-5 text-emerald-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                                <span>Generate SMS Code</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="p-10 md:p-16 xl:p-20 space-y-8 flex flex-col justify-center bg-slate-50/40 dark:bg-slate-900/20">
-                        <div class="relative p-10 rounded-[2.5rem] soft-card text-center space-y-6">
-                            <span class="text-xs font-bold uppercase tracking-widest text-emerald-500">Incoming Verification SMS</span>
-                            <div id="smsResultDisplay" class="text-5xl md:text-6xl font-mono font-black tracking-[0.2em] text-slate-900 dark:text-white">------</div>
-                            <p id="smsStatusText" class="text-xs text-slate-400 italic">Enter your international number to generate formatting token.</p>
-                            
-                            <div class="pt-2">
-                                <button onclick="copySmsCode()" class="w-full h-14 flex items-center justify-center gap-2.5 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-2xl text-base font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
-                                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                                    <span>Copy SMS Code</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </main>
     </div>
@@ -688,90 +615,6 @@
     <!-- Main Logic Script -->
     <script>
         const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
-
-        // Smooth Left/Right Swap Switcher with Active State Styling
-        function switchAppMode(targetMode) {
-            const totpSec = document.getElementById('totpSection');
-            const smsSec = document.getElementById('smsSection');
-            const totpBtn = document.getElementById('tabTotpBtn');
-            const smsBtn = document.getElementById('tabSmsBtn');
-
-            if (targetMode === 'totp') {
-                smsSec.classList.remove('swap-slide-in');
-                smsSec.classList.add('swap-slide-right-out');
-                
-                totpSec.classList.remove('hidden', 'swap-slide-left-out');
-                totpSec.classList.add('swap-slide-in');
-
-                setTimeout(() => {
-                    smsSec.classList.add('hidden');
-                }, 500);
-
-                totpBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-indigo-600 text-white shadow-md";
-                smsBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
-            } else {
-                totpSec.classList.remove('swap-slide-in');
-                totpSec.classList.add('swap-slide-left-out');
-
-                smsSec.classList.remove('hidden', 'swap-slide-right-out');
-                smsSec.classList.add('swap-slide-in');
-
-                setTimeout(() => {
-                    totpSec.classList.add('hidden');
-                }, 500);
-
-                smsBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all bg-emerald-600 text-white shadow-md";
-                totpBtn.className = "px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
-            }
-        }
-
-        // Animated SMS Generator with Code Scramble Effect
-        function generateSmsCodeAction() {
-            const phone = document.getElementById('smsPhoneInput').value.trim();
-            if (!phone) {
-                showModernAlert("Required", "Please enter a phone number first!");
-                return;
-            }
-
-            const displayEl = document.getElementById('smsResultDisplay');
-            const statusEl = document.getElementById('smsStatusText');
-            
-            displayEl.style.opacity = '0.3';
-            statusEl.innerText = "Encrypting & routing SMS gateway token...";
-
-            let counter = 0;
-            const scramble = setInterval(() => {
-                displayEl.innerText = Math.floor(100000 + Math.random() * 900000).toString();
-                counter++;
-                if (counter > 12) {
-                    clearInterval(scramble);
-                    const finalCode = Math.floor(100000 + Math.random() * 900000).toString();
-                    displayEl.innerText = finalCode;
-                    displayEl.style.opacity = '1';
-                    displayEl.classList.remove('animate-spring-pop');
-                    void displayEl.offsetWidth;
-                    displayEl.classList.add('animate-spring-pop');
-                    statusEl.innerText = `SMS verification code successfully dispatched to: ${phone}`;
-                }
-            }, 50);
-        }
-
-        function copySmsCode() {
-            const code = document.getElementById('smsResultDisplay').innerText;
-            if (code && code !== '------') {
-                navigator.clipboard.writeText(code);
-                const toast = document.getElementById('toastNotification');
-                document.getElementById('toastText').innerText = "Copied SMS Code Successfully!";
-                toast.classList.remove('hidden');
-                requestAnimationFrame(() => { toast.classList.remove('opacity-0'); });
-                setTimeout(() => {
-                    toast.classList.add('opacity-0');
-                    setTimeout(() => toast.classList.add('hidden'), 300);
-                }, 2000);
-            } else {
-                showModernAlert("Notice", "Please generate an SMS code first!");
-            }
-        }
 
         function initFavicon() {
             const svgData = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
