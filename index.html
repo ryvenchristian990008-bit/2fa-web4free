@@ -104,7 +104,7 @@
             <!-- Modern Navbar Action Buttons Group -->
             <div class="flex items-center gap-2.5">
                 <!-- Admin Panel Button -->
-                <button onclick="checkAdminAccess()" class="h-10 px-4 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/20 flex items-center gap-2 shadow-sm">
+                <button onclick="openAdminPasswordModal()" class="h-10 px-4 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/20 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     <span>Admin</span>
                 </button>
@@ -115,7 +115,7 @@
                     <span id="langText">EN / ខ្មែរ</span>
                 </button>
 
-                <!-- Theme Toggle Button (Placed after language button) -->
+                <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
                     <svg id="icon-sun" class="w-4 h-4 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     <svg id="icon-moon" class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
@@ -203,6 +203,31 @@
             </div>
         </div>
     </main>
+
+    <!-- Custom Modern Admin Password Modal -->
+    <div id="adminPasswordModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeAdminPasswordModal()"></div>
+        <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h3 class="text-lg font-black text-slate-900 dark:text-white">Admin Access</h3>
+                <p class="text-xs text-slate-500 mt-1">Please enter your passcode to continue</p>
+            </div>
+
+            <div class="space-y-3">
+                <input type="password" id="adminPinInput" placeholder="Enter admin passcode..." 
+                    class="w-full h-12 bg-slate-100 dark:bg-black/30 border border-slate-200 dark:border-white/10 rounded-xl px-4 text-sm font-semibold focus:outline-none focus:border-indigo-500 text-slate-900 dark:text-slate-100 text-center tracking-widest shadow-inner">
+                <p id="adminPasswordError" class="text-xs text-rose-500 text-center font-bold hidden">Incorrect Passcode!</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="closeAdminPasswordModal()" class="h-11 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold transition-all">Cancel</button>
+                <button onclick="verifyAdminPasscode()" class="h-11 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">Confirm</button>
+            </div>
+        </div>
+    </div>
 
     <!-- QR Export Modal -->
     <div id="qrModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none modal-transition opacity-0">
@@ -347,15 +372,33 @@
             });
         }
 
-        function checkAdminAccess() {
-            let pin = prompt("Enter Admin Passcode:");
+        // Custom Admin Password Modal Logic
+        function openAdminPasswordModal() {
+            document.getElementById('adminPinInput').value = '';
+            document.getElementById('adminPasswordError').classList.add('hidden');
+            document.getElementById('adminPasswordModal').classList.remove('hidden');
+            document.getElementById('adminPinInput').focus();
+        }
+
+        function closeAdminPasswordModal() {
+            document.getElementById('adminPasswordModal').classList.add('hidden');
+        }
+
+        function verifyAdminPasscode() {
+            let pin = document.getElementById('adminPinInput').value;
             if (pin === "admin123") {
+                closeAdminPasswordModal();
                 document.getElementById('adminModal').classList.remove('hidden');
                 fetchAdminStats();
             } else {
-                alert("Incorrect Passcode!");
+                document.getElementById('adminPasswordError').classList.remove('hidden');
             }
         }
+
+        // Allow pressing Enter key to submit admin password
+        document.getElementById('adminPinInput')?.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') verifyAdminPasscode();
+        });
 
         function closeAdminPanel() {
             document.getElementById('adminModal').classList.add('hidden');
