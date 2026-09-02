@@ -159,7 +159,7 @@
                                 <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
                             </label>
                         </div>
-                        <input type="text" id="secretInput" placeholder="Paste your key here..." 
+                        <input type="text" id="secretInput" placeholder="Paste your key or otpauth:// link here..." 
                             class="w-full h-14 bg-white/80 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl px-5 text-sm font-semibold focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 text-slate-900 dark:text-slate-100 uppercase tracking-widest transition-all shadow-sm placeholder:tracking-normal placeholder:normal-case">
                     </div>
 
@@ -259,7 +259,7 @@
                     <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline shrink-0">Lock Vault</button>
                 </div>
                 <div id="vaultAccountsList" class="space-y-3 h-60 overflow-y-auto pr-2">
-                    <!-- Populated dynamically with Pin, Rename, Use, and Delete buttons -->
+                    <!-- Populated dynamically -->
                 </div>
             </div>
         </div>
@@ -456,6 +456,39 @@
             });
         }
 
+        // --- Robust Secret Sanitization for Social Media Links & Base32 ---
+        function getSanitizedSecret() {
+            let rawVal = document.getElementById('secretInput').value.trim();
+            if (!rawVal) return '';
+            
+            let cleaned = rawVal.replace(/\s+/g, '').toUpperCase();
+            
+            // Handle full otpauth:// URIs commonly provided by social media platforms
+            if (cleaned.startsWith('OTPAUTH://')) {
+                try {
+                    const url = new URL(rawVal);
+                    const secretParam = url.searchParams.get('secret');
+                    if (secretParam) {
+                        cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
+                    } else {
+                        // Fallback regex parsing if URL parsing encounters quirks
+                        const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
+                        if (match && match[1]) {
+                            cleaned = match[1].replace(/=+$/, '').toUpperCase();
+                        }
+                    }
+                } catch (e) {
+                    const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
+                    if (match && match[1]) {
+                        cleaned = match[1].replace(/=+$/, '').toUpperCase();
+                    }
+                }
+            }
+            
+            // Remove padding characters for pure base32 compatibility
+            return cleaned.replace(/=+$/, '');
+        }
+
         // --- Client-Side Encryption & Account Vault Helpers ---
         async function deriveKey(password, salt) {
             const enc = new TextEncoder();
@@ -588,7 +621,6 @@
                 }
             }
 
-            // Automatically name the account and prompt user to rename immediately or later
             const defaultName = `Account #${accounts.length + 1}`;
             accounts.push({ name: defaultName, secret, pinned: false });
             
@@ -614,10 +646,7 @@
                 return;
             }
 
-            // Filter accounts by search query
             const filtered = decryptedVaultAccounts.filter(acc => acc.name.toLowerCase().includes(searchVal) || acc.secret.toLowerCase().includes(searchVal));
-
-            // Sort pinned accounts to top
             filtered.sort((a, b) => (b.pinned === true) - (a.pinned === true));
 
             if (filtered.length === 0) {
@@ -674,7 +703,7 @@
         function loadVaultAccount(secret) {
             document.getElementById('secretInput').value = secret;
             closeVaultModal();
-            generateCode(); // Directly generate code digits!
+            generateCode();
         }
 
         // --- TOTP Generation Client-Side Helper using jsSHA ---
@@ -780,19 +809,6 @@
             }
         }
 
-        function getSanitizedSecret() {
-            let rawVal = document.getElementById('secretInput').value.trim();
-            let cleaned = rawVal.replace(/\s+/g, '').toUpperCase();
-            if (cleaned.startsWith('OTPAUTH://')) {
-                try {
-                    const url = new URL(rawVal);
-                    const secretParam = url.searchParams.get('secret');
-                    if (secretParam) cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
-                } catch (e) {}
-            }
-            return cleaned;
-        }
-
         function handleQRCodeUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -811,13 +827,6 @@
                     const errorEl = document.getElementById('errorMessage');
                     if (code) {
                         let text = code.data;
-                        if (text.startsWith('otpauth://')) {
-                            try {
-                                const url = new URL(text);
-                                const secretParam = url.searchParams.get('secret');
-                                if (secretParam) text = secretParam;
-                            } catch (err) {}
-                        }
                         document.getElementById('secretInput').value = text;
                         errorEl.classList.add('hidden');
                     } else {
