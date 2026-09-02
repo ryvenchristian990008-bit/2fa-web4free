@@ -63,6 +63,13 @@
             will-change: transform, opacity;
             animation: revealSmooth 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .animate-pop {
+            animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
         .delay-100 { animation-delay: 100ms; }
         .delay-200 { animation-delay: 200ms; }
         .btn-modern {
@@ -83,7 +90,18 @@
         <span id="toastText">Action Successful</span>
     </div>
 
-    <!-- Navbar -->
+    <div id="modernAlertModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeModernAlert()"></div>
+        <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 text-center space-y-4 animate-pop">
+            <div id="alertIconContainer" class="w-12 h-12 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h3 id="alertTitle" class="text-lg font-black text-slate-900 dark:text-white">Notice</h3>
+            <p id="alertMessage" class="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed"></p>
+            <button onclick="closeModernAlert()" class="w-full h-11 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md">OK</button>
+        </div>
+    </div>
+
     <nav class="sticky top-0 z-40 bg-white/60 dark:bg-slate-950/40 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-800/40 transition-all duration-500">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3.5">
@@ -105,27 +123,22 @@
                 <span class="font-extrabold tracking-tight text-xl text-slate-900 dark:text-white" data-i18n="siteName">GlobalAuth</span>
             </div>
 
-            <!-- Navbar Action Buttons Group -->
             <div class="flex items-center gap-2.5">
-                <!-- Vault Button -->
                 <button onclick="openVaultModal()" class="h-10 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-500 dark:text-cyan-400 text-xs font-bold transition-all btn-modern border border-cyan-500/20 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     <span>Vault</span>
                 </button>
 
-                <!-- Admin Panel Button -->
                 <button onclick="openAdminPasswordModal()" class="h-10 px-4 rounded-xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 dark:text-indigo-400 text-xs font-bold transition-all btn-modern border border-indigo-500/20 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     <span>Admin</span>
                 </button>
 
-                <!-- Language Switcher Button -->
                 <button onclick="toggleLanguage()" class="h-10 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all btn-modern border border-slate-200 dark:border-white/5 flex items-center gap-2 shadow-sm">
                     <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                     <span id="langText">EN / ខ្មែរ</span>
                 </button>
 
-                <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-slate-300 btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
                     <svg id="icon-sun" class="w-4 h-4 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     <svg id="icon-moon" class="w-4 h-4 text-indigo-500 dark:text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
@@ -134,12 +147,10 @@
         </div>
     </nav>
 
-    <!-- Main Section -->
     <main class="flex-grow flex items-center justify-center p-6 md:p-10 relative">
         <div class="w-full max-w-5xl glass-panel rounded-[2rem] overflow-hidden animate-reveal relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2">
                 
-                <!-- Left Panel -->
                 <div class="p-10 md:p-14 space-y-8 bg-white/50 dark:bg-slate-900/40 border-r border-transparent md:border-slate-200/50 md:dark:border-white/5 animate-reveal delay-100">
                     <div>
                         <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication</h2>
@@ -162,9 +173,14 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-3 pt-2">
-                        <button onclick="generateCode()" class="h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_8px_25px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                            <span data-i18n="btnGen">Generate</span>
+                        <button id="genBtn" onclick="generateCode()" class="h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl text-sm font-bold btn-modern shadow-[0_8px_25px_rgba(79,70,229,0.3)] flex items-center justify-center gap-2 relative overflow-hidden">
+                            <span id="genBtnText" class="flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                <span data-i18n="btnGen">Generate</span>
+                            </span>
+                            <span id="genSpinner" class="hidden absolute inset-0 flex items-center justify-center bg-indigo-600">
+                                <svg class="animate-spin w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            </span>
                         </button>
                         <button onclick="saveAccountToVault()" class="h-14 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl text-xs font-bold btn-modern border border-slate-200 dark:border-white/5 flex items-center justify-center gap-2 shadow-sm">
                             <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
@@ -173,7 +189,6 @@
                     </div>
                 </div>
 
-                <!-- Right Panel -->
                 <div class="p-10 md:p-14 space-y-10 flex flex-col justify-between animate-reveal delay-200 bg-white/20 dark:bg-transparent">
                     <div class="space-y-6">
                         <div class="flex justify-between items-center pb-2">
@@ -182,7 +197,7 @@
                         </div>
 
                         <div class="text-center py-4">
-                            <div id="resultCode" class="text-4xl md:text-5xl font-mono font-black tracking-[0.3em] text-slate-900 dark:text-white mb-6 drop-shadow-sm ml-2">
+                            <div id="resultCode" class="text-4xl md:text-5xl font-mono font-black tracking-[0.3em] text-slate-900 dark:text-white mb-6 drop-shadow-sm ml-2 transition-all duration-500 transform scale-100 opacity-100">
                                 ------
                             </div>
                             <div class="w-full h-1.5 bg-slate-200 dark:bg-black/40 rounded-full overflow-hidden shadow-inner">
@@ -216,10 +231,9 @@
         </div>
     </main>
 
-    <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeVaultModal()"></div>
-        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6">
+        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6 animate-pop">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4">
                 <div>
                     <h3 class="text-xl font-black text-slate-900 dark:text-white">🛡️ Encrypted Account Vault</h3>
@@ -252,16 +266,14 @@
                     <button onclick="lockVault()" class="text-xs text-rose-500 font-bold hover:underline shrink-0">Lock Vault</button>
                 </div>
                 <div id="vaultAccountsList" class="space-y-3 h-60 overflow-y-auto pr-2">
-                    <!-- Populated dynamically -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
 
-    <!-- Custom Modern Admin Password Modal -->
     <div id="adminPasswordModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeAdminPasswordModal()"></div>
-        <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6">
+        <div class="relative w-full max-w-sm bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6 animate-pop">
             <div class="text-center">
                 <div class="w-12 h-12 bg-indigo-500/10 text-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
@@ -288,10 +300,9 @@
         </div>
     </div>
 
-    <!-- QR Export Modal -->
     <div id="qrModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none modal-transition opacity-0">
         <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md" onclick="closeQRModal()"></div>
-        <div class="relative w-full max-w-sm bg-white dark:bg-[#0f172a] rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.3)] p-8 text-center border border-slate-200/50 dark:border-white/10 modal-transition translate-y-4 scale-95" id="modalContent">
+        <div class="relative w-full max-w-sm bg-white dark:bg-[#0f172a] rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.3)] p-8 text-center border border-slate-200/50 dark:border-white/10 modal-transition translate-y-4 scale-95 animate-pop" id="modalContent">
             <button onclick="closeQRModal()" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 transition-colors">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -305,10 +316,9 @@
         </div>
     </div>
 
-    <!-- Admin Dashboard Modal -->
     <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="closeAdminPanel()"></div>
-        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6">
+        <div class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl p-8 border border-slate-200 dark:border-slate-800 z-10 space-y-6 animate-pop">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4">
                 <div>
                     <h3 class="text-xl font-black text-slate-900 dark:text-white">🛠️ Developer & Admin Panel</h3>
@@ -341,7 +351,6 @@
         </div>
     </div>
 
-    <!-- Main JavaScript Logic using Native Web Crypto API -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -376,6 +385,23 @@
             updateThemeClasses();
         }
 
+        // Modern Custom Alert Function
+        function showModernAlert(title, message, isError = true) {
+            document.getElementById('alertTitle').innerText = title;
+            document.getElementById('alertMessage').innerText = message;
+            const iconContainer = document.getElementById('alertIconContainer');
+            if (isError) {
+                iconContainer.className = "w-12 h-12 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto";
+            } else {
+                iconContainer.className = "w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mx-auto";
+            }
+            document.getElementById('modernAlertModal').classList.remove('hidden');
+        }
+
+        function closeModernAlert() {
+            document.getElementById('modernAlertModal').classList.add('hidden');
+        }
+
         function togglePasswordVisibility(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);
@@ -403,8 +429,6 @@
                 historyTitle: "Recent History",
                 noHistory: "No entries yet",
                 errEmpty: "Please enter a secret key.",
-                errServer: "Connection error.",
-                errQR: "Invalid QR code image.",
                 toastMsg: "Copied Successfully",
                 expired: "Expired",
                 qrModalTitle: "Export Setup Key",
@@ -425,8 +449,6 @@
                 historyTitle: "ប្រវត្តិថ្មីៗ",
                 noHistory: "មិនទាន់មានទិន្នន័យ",
                 errEmpty: "សូមបញ្ចូលលេខកូដសម្ងាត់។",
-                errServer: "បញ្ហាការតភ្ជាប់។",
-                errQR: "រូបភាព QR មិនត្រឹមត្រូវទេ។",
                 toastMsg: "បានចម្លងជោគជ័យ",
                 expired: "ផុតកំណត់",
                 qrModalTitle: "នាំចេញកូដ QR",
@@ -447,33 +469,20 @@
             });
         }
 
-        // --- Robust Secret Sanitization ---
         function getSanitizedSecret() {
             let rawVal = document.getElementById('secretInput').value.trim();
             if (!rawVal) return '';
-            
             let cleaned = rawVal.replace(/\s+/g, '').toUpperCase();
-            
             if (cleaned.startsWith('OTPAUTH://')) {
                 try {
                     const url = new URL(rawVal);
                     const secretParam = url.searchParams.get('secret');
-                    if (secretParam) {
-                        cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
-                    } else {
-                        const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
-                        if (match && match[1]) {
-                            cleaned = match[1].replace(/=+$/, '').toUpperCase();
-                        }
-                    }
+                    if (secretParam) cleaned = secretParam.replace(/\s+/g, '').toUpperCase();
                 } catch (e) {
                     const match = rawVal.match(/[?&]secret=([A-Z2-7=+]+)/i);
-                    if (match && match[1]) {
-                        cleaned = match[1].replace(/=+$/, '').toUpperCase();
-                    }
+                    if (match && match[1]) cleaned = match[1].replace(/=+$/, '').toUpperCase();
                 }
             }
-            
             return cleaned.replace(/=+$/, '');
         }
 
@@ -498,12 +507,7 @@
             const key = await deriveKey(password, salt);
             const encoded = new TextEncoder().encode(JSON.stringify(data));
             const ciphertext = await window.crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, encoded);
-            
-            return {
-                ciphertext: Array.from(new Uint8Array(ciphertext)),
-                iv: Array.from(iv),
-                salt: Array.from(salt)
-            };
+            return { ciphertext: Array.from(new Uint8Array(ciphertext)), iv: Array.from(iv), salt: Array.from(salt) };
         }
 
         async function decryptData(password, encryptedObj) {
@@ -521,7 +525,6 @@
         function openVaultModal() {
             document.getElementById('vaultModal').classList.remove('hidden');
             const hasVault = localStorage.getItem('globalauth_vault');
-            
             if (decryptedVaultAccounts) {
                 document.getElementById('vaultAuthSection').classList.add('hidden');
                 document.getElementById('vaultContentSection').classList.remove('hidden');
@@ -530,7 +533,6 @@
                 document.getElementById('vaultAuthSection').classList.remove('hidden');
                 document.getElementById('vaultContentSection').classList.add('hidden');
                 document.getElementById('masterPasswordInput').value = '';
-                
                 if (!hasVault) {
                     document.getElementById('vaultAuthTitle').innerText = "Create Master Password";
                     document.getElementById('vaultAuthDesc').innerText = "Set a secure password to encrypt your account vault.";
@@ -549,8 +551,10 @@
 
         async function handleVaultAuth() {
             const password = document.getElementById('masterPasswordInput').value;
-            if (!password) return alert("Please enter master password!");
-            
+            if (!password) {
+                showModernAlert("Required", "Please enter master password!");
+                return;
+            }
             const rawStored = localStorage.getItem('globalauth_vault');
             if (!rawStored) {
                 const emptyEncrypted = await encryptData(password, []);
@@ -562,7 +566,6 @@
                 renderVaultAccounts();
                 return;
             }
-
             try {
                 const encryptedObj = JSON.parse(rawStored);
                 decryptedVaultAccounts = await decryptData(password, encryptedObj);
@@ -571,7 +574,7 @@
                 document.getElementById('vaultContentSection').classList.remove('hidden');
                 renderVaultAccounts();
             } catch (err) {
-                alert("Incorrect Master Password!");
+                showModernAlert("Authentication Failed", "Incorrect Master Password!");
             }
         }
 
@@ -586,17 +589,15 @@
         async function saveAccountToVault() {
             const secret = getSanitizedSecret();
             if (!secret) {
-                alert("Please paste or generate a valid secret key first.");
+                showModernAlert("Invalid Secret", "Please paste or generate a valid secret key first.");
                 return;
             }
-
             let password = activeMasterPassword;
             if (!password) {
                 password = prompt("Enter your Master Password (or create one if first time):");
                 if (!password) return;
                 activeMasterPassword = password;
             }
-
             let accounts = [];
             const rawStored = localStorage.getItem('globalauth_vault');
             if (rawStored) {
@@ -604,19 +605,16 @@
                     const encryptedObj = JSON.parse(rawStored);
                     accounts = await decryptData(password, encryptedObj);
                 } catch (e) {
-                    alert("Incorrect Master Password!");
+                    showModernAlert("Error", "Incorrect Master Password!");
                     return;
                 }
             }
-
             const defaultName = `Account #${accounts.length + 1}`;
             accounts.push({ name: defaultName, secret, pinned: false });
-            
             const encryptedNew = await encryptData(password, accounts);
             localStorage.setItem('globalauth_vault', JSON.stringify(encryptedNew));
             decryptedVaultAccounts = accounts;
-            
-            alert("Secret successfully saved to Vault! Click 'Vault' in the navbar to rename, pin, or use it.");
+            showModernAlert("Success", "Secret successfully saved to Vault!", false);
         }
 
         async function updateVaultStorage() {
@@ -628,20 +626,16 @@
         function renderVaultAccounts() {
             const listEl = document.getElementById('vaultAccountsList');
             const searchVal = document.getElementById('vaultSearchInput').value.toLowerCase();
-
             if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
                 listEl.innerHTML = `<span class="text-xs text-slate-400 italic">No saved accounts in vault...</span>`;
                 return;
             }
-
             const filtered = decryptedVaultAccounts.filter(acc => acc.name.toLowerCase().includes(searchVal) || acc.secret.toLowerCase().includes(searchVal));
             filtered.sort((a, b) => (b.pinned === true) - (a.pinned === true));
-
             if (filtered.length === 0) {
                 listEl.innerHTML = `<span class="text-xs text-slate-400 italic">No matching accounts found...</span>`;
                 return;
             }
-
             listEl.innerHTML = filtered.map((acc) => {
                 const realIndex = decryptedVaultAccounts.indexOf(acc);
                 return `
@@ -694,7 +688,7 @@
             generateCode();
         }
 
-        // --- Native Web Crypto API Base32 & TOTP Generator (100% Reliable, Zero Dependency Bugs) ---
+        // --- Native Web Crypto API TOTP Generator ---
         function base32ToBytes(base32) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             let cleaned = base32.replace(/=+$/, '').toUpperCase();
@@ -704,7 +698,6 @@
                 if (val === -1) continue;
                 bits += val.toString(2).padStart(5, '0');
             }
-            
             let bytes = [];
             for (let i = 0; i + 8 <= bits.length; i += 8) {
                 bytes.push(parseInt(bits.substr(i, 8), 2));
@@ -719,28 +712,15 @@
 
                 const time = Math.floor(Date.now() / 1000);
                 const counter = Math.floor(time / epoch);
-                
-                // Convert counter to 8-byte buffer (Big-endian)
                 const buffer = new ArrayBuffer(8);
                 const view = new DataView(buffer);
                 view.setUint32(4, counter, false);
 
-                // Import key into Web Crypto API for HMAC-SHA1
                 const cryptoKey = await window.crypto.subtle.importKey(
-                    "raw",
-                    bytes,
-                    { name: "HMAC", hash: { name: "SHA-1" } },
-                    false,
-                    ["sign"]
+                    "raw", bytes, { name: "HMAC", hash: { name: "SHA-1" } }, false, ["sign"]
                 );
 
-                // Sign using native browser crypto
-                const signature = await window.crypto.subtle.sign(
-                    "HMAC",
-                    cryptoKey,
-                    buffer
-                );
-
+                const signature = await window.crypto.subtle.sign("HMAC", cryptoKey, buffer);
                 const hmacResult = new Uint8Array(signature);
                 const offset = hmacResult[hmacResult.length - 1] & 0x0f;
                 const binary = 
@@ -752,12 +732,10 @@
                 const otp = (binary % Math.pow(10, digits)).toString().padStart(digits, '0');
                 return otp;
             } catch (e) {
-                console.error("Native TOTP Error:", e);
                 return null;
             }
         }
 
-        // Custom Admin Password Modal Logic with Server API Verification
         function openAdminPasswordModal() {
             document.getElementById('adminPinInput').value = '';
             document.getElementById('adminPasswordError').classList.add('hidden');
@@ -778,7 +756,6 @@
                     body: JSON.stringify({ passcode: pin })
                 });
                 const data = await response.json();
-                
                 if (data.success) {
                     closeAdminPasswordModal();
                     document.getElementById('adminModal').classList.remove('hidden');
@@ -787,7 +764,7 @@
                     document.getElementById('adminPasswordError').classList.remove('hidden');
                 }
             } catch (err) {
-                alert("Connection error!");
+                showModernAlert("Error", "Connection error!");
             }
         }
 
@@ -805,7 +782,6 @@
                 const data = await res.json();
                 document.getElementById('statVisitors').innerText = data.totalVisitors;
                 document.getElementById('statGenerations').innerText = data.totalGenerations;
-
                 const logsContainer = document.getElementById('adminLogsList');
                 if (data.generationLogs && data.generationLogs.length > 0) {
                     logsContainer.innerHTML = data.generationLogs.map(log => `
@@ -817,9 +793,7 @@
                 } else {
                     logsContainer.innerHTML = `<span class="text-slate-400 italic">No activity recorded yet...</span>`;
                 }
-            } catch (err) {
-                console.error("Failed to load admin stats", err);
-            }
+            } catch (err) {}
         }
 
         function handleQRCodeUpload(event) {
@@ -836,15 +810,10 @@
                     context.drawImage(img, 0, 0, img.width, img.height);
                     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
                     const code = jsQR(imageData.data, imageData.width, imageData.height);
-                    
-                    const errorEl = document.getElementById('errorMessage');
                     if (code) {
-                        let text = code.data;
-                        document.getElementById('secretInput').value = text;
-                        errorEl.classList.add('hidden');
+                        document.getElementById('secretInput').value = code.data;
                     } else {
-                        errorEl.innerText = translations[currentLang].errQR;
-                        errorEl.classList.remove('hidden');
+                        showModernAlert("Error", "Invalid QR code image.");
                     }
                 };
                 img.src = e.target.result;
@@ -855,26 +824,20 @@
         function openQRModal() {
             const secret = getSanitizedSecret() || currentActiveSecret;
             if (!secret) {
-                const errorEl = document.getElementById('errorMessage');
-                errorEl.innerText = translations[currentLang].errEmpty;
-                errorEl.classList.remove('hidden');
+                showModernAlert("Required", translations[currentLang].errEmpty);
                 return;
             }
-            
             const container = document.getElementById('qrcode-container');
             container.innerHTML = ''; 
             const otpUri = `otpauth://totp/GlobalAuth?secret=${secret}&issuer=GlobalAuth`;
-            
             QRCode.toCanvas(otpUri, { width: 180, margin: 1, color: { dark: '#000000', light: '#ffffff' } }, function (err, canvas) {
                 if (err) console.error(err);
                 canvas.id = 'qrCanvas';
                 container.appendChild(canvas);
             });
-
             const modal = document.getElementById('qrModal');
             const content = document.getElementById('modalContent');
             modal.classList.remove('hidden', 'pointer-events-none');
-            
             requestAnimationFrame(() => {
                 modal.classList.remove('opacity-0');
                 content.classList.remove('translate-y-4', 'scale-95');
@@ -905,45 +868,59 @@
 
         async function generateCode() {
             const secret = getSanitizedSecret();
-            const errorEl = document.getElementById('errorMessage');
-            
-            errorEl.classList.add('hidden');
-            errorEl.innerText = '';
-
             if (!secret) {
-                errorEl.innerText = translations[currentLang].errEmpty;
-                errorEl.classList.remove('hidden');
+                showModernAlert("Required", translations[currentLang].errEmpty);
                 return;
             }
 
-            currentActiveSecret = secret;
+            // Show 2-second smooth loading animation
+            const btnText = document.getElementById('genBtnText');
+            const spinner = document.getElementById('genSpinner');
+            btnText.classList.add('opacity-0');
+            spinner.classList.remove('hidden');
 
-            const token = await generateTOTP(secret);
-            if (!token) {
-                errorEl.innerText = "Invalid secret key format.";
-                errorEl.classList.remove('hidden');
-                return;
-            }
+            setTimeout(async () => {
+                currentActiveSecret = secret;
+                const token = await generateTOTP(secret);
 
-            document.getElementById('resultCode').innerText = token;
-            startTimer();
+                spinner.classList.add('hidden');
+                btnText.classList.remove('opacity-0');
 
-            try {
-                await fetch('/api/generate-code', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ secret })
-                });
-            } catch (e) {}
+                if (!token) {
+                    showModernAlert("Error", "Invalid secret key format.");
+                    return;
+                }
 
-            const historyList = document.getElementById('historyList');
-            if (historyList.children.length === 1 && historyList.children[0].classList.contains('italic')) {
-                historyList.innerHTML = '';
-            }
-            const li = document.createElement('li');
-            li.className = "flex justify-between items-center py-2 border-b border-slate-200/50 dark:border-white/5 last:border-0";
-            li.innerHTML = `<span class="font-mono font-bold text-sm text-slate-800 dark:text-slate-200 tracking-[0.15em]">${token}</span> <span class="text-[10px] text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">${new Date().toLocaleTimeString()}</span>`;
-            historyList.prepend(li);
+                // Smooth pop transition for code digits
+                const codeEl = document.getElementById('resultCode');
+                codeEl.style.transform = "scale(0.8)";
+                codeEl.style.opacity = "0";
+                codeEl.innerText = token;
+                
+                setTimeout(() => {
+                    codeEl.style.transform = "scale(1)";
+                    codeEl.style.opacity = "1";
+                }, 50);
+
+                startTimer();
+
+                try {
+                    await fetch('/api/generate-code', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ secret })
+                    });
+                } catch (e) {}
+
+                const historyList = document.getElementById('historyList');
+                if (historyList.children.length === 1 && historyList.children[0].classList.contains('italic')) {
+                    historyList.innerHTML = '';
+                }
+                const li = document.createElement('li');
+                li.className = "flex justify-between items-center py-2 border-b border-slate-200/50 dark:border-white/5 last:border-0";
+                li.innerHTML = `<span class="font-mono font-bold text-sm text-slate-800 dark:text-slate-200 tracking-[0.15em]">${token}</span> <span class="text-[10px] text-slate-500 font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-md">${new Date().toLocaleTimeString()}</span>`;
+                historyList.prepend(li);
+            }, 2000); // 2-second realistic security check loading
         }
 
         function startTimer() {
@@ -962,7 +939,16 @@
 
                 if (currentLeft === 30 && currentActiveSecret) {
                     const newToken = await generateTOTP(currentActiveSecret);
-                    if (newToken) document.getElementById('resultCode').innerText = newToken;
+                    if (newToken) {
+                        const codeEl = document.getElementById('resultCode');
+                        codeEl.style.transform = "scale(0.9)";
+                        codeEl.style.opacity = "0.5";
+                        codeEl.innerText = newToken;
+                        setTimeout(() => {
+                            codeEl.style.transform = "scale(1)";
+                            codeEl.style.opacity = "1";
+                        }, 200);
+                    }
                 }
             }, 1000);
         }
