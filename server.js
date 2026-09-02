@@ -20,10 +20,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// API for Admin login with updated passcode 171204
+// API for Admin login with passcode 171204
 app.post('/api/admin/login', (req, res) => {
     const { passcode } = req.body;
-    const ADMIN_SECRET = "171204"; // Updated admin passcode
+    const ADMIN_SECRET = "171204";
 
     if (passcode === ADMIN_SECRET) {
         res.json({ success: true });
