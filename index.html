@@ -60,7 +60,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        body, button, input, span, div, h1, h2, h3, h4, p, label {
+        body, button, input, span, div, h1, h2, h3, h4, p, label, select {
             font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', 'Noto Sans SC', sans-serif !important;
             text-rendering: optimizeLegibility;
         }
@@ -125,6 +125,17 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
+        /* Modernized Custom Select Menus */
+        .modern-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366f1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 0.95rem;
+            padding-right: 2.25rem;
+        }
+
         .laser-sweep {
             position: absolute;
             left: 0; right: 0; height: 2px;
@@ -161,44 +172,6 @@
         @keyframes shimmerBeam {
             0% { transform: translateX(-160%) skewX(-20deg); }
             45%, 100% { transform: translateX(240%) skewX(-20deg); }
-        }
-
-        /* Modern Segmented Pill Control Styles */
-        .segmented-group {
-            display: flex;
-            padding: 3px;
-            border-radius: 0.75rem;
-            background: rgba(226, 232, 240, 0.5);
-            border: 1px solid rgba(203, 213, 225, 0.8);
-        }
-        .dark .segmented-group {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .segmented-btn {
-            flex: 1;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 5px 8px;
-            border-radius: 0.55rem;
-            color: #64748b;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-            user-select: none;
-        }
-        .dark .segmented-btn {
-            color: #94a3b8;
-        }
-        .segmented-btn.active {
-            background: #ffffff;
-            color: #4f46e5;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-        .dark .segmented-btn.active {
-            background: #2563eb;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
         }
 
         @keyframes popIn {
@@ -357,44 +330,47 @@
                     <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="e.g. JBSWY3DPEHPK3PXP or otpauth://..." 
                         class="w-full h-11 card-inner rounded-xl px-4 text-xs sm:text-sm font-mono font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal">
 
-                    <!-- Modern Segmented Pill Parameter Selectors (Replacing Dated Native Dropdowns) -->
-                    <div class="p-3.5 card-inner rounded-xl space-y-3">
+                    <!-- Modern Distinct Individual Dropdown Pickers (One by One) -->
+                    <div class="p-4 card-inner rounded-xl space-y-3">
                         <div class="flex items-center justify-between">
                             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cryptographic Parameters</span>
                             <span class="text-[10px] text-slate-400 font-mono">Auto-detected from URIs</span>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                            <!-- Algorithm Group -->
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Algorithm</label>
-                                <div class="segmented-group" id="groupAlgorithm">
-                                    <div class="segmented-btn active" onclick="setAlgorithmParam('SHA-1')">SHA-1</div>
-                                    <div class="segmented-btn" onclick="setAlgorithmParam('SHA-256')">SHA-256</div>
-                                    <div class="segmented-btn" onclick="setAlgorithmParam('SHA-512')">SHA-512</div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <!-- Algorithm Dropdown -->
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Algorithm</label>
+                                <div class="relative">
+                                    <select id="otpAlgorithmSelect" class="modern-select w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-all cursor-pointer shadow-sm">
+                                        <option value="SHA-1">SHA-1 (Default)</option>
+                                        <option value="SHA-256">SHA-256</option>
+                                        <option value="SHA-512">SHA-512</option>
+                                    </select>
                                 </div>
-                                <input type="hidden" id="otpAlgorithmSelect" value="SHA-1">
                             </div>
 
-                            <!-- Digits Group -->
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Code Length</label>
-                                <div class="segmented-group" id="groupDigits">
-                                    <div class="segmented-btn active" onclick="setDigitsParam('6')">6 Digits</div>
-                                    <div class="segmented-btn" onclick="setDigitsParam('7')">7 Digits</div>
-                                    <div class="segmented-btn" onclick="setDigitsParam('8')">8 Digits</div>
+                            <!-- Code Length Dropdown -->
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Code Length</label>
+                                <div class="relative">
+                                    <select id="otpDigitsSelect" class="modern-select w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-all cursor-pointer shadow-sm">
+                                        <option value="6">6 Digits</option>
+                                        <option value="7">7 Digits</option>
+                                        <option value="8">8 Digits</option>
+                                    </select>
                                 </div>
-                                <input type="hidden" id="otpDigitsSelect" value="6">
                             </div>
 
-                            <!-- Period Group -->
-                            <div class="space-y-1">
-                                <label class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Cycle Period</label>
-                                <div class="segmented-group" id="groupPeriod">
-                                    <div class="segmented-btn active" onclick="setPeriodParam('30')">30s</div>
-                                    <div class="segmented-btn" onclick="setPeriodParam('60')">60s</div>
+                            <!-- Cycle Period Dropdown -->
+                            <div class="space-y-1.5">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cycle Period</label>
+                                <div class="relative">
+                                    <select id="otpPeriodSelect" class="modern-select w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-all cursor-pointer shadow-sm">
+                                        <option value="30">30 Seconds</option>
+                                        <option value="60">60 Seconds</option>
+                                    </select>
                                 </div>
-                                <input type="hidden" id="otpPeriodSelect" value="30">
                             </div>
                         </div>
                     </div>
@@ -497,47 +473,22 @@
             </div>
         </div>
 
-        <!-- Working Interactive Step-by-Step Tutorial Canvas Video System -->
+        <!-- Video Player Section -->
         <div class="panel-glass rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Platform Walkthrough & Visual Guide</h2>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Step-by-step interactive simulator explaining token derivation, encryption, and vault backups.</p>
+                    <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Platform Walkthrough & Guide Video</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Step-by-step video explaining code generation, parameter customization, and vault backups.</p>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="px-2 py-0.5 text-[10px] font-mono font-semibold text-brand-600 dark:text-brand-400 bg-brand-500/10 rounded border border-brand-500/20">Interactive Video Engine</span>
-                </div>
+                <span class="px-2 py-0.5 text-[10px] font-mono font-semibold text-brand-600 dark:text-brand-400 bg-brand-500/10 rounded border border-brand-500/20">HD Tutorial</span>
             </div>
 
-            <!-- 16:9 Video Canvas Container -->
-            <div class="relative w-full aspect-video rounded-xl overflow-hidden card-inner border border-slate-200/80 dark:border-slate-800 bg-slate-950 group">
-                <canvas id="videoVisualizerCanvas" class="w-full h-full object-cover block"></canvas>
-
-                <!-- Big Play Button Overlay -->
-                <div id="videoPlayOverlay" class="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] flex items-center justify-center transition-all duration-300">
-                    <button onclick="toggleVideoPlayback()" class="w-16 h-16 rounded-full bg-brand-600/90 hover:bg-brand-500 text-white flex items-center justify-center shadow-xl shadow-brand-500/40 transition-transform duration-200 group-hover:scale-110">
-                        <svg id="playIconSvg" class="w-7 h-7 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </button>
-                </div>
-
-                <!-- Video Controls Bar -->
-                <div class="absolute bottom-0 inset-x-0 p-3.5 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-transparent flex items-center justify-between text-white text-xs z-20">
-                    <div class="flex items-center gap-3">
-                        <button onclick="toggleVideoPlayback()" class="hover:text-brand-400 transition-colors">
-                            <svg id="controlPlayIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        </button>
-                        <span id="videoTimeDisplay" class="font-mono text-[11px] text-slate-300 font-medium">00:00 / 02:45</span>
-                    </div>
-                    <div class="flex-grow mx-4 h-1.5 bg-slate-800 rounded-full overflow-hidden cursor-pointer" onclick="seekVideoDemo(event)">
-                        <div id="videoProgressBar" class="h-full bg-gradient-to-r from-cyan-400 to-brand-500 rounded-full transition-all duration-150" style="width: 0%;"></div>
-                    </div>
-                    <div class="flex items-center gap-2.5 text-slate-400">
-                        <button onclick="toggleFullscreenVideo()" class="hover:text-white transition-colors" title="Fullscreen">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
-                        </button>
-                    </div>
-                </div>
+            <!-- Standard 16:9 Video Player Container -->
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden card-inner border border-slate-200/80 dark:border-slate-800 bg-slate-950">
+                <video id="tutorialVideo" class="w-full h-full object-cover" controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1280&auto=format&fit=crop">
+                    <source src="tutorial.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
             </div>
         </div>
     </main>
@@ -675,7 +626,7 @@
         </div>
     </div>
 
-    <!-- Script Implementation -->
+    <!-- Production JavaScript Logic -->
     <script>
         const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
         let sessionHistory = [];
@@ -690,34 +641,6 @@
         /* Safe In-Memory Vault State */
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
-
-        /* Parameter Pill Group Button Handlers */
-        function setAlgorithmParam(val) {
-            document.getElementById('otpAlgorithmSelect').value = val;
-            const buttons = document.querySelectorAll('#groupAlgorithm .segmented-btn');
-            buttons.forEach(btn => {
-                if (btn.innerText.trim() === val) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-        }
-
-        function setDigitsParam(val) {
-            document.getElementById('otpDigitsSelect').value = val;
-            const buttons = document.querySelectorAll('#groupDigits .segmented-btn');
-            buttons.forEach(btn => {
-                if (btn.innerText.includes(val)) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-        }
-
-        function setPeriodParam(val) {
-            document.getElementById('otpPeriodSelect').value = val;
-            const buttons = document.querySelectorAll('#groupPeriod .segmented-btn');
-            buttons.forEach(btn => {
-                if (btn.innerText.includes(val)) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-        }
 
         /* Base64 Serialization Helpers */
         function bufferToBase64(buf) {
@@ -778,7 +701,7 @@
             return JSON.parse(new TextDecoder().decode(decrypted));
         }
 
-        /* Vault Lifecycle */
+        /* Vault Lifecycle and Verified Unlock Flow */
         function openVaultModal() {
             document.getElementById('vaultModal').classList.remove('hidden');
             const hasStoredVault = localStorage.getItem('globalauth_vault');
@@ -1003,9 +926,9 @@
         function loadVaultAccount(index) {
             const acc = decryptedVaultAccounts[index];
             document.getElementById('secretInput').value = acc.secret;
-            if (acc.algorithm) setAlgorithmParam(acc.algorithm);
-            if (acc.digits) setDigitsParam(acc.digits.toString());
-            if (acc.period) setPeriodParam(acc.period.toString());
+            if (acc.algorithm) document.getElementById('otpAlgorithmSelect').value = acc.algorithm;
+            if (acc.digits) document.getElementById('otpDigitsSelect').value = acc.digits;
+            if (acc.period) document.getElementById('otpPeriodSelect').value = acc.period;
             closeVaultModal();
             initiateGenerateFlow();
         }
@@ -1137,7 +1060,8 @@
             let cleaned = secret.replace(/=+$/, '').toUpperCase().replace(/0/g, 'O').replace(/1/g, 'I');
             let bits = "";
             for (let i = 0; i < cleaned.length; i++) {
-                let val = base32Chars.indexOf(cleaned.charAt(i));
+                let char = cleaned.charAt(i);
+                let val = base32Chars.indexOf(char);
                 if (val === -1) continue;
                 bits += val.toString(2).padStart(5, '0');
             }
@@ -1371,13 +1295,13 @@
 
                     if (algo) {
                         const nAlgo = algo.toUpperCase();
-                        if (['SHA-1', 'SHA-256', 'SHA-512'].includes(nAlgo)) setAlgorithmParam(nAlgo);
-                        if (nAlgo === 'SHA1') setAlgorithmParam('SHA-1');
-                        if (nAlgo === 'SHA256') setAlgorithmParam('SHA-256');
-                        if (nAlgo === 'SHA512') setAlgorithmParam('SHA-512');
+                        if (['SHA-1', 'SHA-256', 'SHA-512'].includes(nAlgo)) document.getElementById('otpAlgorithmSelect').value = nAlgo;
+                        if (nAlgo === 'SHA1') document.getElementById('otpAlgorithmSelect').value = 'SHA-1';
+                        if (nAlgo === 'SHA256') document.getElementById('otpAlgorithmSelect').value = 'SHA-256';
+                        if (nAlgo === 'SHA512') document.getElementById('otpAlgorithmSelect').value = 'SHA-512';
                     }
-                    if (digits && ['6', '7', '8'].includes(digits)) setDigitsParam(digits);
-                    if (period && ['30', '60'].includes(period)) setPeriodParam(period);
+                    if (digits && ['6', '7', '8'].includes(digits)) document.getElementById('otpDigitsSelect').value = digits;
+                    if (period && ['30', '60'].includes(period)) document.getElementById('otpPeriodSelect').value = period;
                 } catch (e) {}
             }
         }
@@ -1681,244 +1605,6 @@
                     el.innerText = translations[currentLang][key];
                 }
             });
-        }
-
-        /* Complete 6-Scene Step-by-Step Interactive Video Engine */
-        let isVideoPlaying = false;
-        let videoProgress = 0;
-        const videoDuration = 165; // 2 minutes 45 seconds
-        let visualizerAnimId = null;
-
-        const tutorialScenes = [
-            {
-                start: 0, end: 25,
-                title: "SCENE 1: ARCHITECTURE OVERVIEW",
-                desc: "GlobalAuth client-side WebCrypto RFC 6238 TOTP Engine",
-                badge: "GETTING STARTED",
-                stepText: "1. Select your preferred localization (English, Khmer, Chinese)\n2. Seamless toggle between light & dark security modes\n3. Zero server-side token transmission"
-            },
-            {
-                start: 25, end: 55,
-                title: "SCENE 2: CONFIGURING SECRET KEYS",
-                desc: "Automatic URI parsing & cryptographic parameter selection",
-                badge: "KEY DERIVATION",
-                stepText: "1. Paste your Base32 secret key or otpauth:// provisioning link\n2. Or click 'Upload QR Code' to scan image directly\n3. Select SHA-1/256/512, code length (6-8D), and 30s/60s periods"
-            },
-            {
-                start: 55, end: 85,
-                title: "SCENE 3: GENERATION & VERIFICATION",
-                desc: "High-grade laser sweep token authorization",
-                badge: "OTP DECRYPTION",
-                stepText: "1. Click 'Generate Token' to initialize cryptographic HMAC\n2. Complete verification clearance to reveal live TOTP code\n3. Click to copy directly or press Ctrl+C anywhere"
-            },
-            {
-                start: 85, end: 115,
-                title: "SCENE 4: AES-GCM ENCRYPTED VAULT",
-                desc: "Zero-knowledge client-side credential store",
-                badge: "SECURE STORAGE",
-                stepText: "1. Click 'Vault' in the top navbar or press Ctrl+K\n2. Set your Master Password to derive PBKDF2/AES-GCM encryption\n3. Search, rename, pin, or load keys directly to the generator"
-            },
-            {
-                start: 115, end: 145,
-                title: "SCENE 5: BACKUP, RESTORE & HOTKEYS",
-                desc: "Encrypted JSON data portability",
-                badge: "PORTABILITY",
-                stepText: "1. Export password-protected .json backup files in one click\n2. Restore backups across devices with complete integrity\n3. Quick keys: Ctrl+K (Vault), Ctrl+V (Paste), Ctrl+C (Copy)"
-            },
-            {
-                start: 145, end: 165,
-                title: "SCENE 6: MULTI-ACCOUNT LIVE GRID",
-                desc: "Synchronous multi-token monitor dashboard",
-                badge: "LIVE MONITOR",
-                stepText: "1. Open 'Live Grid' from header or inside the Vault\n2. Monitor all saved accounts with synchronized 30s cycle timers\n3. Instant one-click copy for fast multiple account logins"
-            }
-        ];
-
-        function initVideoCanvas() {
-            const canvas = document.getElementById('videoVisualizerCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            
-            function resize() {
-                canvas.width = canvas.parentElement.clientWidth;
-                canvas.height = canvas.parentElement.clientHeight;
-            }
-            resize();
-            window.addEventListener('resize', resize);
-
-            let pulse = 0;
-            function drawFrame() {
-                ctx.fillStyle = '#030712';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                // Background Matrix Circuit Grid
-                ctx.strokeStyle = 'rgba(99, 102, 241, 0.08)';
-                ctx.lineWidth = 1;
-                const gridSize = 35;
-                for (let x = 0; x < canvas.width; x += gridSize) {
-                    ctx.beginPath();
-                    ctx.moveTo(x, 0);
-                    ctx.lineTo(x, canvas.height);
-                    ctx.stroke();
-                }
-                for (let y = 0; y < canvas.height; y += gridSize) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(canvas.width, y);
-                    ctx.stroke();
-                }
-
-                // Locate Current Scene
-                const currentScene = tutorialScenes.find(s => videoProgress >= s.start && videoProgress < s.end) || tutorialScenes[0];
-
-                // Draw Cybernetic Hologram Ring
-                const cx = canvas.width / 2;
-                const cy = canvas.height * 0.42;
-                const radius = Math.min(canvas.width, canvas.height) * 0.28;
-
-                ctx.save();
-                ctx.translate(cx, cy);
-                if (isVideoPlaying) pulse += 0.02;
-                ctx.rotate(pulse * 0.5);
-
-                for (let i = 0; i < 8; i++) {
-                    const angle = (i * Math.PI) / 4;
-                    const nx = Math.cos(angle) * radius;
-                    const ny = Math.sin(angle) * radius;
-
-                    ctx.beginPath();
-                    ctx.arc(nx, ny, 4.5, 0, Math.PI * 2);
-                    ctx.fillStyle = i % 2 === 0 ? '#38bdf8' : '#6366f1';
-                    ctx.shadowColor = i % 2 === 0 ? '#38bdf8' : '#6366f1';
-                    ctx.shadowBlur = isVideoPlaying ? 16 : 6;
-                    ctx.fill();
-
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.lineTo(nx, ny);
-                    ctx.strokeStyle = 'rgba(99, 102, 241, 0.15)';
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-                ctx.restore();
-
-                // Scene Badge
-                ctx.fillStyle = 'rgba(99, 102, 241, 0.2)';
-                ctx.strokeStyle = '#6366f1';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.roundRect(cx - 75, cy - 65, 150, 22, 6);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = '#818cf8';
-                ctx.font = 'bold 10px JetBrains Mono, monospace';
-                ctx.textAlign = 'center';
-                ctx.fillText(currentScene.badge, cx, cy - 50);
-
-                // Scene Title
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 17px Plus Jakarta Sans, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText(currentScene.title, cx, cy - 18);
-
-                // Scene Description
-                ctx.fillStyle = '#38bdf8';
-                ctx.font = '12px Plus Jakarta Sans, sans-serif';
-                ctx.fillText(currentScene.desc, cx, cy + 5);
-
-                // Step-by-Step Instructions Box
-                const boxW = Math.min(canvas.width * 0.85, 520);
-                const boxH = 75;
-                const boxX = cx - boxW / 2;
-                const boxY = cy + 30;
-
-                ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.roundRect(boxX, boxY, boxW, boxH, 10);
-                ctx.fill();
-                ctx.stroke();
-
-                // Instruction Lines
-                ctx.fillStyle = '#cbd5e1';
-                ctx.font = '11px JetBrains Mono, monospace';
-                ctx.textAlign = 'left';
-                const lines = currentScene.stepText.split('\n');
-                lines.forEach((line, idx) => {
-                    ctx.fillText(line, boxX + 15, boxY + 22 + (idx * 18));
-                });
-
-                // Watermark Status
-                ctx.fillStyle = 'rgba(148, 163, 184, 0.5)';
-                ctx.font = '10px JetBrains Mono, monospace';
-                ctx.textAlign = 'right';
-                ctx.fillText(isVideoPlaying ? "SIMULATION STREAM RUNNING" : "PAUSED - CLICK PLAY TO RESUME", canvas.width - 20, 25);
-
-                visualizerAnimId = requestAnimationFrame(drawFrame);
-            }
-            drawFrame();
-        }
-        initVideoCanvas();
-
-        function toggleVideoPlayback() {
-            const playOverlay = document.getElementById('videoPlayOverlay');
-            const playIconSvg = document.getElementById('playIconSvg');
-            const controlPlayIcon = document.getElementById('controlPlayIcon');
-
-            isVideoPlaying = !isVideoPlaying;
-
-            if (isVideoPlaying) {
-                playOverlay.classList.add('opacity-0', 'pointer-events-none');
-                playIconSvg.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
-                controlPlayIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
-            } else {
-                playOverlay.classList.remove('opacity-0', 'pointer-events-none');
-                playIconSvg.innerHTML = `<path d="M8 5v14l11-7z"/>`;
-                controlPlayIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
-            }
-        }
-
-        // Timer and Playback Progress Bar Loop
-        setInterval(() => {
-            if (isVideoPlaying) {
-                videoProgress += 1;
-                if (videoProgress >= videoDuration) {
-                    videoProgress = 0;
-                    toggleVideoPlayback();
-                }
-                
-                const curM = Math.floor(videoProgress / 60).toString().padStart(2, '0');
-                const curS = (videoProgress % 60).toString().padStart(2, '0');
-                const durM = Math.floor(videoDuration / 60).toString().padStart(2, '0');
-                const durS = (videoDuration % 60).toString().padStart(2, '0');
-
-                document.getElementById('videoTimeDisplay').innerText = `${curM}:${curS} / ${durM}:${durS}`;
-                document.getElementById('videoProgressBar').style.width = `${(videoProgress / videoDuration) * 100}%`;
-            }
-        }, 1000);
-
-        function seekVideoDemo(e) {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const clickPos = (e.clientX - rect.left) / rect.width;
-            videoProgress = Math.floor(clickPos * videoDuration);
-            document.getElementById('videoProgressBar').style.width = `${clickPos * 100}%`;
-            
-            const curM = Math.floor(videoProgress / 60).toString().padStart(2, '0');
-            const curS = (videoProgress % 60).toString().padStart(2, '0');
-            const durM = Math.floor(videoDuration / 60).toString().padStart(2, '0');
-            const durS = (videoDuration % 60).toString().padStart(2, '0');
-            document.getElementById('videoTimeDisplay').innerText = `${curM}:${curS} / ${durM}:${durS}`;
-        }
-
-        function toggleFullscreenVideo() {
-            const container = document.getElementById('videoVisualizerCanvas').parentElement;
-            if (!document.fullscreenElement) {
-                container.requestFullscreen().catch(() => {});
-            } else {
-                document.exitFullscreen().catch(() => {});
-            }
         }
     </script>
 </body>
