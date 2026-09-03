@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Disable Browser Stale Caching on Refresh -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -130,7 +129,6 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        /* Modern Custom Dropdown Menu System */
         .custom-dropdown-panel {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(16px);
@@ -199,6 +197,17 @@
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
         .animate-pop { animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        /* Hardware-Accelerated Smooth Whole-Site Slide-Down */
+        @keyframes smoothSiteRefresh {
+            0% { opacity: 0.2; transform: translate3d(0, -12px, 0) scale(0.995); }
+            100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+        }
+        .animate-smooth-refresh {
+            animation: smoothSiteRefresh 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
     </style>
 </head>
 <body id="bodyRoot" class="bg-mesh-dark text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500">
@@ -257,6 +266,33 @@
         </div>
     </div>
 
+    <!-- Complete Guide & Notes Modal -->
+    <div id="notesModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeNotesModal()"></div>
+        <div class="relative w-full max-w-2xl max-h-[85vh] panel-glass rounded-2xl p-6 sm:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
+            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-500 flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <div>
+                        <h3 id="notesHeading" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Platform Guide & Documentation</h3>
+                        <p class="text-[11px] text-slate-400 font-mono">Architecture & Operational Workflow</p>
+                    </div>
+                </div>
+                <button onclick="closeNotesModal()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
+            </div>
+
+            <div id="notesContainer" class="flex-grow overflow-y-auto pr-1 space-y-4 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                <!-- Content dynamically populated via renderNotesContent() -->
+            </div>
+
+            <div class="pt-2 border-t border-slate-200/80 dark:border-slate-800 flex justify-end">
+                <button onclick="closeNotesModal()" class="px-5 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Header Navigation -->
     <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -288,9 +324,15 @@
 
             <!-- Toolbar Controls -->
             <div class="flex items-center gap-1.5 sm:gap-2">
-                <!-- Hard Refresh Engine Button -->
-                <button onclick="triggerForcedHardReload()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Clear Cache & Hard Reload">
+                <!-- Smooth Refresh Engine Button -->
+                <button onclick="triggerSmoothAppRefresh()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Smooth Animated Refresh">
                     <svg id="refreshIcon" class="w-3.5 h-3.5 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                </button>
+
+                <!-- Platform Notes / Process Guide Button -->
+                <button onclick="openNotesModal()" class="h-8 px-2.5 rounded-lg card-inner text-slate-700 dark:text-slate-300 hover:text-amber-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span class="hidden sm:inline" data-i18n="navNotes">Guide</span>
                 </button>
 
                 <button onclick="openMultiAccountDashboard()" class="h-8 px-2.5 rounded-lg card-inner text-slate-700 dark:text-slate-300 hover:text-emerald-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
@@ -322,8 +364,8 @@
         </div>
     </header>
 
-    <!-- Main Workspace -->
-    <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6 relative z-20">
+    <!-- Main Workspace (Smooth Hardware Accelerated Container) -->
+    <main id="mainWorkspace" class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6 relative z-20 transition-all duration-300">
         
         <!-- Primary Dual Column Interface -->
         <div class="panel-glass rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800/80">
@@ -527,28 +569,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Video Player Section (Reliable Universal Embed + Local Fallback) -->
-        <div class="panel-glass rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Platform Walkthrough & Guide Video</h2>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Step-by-step video explaining code generation, parameter customization, and vault backups.</p>
-                </div>
-                <span class="px-2 py-0.5 text-[10px] font-mono font-semibold text-brand-600 dark:text-brand-400 bg-brand-500/10 rounded border border-brand-500/20">HD Tutorial</span>
-            </div>
-
-            <!-- Standard 16:9 Video Container with Live Embed -->
-            <div class="relative w-full aspect-video rounded-xl overflow-hidden card-inner border border-slate-200/80 dark:border-slate-800 bg-slate-950">
-                <iframe 
-                    class="w-full h-full border-0"
-                    src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" 
-                    title="GlobalAuth Walkthrough Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
     </main>
 
     <!-- Account Vault Modal -->
@@ -696,35 +716,136 @@
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
 
-        /* Unregister Stale Service Workers & Force Network Reload */
-        async function triggerForcedHardReload() {
+        /* Hardware-Accelerated Smooth Animated In-App Refresh */
+        function triggerSmoothAppRefresh() {
             const icon = document.getElementById('refreshIcon');
-            if (icon) icon.classList.add('rotate-180');
+            const mainContainer = document.getElementById('mainWorkspace');
 
-            // Unregister any active service worker holding onto cached assets
+            if (icon) {
+                icon.classList.add('rotate-180');
+            }
+
+            if (mainContainer) {
+                mainContainer.classList.remove('animate-smooth-refresh');
+                void mainContainer.offsetWidth; // Force Reflow
+                mainContainer.classList.add('animate-smooth-refresh');
+            }
+
+            // Unregister Service Workers in background to prevent caching lockouts
             if ('serviceWorker' in navigator) {
-                try {
-                    const registrations = await navigator.serviceWorker.getRegistrations();
-                    for (let registration of registrations) {
-                        await registration.unregister();
-                    }
-                } catch (err) {}
+                navigator.serviceWorker.getRegistrations().then(regs => {
+                    for (let reg of regs) reg.unregister();
+                }).catch(() => {});
             }
 
-            // Clear browser CacheStorage API
-            if ('caches' in window) {
-                try {
-                    const keys = await caches.keys();
-                    for (let key of keys) {
-                        await caches.delete(key);
-                    }
-                } catch (err) {}
-            }
-
-            // Force cache-busting reload
             setTimeout(() => {
-                window.location.href = window.location.pathname + '?_t=' + Date.now();
-            }, 300);
+                if (icon) icon.classList.remove('rotate-180');
+                showToast(translations[currentLang].refreshedToast || "Interface refreshed smoothly");
+            }, 700);
+        }
+
+        /* Documentation & Process Guide Notes Engine */
+        const platformNotesData = {
+            en: [
+                {
+                    title: "1. Token Ingestion & QR Code Scanning",
+                    desc: "Paste any standard Base32 secret string (with or without spaces) or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR Code' to automatically detect and extract provisioned keys from account setup screenshots."
+                },
+                {
+                    title: "2. Cryptographic Parameters",
+                    desc: "Customize your hash algorithm (SHA-1 for standard accounts, SHA-256 / SHA-512 for enterprise tokens), code length (6, 7, or 8 digits), and cycle duration (30s or 60s). These settings are auto-detected from valid otpauth:// URIs."
+                },
+                {
+                    title: "3. Generating & Copying Security Codes",
+                    desc: "Click 'Generate Token' to run client-side HMAC cryptographic signing. Complete the one-click clearance step to reveal the live counter and animated code. Click the code or copy button to copy it instantly."
+                },
+                {
+                    title: "4. Zero-Knowledge Client-Side Encrypted Vault",
+                    desc: "Click 'Vault' in the top navigation or press Ctrl+K. Set your master password to initialize local PBKDF2/AES-GCM encryption. Save accounts, pin top accounts, or click 'Use' to load secrets directly back to the generator."
+                },
+                {
+                    title: "5. Backup Export, Restore & Hotkeys",
+                    desc: "Click 'Backup' inside the unlocked vault to export your encrypted database as a .json file. Restore it anywhere using 'Restore'. Use shortcuts: Ctrl+V (paste token), Ctrl+C (copy code), Ctrl+K (open vault), and Escape (close modals)."
+                },
+                {
+                    title: "6. Multi-Account Live Grid",
+                    desc: "Click 'Live Grid' in the header to view and monitor all your stored accounts in real time with synchronized 30-second countdown timers."
+                }
+            ],
+            km: [
+                {
+                    title: "១. ការបញ្ចូលលេខកូដ និងស្កេន QR Code",
+                    desc: "សូមចម្លង និងបិទភ្ជាប់លេខកូដ Base32 ឬតំណភ្ជាប់ otpauth:// ទៅក្នុងប្រអប់ Secret Token។ អ្នកក៏អាចចុច 'ស្កេនរូបភាព QR' ដើម្បីទាញយកលេខកូដដោយស្វ័យប្រវត្តពីកូដ QR ផងដែរ។"
+                },
+                {
+                    title: "២. ការកំណត់ក្បួនដោះស្រាយ និងខ្ទង់លេខ",
+                    desc: "កំណត់ប្រភេទ Hash Algorithm (SHA-1, SHA-256, SHA-512) ចំនួនខ្ទង់លេខ (៦, ៧ ឬ ៨ ខ្ទង់) និងរយៈពេល (៣០ វិនាទី ឬ ៦០ វិនាទី) តាមតម្រូវការគណនីរបស់អ្នក។"
+                },
+                {
+                    title: "៣. ការបង្កើត និងចម្លងលេខកូដសម្ងាត់",
+                    desc: "ចុច 'បង្កើតលេខកូដ' ដើម្បីដំណើរការកូដផ្ទៀងផ្ទាត់។ បន្ទាប់ពីការផ្ទៀងផ្ទាត់ លេខកូដសុវត្ថិភាពនឹងបង្ហាញភ្លាមៗ។ ចុចលើលេខកូដដើម្បីចម្លងចូលទៅក្នុង Clipboard។"
+                },
+                {
+                    title: "៤. ប្រព័ន្ធរក្សាទុកសុវត្ថិភាព Vault (AES-GCM)",
+                    desc: "ចុចប៊ូតុង 'Vault' ឬចុច Ctrl+K ដើម្បីដោះសោរកន្លែងផ្ទុកគណនីដោយប្រើលេខកូដ Master Password។ អ្នកអាចរក្សាទុក ដាក់ផ្កាយ ឬចុច 'Use' ដើម្បីទាញយកគណនីមកប្រើភ្លាមៗ។"
+                },
+                {
+                    title: "៥. ការទាញយកទុក ការបញ្ចូលឡើងវិញ និងផ្លូវកាត់ក្តារចុច",
+                    desc: "ចុច 'Backup' ដើម្បីទាញយកឯកសារ .json ដែលបានអ៊ិនគ្រីបទុកជាឯកសារជំនួយ។ ផ្លូវកាត់ក្តារចុច៖ Ctrl+V (បិទភ្ជាប់), Ctrl+C (ចម្លងកូដ), Ctrl+K (បើក Vault), និង Esc (បិទផ្ទាំង)។"
+                },
+                {
+                    title: "៦. ផ្ទាំងបង្ហាញកូដបន្តផ្ទាល់ (Live Grid)",
+                    desc: "ចុចលើ 'Live Grid' នៅផ្នែកខាងលើដើម្បីមើលលេខកូដ OTP នៃគ្រប់គណនីរបស់អ្នកដែលដំណើរការដំណាលគ្នាក្នុងពេលជាក់ស្តែង។"
+                }
+            ],
+            zh: [
+                {
+                    title: "1. 密钥输入与二维码解析",
+                    desc: "在密钥框输入 Base32 密钥字符串或完整的 otpauth:// 协议链接。也可点击“上传二维码”直接从截图中自动识别并导入密钥。"
+                },
+                {
+                    title: "2. 加密参数与位数自定义",
+                    desc: "自由配置哈希算法（SHA-1、SHA-256、SHA-512）、验证码位数（6、7 或 8 位）以及更新周期（30秒或60秒），系统将自动从 URI 中同步解析。"
+                },
+                {
+                    title: "3. 动态验证码生成与复制",
+                    desc: "点击“生成动态验证码”并在完成安全授权后即可展示实时倒计时安全码。支持一键点击复制到系统剪贴板。"
+                },
+                {
+                    title: "4. 端到端零知识加密密码库 (Vault)",
+                    desc: "点击顶部“密码库”或按下快捷键 Ctrl+K，输入主密码解锁 AES-GCM 客户端加密库。支持保存、置顶、重命名并快速载入密钥。"
+                },
+                {
+                    title: "5. 备份导出恢复与全局快捷键",
+                    desc: "在密码库中点击“备份”可导出受密码保护的 .json 备份文件，随时点击“恢复”导入。快捷键：Ctrl+V（粘贴）、Ctrl+C（复制动态码）、Ctrl+K（打开密码库）、Esc（退出弹窗）。"
+                },
+                {
+                    title: "6. 多账户实时仪表盘 (Live Grid)",
+                    desc: "点击导航栏中的“实时仪表盘”可同时监控密码库中所有账户的实时动态口令与 30 秒倒计时同步进度。"
+                }
+            ]
+        };
+
+        function renderNotesContent() {
+            const container = document.getElementById('notesContainer');
+            if (!container) return;
+
+            const notes = platformNotesData[currentLang] || platformNotesData['en'];
+            container.innerHTML = notes.map(item => `
+                <div class="card-inner p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                    <h4 class="font-bold text-xs text-brand-600 dark:text-brand-400">${item.title}</h4>
+                    <p class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300">${item.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        function openNotesModal() {
+            renderNotesContent();
+            document.getElementById('notesModal').classList.remove('hidden');
+        }
+
+        function closeNotesModal() {
+            document.getElementById('notesModal').classList.add('hidden');
         }
 
         /* Custom Floating Dropdown Menu Handler */
@@ -1497,6 +1618,7 @@
                 closeModernConfirm();
                 closeAdminPasswordModal();
                 closeAdminPanel();
+                closeNotesModal();
                 closeAllCustomDropdowns();
                 return;
             }
@@ -1673,7 +1795,10 @@
                 verifyTitle: "Security Clearance Required",
                 verifyDesc: "Complete 1-click sponsor verification to decrypt this TOTP token.",
                 btnVerify: "Verify & Reveal Code",
-                btnBack: "← Return to Key Input"
+                btnBack: "← Return to Key Input",
+                navNotes: "Guide",
+                notesHeading: "Platform Guide & Documentation",
+                refreshedToast: "Interface refreshed smoothly"
             },
             km: {
                 title: "ច្រកផ្ទៀងផ្ទាត់សុវត្ថិភាព",
@@ -1692,7 +1817,10 @@
                 verifyTitle: "ត្រូវការការអនុញ្ញាតសុវត្ថិភាព",
                 verifyDesc: "ចុចប៊ូតុងខាងក្រោមដើម្បីដោះសោរបង្ហាញលេខកូដសម្ងាត់របស់អ្នក។",
                 btnVerify: "ផ្ទៀងផ្ទាត់ និងបើកបង្ហាញ",
-                btnBack: "← ត្រឡប់ក្រោយ"
+                btnBack: "← ត្រឡប់ក្រោយ",
+                navNotes: "សៀវភៅណែនាំ",
+                notesHeading: "សៀវភៅណែនាំអំពីរបៀបប្រើប្រាស់",
+                refreshedToast: "បានធ្វើឱ្យចំណុចប្រទាក់ស្រស់ថ្លាឡើងវិញ"
             },
             zh: {
                 title: "双重身份验证网关",
@@ -1711,7 +1839,10 @@
                 verifyTitle: "需要安全授权访问",
                 verifyDesc: "请点击下方进行一键赞助商验证，即可安全解密实时 TOTP 动态码。",
                 btnVerify: "免费验证并显示动态码",
-                btnBack: "← 返回输入密钥"
+                btnBack: "← 返回输入密钥",
+                navNotes: "使用指南",
+                notesHeading: "平台使用指南与说明文档",
+                refreshedToast: "界面已平滑刷新"
             }
         };
 
@@ -1733,6 +1864,13 @@
                     el.innerText = translations[currentLang][key];
                 }
             });
+
+            // Auto-update the Notes/Guide content if the modal is open or refreshed
+            const notesHeading = document.getElementById('notesHeading');
+            if (notesHeading && translations[currentLang].notesHeading) {
+                notesHeading.innerText = translations[currentLang].notesHeading;
+            }
+            renderNotesContent();
         }
     </script>
 </body>
