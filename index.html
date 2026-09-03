@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Disable Browser Stale Caching on Refresh -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <title>GlobalAuth - Enterprise 2FA & Security Suite</title>
     
     <meta name="description" content="GlobalAuth is a high-grade 2FA authenticator suite designed to generate, inspect, and encrypt time-based one-time passwords securely.">
@@ -127,16 +132,16 @@
 
         /* Modern Custom Dropdown Menu System */
         .custom-dropdown-panel {
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(226, 232, 240, 0.95);
             box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
         }
         .dark .custom-dropdown-panel {
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            background: rgba(15, 23, 42, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
         .dropdown-item {
             transition: background-color 0.15s ease, color 0.15s ease;
@@ -255,6 +260,7 @@
     <!-- Header Navigation -->
     <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 flex items-center justify-center shrink-0">
                     <svg class="w-full h-full drop-shadow transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
@@ -280,8 +286,10 @@
                 </div>
             </div>
 
+            <!-- Toolbar Controls -->
             <div class="flex items-center gap-1.5 sm:gap-2">
-                <button onclick="triggerSmoothRefresh()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Refresh state">
+                <!-- Hard Refresh Engine Button -->
+                <button onclick="triggerForcedHardReload()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Clear Cache & Hard Reload">
                     <svg id="refreshIcon" class="w-3.5 h-3.5 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 </button>
 
@@ -345,7 +353,7 @@
                     <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="e.g. JBSWY3DPEHPK3PXP or otpauth://..." 
                         class="w-full h-11 card-inner rounded-xl px-4 text-xs sm:text-sm font-mono font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal">
 
-                    <!-- Modern Distinct Individual Dropdown Pickers (Custom Styled Glass Panels) -->
+                    <!-- Modern Custom Floating Dropdown Panels -->
                     <div class="p-4 card-inner rounded-xl space-y-3">
                         <div class="flex items-center justify-between">
                             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cryptographic Parameters</span>
@@ -353,7 +361,7 @@
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <!-- Algorithm Custom Dropdown -->
+                            <!-- Algorithm Dropdown -->
                             <div class="space-y-1.5 relative">
                                 <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Algorithm</label>
                                 <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
@@ -362,7 +370,6 @@
                                 </button>
                                 <input type="hidden" id="otpAlgorithmSelect" value="SHA-1">
 
-                                <!-- Floating Options Menu -->
                                 <div id="dropdownMenuAlgo" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
                                     <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-1', 'SHA-1 (Default)', 'dropdownMenuAlgo')">
                                         <span>SHA-1 (Default)</span>
@@ -379,7 +386,7 @@
                                 </div>
                             </div>
 
-                            <!-- Code Length Custom Dropdown -->
+                            <!-- Code Length Dropdown -->
                             <div class="space-y-1.5 relative">
                                 <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Code Length</label>
                                 <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
@@ -404,7 +411,7 @@
                                 </div>
                             </div>
 
-                            <!-- Cycle Period Custom Dropdown -->
+                            <!-- Cycle Period Dropdown -->
                             <div class="space-y-1.5 relative">
                                 <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cycle Period</label>
                                 <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
@@ -521,7 +528,7 @@
             </div>
         </div>
 
-        <!-- Video Player Section -->
+        <!-- Video Player Section (Reliable Universal Embed + Local Fallback) -->
         <div class="panel-glass rounded-2xl p-6 sm:p-8 space-y-4 shadow-sm">
             <div class="flex items-center justify-between">
                 <div>
@@ -531,12 +538,15 @@
                 <span class="px-2 py-0.5 text-[10px] font-mono font-semibold text-brand-600 dark:text-brand-400 bg-brand-500/10 rounded border border-brand-500/20">HD Tutorial</span>
             </div>
 
-            <!-- Standard 16:9 Video Player Container -->
+            <!-- Standard 16:9 Video Container with Live Embed -->
             <div class="relative w-full aspect-video rounded-xl overflow-hidden card-inner border border-slate-200/80 dark:border-slate-800 bg-slate-950">
-                <video id="tutorialVideo" class="w-full h-full object-cover" controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1280&auto=format&fit=crop">
-                    <source src="tutorial.mp4" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                </video>
+                <iframe 
+                    class="w-full h-full border-0"
+                    src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" 
+                    title="GlobalAuth Walkthrough Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
             </div>
         </div>
     </main>
@@ -558,7 +568,6 @@
                 <button onclick="closeVaultModal()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
-            <!-- Vault Locked State -->
             <div id="vaultAuthSection" class="space-y-4 py-4 text-center">
                 <div class="w-10 h-10 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center mx-auto border border-brand-500/20">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
@@ -574,7 +583,6 @@
                 <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-6 h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">Unlock Vault</button>
             </div>
 
-            <!-- Vault Unlocked Content -->
             <div id="vaultContentSection" class="space-y-4 hidden">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search stored accounts..." 
@@ -596,7 +604,6 @@
                     </div>
                 </div>
 
-                <!-- Account Items -->
                 <div id="vaultAccountsList" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
             </div>
         </div>
@@ -674,7 +681,7 @@
         </div>
     </div>
 
-    <!-- Production JavaScript Logic -->
+    <!-- Production JavaScript Logic with Hard Reload Engine -->
     <script>
         const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
         let sessionHistory = [];
@@ -686,11 +693,41 @@
         let currentTheme = localStorage.getItem('theme') || 'dark';
         let currentActiveSecret = '';
 
-        /* Safe In-Memory Vault State */
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
 
-        /* Custom Dropdown System Engine */
+        /* Unregister Stale Service Workers & Force Network Reload */
+        async function triggerForcedHardReload() {
+            const icon = document.getElementById('refreshIcon');
+            if (icon) icon.classList.add('rotate-180');
+
+            // Unregister any active service worker holding onto cached assets
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    for (let registration of registrations) {
+                        await registration.unregister();
+                    }
+                } catch (err) {}
+            }
+
+            // Clear browser CacheStorage API
+            if ('caches' in window) {
+                try {
+                    const keys = await caches.keys();
+                    for (let key of keys) {
+                        await caches.delete(key);
+                    }
+                } catch (err) {}
+            }
+
+            // Force cache-busting reload
+            setTimeout(() => {
+                window.location.href = window.location.pathname + '?_t=' + Date.now();
+            }, 300);
+        }
+
+        /* Custom Floating Dropdown Menu Handler */
         function toggleDropdownMenu(menuId) {
             const menu = document.getElementById(menuId);
             const isHidden = menu.classList.contains('hidden');
@@ -789,7 +826,7 @@
             return JSON.parse(new TextDecoder().decode(decrypted));
         }
 
-        /* Vault Lifecycle and Verified Unlock Flow */
+        /* Vault Modal Lifecycle */
         function openVaultModal() {
             document.getElementById('vaultModal').classList.remove('hidden');
             const hasStoredVault = localStorage.getItem('globalauth_vault');
@@ -1616,13 +1653,6 @@
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
             localStorage.setItem('theme', currentTheme);
             updateThemeClasses();
-        }
-
-        function triggerSmoothRefresh() {
-            const icon = document.getElementById('refreshIcon');
-            icon.classList.add('rotate-180');
-            setTimeout(() => { icon.classList.remove('rotate-180'); }, 700);
-            showToast("Interface synchronized");
         }
 
         const translations = {
