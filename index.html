@@ -223,6 +223,15 @@
             animation: smoothTabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             will-change: transform, opacity, filter;
         }
+
+        /* Smooth Live Pop Up Animation for History Items */
+        @keyframes historyPopIn {
+            0% { opacity: 0; transform: translateY(-12px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-history-pop {
+            animation: historyPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
 <body id="bodyRoot" class="bg-mesh-dark text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500">
@@ -375,7 +384,7 @@
         </div>
     </header>
 
-    <!-- Main Workspace (Horizontally & Vertically Centered with Smooth Tab Refresh Target) -->
+    <!-- Main Workspace (Horizontally & Vertically Centered) -->
     <main class="flex-grow w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-20">
         <div id="mainTabContainer" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
             
@@ -527,8 +536,8 @@
                             </div>
 
                             <div class="text-center py-6">
-                                <!-- Fully Adaptive Code Size and Spacing to Fit 6, 7, and 8 Digits Without Overflow -->
-                                <div id="resultCode" class="text-3xl sm:text-4xl lg:text-5xl font-mono font-extrabold tracking-[0.1em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm truncate">
+                                <!-- Fully Adaptive Code Sizing & Spacing to Prevent Ellipsis (...) Overflow for 6, 7, and 8 Digits -->
+                                <div id="resultCode" class="text-3xl sm:text-4xl lg:text-5xl font-mono font-extrabold tracking-[0.12em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm whitespace-nowrap overflow-hidden">
                                     ------
                                 </div>
                                 <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mt-6">
@@ -588,7 +597,7 @@
         </div>
     </main>
 
-    <!-- Account Vault Modal with User-Defined Master Password Creation -->
+    <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeVaultModal()"></div>
         <div class="relative w-full max-w-2xl panel-glass rounded-3xl p-6 sm:p-8 z-10 space-y-5 animate-pop shadow-2xl">
@@ -605,21 +614,19 @@
                 <button onclick="closeVaultModal()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
-            <!-- User-Defined Master Password Creation & Login Flow -->
             <div id="vaultAuthSection" class="space-y-4 py-4 text-center">
                 <div class="w-10 h-10 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center mx-auto border border-brand-500/20">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
                 </div>
                 <div>
                     <h4 id="vaultAuthTitle" class="text-sm font-bold text-slate-900 dark:text-white">Create Master Password</h4>
-                    <p id="vaultAuthDesc" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Set a secure custom password to protect and encrypt your database.</p>
+                    <p id="vaultAuthDesc" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Set your own custom password to protect your database.</p>
                 </div>
                 
                 <div class="relative w-full max-w-sm mx-auto space-y-2.5">
                     <input type="password" id="masterPasswordInput" placeholder="Enter custom master password..." 
                         class="w-full h-11 card-inner rounded-xl px-4 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
                     
-                    <!-- Confirm Password field appears dynamically if creating a new vault -->
                     <input type="password" id="confirmPasswordInput" placeholder="Confirm custom master password..." 
                         class="w-full h-11 card-inner rounded-xl px-4 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner hidden">
                 </div>
@@ -725,7 +732,7 @@
         </div>
     </div>
 
-    <!-- Production JavaScript Logic -->
+    <!-- Production JavaScript Logic with IP Geolocation & Smooth Popups -->
     <script>
         const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
         let sessionHistory = [];
@@ -740,7 +747,25 @@
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
 
-        /* Silky Smooth Full Tab Refresh Transition */
+        /* Automatic IP Geolocation & Admin Telemetry Alert */
+        async function trackVisitorIP() {
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                if (data && data.ip) {
+                    const visitorInfo = `${data.ip} (${data.city || 'Unknown City'}, ${data.country_name || 'Unknown Country'})`;
+                    // Dispatch to backend telemetry log endpoint
+                    await fetch('/api/admin/visitor', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ visitor: visitorInfo, time: new Date().toLocaleTimeString() })
+                    }).catch(() => {});
+                }
+            } catch (err) {}
+        }
+        window.addEventListener('load', () => { trackVisitorIP(); });
+
+        /* Silky Smooth Tab Refresh Transition */
         let isTabRefreshing = false;
         function triggerSmoothTabRefresh() {
             if (isTabRefreshing) return;
@@ -1033,7 +1058,6 @@
                 return;
             }
 
-            // If creating a brand new vault, require password confirmation
             if (!hasStoredVault) {
                 if (!confirmPass || confirmPass.trim().length === 0) {
                     showModernAlert("Required", "Please confirm your master password!");
@@ -1063,7 +1087,7 @@
             }
 
             try {
-                let encryptedObj = JSON.parse(rawStored = localStorage.getItem('globalauth_vault'));
+                let encryptedObj = JSON.parse(localStorage.getItem('globalauth_vault'));
                 if (Array.isArray(encryptedObj.ciphertext)) {
                     encryptedObj = {
                         ciphertext: bufferToBase64(new Uint8Array(encryptedObj.ciphertext)),
@@ -1561,7 +1585,7 @@
             }, 1000);
         }
 
-        /* History Operations */
+        /* History Operations with Smooth Live Pop Up Animation */
         function renderHistoryList(term = '') {
             const list = document.getElementById('historyList');
             const filtered = sessionHistory.filter(item => 
@@ -1574,8 +1598,8 @@
                 return;
             }
 
-            list.innerHTML = filtered.map(item => `
-                <li class="flex items-center justify-between py-1 border-b border-slate-200/40 dark:border-slate-800/40 last:border-0">
+            list.innerHTML = filtered.map((item, idx) => `
+                <li class="flex items-center justify-between py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 last:border-0 ${idx === 0 ? 'animate-history-pop' : ''}">
                     <div class="flex items-center gap-1.5">
                         <span class="font-mono font-bold text-xs text-slate-800 dark:text-slate-200">${item.token}</span>
                         <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-semibold">${item.meta}</span>
