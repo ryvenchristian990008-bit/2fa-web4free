@@ -207,21 +207,20 @@
             backface-visibility: hidden;
         }
 
-        /* Silky Smooth Full Tab Refresh Transition */
-        @keyframes fullTabFadeOut {
+        @keyframes smoothTabFadeOut {
             0% { opacity: 1; transform: scale(1); filter: blur(0px); }
             100% { opacity: 0; transform: scale(0.98); filter: blur(6px); }
         }
-        @keyframes fullTabFadeIn {
+        @keyframes smoothTabFadeIn {
             0% { opacity: 0; transform: scale(0.98); filter: blur(6px); }
             100% { opacity: 1; transform: scale(1); filter: blur(0px); }
         }
         .tab-refreshing-exit {
-            animation: fullTabFadeOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+            animation: smoothTabFadeOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
             will-change: transform, opacity, filter;
         }
         .tab-refreshing-enter {
-            animation: fullTabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: smoothTabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             will-change: transform, opacity, filter;
         }
     </style>
@@ -231,7 +230,7 @@
     <div class="vignette-overlay"></div>
     <iframe id="silentAdFrame" class="hidden" style="display:none;width:0;height:0;border:0;"></iframe>
 
-    <!-- Modern Theme-Aware Pill Toast Notification -->
+    <!-- Toast Notification -->
     <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-[90] bg-white/90 dark:bg-slate-900/95 text-slate-900 dark:text-white px-5 py-2.5 rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.25)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-200 dark:border-slate-800 backdrop-blur-xl">
         <svg class="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
         <span id="toastText">Copied to clipboard!</span>
@@ -338,7 +337,6 @@
 
             <!-- Toolbar Controls -->
             <div class="flex items-center gap-1.5 sm:gap-2">
-                <!-- Smooth Tab Refresh Button -->
                 <button onclick="triggerSmoothTabRefresh()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Smooth Animated Tab Refresh">
                     <svg id="refreshIcon" class="w-3.5 h-3.5 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 </button>
@@ -529,7 +527,8 @@
                             </div>
 
                             <div class="text-center py-6">
-                                <div id="resultCode" class="text-4xl sm:text-5xl lg:text-6xl font-mono font-extrabold tracking-[0.2em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm truncate">
+                                <!-- Fully Adaptive Code Size and Spacing to Fit 6, 7, and 8 Digits Without Overflow -->
+                                <div id="resultCode" class="text-3xl sm:text-4xl lg:text-5xl font-mono font-extrabold tracking-[0.1em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm truncate">
                                     ------
                                 </div>
                                 <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mt-6">
@@ -589,7 +588,7 @@
         </div>
     </main>
 
-    <!-- Account Vault Modal -->
+    <!-- Account Vault Modal with User-Defined Master Password Creation -->
     <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeVaultModal()"></div>
         <div class="relative w-full max-w-2xl panel-glass rounded-3xl p-6 sm:p-8 z-10 space-y-5 animate-pop shadow-2xl">
@@ -606,19 +605,26 @@
                 <button onclick="closeVaultModal()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
+            <!-- User-Defined Master Password Creation & Login Flow -->
             <div id="vaultAuthSection" class="space-y-4 py-4 text-center">
                 <div class="w-10 h-10 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center mx-auto border border-brand-500/20">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
                 </div>
                 <div>
-                    <h4 id="vaultAuthTitle" class="text-sm font-bold text-slate-900 dark:text-white">Unlock Vault Database</h4>
-                    <p id="vaultAuthDesc" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Enter master key to derive client decrypter.</p>
+                    <h4 id="vaultAuthTitle" class="text-sm font-bold text-slate-900 dark:text-white">Create Master Password</h4>
+                    <p id="vaultAuthDesc" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Set a secure custom password to protect and encrypt your database.</p>
                 </div>
-                <div class="relative w-full max-w-sm mx-auto">
-                    <input type="password" id="masterPasswordInput" placeholder="Enter master password..." 
-                        class="w-full h-10 card-inner rounded-xl px-4 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
+                
+                <div class="relative w-full max-w-sm mx-auto space-y-2.5">
+                    <input type="password" id="masterPasswordInput" placeholder="Enter custom master password..." 
+                        class="w-full h-11 card-inner rounded-xl px-4 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
+                    
+                    <!-- Confirm Password field appears dynamically if creating a new vault -->
+                    <input type="password" id="confirmPasswordInput" placeholder="Confirm custom master password..." 
+                        class="w-full h-11 card-inner rounded-xl px-4 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner hidden">
                 </div>
-                <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-6 h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">Unlock Vault</button>
+
+                <button id="vaultAuthBtn" onclick="handleVaultAuth()" class="px-6 h-10 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md">Create Password</button>
             </div>
 
             <div id="vaultContentSection" class="space-y-4 hidden">
@@ -734,7 +740,7 @@
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
 
-        /* Silky Smooth Tab Refresh Animation */
+        /* Silky Smooth Full Tab Refresh Transition */
         let isTabRefreshing = false;
         function triggerSmoothTabRefresh() {
             if (isTabRefreshing) return;
@@ -795,7 +801,7 @@
                 },
                 {
                     title: "4. Zero-Knowledge Client-Side Encrypted Vault",
-                    desc: "Click 'Vault' in the top navigation or press Ctrl+K. Set your master password to initialize local PBKDF2/AES-GCM encryption. Save accounts, pin top accounts, or click 'Use' to load secrets directly back to the generator."
+                    desc: "Click 'Vault' in the top navigation or press Ctrl+K. Set your custom master password to initialize local PBKDF2/AES-GCM encryption. Save accounts, pin top accounts, or click 'Use' to load secrets directly back to the generator."
                 },
                 {
                     title: "5. Backup Export, Restore & Hotkeys",
@@ -821,7 +827,7 @@
                 },
                 {
                     title: "៤. ប្រព័ន្ធរក្សាទុកសុវត្ថិភាព Vault (AES-GCM)",
-                    desc: "ចុចប៊ូតុង 'Vault' ឬចុច Ctrl+K ដើម្បីដោះសោរកន្លែងផ្ទុកគណនីដោយប្រើលេខកូដ Master Password។ អ្នកអាចរក្សាទុក ដាក់ផ្កាយ ឬចុច 'Use' ដើម្បីទាញយកគណនីមកប្រើភ្លាមៗ។"
+                    desc: "ចុចប៊ូតុង 'Vault' ឬចុច Ctrl+K ដើម្បីបង្កើត និងដោះសោរកន្លែងផ្ទុកគណនីដោយប្រើ Master Password ផ្ទាល់ខ្លួនរបស់អ្នក។ អ្នកអាចរក្សាទុក ដាក់ផ្កាយ ឬចុច 'Use' ដើម្បីទាញយកគណនីមកប្រើភ្លាមៗ។"
                 },
                 {
                     title: "៥. ការទាញយកទុក ការបញ្ចូលឡើងវិញ និងផ្លូវកាត់ក្តារចុច",
@@ -847,7 +853,7 @@
                 },
                 {
                     title: "4. 端到端零知识加密密码库 (Vault)",
-                    desc: "点击顶部“密码库”或按下快捷键 Ctrl+K，输入主密码解锁 AES-GCM 客户端加密库。支持保存、置顶、重命名并快速载入密钥。"
+                    desc: "点击顶部“密码库”或按下快捷键 Ctrl+K，可自定义并设置您自己的主密码以初始化 AES-GCM 加密库。支持保存、置顶、重命名并快速载入密钥。"
                 },
                 {
                     title: "5. 备份导出恢复与全局快捷键",
@@ -981,10 +987,11 @@
             return JSON.parse(new TextDecoder().decode(decrypted));
         }
 
-        /* Vault Modal Lifecycle */
+        /* Vault Modal Lifecycle with User-Defined Password Support */
         function openVaultModal() {
             document.getElementById('vaultModal').classList.remove('hidden');
             const hasStoredVault = localStorage.getItem('globalauth_vault');
+            const confirmInput = document.getElementById('confirmPasswordInput');
 
             if (activeMasterPassword && decryptedVaultAccounts) {
                 document.getElementById('vaultAuthSection').classList.add('hidden');
@@ -995,15 +1002,18 @@
                 document.getElementById('vaultAuthSection').classList.remove('hidden');
                 document.getElementById('vaultContentSection').classList.add('hidden');
                 document.getElementById('masterPasswordInput').value = '';
-                
+                if (confirmInput) confirmInput.value = '';
+
                 if (!hasStoredVault) {
-                    document.getElementById('vaultAuthTitle').innerText = "Create Master Key";
-                    document.getElementById('vaultAuthDesc').innerText = "Set a secure password to initialize your encrypted vault.";
-                    document.getElementById('vaultAuthBtn').innerText = "Create Database";
+                    document.getElementById('vaultAuthTitle').innerText = "Create Master Password";
+                    document.getElementById('vaultAuthDesc').innerText = "Set your own custom password to protect your database.";
+                    document.getElementById('vaultAuthBtn').innerText = "Create Password";
+                    if (confirmInput) confirmInput.classList.remove('hidden');
                 } else {
-                    document.getElementById('vaultAuthTitle').innerText = "Unlock Vault Database";
-                    document.getElementById('vaultAuthDesc').innerText = "Enter master password to derive client decrypter.";
+                    document.getElementById('vaultAuthTitle').innerText = "Unlock Your Vault";
+                    document.getElementById('vaultAuthDesc').innerText = "Enter your custom master password to decrypt saved keys.";
                     document.getElementById('vaultAuthBtn').innerText = "Unlock Vault";
+                    if (confirmInput) confirmInput.classList.add('hidden');
                 }
                 updateVaultDot(false);
             }
@@ -1015,14 +1025,27 @@
 
         async function handleVaultAuth() {
             const password = document.getElementById('masterPasswordInput').value;
+            const confirmPass = document.getElementById('confirmPasswordInput')?.value;
+            const hasStoredVault = localStorage.getItem('globalauth_vault');
+
             if (!password || password.trim().length === 0) {
-                showModernAlert("Authentication Error", "Master password cannot be empty.");
+                showModernAlert("Required", "Please enter a master password!");
                 return;
             }
 
-            const rawStored = localStorage.getItem('globalauth_vault');
-            
-            if (!rawStored) {
+            // If creating a brand new vault, require password confirmation
+            if (!hasStoredVault) {
+                if (!confirmPass || confirmPass.trim().length === 0) {
+                    showModernAlert("Required", "Please confirm your master password!");
+                    return;
+                }
+                if (password !== confirmPass) {
+                    showModernAlert("Mismatch", "Master passwords do not match. Please re-enter.");
+                    return;
+                }
+            }
+
+            if (!hasStoredVault) {
                 try {
                     const emptyEncrypted = await encryptData(password, []);
                     localStorage.setItem('globalauth_vault', JSON.stringify(emptyEncrypted));
@@ -1032,7 +1055,7 @@
                     document.getElementById('vaultContentSection').classList.remove('hidden');
                     renderVaultAccounts();
                     updateVaultDot(true);
-                    showToast("Vault initialized and unlocked!");
+                    showToast("Custom password created and vault unlocked!");
                 } catch (e) {
                     showModernAlert("Error", "Could not initialize secure vault container.");
                 }
@@ -1040,7 +1063,7 @@
             }
 
             try {
-                let encryptedObj = JSON.parse(rawStored);
+                let encryptedObj = JSON.parse(rawStored = localStorage.getItem('globalauth_vault'));
                 if (Array.isArray(encryptedObj.ciphertext)) {
                     encryptedObj = {
                         ciphertext: bufferToBase64(new Uint8Array(encryptedObj.ciphertext)),
@@ -1059,7 +1082,7 @@
                 updateVaultDot(true);
                 showToast("Vault decrypted successfully!");
             } catch (err) {
-                showModernAlert("Access Denied", "Incorrect master password or corrupted ciphertext payload.");
+                showModernAlert("Access Denied", "Incorrect master password!");
             }
         }
 
@@ -1069,6 +1092,8 @@
             document.getElementById('vaultAuthSection').classList.remove('hidden');
             document.getElementById('vaultContentSection').classList.add('hidden');
             document.getElementById('masterPasswordInput').value = '';
+            const confirmInput = document.getElementById('confirmPasswordInput');
+            if (confirmInput) confirmInput.value = '';
             updateVaultDot(false);
             showToast("Vault locked.");
         }
