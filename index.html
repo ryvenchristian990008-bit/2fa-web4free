@@ -132,14 +132,13 @@
         .custom-dropdown-panel {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(226, 232, 240, 0.95);
-            box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.16);
         }
         .dark .custom-dropdown-panel {
             background: rgba(15, 23, 42, 0.98);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.85);
         }
         .dropdown-item {
             transition: background-color 0.15s ease, color 0.15s ease;
@@ -196,31 +195,6 @@
         }
         .animate-pop { animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        @keyframes swapDownCard {
-            0% { opacity: 0; transform: translateY(-14px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .animate-swap-down {
-            animation: swapDownCard 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes smoothTabFadeOut {
-            0% { opacity: 1; transform: scale(1); filter: blur(0px); }
-            100% { opacity: 0; transform: scale(0.98); filter: blur(6px); }
-        }
-        @keyframes smoothTabFadeIn {
-            0% { opacity: 0; transform: scale(0.98); filter: blur(6px); }
-            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
-        }
-        .tab-refreshing-exit {
-            animation: smoothTabFadeOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
-            will-change: transform, opacity, filter;
-        }
-        .tab-refreshing-enter {
-            animation: smoothTabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: transform, opacity, filter;
-        }
-
         @keyframes historyPopIn {
             0% { opacity: 0; transform: translateY(-12px) scale(0.97); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -247,9 +221,9 @@
             <div id="alertIconContainer" class="w-10 h-10 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
-            <h3 id="alertTitle" class="text-base font-bold text-slate-900 dark:text-white">Security Notice</h3>
+            <h3 id="alertTitle" class="text-base font-bold text-slate-900 dark:text-white" data-i18n="alertNotice">Security Notice</h3>
             <p id="alertMessage" class="text-xs text-slate-500 dark:text-slate-400 font-normal leading-relaxed"></p>
-            <button onclick="closeModernAlert()" class="w-full h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-sm">Acknowledge</button>
+            <button onclick="closeModernAlert()" class="w-full h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-sm" data-i18n="btnAcknowledge">Acknowledge</button>
         </div>
     </div>
 
@@ -258,13 +232,13 @@
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeModernPrompt()"></div>
         <div class="relative w-full max-w-sm panel-glass rounded-3xl p-6 z-10 space-y-4 animate-pop shadow-2xl">
             <div class="text-center space-y-1">
-                <h3 id="promptTitle" class="text-base font-bold text-slate-900 dark:text-white">Account Label</h3>
-                <p id="promptDesc" class="text-xs text-slate-500 dark:text-slate-400">Specify an identifier for this key pair.</p>
+                <h3 id="promptTitle" class="text-base font-bold text-slate-900 dark:text-white" data-i18n="promptAccountLabel">Account Label</h3>
+                <p id="promptDesc" class="text-xs text-slate-500 dark:text-slate-400" data-i18n="promptSpecifyId">Specify an identifier for this key pair.</p>
             </div>
             <input type="text" id="promptInput" class="w-full h-10 card-inner rounded-xl px-3.5 text-xs font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
             <div class="grid grid-cols-2 gap-2 pt-1">
-                <button onclick="closeModernPrompt()" class="h-9 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern">Cancel</button>
-                <button id="promptConfirmBtn" class="h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern">Confirm</button>
+                <button onclick="closeModernPrompt()" class="h-9 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern" data-i18n="btnCancel">Cancel</button>
+                <button id="promptConfirmBtn" class="h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern" data-i18n="btnConfirm">Confirm</button>
             </div>
         </div>
     </div>
@@ -276,11 +250,11 @@
             <div class="w-10 h-10 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto border border-rose-500/20">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </div>
-            <h3 id="confirmTitle" class="text-sm font-bold text-slate-900 dark:text-white">Delete Account?</h3>
-            <p id="confirmDesc" class="text-xs text-slate-500 dark:text-slate-400">This key will be permanently purged.</p>
+            <h3 id="confirmTitle" class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="confirmDeleteTitle">Delete Account?</h3>
+            <p id="confirmDesc" class="text-xs text-slate-500 dark:text-slate-400" data-i18n="confirmDeleteDesc">This key will be permanently purged.</p>
             <div class="grid grid-cols-2 gap-2 pt-1">
-                <button onclick="closeModernConfirm()" class="h-9 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern">Cancel</button>
-                <button id="confirmActionBtn" class="h-9 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-semibold btn-modern">Delete</button>
+                <button onclick="closeModernConfirm()" class="h-9 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern" data-i18n="btnCancel">Cancel</button>
+                <button id="confirmActionBtn" class="h-9 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-semibold btn-modern" data-i18n="btnDelete">Delete</button>
             </div>
         </div>
     </div>
@@ -295,8 +269,8 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     </div>
                     <div>
-                        <h3 id="notesHeading" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Platform Guide & Documentation</h3>
-                        <p class="text-[11px] text-slate-400 font-mono">Architecture & Operational Workflow</p>
+                        <h3 id="notesHeading" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="notesHeading">Platform Guide & Documentation</h3>
+                        <p class="text-[11px] text-slate-400 font-mono" data-i18n="notesSubHeading">Architecture & Operational Workflow</p>
                     </div>
                 </div>
                 <button onclick="closeNotesModal()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
@@ -305,7 +279,7 @@
             <div id="notesContainer" class="flex-grow overflow-y-auto pr-1 space-y-4 text-xs leading-relaxed text-slate-600 dark:text-slate-300"></div>
 
             <div class="pt-2 border-t border-slate-200/80 dark:border-slate-800 flex justify-end">
-                <button onclick="closeNotesModal()" class="px-5 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">Close</button>
+                <button onclick="closeNotesModal()" class="px-5 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern" data-i18n="btnClose">Close</button>
             </div>
         </div>
     </div>
@@ -334,7 +308,7 @@
                         <span class="font-extrabold tracking-tight text-base sm:text-lg text-slate-900 dark:text-white leading-none">GlobalAuth</span>
                         <span class="text-[10px] font-mono font-bold tracking-wider px-1.5 py-0.5 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 rounded border border-brand-500/20 uppercase">Core</span>
                     </div>
-                    <span class="text-[11px] text-slate-400 font-medium">Enterprise 2FA Platform</span>
+                    <span class="text-[11px] text-slate-400 font-medium" data-i18n="appSubtitle">Enterprise 2FA Platform</span>
                 </div>
             </div>
 
@@ -388,8 +362,8 @@
                 <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between gap-6">
                     <div>
                         <div class="flex items-center justify-between pb-2">
-                            <span class="text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase">RFC 6238 Standard</span>
-                            <span class="text-[11px] text-slate-400 font-mono">Shortcuts: Ctrl+V / Ctrl+C</span>
+                            <span class="text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase" data-i18n="standardTag">RFC 6238 Standard</span>
+                            <span class="text-[11px] text-slate-400 font-mono" data-i18n="shortcutHints">Shortcuts: Ctrl+V / Ctrl+C</span>
                         </div>
                         <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication Gateway</h1>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="desc">Enter an encryption token or scan standard OTP provisioning parameters.</p>
@@ -407,20 +381,20 @@
                             </label>
                         </div>
 
-                        <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="Paste key or otpauth:// link..." 
+                        <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="Paste key or otpauth:// link..." data-i18n-placeholder="secretPlaceholder"
                             class="w-full h-12 card-inner rounded-xl px-4 text-xs sm:text-sm font-mono font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal shadow-inner">
 
                         <!-- Custom Floating Dropdowns -->
                         <div class="p-4 card-inner rounded-2xl space-y-3">
                             <div class="flex items-center justify-between">
-                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cryptographic Parameters</span>
-                                <span class="text-[10px] text-slate-400 font-mono">Auto-detected from URIs</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="cryptoParamsTitle">Cryptographic Parameters</span>
+                                <span class="text-[10px] text-slate-400 font-mono" data-i18n="autoDetectedHint">Auto-detected from URIs</span>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 <!-- Algorithm Dropdown -->
                                 <div class="space-y-1.5 relative">
-                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Algorithm</label>
+                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelAlgo">Algorithm</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
                                         <span id="selectedAlgoLabel">SHA-1 (Default)</span>
                                         <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
@@ -429,7 +403,7 @@
 
                                     <div id="dropdownMenuAlgo" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
                                         <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-1', 'SHA-1 (Default)', 'dropdownMenuAlgo')">
-                                            <span>SHA-1 (Default)</span>
+                                            <span data-i18n="optSha1">SHA-1 (Default)</span>
                                             <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                         <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-256', 'SHA-256', 'dropdownMenuAlgo')">
@@ -445,24 +419,24 @@
 
                                 <!-- Code Length Dropdown -->
                                 <div class="space-y-1.5 relative">
-                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Code Length</label>
+                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelDigits">Code Length</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
-                                        <span id="selectedDigitsLabel">6 Digits</span>
+                                        <span id="selectedDigitsLabel" data-i18n="opt6Digits">6 Digits</span>
                                         <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                                     </button>
                                     <input type="hidden" id="otpDigitsSelect" value="6">
 
                                     <div id="dropdownMenuDigits" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
-                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '6', '6 Digits', 'dropdownMenuDigits')">
-                                            <span>6 Digits</span>
+                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '6', getTranslatedText('opt6Digits'), 'dropdownMenuDigits')">
+                                            <span data-i18n="opt6Digits">6 Digits</span>
                                             <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '7', '7 Digits', 'dropdownMenuDigits')">
-                                            <span>7 Digits</span>
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '7', getTranslatedText('opt7Digits'), 'dropdownMenuDigits')">
+                                            <span data-i18n="opt7Digits">7 Digits</span>
                                             <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '8', '8 Digits', 'dropdownMenuDigits')">
-                                            <span>8 Digits</span>
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '8', getTranslatedText('opt8Digits'), 'dropdownMenuDigits')">
+                                            <span data-i18n="opt8Digits">8 Digits</span>
                                             <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                     </div>
@@ -470,20 +444,20 @@
 
                                 <!-- Cycle Period Dropdown -->
                                 <div class="space-y-1.5 relative">
-                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cycle Period</label>
+                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelPeriod">Cycle Period</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
-                                        <span id="selectedPeriodLabel">30 Seconds</span>
+                                        <span id="selectedPeriodLabel" data-i18n="opt30s">30 Seconds</span>
                                         <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                                     </button>
                                     <input type="hidden" id="otpPeriodSelect" value="30">
 
                                     <div id="dropdownMenuPeriod" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
-                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '30', '30 Seconds', 'dropdownMenuPeriod')">
-                                            <span>30 Seconds</span>
+                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '30', getTranslatedText('opt30s'), 'dropdownMenuPeriod')">
+                                            <span data-i18n="opt30s">30 Seconds</span>
                                             <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '60', '60 Seconds', 'dropdownMenuPeriod')">
-                                            <span>60 Seconds</span>
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '60', getTranslatedText('opt60s'), 'dropdownMenuPeriod')">
+                                            <span data-i18n="opt60s">60 Seconds</span>
                                             <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                     </div>
@@ -518,7 +492,7 @@
                             <div class="flex items-center justify-between pb-3">
                                 <div class="flex items-center gap-1.5">
                                     <span class="text-xs font-bold uppercase tracking-wider text-slate-400" data-i18n="labelCode">Security Code</span>
-                                    <span id="verifiedStatusBadge" class="hidden px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[10px] font-bold border border-emerald-500/20">Active</span>
+                                    <span id="verifiedStatusBadge" class="hidden px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[10px] font-bold border border-emerald-500/20" data-i18n="badgeActive">Active</span>
                                 </div>
                                 <span id="timerText" class="text-xs font-mono font-bold text-brand-600 dark:text-brand-400 bg-brand-500/10 px-2.5 py-0.5 rounded-md">--s</span>
                             </div>
@@ -548,7 +522,7 @@
                             <button onclick="clearHistoryEntries()" class="text-[10px] font-semibold text-rose-500 hover:text-rose-600 transition-colors" data-i18n="btnClearHistory">Clear All</button>
                         </div>
 
-                        <input type="text" id="historySearchInput" oninput="filterHistoryList()" placeholder="Filter history..." 
+                        <input type="text" id="historySearchInput" oninput="filterHistoryList()" placeholder="Filter history..." data-i18n-placeholder="historySearchPlaceholder"
                             class="w-full h-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 text-xs font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
 
                         <ul id="historyList" class="space-y-1.5 max-h-24 overflow-y-auto pr-1">
@@ -561,71 +535,70 @@
         </div>
     </main>
 
-    <!-- Account Vault Modal (UI matches your screenshot perfectly) -->
+    <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeVaultModal()"></div>
         <div class="relative w-full max-w-xl bg-[#090f20] border border-slate-800 rounded-3xl p-6 sm:p-8 z-10 space-y-6 animate-pop shadow-2xl text-slate-100">
             
-            <!-- Vault Header -->
             <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-white tracking-wide">Encrypted Account Vault</h3>
+                        <h3 class="text-base font-bold text-white tracking-wide" data-i18n="vaultModalTitle">Encrypted Account Vault</h3>
                         <p class="text-[11px] text-slate-400 font-mono">AES-GCM 256-Bit Standard</p>
                     </div>
                 </div>
                 <button onclick="closeVaultModal()" class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
-            <!-- Master Password Form with Center Lock Icon & Purple Save Button -->
+            <!-- Master Password Form -->
             <div id="vaultAuthSection" class="space-y-6 py-4 text-center">
                 <div class="w-14 h-14 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-indigo-400 flex items-center justify-center mx-auto shadow-inner">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 
                 <div>
-                    <h4 id="vaultAuthTitle" class="text-lg font-bold text-white">Create Master Password</h4>
-                    <p id="vaultAuthDesc" class="text-xs text-slate-400 mt-1">Set your own custom password to protect your database.</p>
+                    <h4 id="vaultAuthTitle" class="text-lg font-bold text-white" data-i18n="vaultCreateTitle">Create Master Password</h4>
+                    <p id="vaultAuthDesc" class="text-xs text-slate-400 mt-1" data-i18n="vaultCreateDesc">Set your own custom password to protect your database.</p>
                 </div>
                 
                 <div class="relative w-full max-w-sm mx-auto space-y-3">
-                    <input type="password" id="masterPasswordInput" placeholder="Enter custom master password..." 
+                    <input type="password" id="masterPasswordInput" placeholder="Enter custom master password..." data-i18n-placeholder="vaultMasterPassPlaceholder"
                         class="w-full h-12 bg-[#050914] border border-slate-800 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
                     
-                    <input type="password" id="confirmPasswordInput" placeholder="Confirm custom master password..." 
+                    <input type="password" id="confirmPasswordInput" placeholder="Confirm custom master password..." data-i18n-placeholder="vaultConfirmPassPlaceholder"
                         class="w-full h-12 bg-[#050914] border border-slate-800 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
                 </div>
 
                 <div>
                     <button id="vaultAuthBtn" onclick="handleVaultAuth()" 
-                        class="px-8 h-11 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold rounded-xl text-xs shadow-lg shadow-indigo-600/30 btn-modern">
+                        class="px-8 h-11 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold rounded-xl text-xs shadow-lg shadow-indigo-600/30 btn-modern" data-i18n="btnSavePassword">
                         Save Password
                     </button>
                 </div>
             </div>
 
-            <!-- Vault Account Listing (Shown after login) -->
+            <!-- Vault Contents -->
             <div id="vaultContentSection" class="space-y-4 hidden">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search stored accounts..." 
+                    <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search stored accounts..." data-i18n-placeholder="vaultSearchPlaceholder"
                         class="flex-grow min-w-[200px] h-9 bg-slate-900 border border-slate-800 rounded-xl px-3 text-xs font-medium focus:outline-none focus:border-indigo-500 text-slate-100">
 
                     <div class="flex items-center gap-1.5">
                         <button onclick="exportVaultBackupFile()" class="h-8 px-2.5 rounded-lg card-inner hover:text-emerald-500 text-xs font-semibold flex items-center gap-1.5 btn-modern" title="Export encrypted JSON backup">
                             <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                            <span>Backup</span>
+                            <span data-i18n="btnBackup">Backup</span>
                         </button>
                         
                         <label class="h-8 px-2.5 rounded-lg card-inner hover:text-blue-500 text-xs font-semibold flex items-center gap-1.5 btn-modern cursor-pointer" title="Restore encrypted JSON backup">
                             <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                            <span>Restore</span>
+                            <span data-i18n="btnRestore">Restore</span>
                             <input type="file" id="backupFileInput" accept=".json" class="hidden" onchange="importVaultBackupFile(event)">
                         </label>
 
-                        <button onclick="lockVault()" class="h-8 px-2.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 text-xs font-semibold btn-modern">Lock</button>
+                        <button onclick="lockVault()" class="h-8 px-2.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 text-xs font-semibold btn-modern" data-i18n="btnLock">Lock</button>
                     </div>
                 </div>
 
@@ -641,11 +614,11 @@
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
                 <div class="flex items-center gap-2.5">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Multi-Account Live Stream</h3>
+                    <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="dashboardTitle">Multi-Account Live Stream</h3>
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="flex items-center gap-1.5 font-mono text-xs text-brand-600 dark:text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded">
-                        <span>Cycle:</span>
+                        <span data-i18n="cycleLabel">Cycle:</span>
                         <span id="dashboardTimerBadge">--s</span>
                     </div>
                     <button onclick="closeMultiAccountDashboard()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
@@ -668,14 +641,14 @@
                 <div class="w-9 h-9 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Admin Authentication</h3>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="adminAuthTitle">Admin Authentication</h3>
             </div>
-            <input type="password" id="adminPinInput" placeholder="Passcode..." 
+            <input type="password" id="adminPinInput" placeholder="Passcode..." data-i18n-placeholder="adminPinPlaceholder"
                 class="w-full h-10 card-inner rounded-xl px-3 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100">
-            <p id="adminPasswordError" class="text-[11px] text-rose-500 text-center font-semibold hidden">Invalid Passcode</p>
+            <p id="adminPasswordError" class="text-[11px] text-rose-500 text-center font-semibold hidden" data-i18n="adminPinError">Invalid Passcode</p>
             <div class="grid grid-cols-2 gap-2">
-                <button onclick="closeAdminPasswordModal()" class="h-9 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern">Cancel</button>
-                <button onclick="verifyAdminPasscode()" class="h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern">Authenticate</button>
+                <button onclick="closeAdminPasswordModal()" class="h-9 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern" data-i18n="btnCancel">Cancel</button>
+                <button onclick="verifyAdminPasscode()" class="h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern" data-i18n="btnAuthenticate">Authenticate</button>
             </div>
         </div>
     </div>
@@ -684,29 +657,28 @@
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeAdminPanel()"></div>
         <div class="relative w-full max-w-2xl panel-glass rounded-2xl p-6 sm:p-8 z-10 space-y-4 animate-pop shadow-2xl">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-slate-900 dark:text-white">Telemetry & Access Logs</h3>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white" data-i18n="telemetryTitle">Telemetry & Access Logs</h3>
                 <button onclick="closeAdminPanel()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
             <div class="grid grid-cols-2 gap-3">
                 <div class="card-inner p-4 rounded-xl text-center">
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase">Unique Visitors</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase" data-i18n="statVisitors">Unique Visitors</span>
                     <h4 id="statVisitors" class="text-2xl font-black text-brand-500 mt-1">0</h4>
                 </div>
                 <div class="card-inner p-4 rounded-xl text-center">
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase">Tokens Generated</span>
+                    <span class="text-[11px] font-semibold text-slate-400 uppercase" data-i18n="statGenerations">Tokens Generated</span>
                     <h4 id="statGenerations" class="text-2xl font-black text-emerald-500 mt-1">0</h4>
                 </div>
             </div>
             <div class="space-y-2">
-                <span class="text-xs font-bold text-slate-400 uppercase">Stored IP Access Audit Logs</span>
+                <span class="text-xs font-bold text-slate-400 uppercase" data-i18n="storedIpLogs">Stored IP Access Audit Logs</span>
                 <div id="adminLogsList" class="card-inner p-3 rounded-xl max-h-48 overflow-y-auto space-y-1.5 font-mono text-xs">
-                    <span class="text-slate-500 italic">No telemetry recorded yet...</span>
+                    <span class="text-slate-500 italic" data-i18n="noTelemetry">No telemetry recorded yet...</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Production JavaScript Logic -->
     <script>
         let sessionHistory = [];
         let dashboardInterval = null;
@@ -719,7 +691,279 @@
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
 
-        /* Automatic IP Telemetry Logger */
+        /* Dictionary Translations */
+        const translations = {
+            en: {
+                appSubtitle: "Enterprise 2FA Platform",
+                standardTag: "RFC 6238 Standard",
+                shortcutHints: "Shortcuts: Ctrl+V / Ctrl+C",
+                title: "Authentication Gateway",
+                desc: "Enter an encryption token or scan standard OTP provisioning parameters.",
+                labelKey: "Secret Token",
+                btnUpload: "Upload QR",
+                secretPlaceholder: "Paste key or otpauth:// link...",
+                cryptoParamsTitle: "Cryptographic Parameters",
+                autoDetectedHint: "Auto-detected from URIs",
+                labelAlgo: "Algorithm",
+                optSha1: "SHA-1 (Default)",
+                labelDigits: "Code Length",
+                opt6Digits: "6 Digits",
+                opt7Digits: "7 Digits",
+                opt8Digits: "8 Digits",
+                labelPeriod: "Cycle Period",
+                opt30s: "30 Seconds",
+                opt60s: "60 Seconds",
+                btnGen: "Generate Token",
+                btnSaveVault: "Save to Vault",
+                labelCode: "Security Code",
+                badgeActive: "Active",
+                btnCopy: "Copy Code",
+                historyTitle: "Recent History",
+                btnClearHistory: "Clear All",
+                historySearchPlaceholder: "Filter history...",
+                noHistory: "No entries recorded in current session",
+                navNotes: "Guide",
+                navGrid: "Live Grid",
+                vault: "Vault",
+                admin: "Admin",
+                alertNotice: "Security Notice",
+                btnAcknowledge: "Acknowledge",
+                promptAccountLabel: "Account Label",
+                promptSpecifyId: "Specify an identifier for this key pair.",
+                btnCancel: "Cancel",
+                btnConfirm: "Confirm",
+                confirmDeleteTitle: "Delete Account?",
+                confirmDeleteDesc: "This key will be permanently purged.",
+                btnDelete: "Delete",
+                notesHeading: "Platform Guide & Documentation",
+                notesSubHeading: "Architecture & Operational Workflow",
+                btnClose: "Close",
+                vaultModalTitle: "Encrypted Account Vault",
+                vaultCreateTitle: "Create Master Password",
+                vaultCreateDesc: "Set your own custom password to protect your database.",
+                vaultUnlockTitle: "Unlock Your Vault",
+                vaultUnlockDesc: "Enter your custom master password to decrypt saved keys.",
+                vaultMasterPassPlaceholder: "Enter custom master password...",
+                vaultConfirmPassPlaceholder: "Confirm custom master password...",
+                btnSavePassword: "Save Password",
+                btnUnlockVault: "Unlock Vault",
+                vaultSearchPlaceholder: "Search stored accounts...",
+                btnBackup: "Backup",
+                btnRestore: "Restore",
+                btnLock: "Lock",
+                dashboardTitle: "Multi-Account Live Stream",
+                cycleLabel: "Cycle:",
+                adminAuthTitle: "Admin Authentication",
+                adminPinPlaceholder: "Passcode...",
+                adminPinError: "Invalid Passcode",
+                btnAuthenticate: "Authenticate",
+                telemetryTitle: "Telemetry & Access Logs",
+                statVisitors: "Unique Visitors",
+                statGenerations: "Tokens Generated",
+                storedIpLogs: "Stored IP Access Audit Logs",
+                noTelemetry: "No telemetry recorded yet...",
+                toastMsg: "Copied to clipboard!",
+                toastCopiedMorphed: "Copied!",
+                toastSecretPasted: "Secret pasted!",
+                toastHistoryCleared: "Session history cleared",
+                toastBackupExported: "Backup exported successfully!",
+                toastVaultUnlocked: "Vault decrypted successfully!",
+                toastPassCreated: "Custom password created and vault unlocked!",
+                toastVaultLocked: "Vault locked.",
+                toastAccountSaved: "Account saved to encrypted vault!",
+                toastAccountRemoved: "Account removed.",
+                toastQrDetected: "QR code detected and parsed!",
+                errEmpty: "Please enter a valid Base32 key.",
+                errFormat: "Invalid secret key format.",
+                errScanFailed: "No valid QR code was located in this image.",
+                errAccessDenied: "Incorrect master password!",
+                errMismatch: "Master passwords do not match. Please re-enter.",
+                btnUse: "Use",
+                emptyVaultMsg: "No saved credentials in vault"
+            },
+            km: {
+                appSubtitle: "កម្មវិធីផ្ទៀងផ្ទាត់កម្រិតខ្ពស់ 2FA",
+                standardTag: "ស្តង់ដារ RFC 6238",
+                shortcutHints: "ផ្លូវកាត់៖ Ctrl+V / Ctrl+C",
+                title: "ច្រកផ្ទៀងផ្ទាត់សុវត្ថិភាព",
+                desc: "បញ្ចូលលេខកូដសម្ងាត់ ឬស្កេន QR Code ដើម្បីទទួលបានលេខកូដសុវត្ថិភាព។",
+                labelKey: "លេខកូដសម្ងាត់ (Secret Key)",
+                btnUpload: "ស្កេន QR",
+                secretPlaceholder: "បិទភ្ជាប់កូដ ឬតំណភ្ជាប់ otpauth://...",
+                cryptoParamsTitle: "ប៉ារ៉ាម៉ែត្រកូដសម្ងាត់",
+                autoDetectedHint: "ស្វែងរកស្វ័យប្រវត្តពី URI",
+                labelAlgo: "ក្បួនដោះស្រាយ (Algorithm)",
+                optSha1: "SHA-1 (លំនាំដើម)",
+                labelDigits: "ចំនួនខ្ទង់លេខ",
+                opt6Digits: "៦ ខ្ទង់",
+                opt7Digits: "៧ ខ្ទង់",
+                opt8Digits: "៨ ខ្ទង់",
+                labelPeriod: "រយៈពេល (Period)",
+                opt30s: "៣០ វិនាទី",
+                opt60s: "៦០ វិនាទី",
+                btnGen: "បង្កើតលេខកូដ",
+                btnSaveVault: "រក្សាទុកក្នុង Vault",
+                labelCode: "លេខកូដសុវត្ថិភាព",
+                badgeActive: "សកម្ម",
+                btnCopy: "ចម្លងកូដ",
+                historyTitle: "ប្រវត្តិថ្មីៗ",
+                btnClearHistory: "សម្អាតទាំងអស់",
+                historySearchPlaceholder: "ស្វែងរកក្នុងប្រវត្តិ...",
+                noHistory: "មិនទាន់មានទិន្នន័យត្រូវបានកត់ត្រា",
+                navNotes: "សៀវភៅណែនាំ",
+                navGrid: "Live Grid",
+                vault: "Vault",
+                admin: "Admin",
+                alertNotice: "ដំណឹងសុវត្ថិភាព",
+                btnAcknowledge: "យល់ព្រម",
+                promptAccountLabel: "ឈ្មោះគណនី",
+                promptSpecifyId: "កំណត់អត្តសញ្ញាណសម្រាប់កូដសម្ងាត់នេះ។",
+                btnCancel: "បោះបង់",
+                btnConfirm: "យល់ព្រម",
+                confirmDeleteTitle: "លុបគណនី?",
+                confirmDeleteDesc: "កូដសម្ងាត់នេះនឹងត្រូវលុបជាអចិន្ត្រៃយ៍។",
+                btnDelete: "លុបចេញ",
+                notesHeading: "សៀវភៅណែនាំអំពីរបៀបប្រើប្រាស់",
+                notesSubHeading: "រចនាសម្ព័ន្ធ និងដំណើរការប្រតិបត្តិការ",
+                btnClose: "បិទ",
+                vaultModalTitle: "កន្លែងផ្ទុកគណនីសុវត្ថិភាព Vault",
+                vaultCreateTitle: "បង្កើត Master Password",
+                vaultCreateDesc: "កំណត់ពាក្យសម្ងាត់ផ្ទាល់ខ្លួនដើម្បីការពារទិន្នន័យរបស់អ្នក។",
+                vaultUnlockTitle: "ដោះសោរកន្លែងផ្ទុក Vault",
+                vaultUnlockDesc: "បញ្ចូល Master Password របស់អ្នកដើម្បីដោះសោកូដសម្ងាត់។",
+                vaultMasterPassPlaceholder: "បញ្ចូល Master Password...",
+                vaultConfirmPassPlaceholder: "បញ្ជាក់ Master Password...",
+                btnSavePassword: "រក្សាទុកពាក្យសម្ងាត់",
+                btnUnlockVault: "ដោះសោរ Vault",
+                vaultSearchPlaceholder: "ស្វែងរកគណនីដែលបានរក្សាទុក...",
+                btnBackup: "ទាញទុក (Backup)",
+                btnRestore: "បញ្ចូលឡើងវិញ",
+                btnLock: "ចាក់សោរ",
+                dashboardTitle: "ផ្ទាំងបង្ហាញកូដបន្តផ្ទាល់ (Live Grid)",
+                cycleLabel: "វដ្ត៖",
+                adminAuthTitle: "ការផ្ទៀងផ្ទាត់ Admin",
+                adminPinPlaceholder: "លេខកូដសម្ងាត់...",
+                adminPinError: "លេខកូដសម្ងាត់មិនត្រឹមត្រូវ",
+                btnAuthenticate: "ផ្ទៀងផ្ទាត់",
+                telemetryTitle: "កំណត់ត្រា និងការចូលប្រើប្រាស់",
+                statVisitors: "ចំនួនអ្នកទស្សនា",
+                statGenerations: "កូដដែលបានបង្កើត",
+                storedIpLogs: "កំណត់ត្រាអាសយដ្ឋាន IP ចូលប្រើ",
+                noTelemetry: "មិនទាន់មានកំណត់ត្រាត្រូវបានរក្សាទុក...",
+                toastMsg: "បានចម្លងជោគជ័យ!",
+                toastCopiedMorphed: "បានចម្លង!",
+                toastSecretPasted: "បានបិទភ្ជាប់កូដ!",
+                toastHistoryCleared: "បានសម្អាតប្រវត្តិទាំងអស់",
+                toastBackupExported: "បានទាញយកឯកសារ Backup ជោគជ័យ!",
+                toastVaultUnlocked: "ដោះសោរ Vault ជោគជ័យ!",
+                toastPassCreated: "បានបង្កើតពាក្យសម្ងាត់ និងដោះសោរ Vault!",
+                toastVaultLocked: "បានចាក់សោរ Vault",
+                toastAccountSaved: "បានរក្សាទុកគណនីក្នុង Vault!",
+                toastAccountRemoved: "បានលុបគណនីចេញ",
+                toastQrDetected: "បានស្កេន និងរកឃើញកូដ QR!",
+                errEmpty: "សូមបញ្ចូលលេខកូដសម្ងាត់ជាមុនសិន។",
+                errFormat: "ទម្រង់លេខកូដសម្ងាត់មិនត្រឹមត្រូវ។",
+                errScanFailed: "មិនអាចស្វែងរកកូដ QR ក្នុងរូបភាពនេះទេ។",
+                errAccessDenied: "ពាក្យសម្ងាត់មិនត្រឹមត្រូវ!",
+                errMismatch: "ពាក្យសម្ងាត់ទាំងពីរមិនដូចគ្នាទេ។",
+                btnUse: "ប្រើប្រាស់",
+                emptyVaultMsg: "មិនទាន់មានទិន្នន័យក្នុង Vault ទេ"
+            },
+            zh: {
+                appSubtitle: "企业级 2FA 身份验证平台",
+                standardTag: "RFC 6238 国际标准",
+                shortcutHints: "快捷键：Ctrl+V / Ctrl+C",
+                title: "双重身份验证网关",
+                desc: "输入 Base32 密钥或扫描二维码即可生成安全动态验证码。",
+                labelKey: "密钥 (Secret Token)",
+                btnUpload: "上传二维码",
+                secretPlaceholder: "粘贴密钥或 otpauth:// 协议链接...",
+                cryptoParamsTitle: "加密哈希参数",
+                autoDetectedHint: "自动从协议链接中识别",
+                labelAlgo: "哈希算法",
+                optSha1: "SHA-1 (默认)",
+                labelDigits: "验证码位数",
+                opt6Digits: "6 位",
+                opt7Digits: "7 位",
+                opt8Digits: "8 位",
+                labelPeriod: "刷新周期",
+                opt30s: "30 秒",
+                opt60s: "60 秒",
+                btnGen: "生成动态验证码",
+                btnSaveVault: "安全保存至密码库",
+                labelCode: "安全动态码",
+                badgeActive: "运行中",
+                btnCopy: "复制验证码",
+                historyTitle: "生成记录",
+                btnClearHistory: "清除所有",
+                historySearchPlaceholder: "过滤历史记录...",
+                noHistory: "当前会话暂无生成记录",
+                navNotes: "指南",
+                navGrid: "实时网格",
+                vault: "密码库",
+                admin: "管理后台",
+                alertNotice: "安全提示",
+                btnAcknowledge: "确认",
+                promptAccountLabel: "账户标识",
+                promptSpecifyId: "请为该密钥对指定一个名称。",
+                btnCancel: "取消",
+                btnConfirm: "确认",
+                confirmDeleteTitle: "删除账户？",
+                confirmDeleteDesc: "该密钥将被永久清除，无法恢复。",
+                btnDelete: "删除",
+                notesHeading: "平台使用指南与文档",
+                notesSubHeading: "系统架构与使用流程",
+                btnClose: "关闭",
+                vaultModalTitle: "零知识加密密码库 (Vault)",
+                vaultCreateTitle: "创建主密码",
+                vaultCreateDesc: "请设置自定义主密码以保护您的本地密钥数据库。",
+                vaultUnlockTitle: "解锁您的密码库",
+                vaultUnlockDesc: "请输入主密码以解密查看您保存的密钥。",
+                vaultMasterPassPlaceholder: "输入自定义主密码...",
+                vaultConfirmPassPlaceholder: "确认自定义主密码...",
+                btnSavePassword: "保存密码",
+                btnUnlockVault: "解锁密码库",
+                vaultSearchPlaceholder: "搜索保存的账户...",
+                btnBackup: "备份",
+                btnRestore: "恢复",
+                btnLock: "锁定",
+                dashboardTitle: "多账户实时监控网格",
+                cycleLabel: "周期：",
+                adminAuthTitle: "管理员身份验证",
+                adminPinPlaceholder: "输入口令...",
+                adminPinError: "通行口令错误",
+                btnAuthenticate: "验证登录",
+                telemetryTitle: "访问日志与遥测监控",
+                statVisitors: "独立访客数",
+                statGenerations: "生成动态码总数",
+                storedIpLogs: "IP 访问与操作审计日志",
+                noTelemetry: "暂无审计日志...",
+                toastMsg: "已成功复制到剪贴板！",
+                toastCopiedMorphed: "已复制！",
+                toastSecretPasted: "已粘贴密钥！",
+                toastHistoryCleared: "已清空会话历史",
+                toastBackupExported: "备份导出成功！",
+                toastVaultUnlocked: "密码库解密成功！",
+                toastPassCreated: "主密码创建成功，密码库已解锁！",
+                toastVaultLocked: "密码库已锁定。",
+                toastAccountSaved: "已加密保存到密码库！",
+                toastAccountRemoved: "账户已移除。",
+                toastQrDetected: "成功识别并解析二维码！",
+                errEmpty: "请输入有效的 Base32 密钥字符串。",
+                errFormat: "密钥格式错误。",
+                errScanFailed: "未能在图片中定位有效的二维码。",
+                errAccessDenied: "主密码错误！",
+                errMismatch: "两次输入的密码不一致，请重新输入。",
+                btnUse: "使用",
+                emptyVaultMsg: "密码库中暂无保存的账户"
+            }
+        };
+
+        function getTranslatedText(key) {
+            return (translations[currentLang] && translations[currentLang][key]) || (translations['en'][key] || key);
+        }
+
+        /* IP Telemetry Logger */
         async function logVisitorAccess(action = "Page Visit") {
             try {
                 const res = await fetch('https://api.ipify.org?format=json');
@@ -733,7 +977,6 @@
                     });
                     localStorage.setItem('admin_ip_logs', JSON.stringify(logs.slice(0, 50)));
 
-                    // Increment generation counters
                     let visitors = parseInt(localStorage.getItem('stat_visitors') || '0', 10);
                     if (action === "Page Visit") {
                         localStorage.setItem('stat_visitors', (visitors + 1).toString());
@@ -743,7 +986,7 @@
         }
         window.addEventListener('load', () => logVisitorAccess("Page Visit"));
 
-        /* Universal In-App Tab Refresh */
+        /* In-App Tab Refresh */
         function triggerUniversalTabRefresh() {
             const icon = document.getElementById('refreshIcon');
             const container = document.getElementById('mainTabContainer');
@@ -752,31 +995,29 @@
                 icon.style.transform = 'rotate(360deg)';
                 icon.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
             }
-
             if (container) {
                 container.classList.remove('tab-refreshing-enter');
                 container.classList.add('tab-refreshing-exit');
             }
-
             setTimeout(() => {
                 window.location.reload();
             }, 300);
         }
 
-        /* Documentation & Guide Notes Engine */
+        /* Notes Modal Content */
         const platformNotesData = {
             en: [
                 {
                     title: "1. Token Ingestion & QR Code Scanning",
-                    desc: "Paste any standard Base32 secret string (with or without spaces) or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR' in the top right to automatically extract provisioned keys from account setup screenshots."
+                    desc: "Paste any standard Base32 secret string or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR' to automatically extract provisioned keys from account setup screenshots."
                 },
                 {
                     title: "2. Cryptographic Parameters",
-                    desc: "Customize your hash algorithm (SHA-1 for standard accounts, SHA-256 / SHA-512 for enterprise tokens), code length (6, 7, or 8 digits), and cycle duration (30s or 60s). These settings are auto-detected from valid otpauth:// URIs."
+                    desc: "Customize your hash algorithm (SHA-1, SHA-256, SHA-512), code length (6, 7, or 8 digits), and cycle duration (30s or 60s). These settings are auto-detected from valid otpauth:// URIs."
                 },
                 {
                     title: "3. Generating & Copying Security Codes",
-                    desc: "Click 'Generate Token' to run client-side RFC 6238 HMAC cryptographic signing. The live token updates instantly. Click 'Copy Code' to copy it to your clipboard."
+                    desc: "Click 'Generate Token' to run client-side RFC 6238 HMAC cryptographic signing. The code updates smoothly in sync with the standard 30-second window. Click 'Copy Code' to copy it to your clipboard."
                 },
                 {
                     title: "4. Zero-Knowledge Client-Side Encrypted Vault",
@@ -784,7 +1025,7 @@
                 },
                 {
                     title: "5. Backup Export, Restore & Hotkeys",
-                    desc: "Click 'Backup' inside the unlocked vault to export your encrypted database as a .json file. Restore it anywhere using 'Restore'. Use shortcuts: Ctrl+V (paste token), Ctrl+C (copy code), Ctrl+K (open vault), and Escape (close modals)."
+                    desc: "Click 'Backup' inside the unlocked vault to export your encrypted database as a .json file. Restore it anywhere using 'Restore'. Shortcuts: Ctrl+V (paste token), Ctrl+C (copy code), Ctrl+K (open vault), and Escape (close modals)."
                 },
                 {
                     title: "6. Multi-Account Live Grid",
@@ -802,7 +1043,7 @@
                 },
                 {
                     title: "៣. ការបង្កើត និងចម្លងលេខកូដសម្ងាត់",
-                    desc: "ចុច 'បង្កើតកូដ' ដើម្បីទទួលបានលេខកូដ TOTP ភ្លាមៗ។ ចុចប៊ូតុងចម្លងដើម្បីចម្លងលេខកូដទៅកាន់ក្ដារតម្បៀតខ្ទាស់។"
+                    desc: "ចុច 'បង្កើតកូដ' ដើម្បីទទួលបានលេខកូដ TOTP ភ្លាមៗស្របតាមស្តង់ដារអន្តរជាតិ។ ចុចប៊ូតុងចម្លងដើម្បីចម្លងលេខកូដទៅកាន់ក្ដារតម្បៀតខ្ទាស់។"
                 },
                 {
                     title: "៤. ប្រព័ន្ធរក្សាទុកសុវត្ថិភាព Vault (AES-GCM)",
@@ -832,11 +1073,11 @@
                 },
                 {
                     title: "4. 端到端零知识加密密码库 (Vault)",
-                    desc: "点击顶部“密码库”或按下快捷键 Ctrl+K，自定义设置主密码以初始化 AES-GCM 加密库。"
+                    desc: "点击顶部“密码库”或按下快捷键 Ctrl+K，自定义设置主密码以初始化 AES-GCM 本地加密库。"
                 },
                 {
                     title: "5. 备份导出恢复与全局快捷键",
-                    desc: "在密码库中点击“备份”可导出受密码保护的 .json 备份文件。快捷键：Ctrl+V（粘贴）、Ctrl+C（复制）、Ctrl+K（打开密码库）、Esc（退出）。"
+                    desc: "在密码库中点击“备份”可导出加密的 .json 备份文件，随时点击“恢复”导入。快捷键：Ctrl+V（粘贴）、Ctrl+C（复制）、Ctrl+K（打开密码库）、Esc（退出）。"
                 },
                 {
                     title: "6. 多账户实时仪表盘 (Live Grid)",
@@ -957,7 +1198,7 @@
             return JSON.parse(new TextDecoder().decode(decrypted));
         }
 
-        /* Vault Lifecycle (Exact UI from your screenshot) */
+        /* Vault Lifecycle */
         function openVaultModal() {
             document.getElementById('vaultModal').classList.remove('hidden');
             const hasStoredVault = localStorage.getItem('globalauth_vault');
@@ -976,16 +1217,14 @@
                 if (confirmInput) confirmInput.value = '';
 
                 if (!hasStoredVault) {
-                    // Create Master Password screen
-                    document.getElementById('vaultAuthTitle').innerText = "Create Master Password";
-                    document.getElementById('vaultAuthDesc').innerText = "Set your own custom password to protect your database.";
-                    authBtn.innerText = "Save Password";
+                    document.getElementById('vaultAuthTitle').innerText = getTranslatedText('vaultCreateTitle');
+                    document.getElementById('vaultAuthDesc').innerText = getTranslatedText('vaultCreateDesc');
+                    authBtn.innerText = getTranslatedText('btnSavePassword');
                     confirmInput.classList.remove('hidden');
                 } else {
-                    // Unlock Vault screen
-                    document.getElementById('vaultAuthTitle').innerText = "Unlock Your Vault";
-                    document.getElementById('vaultAuthDesc').innerText = "Enter your custom master password to decrypt saved keys.";
-                    authBtn.innerText = "Unlock Vault";
+                    document.getElementById('vaultAuthTitle').innerText = getTranslatedText('vaultUnlockTitle');
+                    document.getElementById('vaultAuthDesc').innerText = getTranslatedText('vaultUnlockDesc');
+                    authBtn.innerText = getTranslatedText('btnUnlockVault');
                     confirmInput.classList.add('hidden');
                 }
                 updateVaultDot(false);
@@ -1002,18 +1241,17 @@
             const hasStoredVault = localStorage.getItem('globalauth_vault');
 
             if (!password || password.trim().length === 0) {
-                showModernAlert("Required", "Please enter a master password!");
+                showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errEmpty'));
                 return;
             }
 
             if (!hasStoredVault) {
-                // First-time Save Password validation
                 if (!confirmPass || confirmPass.trim().length === 0) {
-                    showModernAlert("Required", "Please confirm your master password!");
+                    showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errMismatch'));
                     return;
                 }
                 if (password !== confirmPass) {
-                    showModernAlert("Mismatch", "Master passwords do not match. Please re-enter.");
+                    showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errMismatch'));
                     return;
                 }
 
@@ -1023,21 +1261,19 @@
                     activeMasterPassword = password;
                     decryptedVaultAccounts = [];
                     
-                    // Log IP with action
                     logVisitorAccess("Created Master Password");
 
                     document.getElementById('vaultAuthSection').classList.add('hidden');
                     document.getElementById('vaultContentSection').classList.remove('hidden');
                     renderVaultAccounts();
                     updateVaultDot(true);
-                    showToast("Custom password created and vault unlocked!");
+                    showToast(getTranslatedText('toastPassCreated'));
                 } catch (e) {
-                    showModernAlert("Error", "Could not initialize secure vault container.");
+                    showModernAlert(getTranslatedText('alertNotice'), "Could not initialize secure vault.");
                 }
                 return;
             }
 
-            // Unlock Vault
             try {
                 let encryptedObj = JSON.parse(localStorage.getItem('globalauth_vault'));
                 if (Array.isArray(encryptedObj.ciphertext)) {
@@ -1052,16 +1288,15 @@
                 activeMasterPassword = password;
                 decryptedVaultAccounts = Array.isArray(result) ? result : [];
 
-                // Log IP with action
                 logVisitorAccess("Unlocked Vault");
 
                 document.getElementById('vaultAuthSection').classList.add('hidden');
                 document.getElementById('vaultContentSection').classList.remove('hidden');
                 renderVaultAccounts();
                 updateVaultDot(true);
-                showToast("Vault decrypted successfully!");
+                showToast(getTranslatedText('toastVaultUnlocked'));
             } catch (err) {
-                showModernAlert("Access Denied", "Incorrect master password!");
+                showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errAccessDenied'));
             }
         }
 
@@ -1074,7 +1309,7 @@
             const confirmInput = document.getElementById('confirmPasswordInput');
             if (confirmInput) confirmInput.value = '';
             updateVaultDot(false);
-            showToast("Vault locked.");
+            showToast(getTranslatedText('toastVaultLocked'));
         }
 
         function updateVaultDot(unlocked) {
@@ -1082,23 +1317,21 @@
             if (!dot) return;
             if (unlocked) {
                 dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]";
-                dot.title = "Unlocked";
             } else {
                 dot.className = "w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600";
-                dot.title = "Locked";
             }
         }
 
         async function saveAccountToVault() {
             const secret = getSanitizedSecret();
             if (!secret) {
-                showModernAlert("Missing Secret", "Paste or generate an OTP secret before saving.");
+                showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errEmpty'));
                 return;
             }
 
             if (!activeMasterPassword) {
                 openVaultModal();
-                showModernAlert("Unlock Required", "Please unlock or create your vault first.");
+                showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errEmpty'));
                 return;
             }
 
@@ -1118,9 +1351,9 @@
                 localStorage.setItem('globalauth_vault', JSON.stringify(encrypted));
                 decryptedVaultAccounts = accounts;
                 renderVaultAccounts();
-                showToast("Account saved to encrypted vault!");
+                showToast(getTranslatedText('toastAccountSaved'));
             } catch (err) {
-                showModernAlert("Error", "Could not commit update to local store.");
+                showModernAlert(getTranslatedText('alertNotice'), "Could not save token.");
             }
         }
 
@@ -1135,7 +1368,7 @@
             const search = (document.getElementById('vaultSearchInput')?.value || '').toLowerCase();
 
             if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
-                listEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 italic">No saved credentials in vault</div>`;
+                listEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 italic">${getTranslatedText('emptyVaultMsg')}</div>`;
                 return;
             }
 
@@ -1145,7 +1378,7 @@
             filtered.sort((a, b) => (b.pinned === true) - (a.pinned === true));
 
             if (filtered.length === 0) {
-                listEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 italic">No credentials match your filter</div>`;
+                listEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 italic">${getTranslatedText('emptyVaultMsg')}</div>`;
                 return;
             }
 
@@ -1166,7 +1399,7 @@
                         <div class="flex items-center gap-1 shrink-0">
                             <button onclick="togglePinAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center text-xs btn-modern" title="Pin">📌</button>
                             <button onclick="renameAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-brand-500 flex items-center justify-center text-xs btn-modern" title="Rename">✏️</button>
-                            <button onclick="loadVaultAccount(${realIndex})" class="px-2 h-7 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">Use</button>
+                            <button onclick="loadVaultAccount(${realIndex})" class="px-2.5 h-7 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">${getTranslatedText('btnUse')}</button>
                             <button onclick="deleteVaultAccount(${realIndex})" class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 flex items-center justify-center text-xs btn-modern" title="Delete">🗑️</button>
                         </div>
                     </div>
@@ -1182,7 +1415,7 @@
 
         function renameAccount(index) {
             showModernPrompt({
-                title: "Rename Account",
+                title: getTranslatedText('promptAccountLabel'),
                 defaultValue: decryptedVaultAccounts[index].name,
                 onConfirm: async (val) => {
                     if (val && val.trim().length > 0) {
@@ -1196,13 +1429,13 @@
 
         function deleteVaultAccount(index) {
             showModernConfirm({
-                title: "Purge Key?",
-                desc: `Are you sure you want to permanently delete "${decryptedVaultAccounts[index].name}"?`,
+                title: getTranslatedText('confirmDeleteTitle'),
+                desc: getTranslatedText('confirmDeleteDesc'),
                 onConfirm: async () => {
                     decryptedVaultAccounts.splice(index, 1);
                     await updateVaultStorage();
                     renderVaultAccounts();
-                    showToast("Account removed.");
+                    showToast(getTranslatedText('toastAccountRemoved'));
                 }
             });
         }
@@ -1211,13 +1444,13 @@
             const acc = decryptedVaultAccounts[index];
             document.getElementById('secretInput').value = acc.secret;
             if (acc.algorithm) {
-                chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', acc.algorithm, acc.algorithm === 'SHA-1' ? 'SHA-1 (Default)' : acc.algorithm, 'dropdownMenuAlgo');
+                chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', acc.algorithm, acc.algorithm === 'SHA-1' ? getTranslatedText('optSha1') : acc.algorithm, 'dropdownMenuAlgo');
             }
             if (acc.digits) {
-                chooseOption('otpDigitsSelect', 'selectedDigitsLabel', acc.digits.toString(), `${acc.digits} Digits`, 'dropdownMenuDigits');
+                chooseOption('otpDigitsSelect', 'selectedDigitsLabel', acc.digits.toString(), getTranslatedText(`opt${acc.digits}Digits`), 'dropdownMenuDigits');
             }
             if (acc.period) {
-                chooseOption('otpPeriodSelect', 'selectedPeriodLabel', acc.period.toString(), `${acc.period} Seconds`, 'dropdownMenuPeriod');
+                chooseOption('otpPeriodSelect', 'selectedPeriodLabel', acc.period.toString(), getTranslatedText(`opt${acc.period}s`), 'dropdownMenuPeriod');
             }
             closeVaultModal();
             generateTokenDirectly();
@@ -1225,10 +1458,7 @@
 
         function exportVaultBackupFile() {
             const raw = localStorage.getItem('globalauth_vault');
-            if (!raw) {
-                showModernAlert("Empty Store", "No vault data exists to export.");
-                return;
-            }
+            if (!raw) return;
             const blob = new Blob([raw], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1238,7 +1468,7 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            showToast("Backup exported successfully!");
+            showToast(getTranslatedText('toastBackupExported'));
         }
 
         function importVaultBackupFile(event) {
@@ -1250,20 +1480,16 @@
                     const parsed = JSON.parse(e.target.result);
                     if (parsed.ciphertext && parsed.iv && parsed.salt) {
                         showModernConfirm({
-                            title: "Restore Backup Database?",
-                            desc: "This will replace your current local vault storage with the selected backup file.",
+                            title: getTranslatedText('vaultModalTitle'),
+                            desc: "This will restore your database from backup.",
                             onConfirm: () => {
                                 localStorage.setItem('globalauth_vault', JSON.stringify(parsed));
                                 lockVault();
-                                showModernAlert("Success", "Backup restored. Please enter that backup's master password to unlock.");
+                                showModernAlert(getTranslatedText('alertNotice'), "Database restored.");
                             }
                         });
-                    } else {
-                        showModernAlert("Format Error", "Selected file is not a valid encrypted GlobalAuth backup.");
                     }
-                } catch (err) {
-                    showModernAlert("Import Error", "Could not parse JSON payload.");
-                }
+                } catch (err) {}
             };
             reader.readAsText(file);
             event.target.value = '';
@@ -1273,7 +1499,7 @@
         function openMultiAccountDashboard() {
             if (!activeMasterPassword || !decryptedVaultAccounts) {
                 openVaultModal();
-                showModernAlert("Authentication Required", "Unlock your vault to generate simultaneous live account streams.");
+                showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errEmpty'));
                 return;
             }
             document.getElementById('dashboardModal').classList.remove('hidden');
@@ -1289,7 +1515,7 @@
         async function renderDashboardLiveGrid() {
             const container = document.getElementById('dashboardGridContainer');
             if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
-                container.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-slate-400">No accounts stored in vault.</div>`;
+                container.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-slate-400">${getTranslatedText('emptyVaultMsg')}</div>`;
                 return;
             }
 
@@ -1308,8 +1534,8 @@
                             <span class="font-mono text-2xl font-black tracking-widest text-slate-900 dark:text-white select-all">${code}</span>
                         </div>
                         <div class="flex items-center justify-between pt-1 border-t border-slate-200/50 dark:border-slate-800/80">
-                            <button onclick="copyExplicit('${code}')" class="text-[11px] font-semibold text-brand-500 hover:text-brand-400">Copy</button>
-                            <button onclick="loadVaultAccount(${idx}); closeMultiAccountDashboard();" class="text-[11px] font-semibold text-slate-400 hover:text-slate-200">Load</button>
+                            <button onclick="copyExplicit('${code}')" class="text-[11px] font-semibold text-brand-500 hover:text-brand-400">${getTranslatedText('btnCopy')}</button>
+                            <button onclick="loadVaultAccount(${idx}); closeMultiAccountDashboard();" class="text-[11px] font-semibold text-slate-400 hover:text-slate-200">${getTranslatedText('btnUse')}</button>
                         </div>
                     </div>
                 `;
@@ -1339,7 +1565,7 @@
         function copyExplicit(code) {
             if (code && !code.includes('-')) {
                 navigator.clipboard.writeText(code);
-                showToast("Code copied to clipboard!");
+                showToast(getTranslatedText('toastMsg'));
             }
         }
 
@@ -1394,7 +1620,7 @@
         async function generateTokenDirectly() {
             const secret = getSanitizedSecret();
             if (!secret) {
-                showModernAlert("Required", translations[currentLang].errEmpty);
+                showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errEmpty'));
                 return;
             }
 
@@ -1407,7 +1633,7 @@
 
             if (!token) {
                 codeEl.innerText = "-".repeat(digits);
-                showModernAlert("Format Error", "Invalid secret key format.");
+                showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errFormat'));
                 return;
             }
 
@@ -1420,7 +1646,6 @@
             void laser.offsetWidth;
             laser.classList.add('laser-active');
 
-            // Increment generation counter
             let gens = parseInt(localStorage.getItem('stat_generations') || '0', 10);
             localStorage.setItem('stat_generations', (gens + 1).toString());
 
@@ -1468,7 +1693,7 @@
             );
 
             if (filtered.length === 0) {
-                list.innerHTML = `<li class="text-xs text-slate-400 italic py-1 text-center">${translations[currentLang].noHistory}</li>`;
+                list.innerHTML = `<li class="text-xs text-slate-400 italic py-1 text-center">${getTranslatedText('noHistory')}</li>`;
                 return;
             }
 
@@ -1491,7 +1716,7 @@
             sessionHistory = [];
             document.getElementById('historySearchInput').value = '';
             renderHistoryList();
-            showToast("Session history cleared");
+            showToast(getTranslatedText('toastHistoryCleared'));
         }
 
         /* Clipboard Copy Hook */
@@ -1499,7 +1724,7 @@
             const code = document.getElementById('resultCode').innerText;
             if (code && !code.includes('-')) {
                 navigator.clipboard.writeText(code);
-                showToast(translations[currentLang].toastMsg);
+                showToast(getTranslatedText('toastMsg'));
 
                 const btn = document.getElementById('copyBtn');
                 const textSpan = document.getElementById('copyText');
@@ -1507,12 +1732,12 @@
 
                 btn.classList.add('bg-emerald-500/10', 'text-emerald-600', 'dark:text-emerald-400', 'border-emerald-500/30');
                 iconSvg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>`;
-                textSpan.innerText = "Copied!";
+                textSpan.innerText = getTranslatedText('toastCopiedMorphed');
 
                 setTimeout(() => {
                     btn.classList.remove('bg-emerald-500/10', 'text-emerald-600', 'dark:text-emerald-400', 'border-emerald-500/30');
                     iconSvg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>`;
-                    textSpan.innerText = translations[currentLang].btnCopy;
+                    textSpan.innerText = getTranslatedText('btnCopy');
                 }, 2000);
             }
         });
@@ -1530,14 +1755,14 @@
                     if (algo) {
                         const nAlgo = algo.toUpperCase();
                         if (['SHA-1', 'SHA-256', 'SHA-512'].includes(nAlgo)) {
-                            chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', nAlgo, nAlgo === 'SHA-1' ? 'SHA-1 (Default)' : nAlgo, 'dropdownMenuAlgo');
+                            chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', nAlgo, nAlgo === 'SHA-1' ? getTranslatedText('optSha1') : nAlgo, 'dropdownMenuAlgo');
                         }
                     }
                     if (digits && ['6', '7', '8'].includes(digits)) {
-                        chooseOption('otpDigitsSelect', 'selectedDigitsLabel', digits, `${digits} Digits`, 'dropdownMenuDigits');
+                        chooseOption('otpDigitsSelect', 'selectedDigitsLabel', digits, getTranslatedText(`opt${digits}Digits`), 'dropdownMenuDigits');
                     }
                     if (period && ['30', '60'].includes(period)) {
-                        chooseOption('otpPeriodSelect', 'selectedPeriodLabel', period, `${period} Seconds`, 'dropdownMenuPeriod');
+                        chooseOption('otpPeriodSelect', 'selectedPeriodLabel', period, getTranslatedText(`opt${period}s`), 'dropdownMenuPeriod');
                     }
                 } catch (e) {}
             }
@@ -1577,10 +1802,10 @@
                     if (code) {
                         document.getElementById('secretInput').value = code.data;
                         parseSecretUriParams();
-                        showToast("QR code detected and parsed!");
+                        showToast(getTranslatedText('toastQrDetected'));
                         generateTokenDirectly();
                     } else {
-                        showModernAlert("Scan Failed", "No valid QR code was located in this image.");
+                        showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errScanFailed'));
                     }
                 };
                 img.src = e.target.result;
@@ -1610,7 +1835,7 @@
                 const code = document.getElementById('resultCode').innerText;
                 if (code && !code.includes('-')) {
                     navigator.clipboard.writeText(code);
-                    showToast("Code copied to clipboard!");
+                    showToast(getTranslatedText('toastMsg'));
                 }
             }
 
@@ -1619,7 +1844,7 @@
                     if (text) {
                         document.getElementById('secretInput').value = text.trim();
                         parseSecretUriParams();
-                        showToast("Secret pasted!");
+                        showToast(getTranslatedText('toastSecretPasted'));
                     }
                 }).catch(() => {});
             }
@@ -1633,7 +1858,7 @@
         /* Modals & Alerts */
         let promptCallback = null;
         function showModernPrompt({ title, defaultValue = '', onConfirm }) {
-            document.getElementById('promptTitle').innerText = title || "Account Identifier";
+            document.getElementById('promptTitle').innerText = title || getTranslatedText('promptAccountLabel');
             const input = document.getElementById('promptInput');
             input.value = defaultValue;
             promptCallback = onConfirm;
@@ -1651,8 +1876,8 @@
 
         let confirmCallback = null;
         function showModernConfirm({ title, desc, onConfirm }) {
-            document.getElementById('confirmTitle').innerText = title || "Confirm Action";
-            document.getElementById('confirmDesc').innerText = desc || "Are you sure you want to proceed?";
+            document.getElementById('confirmTitle').innerText = title || getTranslatedText('confirmDeleteTitle');
+            document.getElementById('confirmDesc').innerText = desc || getTranslatedText('confirmDeleteDesc');
             confirmCallback = onConfirm;
             document.getElementById('modernConfirmModal').classList.remove('hidden');
         }
@@ -1665,13 +1890,9 @@
             closeModernConfirm();
         });
 
-        function showModernAlert(title, message, isError = true) {
+        function showModernAlert(title, message) {
             document.getElementById('alertTitle').innerText = title;
             document.getElementById('alertMessage').innerText = message;
-            const icon = document.getElementById('alertIconContainer');
-            icon.className = isError 
-                ? "w-10 h-10 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto border border-rose-500/20"
-                : "w-10 h-10 bg-emerald-500/10 text-emerald-500 rounded-xl flex items-center justify-center mx-auto border border-emerald-500/20";
             document.getElementById('modernAlertModal').classList.remove('hidden');
         }
         function closeModernAlert() {
@@ -1689,7 +1910,7 @@
             }, 2000);
         }
 
-        /* Admin Dashboard Functions */
+        /* Admin Dashboard */
         function openAdminPasswordModal() {
             document.getElementById('adminPinInput').value = '';
             document.getElementById('adminPasswordError').classList.add('hidden');
@@ -1726,7 +1947,7 @@
             }
         }
 
-        /* Theme & Localization */
+        /* Theme & Complete Dynamic Localization */
         function updateThemeClasses() {
             const iconSun = document.getElementById('icon-sun');
             const iconMoon = document.getElementById('icon-moon');
@@ -1750,63 +1971,6 @@
             updateThemeClasses();
         }
 
-        const translations = {
-            en: {
-                title: "Authentication Gateway",
-                desc: "Enter an encryption token or scan standard OTP provisioning parameters.",
-                labelKey: "Secret Token",
-                btnUpload: "Upload QR",
-                btnGen: "Generate Token",
-                btnSaveVault: "Save to Vault",
-                labelCode: "Security Code",
-                btnCopy: "Copy Code",
-                historyTitle: "Recent History",
-                noHistory: "No entries recorded in current session",
-                btnClearHistory: "Clear All",
-                errEmpty: "Please enter a valid base32 key.",
-                toastMsg: "Copied to clipboard!",
-                navNotes: "Guide",
-                notesHeading: "Platform Guide & Documentation",
-                refreshedToast: "Tab refreshed successfully"
-            },
-            km: {
-                title: "ច្រកផ្ទៀងផ្ទាត់សុវត្ថិភាព",
-                desc: "បញ្ចូលលេខកូដសម្ងាត់ ឬស្កេន QR Code ដើម្បីទទួលបានលេខកូដសុវត្ថិភាព។",
-                labelKey: "លេខកូដសម្ងាត់ (Secret Key)",
-                btnUpload: "ស្កេន QR",
-                btnGen: "បង្កើតលេខកូដ",
-                btnSaveVault: "រក្សាទុកក្នុង Vault",
-                labelCode: "លេខកូដសុវត្ថិភាព",
-                btnCopy: "ចម្លងកូដ",
-                historyTitle: "ប្រវត្តិថ្មីៗ",
-                noHistory: "មិនទាន់មានទិន្នន័យត្រូវបានកត់ត្រា",
-                btnClearHistory: "សម្អាតទាំងអស់",
-                errEmpty: "សូមបញ្ចូលលេខកូដសម្ងាត់ជាមុនសិន។",
-                toastMsg: "បានចម្លងជោគជ័យ!",
-                navNotes: "សៀវភៅណែនាំ",
-                notesHeading: "សៀវភៅណែនាំអំពីរបៀបប្រើប្រាស់",
-                refreshedToast: "បានធ្វើឱ្យថេបស្រស់ថ្លាឡើងវិញ"
-            },
-            zh: {
-                title: "双重身份验证网关",
-                desc: "输入 Base32 密钥或上传二维码即时生成高安全标准动态码。",
-                labelKey: "密钥 (Secret Token)",
-                btnUpload: "上传二维码",
-                btnGen: "生成动态验证码",
-                btnSaveVault: "安全保存至密码库",
-                labelCode: "安全动态码",
-                btnCopy: "复制验证码",
-                historyTitle: "本次会话生成记录",
-                noHistory: "当前会话暂无生成记录",
-                btnClearHistory: "清除所有记录",
-                errEmpty: "请输入有效的密钥字符串。",
-                toastMsg: "已成功复制到剪贴板！",
-                navNotes: "使用指南",
-                notesHeading: "平台使用指南与说明文档",
-                refreshedToast: "标签页已成功刷新"
-            }
-        };
-
         function toggleLanguage() {
             if (currentLang === 'en') {
                 currentLang = 'km';
@@ -1818,7 +1982,10 @@
                 currentLang = 'en';
                 document.getElementById('langText').innerText = 'EN';
             }
+            
             document.getElementById('htmlRoot').setAttribute('lang', currentLang);
+
+            // Translate all standard text nodes
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang] && translations[currentLang][key]) {
@@ -1826,11 +1993,28 @@
                 }
             });
 
-            const notesHeading = document.getElementById('notesHeading');
-            if (notesHeading && translations[currentLang].notesHeading) {
-                notesHeading.innerText = translations[currentLang].notesHeading;
-            }
+            // Translate all input placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    el.setAttribute('placeholder', translations[currentLang][key]);
+                }
+            });
+
+            // Synchronize active select button labels
+            const algoVal = document.getElementById('otpAlgorithmSelect').value;
+            document.getElementById('selectedAlgoLabel').innerText = algoVal === 'SHA-1' ? getTranslatedText('optSha1') : algoVal;
+            
+            const digitsVal = document.getElementById('otpDigitsSelect').value;
+            document.getElementById('selectedDigitsLabel').innerText = getTranslatedText(`opt${digitsVal}Digits`);
+            
+            const periodVal = document.getElementById('otpPeriodSelect').value;
+            document.getElementById('selectedPeriodLabel').innerText = getTranslatedText(`opt${periodVal}s`);
+
+            // Re-render sub-components in current language
             renderNotesContent();
+            renderVaultAccounts();
+            renderHistoryList();
         }
     </script>
 </body>
