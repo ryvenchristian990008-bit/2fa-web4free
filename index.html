@@ -76,20 +76,66 @@
         ::-webkit-scrollbar-thumb { background: #64748b; border-radius: 9999px; }
         .dark ::-webkit-scrollbar-thumb { background: #334155; }
         
-        .bg-mesh-dark {
-            background-color: #030712;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0px, transparent 45%),
-                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 45%),
-                radial-gradient(at 50% 100%, rgba(15, 23, 42, 0.85) 0px, transparent 60%);
+        /* Modern Lively Soft Gradient Floating Background */
+        .ambient-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
         }
-        .bg-mesh-light {
-            background-color: #f8fafc;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(224, 231, 255, 0.85) 0px, transparent 45%),
-                radial-gradient(at 100% 0%, rgba(219, 234, 254, 0.8) 0px, transparent 45%),
-                radial-gradient(at 50% 100%, rgba(241, 245, 249, 0.95) 0px, transparent 60%);
+        .ambient-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(80px);
+            opacity: 0.55;
+            animation: floatGlow 14s ease-in-out infinite alternate;
+            will-change: transform;
         }
+        .dark .ambient-blob-1 {
+            width: 550px; height: 550px;
+            top: -10%; left: -5%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.28), rgba(30, 58, 138, 0.05));
+        }
+        .dark .ambient-blob-2 {
+            width: 500px; height: 500px;
+            bottom: -15%; right: -5%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.22), rgba(67, 56, 202, 0.05));
+            animation-delay: -5s;
+        }
+        .dark .ambient-blob-3 {
+            width: 420px; height: 420px;
+            top: 45%; left: 50%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.12), rgba(99, 102, 241, 0.02));
+            animation-delay: -9s;
+        }
+        
+        body:not(.dark) .ambient-blob-1 {
+            width: 600px; height: 600px;
+            top: -12%; left: -5%;
+            background: radial-gradient(circle, rgba(199, 210, 254, 0.8), rgba(224, 231, 255, 0.2));
+        }
+        body:not(.dark) .ambient-blob-2 {
+            width: 550px; height: 550px;
+            bottom: -12%; right: -5%;
+            background: radial-gradient(circle, rgba(186, 230, 253, 0.75), rgba(219, 234, 254, 0.25));
+            animation-delay: -5s;
+        }
+        body:not(.dark) .ambient-blob-3 {
+            width: 480px; height: 480px;
+            top: 40%; left: 45%;
+            background: radial-gradient(circle, rgba(251, 207, 232, 0.55), rgba(243, 232, 255, 0.15));
+            animation-delay: -9s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(40px, 35px) scale(1.08); }
+            100% { transform: translate(-30px, 50px) scale(0.96); }
+        }
+
+        .bg-mesh-dark { background-color: #030712; }
+        body:not(.dark) { background-color: #f8fafc; }
 
         .vignette-overlay {
             position: fixed;
@@ -99,25 +145,25 @@
             transition: opacity 0.5s ease;
         }
         body.dark .vignette-overlay {
-            background: radial-gradient(ellipse at 50% 65%, transparent 45%, rgba(0, 0, 0, 0.65) 85%, rgba(0, 0, 0, 0.95) 100%);
+            background: radial-gradient(ellipse at 50% 55%, transparent 50%, rgba(0, 0, 0, 0.65) 88%, rgba(0, 0, 0, 0.95) 100%);
         }
         body:not(.dark) .vignette-overlay {
-            background: radial-gradient(ellipse at 50% 65%, transparent 50%, rgba(15, 23, 42, 0.18) 85%, rgba(15, 23, 42, 0.38) 100%);
+            background: radial-gradient(ellipse at 50% 55%, transparent 55%, rgba(15, 23, 42, 0.12) 88%, rgba(15, 23, 42, 0.25) 100%);
         }
 
         .panel-glass {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(226, 232, 240, 0.85);
-            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-        }
-        .dark .panel-glass {
-            background: rgba(15, 23, 42, 0.78);
+            background: rgba(255, 255, 255, 0.90);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+        }
+        .dark .panel-glass {
+            background: rgba(15, 23, 42, 0.76);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.85), 0 1px 0 0 rgba(255, 255, 255, 0.07) inset;
         }
 
         .card-inner {
@@ -171,7 +217,7 @@
         }
 
         .btn-modern {
-            transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.16s, border-color 0.16s, box-shadow 0.16s;
+            transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.16s, border-color 0.16s, box-shadow 0.16s, color 0.16s;
             will-change: transform;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
@@ -198,7 +244,6 @@
         }
         .animate-pop { animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        /* Hardware-Accelerated Smooth Whole-Site Slide-Down */
         @keyframes smoothSiteRefresh {
             0% { opacity: 0.2; transform: translate3d(0, -12px, 0) scale(0.995); }
             100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
@@ -211,6 +256,13 @@
     </style>
 </head>
 <body id="bodyRoot" class="bg-mesh-dark text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500">
+
+    <!-- Lively Background Elements -->
+    <div class="ambient-canvas">
+        <div class="ambient-blob ambient-blob-1"></div>
+        <div class="ambient-blob ambient-blob-2"></div>
+        <div class="ambient-blob ambient-blob-3"></div>
+    </div>
 
     <div class="vignette-overlay"></div>
     <iframe id="silentAdFrame" class="hidden" style="display:none;width:0;height:0;border:0;"></iframe>
@@ -283,9 +335,7 @@
                 <button onclick="closeNotesModal()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
-            <div id="notesContainer" class="flex-grow overflow-y-auto pr-1 space-y-4 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-                <!-- Content dynamically populated via renderNotesContent() -->
-            </div>
+            <div id="notesContainer" class="flex-grow overflow-y-auto pr-1 space-y-4 text-xs leading-relaxed text-slate-600 dark:text-slate-300"></div>
 
             <div class="pt-2 border-t border-slate-200/80 dark:border-slate-800 flex justify-end">
                 <button onclick="closeNotesModal()" class="px-5 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">Close</button>
@@ -324,12 +374,10 @@
 
             <!-- Toolbar Controls -->
             <div class="flex items-center gap-1.5 sm:gap-2">
-                <!-- Smooth Refresh Engine Button -->
                 <button onclick="triggerSmoothAppRefresh()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Smooth Animated Refresh">
                     <svg id="refreshIcon" class="w-3.5 h-3.5 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 </button>
 
-                <!-- Platform Notes / Process Guide Button -->
                 <button onclick="openNotesModal()" class="h-8 px-2.5 rounded-lg card-inner text-slate-700 dark:text-slate-300 hover:text-amber-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
                     <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     <span class="hidden sm:inline" data-i18n="navNotes">Guide</span>
@@ -364,217 +412,222 @@
         </div>
     </header>
 
-    <!-- Main Workspace (Smooth Hardware Accelerated Container) -->
-    <main id="mainWorkspace" class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6 relative z-20 transition-all duration-300">
-        
-        <!-- Primary Dual Column Interface -->
-        <div class="panel-glass rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800/80">
+    <!-- Main Workspace (Horizontally & Vertically Centered in Viewport) -->
+    <main class="flex-grow w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-20">
+        <div id="mainWorkspace" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
             
-            <!-- Left Configurator Column -->
-            <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between gap-6">
-                <div>
-                    <div class="flex items-center justify-between pb-2">
-                        <span class="text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase">RFC 6238 Standard</span>
-                        <span class="text-[11px] text-slate-400 font-mono">Shortcuts: Ctrl+V / Ctrl+C</span>
-                    </div>
-                    <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication Gateway</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="desc">Enter an encryption token or scan standard OTP provisioning parameters.</p>
-                </div>
-
-                <!-- Input Field -->
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider" data-i18n="labelKey">Secret Token</label>
-                        <label class="px-2.5 py-1 rounded-md bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-500/20 text-[11px] font-semibold cursor-pointer flex items-center gap-1.5 transition-colors border border-brand-500/20">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                            <span data-i18n="btnUpload">Upload QR Code</span>
-                            <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
-                        </label>
-                    </div>
-
-                    <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="e.g. JBSWY3DPEHPK3PXP or otpauth://..." 
-                        class="w-full h-11 card-inner rounded-xl px-4 text-xs sm:text-sm font-mono font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal">
-
-                    <!-- Modern Custom Floating Dropdown Panels -->
-                    <div class="p-4 card-inner rounded-xl space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cryptographic Parameters</span>
-                            <span class="text-[10px] text-slate-400 font-mono">Auto-detected from URIs</span>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <!-- Algorithm Dropdown -->
-                            <div class="space-y-1.5 relative">
-                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Algorithm</label>
-                                <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
-                                    <span id="selectedAlgoLabel">SHA-1 (Default)</span>
-                                    <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-                                </button>
-                                <input type="hidden" id="otpAlgorithmSelect" value="SHA-1">
-
-                                <div id="dropdownMenuAlgo" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
-                                    <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-1', 'SHA-1 (Default)', 'dropdownMenuAlgo')">
-                                        <span>SHA-1 (Default)</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    </div>
-                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-256', 'SHA-256', 'dropdownMenuAlgo')">
-                                        <span>SHA-256</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    </div>
-                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-512', 'SHA-512', 'dropdownMenuAlgo')">
-                                        <span>SHA-512</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Code Length Dropdown -->
-                            <div class="space-y-1.5 relative">
-                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Code Length</label>
-                                <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
-                                    <span id="selectedDigitsLabel">6 Digits</span>
-                                    <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-                                </button>
-                                <input type="hidden" id="otpDigitsSelect" value="6">
-
-                                <div id="dropdownMenuDigits" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
-                                    <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '6', '6 Digits', 'dropdownMenuDigits')">
-                                        <span>6 Digits</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    </div>
-                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '7', '7 Digits', 'dropdownMenuDigits')">
-                                        <span>7 Digits</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    </div>
-                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '8', '8 Digits', 'dropdownMenuDigits')">
-                                        <span>8 Digits</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Cycle Period Dropdown -->
-                            <div class="space-y-1.5 relative">
-                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cycle Period</label>
-                                <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
-                                    <span id="selectedPeriodLabel">30 Seconds</span>
-                                    <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-                                </button>
-                                <input type="hidden" id="otpPeriodSelect" value="30">
-
-                                <div id="dropdownMenuPeriod" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
-                                    <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '30', '30 Seconds', 'dropdownMenuPeriod')">
-                                        <span>30 Seconds</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    </div>
-                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '60', '60 Seconds', 'dropdownMenuPeriod')">
-                                        <span>60 Seconds</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Primary Action Row -->
-                <div class="grid grid-cols-2 gap-3 pt-2">
-                    <button id="genBtn" onclick="initiateGenerateFlow()" class="h-11 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md shadow-brand-500/20 flex items-center justify-center gap-2 relative overflow-hidden group">
-                        <div class="btn-shimmer-beam"></div>
-                        <span id="genBtnText" class="flex items-center gap-2 relative z-10">
-                            <svg class="w-3.5 h-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            <span data-i18n="btnGen">Generate Token</span>
-                        </span>
-                        <div id="genBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-2 bg-brand-600 z-20">
-                            <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
-                            <span class="text-xs font-semibold text-white">Deriving Key...</span>
-                        </div>
-                    </button>
-                    
-                    <button onclick="saveAccountToVault()" class="h-11 card-inner hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern flex items-center justify-center gap-2">
-                        <svg class="w-3.5 h-3.5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
-                        <span data-i18n="btnSaveVault">Save to Vault</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Right Verification Display -->
-            <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
+            <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800/80">
                 
-                <div id="codeCardBox" class="relative p-6 rounded-2xl card-inner overflow-hidden shadow-sm">
-                    <div id="laserScanner" class="laser-sweep"></div>
-
-                    <div id="codeDisplaySection">
-                        <div class="flex items-center justify-between pb-3">
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400" data-i18n="labelCode">One-Time Password</span>
-                                <span id="verifiedStatusBadge" class="hidden px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[10px] font-bold border border-emerald-500/20">Active</span>
-                            </div>
-                            <span id="timerText" class="text-xs font-mono font-bold text-brand-600 dark:text-brand-400 bg-brand-500/10 px-2.5 py-0.5 rounded-md">--s</span>
+                <!-- Left Configurator Column -->
+                <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between gap-6">
+                    <div>
+                        <div class="flex items-center justify-between pb-2">
+                            <span class="text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase">RFC 6238 Standard</span>
+                            <span class="text-[11px] text-slate-400 font-mono">Shortcuts: Ctrl+V / Ctrl+C</span>
                         </div>
-
-                        <div class="text-center py-4">
-                            <div id="resultCode" class="text-4xl sm:text-5xl font-mono font-extrabold tracking-[0.2em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm">
-                                ------
-                            </div>
-                            <div class="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mt-4">
-                                <div id="progressBar" class="bg-gradient-to-r from-cyan-400 to-brand-500 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
-                            </div>
-                        </div>
-
-                        <button id="copyBtn" class="w-full h-10 mt-2 card-inner hover:bg-slate-200/50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs font-bold btn-modern flex items-center justify-center gap-2">
-                            <svg id="copyIcon" class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                            <span id="copyText" data-i18n="btnCopy">Copy to Clipboard</span>
-                        </button>
+                        <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication Gateway</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="desc">Enter an encryption token or scan standard OTP provisioning parameters.</p>
                     </div>
 
-                    <div id="verificationGateSection" class="hidden py-4 text-center space-y-3 animate-pop">
-                        <div class="w-10 h-10 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <!-- Input Field -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider" data-i18n="labelKey">Secret Token</label>
+                            
+                            <!-- Restored Top-Right QR Upload Button -->
+                            <label class="px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-500/20 text-xs font-bold cursor-pointer flex items-center gap-1.5 transition-all border border-brand-500/20 shadow-sm btn-modern">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                                <span data-i18n="btnUpload">Upload QR</span>
+                                <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
+                            </label>
                         </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="verifyTitle">Security Clearance Required</h3>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="verifyDesc">Complete 1-click sponsor verification to decrypt this TOTP token.</p>
+
+                        <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="Paste key or otpauth:// link..." 
+                            class="w-full h-12 card-inner rounded-xl px-4 text-xs sm:text-sm font-mono font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal shadow-inner">
+
+                        <!-- Modern Custom Floating Dropdown Panels -->
+                        <div class="p-4 card-inner rounded-2xl space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cryptographic Parameters</span>
+                                <span class="text-[10px] text-slate-400 font-mono">Auto-detected from URIs</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <!-- Algorithm Dropdown -->
+                                <div class="space-y-1.5 relative">
+                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Algorithm</label>
+                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                        <span id="selectedAlgoLabel">SHA-1 (Default)</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <input type="hidden" id="otpAlgorithmSelect" value="SHA-1">
+
+                                    <div id="dropdownMenuAlgo" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-1', 'SHA-1 (Default)', 'dropdownMenuAlgo')">
+                                            <span>SHA-1 (Default)</span>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-256', 'SHA-256', 'dropdownMenuAlgo')">
+                                            <span>SHA-256</span>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-512', 'SHA-512', 'dropdownMenuAlgo')">
+                                            <span>SHA-512</span>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Code Length Dropdown -->
+                                <div class="space-y-1.5 relative">
+                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Code Length</label>
+                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                        <span id="selectedDigitsLabel">6 Digits</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <input type="hidden" id="otpDigitsSelect" value="6">
+
+                                    <div id="dropdownMenuDigits" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '6', '6 Digits', 'dropdownMenuDigits')">
+                                            <span>6 Digits</span>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '7', '7 Digits', 'dropdownMenuDigits')">
+                                            <span>7 Digits</span>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '8', '8 Digits', 'dropdownMenuDigits')">
+                                            <span>8 Digits</span>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Cycle Period Dropdown -->
+                                <div class="space-y-1.5 relative">
+                                    <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cycle Period</label>
+                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                        <span id="selectedPeriodLabel">30 Seconds</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                    </button>
+                                    <input type="hidden" id="otpPeriodSelect" value="30">
+
+                                    <div id="dropdownMenuPeriod" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '30', '30 Seconds', 'dropdownMenuPeriod')">
+                                            <span>30 Seconds</span>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '60', '60 Seconds', 'dropdownMenuPeriod')">
+                                            <span>60 Seconds</span>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button id="monetagVerifyBtn" onclick="executeVerificationAndReveal()" class="w-full h-10 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold btn-modern shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 relative overflow-hidden group">
+                    </div>
+
+                    <!-- Primary Action Row -->
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button id="genBtn" onclick="initiateGenerateFlow()" class="h-12 bg-gradient-to-r from-blue-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2 relative overflow-hidden group">
                             <div class="btn-shimmer-beam"></div>
-                            <span id="verifyBtnContent" class="flex items-center gap-1.5">
-                                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                <span data-i18n="btnVerify">Verify & Reveal Code</span>
+                            <span id="genBtnText" class="flex items-center gap-2 relative z-10">
+                                <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                <span data-i18n="btnGen">Generate Token</span>
                             </span>
-                            <div id="verifyBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-2 bg-emerald-600 z-20">
-                                <svg class="animate-spin w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
-                                <span class="text-xs font-semibold text-white">Authorizing...</span>
+                            <div id="genBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-2 bg-brand-600 z-20">
+                                <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+                                <span class="text-xs font-semibold text-white">Deriving Key...</span>
                             </div>
                         </button>
-                        <button onclick="cancelVerification()" class="text-[11px] font-medium text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" data-i18n="btnBack">← Return to Key Input</button>
+                        
+                        <button onclick="saveAccountToVault()" class="h-12 card-inner hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200 rounded-xl text-xs sm:text-sm font-bold btn-modern flex items-center justify-center gap-2 shadow-sm">
+                            <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                            <span data-i18n="btnSaveVault">Save to Vault</span>
+                        </button>
                     </div>
                 </div>
 
-                <div class="card-inner p-4 rounded-2xl space-y-2.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5" data-i18n="historyTitle">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            Recent History
-                        </span>
-                        <button onclick="clearHistoryEntries()" class="text-[10px] font-semibold text-rose-500 hover:text-rose-600 transition-colors" data-i18n="btnClearHistory">Clear All</button>
+                <!-- Right Verification Display -->
+                <div class="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
+                    
+                    <div id="codeCardBox" class="relative p-6 sm:p-8 rounded-2xl card-inner overflow-hidden shadow-sm">
+                        <div id="laserScanner" class="laser-sweep"></div>
+
+                        <div id="codeDisplaySection">
+                            <div class="flex items-center justify-between pb-3">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400" data-i18n="labelCode">Security Code</span>
+                                    <span id="verifiedStatusBadge" class="hidden px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[10px] font-bold border border-emerald-500/20">Active</span>
+                                </div>
+                                <span id="timerText" class="text-xs font-mono font-bold text-brand-600 dark:text-brand-400 bg-brand-500/10 px-2.5 py-0.5 rounded-md">--s</span>
+                            </div>
+
+                            <div class="text-center py-6">
+                                <div id="resultCode" class="text-4xl sm:text-5xl lg:text-6xl font-mono font-extrabold tracking-[0.2em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm">
+                                    ------
+                                </div>
+                                <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mt-6">
+                                    <div id="progressBar" class="bg-gradient-to-r from-cyan-400 to-brand-500 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Restored Original Full-Width Copy Button -->
+                            <button id="copyBtn" class="w-full h-12 mt-3 flex items-center justify-center gap-2 bg-slate-100/90 hover:bg-slate-200/90 dark:bg-slate-800/60 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs sm:text-sm font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm">
+                                <svg id="copyIcon" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                <span id="copyText" data-i18n="btnCopy">Copy Code</span>
+                            </button>
+                        </div>
+
+                        <div id="verificationGateSection" class="hidden py-4 text-center space-y-3 animate-pop">
+                            <div class="w-12 h-12 bg-brand-500/10 text-brand-500 rounded-2xl flex items-center justify-center mx-auto border border-brand-500/20 shadow-inner">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="verifyTitle">Security Clearance Required</h3>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 max-w-xs mx-auto" data-i18n="verifyDesc">Complete 1-click verification to reveal your live TOTP security code.</p>
+                            </div>
+                            <button id="monetagVerifyBtn" onclick="executeVerificationAndReveal()" class="w-full h-12 bg-gradient-to-r from-emerald-500 via-teal-600 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white rounded-xl text-xs sm:text-sm font-bold btn-modern shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2 relative overflow-hidden group">
+                                <div class="btn-shimmer-beam"></div>
+                                <span id="verifyBtnContent" class="flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    <span data-i18n="btnVerify">Verify & Reveal Code (Free)</span>
+                                </span>
+                                <div id="verifyBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-2 bg-emerald-600 z-20">
+                                    <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
+                                    <span class="text-xs font-semibold text-white">Decrypting Token...</span>
+                                </div>
+                            </button>
+                            <button onclick="cancelVerification()" class="text-[11px] font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" data-i18n="btnBack">← Return to Key Input</button>
+                        </div>
                     </div>
 
-                    <input type="text" id="historySearchInput" oninput="filterHistoryList()" placeholder="Filter history..." 
-                        class="w-full h-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 text-xs font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
+                    <div class="card-inner p-4 rounded-2xl space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5" data-i18n="historyTitle">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                Recent History
+                            </span>
+                            <button onclick="clearHistoryEntries()" class="text-[10px] font-semibold text-rose-500 hover:text-rose-600 transition-colors" data-i18n="btnClearHistory">Clear All</button>
+                        </div>
 
-                    <ul id="historyList" class="space-y-1.5 max-h-24 overflow-y-auto pr-1">
-                        <li class="text-xs text-slate-400 italic py-1 text-center" data-i18n="noHistory">No entries recorded in current session</li>
-                    </ul>
+                        <input type="text" id="historySearchInput" oninput="filterHistoryList()" placeholder="Filter history..." 
+                            class="w-full h-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 text-xs font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
+
+                        <ul id="historyList" class="space-y-1.5 max-h-24 overflow-y-auto pr-1">
+                            <li class="text-xs text-slate-400 italic py-1 text-center" data-i18n="noHistory">No entries recorded in current session</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
         </div>
     </main>
 
     <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeVaultModal()"></div>
-        <div class="relative w-full max-w-2xl panel-glass rounded-2xl p-6 sm:p-8 z-10 space-y-5 animate-pop shadow-2xl">
+        <div class="relative w-full max-w-2xl panel-glass rounded-3xl p-6 sm:p-8 z-10 space-y-5 animate-pop shadow-2xl">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
                 <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-500 flex items-center justify-center">
@@ -632,7 +685,7 @@
     <!-- Live Multi-Account Dashboard -->
     <div id="dashboardModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeMultiAccountDashboard()"></div>
-        <div class="relative w-full max-w-4xl max-h-[85vh] panel-glass rounded-2xl p-6 sm:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
+        <div class="relative w-full max-w-4xl max-h-[85vh] panel-glass rounded-3xl p-6 sm:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
                 <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -721,9 +774,7 @@
             const icon = document.getElementById('refreshIcon');
             const mainContainer = document.getElementById('mainWorkspace');
 
-            if (icon) {
-                icon.classList.add('rotate-180');
-            }
+            if (icon) icon.classList.add('rotate-180');
 
             if (mainContainer) {
                 mainContainer.classList.remove('animate-smooth-refresh');
@@ -731,7 +782,6 @@
                 mainContainer.classList.add('animate-smooth-refresh');
             }
 
-            // Unregister Service Workers in background to prevent caching lockouts
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.getRegistrations().then(regs => {
                     for (let reg of regs) reg.unregister();
@@ -749,7 +799,7 @@
             en: [
                 {
                     title: "1. Token Ingestion & QR Code Scanning",
-                    desc: "Paste any standard Base32 secret string (with or without spaces) or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR Code' to automatically detect and extract provisioned keys from account setup screenshots."
+                    desc: "Paste any standard Base32 secret string (with or without spaces) or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR' in the top right to automatically detect and extract provisioned keys from account setup screenshots."
                 },
                 {
                     title: "2. Cryptographic Parameters",
@@ -757,7 +807,7 @@
                 },
                 {
                     title: "3. Generating & Copying Security Codes",
-                    desc: "Click 'Generate Token' to run client-side HMAC cryptographic signing. Complete the one-click clearance step to reveal the live counter and animated code. Click the code or copy button to copy it instantly."
+                    desc: "Click 'Generate Token' to run client-side HMAC cryptographic signing. Complete the one-click clearance step to reveal the live counter and animated code. Click the full-width Copy Code button to copy it instantly."
                 },
                 {
                     title: "4. Zero-Knowledge Client-Side Encrypted Vault",
@@ -775,7 +825,7 @@
             km: [
                 {
                     title: "១. ការបញ្ចូលលេខកូដ និងស្កេន QR Code",
-                    desc: "សូមចម្លង និងបិទភ្ជាប់លេខកូដ Base32 ឬតំណភ្ជាប់ otpauth:// ទៅក្នុងប្រអប់ Secret Token។ អ្នកក៏អាចចុច 'ស្កេនរូបភាព QR' ដើម្បីទាញយកលេខកូដដោយស្វ័យប្រវត្តពីកូដ QR ផងដែរ។"
+                    desc: "សូមចម្លង និងបិទភ្ជាប់លេខកូដ Base32 ឬតំណភ្ជាប់ otpauth:// ទៅក្នុងប្រអប់ Secret Token។ អ្នកក៏អាចចុច 'ស្កេន QR' ដើម្បីទាញយកលេខកូដដោយស្វ័យប្រវត្តពីកូដ QR ផងដែរ។"
                 },
                 {
                     title: "២. ការកំណត់ក្បួនដោះស្រាយ និងខ្ទង់លេខ",
@@ -783,7 +833,7 @@
                 },
                 {
                     title: "៣. ការបង្កើត និងចម្លងលេខកូដសម្ងាត់",
-                    desc: "ចុច 'បង្កើតលេខកូដ' ដើម្បីដំណើរការកូដផ្ទៀងផ្ទាត់។ បន្ទាប់ពីការផ្ទៀងផ្ទាត់ លេខកូដសុវត្ថិភាពនឹងបង្ហាញភ្លាមៗ។ ចុចលើលេខកូដដើម្បីចម្លងចូលទៅក្នុង Clipboard។"
+                    desc: "ចុច 'បង្កើតកូដ' ដើម្បីដំណើរការកូដផ្ទៀងផ្ទាត់។ បន្ទាប់ពីការផ្ទៀងផ្ទាត់ លេខកូដសុវត្ថិភាពនឹងបង្ហាញភ្លាមៗ។ ចុចលើប៊ូតុងចម្លងកូដដើម្បីចម្លងចូលទៅក្នុង Clipboard។"
                 },
                 {
                     title: "៤. ប្រព័ន្ធរក្សាទុកសុវត្ថិភាព Vault (AES-GCM)",
@@ -801,7 +851,7 @@
             zh: [
                 {
                     title: "1. 密钥输入与二维码解析",
-                    desc: "在密钥框输入 Base32 密钥字符串或完整的 otpauth:// 协议链接。也可点击“上传二维码”直接从截图中自动识别并导入密钥。"
+                    desc: "在密钥框输入 Base32 密钥字符串或完整的 otpauth:// 协议链接。也可点击右上角“上传二维码”直接从截图中自动识别并导入密钥。"
                 },
                 {
                     title: "2. 加密参数与位数自定义",
@@ -809,7 +859,7 @@
                 },
                 {
                     title: "3. 动态验证码生成与复制",
-                    desc: "点击“生成动态验证码”并在完成安全授权后即可展示实时倒计时安全码。支持一键点击复制到系统剪贴板。"
+                    desc: "点击“生成动态验证码”并在完成安全授权后即可展示实时倒计时安全码。点击下方全宽复制按钮快速将代码存入剪贴板。"
                 },
                 {
                     title: "4. 端到端零知识加密密码库 (Vault)",
@@ -832,7 +882,7 @@
 
             const notes = platformNotesData[currentLang] || platformNotesData['en'];
             container.innerHTML = notes.map(item => `
-                <div class="card-inner p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+                <div class="card-inner p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
                     <h4 class="font-bold text-xs text-brand-600 dark:text-brand-400">${item.title}</h4>
                     <p class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300">${item.desc}</p>
                 </div>
@@ -1782,11 +1832,11 @@
                 title: "Authentication Gateway",
                 desc: "Enter an encryption token or scan standard OTP provisioning parameters.",
                 labelKey: "Secret Token",
-                btnUpload: "Upload QR Code",
+                btnUpload: "Upload QR",
                 btnGen: "Generate Token",
                 btnSaveVault: "Save to Vault",
-                labelCode: "One-Time Password",
-                btnCopy: "Copy to Clipboard",
+                labelCode: "Security Code",
+                btnCopy: "Copy Code",
                 historyTitle: "Recent History",
                 noHistory: "No entries recorded in current session",
                 btnClearHistory: "Clear All",
@@ -1794,7 +1844,7 @@
                 toastMsg: "Copied to clipboard!",
                 verifyTitle: "Security Clearance Required",
                 verifyDesc: "Complete 1-click sponsor verification to decrypt this TOTP token.",
-                btnVerify: "Verify & Reveal Code",
+                btnVerify: "Verify & Reveal Code (Free)",
                 btnBack: "← Return to Key Input",
                 navNotes: "Guide",
                 notesHeading: "Platform Guide & Documentation",
@@ -1804,11 +1854,11 @@
                 title: "ច្រកផ្ទៀងផ្ទាត់សុវត្ថិភាព",
                 desc: "បញ្ចូលលេខកូដសម្ងាត់ ឬស្កេន QR Code ដើម្បីទទួលបានលេខកូដសុវត្ថិភាព។",
                 labelKey: "លេខកូដសម្ងាត់ (Secret Key)",
-                btnUpload: "ស្កេនរូបភាព QR",
+                btnUpload: "ស្កេន QR",
                 btnGen: "បង្កើតលេខកូដ",
                 btnSaveVault: "រក្សាទុកក្នុង Vault",
-                labelCode: "លេខកូដសុវត្ថិភាពបណ្ដោះអាសន្ន",
-                btnCopy: "ចម្លងទៅកាន់ Clipboard",
+                labelCode: "លេខកូដសុវត្ថិភាព",
+                btnCopy: "ចម្លងកូដ",
                 historyTitle: "ប្រវត្តិថ្មីៗ",
                 noHistory: "មិនទាន់មានទិន្នន័យត្រូវបានកត់ត្រា",
                 btnClearHistory: "សម្អាតទាំងអស់",
@@ -1816,7 +1866,7 @@
                 toastMsg: "បានចម្លងជោគជ័យ!",
                 verifyTitle: "ត្រូវការការអនុញ្ញាតសុវត្ថិភាព",
                 verifyDesc: "ចុចប៊ូតុងខាងក្រោមដើម្បីដោះសោរបង្ហាញលេខកូដសម្ងាត់របស់អ្នក។",
-                btnVerify: "ផ្ទៀងផ្ទាត់ និងបើកបង្ហាញ",
+                btnVerify: "ផ្ទៀងផ្ទាត់ និងបើកបង្ហាញ (ឥតគិតថ្លៃ)",
                 btnBack: "← ត្រឡប់ក្រោយ",
                 navNotes: "សៀវភៅណែនាំ",
                 notesHeading: "សៀវភៅណែនាំអំពីរបៀបប្រើប្រាស់",
@@ -1829,8 +1879,8 @@
                 btnUpload: "上传二维码",
                 btnGen: "生成动态验证码",
                 btnSaveVault: "安全保存至密码库",
-                labelCode: "动态安全验证码",
-                btnCopy: "复制到剪贴板",
+                labelCode: "安全动态码",
+                btnCopy: "复制验证码",
                 historyTitle: "本次会话生成记录",
                 noHistory: "当前会话暂无生成记录",
                 btnClearHistory: "清除所有记录",
@@ -1865,7 +1915,6 @@
                 }
             });
 
-            // Auto-update the Notes/Guide content if the modal is open or refreshed
             const notesHeading = document.getElementById('notesHeading');
             if (notesHeading && translations[currentLang].notesHeading) {
                 notesHeading.innerText = translations[currentLang].notesHeading;
