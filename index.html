@@ -60,7 +60,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        body, button, input, span, div, h1, h2, h3, h4, p, label, select {
+        body, button, input, span, div, h1, h2, h3, h4, p, label {
             font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', 'Noto Sans SC', sans-serif !important;
             text-rendering: optimizeLegibility;
         }
@@ -125,15 +125,30 @@
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        /* Modernized Custom Select Menus */
-        .modern-select {
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366f1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 0.95rem;
-            padding-right: 2.25rem;
+        /* Modern Custom Dropdown Menu System */
+        .custom-dropdown-panel {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+        }
+        .dark .custom-dropdown-panel {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .dropdown-item {
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .dropdown-item.selected {
+            background: rgba(99, 102, 241, 0.12);
+            color: #4f46e5;
+            font-weight: 700;
+        }
+        .dark .dropdown-item.selected {
+            background: rgba(99, 102, 241, 0.22);
+            color: #818cf8;
         }
 
         .laser-sweep {
@@ -305,7 +320,7 @@
         <!-- Primary Dual Column Interface -->
         <div class="panel-glass rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800/80">
             
-            <!-- Left Configurator Column (7 Columns) -->
+            <!-- Left Configurator Column -->
             <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between gap-6">
                 <div>
                     <div class="flex items-center justify-between pb-2">
@@ -330,7 +345,7 @@
                     <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="e.g. JBSWY3DPEHPK3PXP or otpauth://..." 
                         class="w-full h-11 card-inner rounded-xl px-4 text-xs sm:text-sm font-mono font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal">
 
-                    <!-- Modern Distinct Individual Dropdown Pickers (One by One) -->
+                    <!-- Modern Distinct Individual Dropdown Pickers (Custom Styled Glass Panels) -->
                     <div class="p-4 card-inner rounded-xl space-y-3">
                         <div class="flex items-center justify-between">
                             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cryptographic Parameters</span>
@@ -338,38 +353,75 @@
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <!-- Algorithm Dropdown -->
-                            <div class="space-y-1.5">
+                            <!-- Algorithm Custom Dropdown -->
+                            <div class="space-y-1.5 relative">
                                 <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Algorithm</label>
-                                <div class="relative">
-                                    <select id="otpAlgorithmSelect" class="modern-select w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-all cursor-pointer shadow-sm">
-                                        <option value="SHA-1">SHA-1 (Default)</option>
-                                        <option value="SHA-256">SHA-256</option>
-                                        <option value="SHA-512">SHA-512</option>
-                                    </select>
+                                <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                    <span id="selectedAlgoLabel">SHA-1 (Default)</span>
+                                    <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                </button>
+                                <input type="hidden" id="otpAlgorithmSelect" value="SHA-1">
+
+                                <!-- Floating Options Menu -->
+                                <div id="dropdownMenuAlgo" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                    <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-1', 'SHA-1 (Default)', 'dropdownMenuAlgo')">
+                                        <span>SHA-1 (Default)</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-256', 'SHA-256', 'dropdownMenuAlgo')">
+                                        <span>SHA-256</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-512', 'SHA-512', 'dropdownMenuAlgo')">
+                                        <span>SHA-512</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Code Length Dropdown -->
-                            <div class="space-y-1.5">
+                            <!-- Code Length Custom Dropdown -->
+                            <div class="space-y-1.5 relative">
                                 <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Code Length</label>
-                                <div class="relative">
-                                    <select id="otpDigitsSelect" class="modern-select w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-all cursor-pointer shadow-sm">
-                                        <option value="6">6 Digits</option>
-                                        <option value="7">7 Digits</option>
-                                        <option value="8">8 Digits</option>
-                                    </select>
+                                <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                    <span id="selectedDigitsLabel">6 Digits</span>
+                                    <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                </button>
+                                <input type="hidden" id="otpDigitsSelect" value="6">
+
+                                <div id="dropdownMenuDigits" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                    <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '6', '6 Digits', 'dropdownMenuDigits')">
+                                        <span>6 Digits</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '7', '7 Digits', 'dropdownMenuDigits')">
+                                        <span>7 Digits</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '8', '8 Digits', 'dropdownMenuDigits')">
+                                        <span>8 Digits</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Cycle Period Dropdown -->
-                            <div class="space-y-1.5">
+                            <!-- Cycle Period Custom Dropdown -->
+                            <div class="space-y-1.5 relative">
                                 <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cycle Period</label>
-                                <div class="relative">
-                                    <select id="otpPeriodSelect" class="modern-select w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-all cursor-pointer shadow-sm">
-                                        <option value="30">30 Seconds</option>
-                                        <option value="60">60 Seconds</option>
-                                    </select>
+                                <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                    <span id="selectedPeriodLabel">30 Seconds</span>
+                                    <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                </button>
+                                <input type="hidden" id="otpPeriodSelect" value="30">
+
+                                <div id="dropdownMenuPeriod" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                    <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '30', '30 Seconds', 'dropdownMenuPeriod')">
+                                        <span>30 Seconds</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                    <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '60', '60 Seconds', 'dropdownMenuPeriod')">
+                                        <span>60 Seconds</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -397,14 +449,12 @@
                 </div>
             </div>
 
-            <!-- Right Verification Display (5 Columns) -->
+            <!-- Right Verification Display -->
             <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
                 
-                <!-- Live Code Monitor Card -->
                 <div id="codeCardBox" class="relative p-6 rounded-2xl card-inner overflow-hidden shadow-sm">
                     <div id="laserScanner" class="laser-sweep"></div>
 
-                    <!-- Code Presentation -->
                     <div id="codeDisplaySection">
                         <div class="flex items-center justify-between pb-3">
                             <div class="flex items-center gap-1.5">
@@ -429,7 +479,6 @@
                         </button>
                     </div>
 
-                    <!-- Authorization Clearance Section -->
                     <div id="verificationGateSection" class="hidden py-4 text-center space-y-3 animate-pop">
                         <div class="w-10 h-10 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -453,7 +502,6 @@
                     </div>
                 </div>
 
-                <!-- Session History Card -->
                 <div class="card-inner p-4 rounded-2xl space-y-2.5">
                     <div class="flex items-center justify-between">
                         <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5" data-i18n="historyTitle">
@@ -641,6 +689,46 @@
         /* Safe In-Memory Vault State */
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
+
+        /* Custom Dropdown System Engine */
+        function toggleDropdownMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            const isHidden = menu.classList.contains('hidden');
+            closeAllCustomDropdowns();
+            if (isHidden) {
+                menu.classList.remove('hidden');
+            }
+        }
+
+        function closeAllCustomDropdowns() {
+            document.querySelectorAll('.custom-dropdown-panel').forEach(el => el.classList.add('hidden'));
+        }
+
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.space-y-1\\.5.relative')) {
+                closeAllCustomDropdowns();
+            }
+        });
+
+        function chooseOption(hiddenInputId, labelId, value, displayLabel, menuId) {
+            document.getElementById(hiddenInputId).value = value;
+            document.getElementById(labelId).innerText = displayLabel;
+
+            const menu = document.getElementById(menuId);
+            menu.querySelectorAll('.dropdown-item').forEach(item => {
+                const check = item.querySelector('.checkmark');
+                if (item.innerText.includes(displayLabel) || item.innerText.trim() === value) {
+                    item.classList.add('selected');
+                    item.classList.remove('text-slate-700', 'dark:text-slate-300');
+                    if (check) check.classList.remove('hidden');
+                } else {
+                    item.classList.remove('selected');
+                    item.classList.add('text-slate-700', 'dark:text-slate-300');
+                    if (check) check.classList.add('hidden');
+                }
+            });
+            closeAllCustomDropdowns();
+        }
 
         /* Base64 Serialization Helpers */
         function bufferToBase64(buf) {
@@ -926,9 +1014,15 @@
         function loadVaultAccount(index) {
             const acc = decryptedVaultAccounts[index];
             document.getElementById('secretInput').value = acc.secret;
-            if (acc.algorithm) document.getElementById('otpAlgorithmSelect').value = acc.algorithm;
-            if (acc.digits) document.getElementById('otpDigitsSelect').value = acc.digits;
-            if (acc.period) document.getElementById('otpPeriodSelect').value = acc.period;
+            if (acc.algorithm) {
+                chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', acc.algorithm, acc.algorithm === 'SHA-1' ? 'SHA-1 (Default)' : acc.algorithm, 'dropdownMenuAlgo');
+            }
+            if (acc.digits) {
+                chooseOption('otpDigitsSelect', 'selectedDigitsLabel', acc.digits.toString(), `${acc.digits} Digits`, 'dropdownMenuDigits');
+            }
+            if (acc.period) {
+                chooseOption('otpPeriodSelect', 'selectedPeriodLabel', acc.period.toString(), `${acc.period} Seconds`, 'dropdownMenuPeriod');
+            }
             closeVaultModal();
             initiateGenerateFlow();
         }
@@ -1295,13 +1389,16 @@
 
                     if (algo) {
                         const nAlgo = algo.toUpperCase();
-                        if (['SHA-1', 'SHA-256', 'SHA-512'].includes(nAlgo)) document.getElementById('otpAlgorithmSelect').value = nAlgo;
-                        if (nAlgo === 'SHA1') document.getElementById('otpAlgorithmSelect').value = 'SHA-1';
-                        if (nAlgo === 'SHA256') document.getElementById('otpAlgorithmSelect').value = 'SHA-256';
-                        if (nAlgo === 'SHA512') document.getElementById('otpAlgorithmSelect').value = 'SHA-512';
+                        if (['SHA-1', 'SHA-256', 'SHA-512'].includes(nAlgo)) {
+                            chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', nAlgo, nAlgo === 'SHA-1' ? 'SHA-1 (Default)' : nAlgo, 'dropdownMenuAlgo');
+                        }
                     }
-                    if (digits && ['6', '7', '8'].includes(digits)) document.getElementById('otpDigitsSelect').value = digits;
-                    if (period && ['30', '60'].includes(period)) document.getElementById('otpPeriodSelect').value = period;
+                    if (digits && ['6', '7', '8'].includes(digits)) {
+                        chooseOption('otpDigitsSelect', 'selectedDigitsLabel', digits, `${digits} Digits`, 'dropdownMenuDigits');
+                    }
+                    if (period && ['30', '60'].includes(period)) {
+                        chooseOption('otpPeriodSelect', 'selectedPeriodLabel', period, `${period} Seconds`, 'dropdownMenuPeriod');
+                    }
                 } catch (e) {}
             }
         }
@@ -1363,6 +1460,7 @@
                 closeModernConfirm();
                 closeAdminPasswordModal();
                 closeAdminPanel();
+                closeAllCustomDropdowns();
                 return;
             }
 
