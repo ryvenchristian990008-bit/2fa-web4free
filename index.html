@@ -9,7 +9,7 @@
 
     <title>GlobalAuth - Enterprise 2FA & Security Suite</title>
     
-    <meta name="description" content="GlobalAuth is a high-grade 2FA authenticator suite designed to generate, inspect, and encrypt time-based one-time passwords securely.">
+    <meta name="description" content="GlobalAuth is an enterprise client-side 2FA authenticator suite to generate, inspect, and encrypt time-based one-time passwords securely.">
     <meta name="keywords" content="2fa, two-factor authentication, globalauth, totp generator, security app, authenticator, enterprise 2fa">
     <meta name="author" content="GlobalAuth">
     
@@ -18,7 +18,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Anti-Glitch: Zero-Flicker Pre-Render Theme Initialization -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -30,7 +29,6 @@
         })();
     </script>
 
-    <!-- Universal Cross-Browser Favicon -->
     <link id="appFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='lg1' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%2300d2ff'/%3E%3Cstop offset='100%25' stop-color='%233a7bd5'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg2' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%232563eb'/%3E%3Cstop offset='100%25' stop-color='%230f172a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300f2fe'/%3E%3Cstop offset='100%25' stop-color='%232563eb'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg stroke-width='22' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M60 20l30 65H50l15-30H35' stroke='url(%23lg2)'/%3E%3Cpath d='M60 20L25 85' stroke='url(%23lg1)'/%3E%3C/g%3E%3Cpath d='M85 55c6 0 12 2 15 4v16c0 12-8 22-15 28-7-6-15-16-15-28V59c3-2 9-4 15-4z' fill='url(%23lg3)' stroke='%23ffffff' stroke-width='2.5'/%3E%3Cpath d='M78 74l5 5 10-10' fill='none' stroke='%23ffffff' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,7 +94,6 @@
             inset: 0;
             pointer-events: none;
             z-index: 1;
-            transition: opacity 0.5s ease;
         }
         body.dark .vignette-overlay {
             background: radial-gradient(ellipse at 50% 65%, transparent 45%, rgba(0, 0, 0, 0.65) 85%, rgba(0, 0, 0, 0.95) 100%);
@@ -141,9 +138,6 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
-        .dropdown-item {
-            transition: background-color 0.15s ease, color 0.15s ease;
-        }
         .dropdown-item.selected {
             background: rgba(99, 102, 241, 0.12);
             color: #4f46e5;
@@ -162,7 +156,7 @@
             opacity: 0; pointer-events: none; z-index: 20;
         }
         .laser-active {
-            animation: laserSweepKey 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation: laserSweepKey 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
         @keyframes laserSweepKey {
             0% { top: 0%; opacity: 0; }
@@ -173,56 +167,16 @@
         .btn-modern {
             transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.16s, border-color 0.16s, box-shadow 0.16s, color 0.16s;
             will-change: transform;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
             transform: translateZ(0);
         }
         .btn-modern:hover { transform: translateY(-1.5px); }
         .btn-modern:active { transform: translateY(1px) scale(0.985); }
-
-        .btn-shimmer-beam {
-            position: absolute;
-            top: 0; left: 0; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-            animation: shimmerBeam 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            pointer-events: none;
-        }
-        @keyframes shimmerBeam {
-            0% { transform: translateX(-160%) skewX(-20deg); }
-            45%, 100% { transform: translateX(240%) skewX(-20deg); }
-        }
 
         @keyframes popIn {
             0% { opacity: 0; transform: scale(0.97) translateY(6px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
         .animate-pop { animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        @keyframes swapDownCard {
-            0% { opacity: 0; transform: translateY(-14px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .animate-swap-down {
-            animation: swapDownCard 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            backface-visibility: hidden;
-        }
-
-        @keyframes smoothTabFadeOut {
-            0% { opacity: 1; transform: scale(1); filter: blur(0px); }
-            100% { opacity: 0; transform: scale(0.98); filter: blur(6px); }
-        }
-        @keyframes smoothTabFadeIn {
-            0% { opacity: 0; transform: scale(0.98); filter: blur(6px); }
-            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
-        }
-        .tab-refreshing-exit {
-            animation: smoothTabFadeOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
-            will-change: transform, opacity, filter;
-        }
-        .tab-refreshing-enter {
-            animation: smoothTabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: transform, opacity, filter;
-        }
 
         @keyframes historyPopIn {
             0% { opacity: 0; transform: translateY(-12px) scale(0.97); }
@@ -236,11 +190,10 @@
 <body id="bodyRoot" class="bg-mesh-dark text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500">
 
     <div class="vignette-overlay"></div>
-    <iframe id="silentAdFrame" class="hidden" style="display:none;width:0;height:0;border:0;"></iframe>
 
     <!-- Toast Notification -->
-    <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-[90] bg-white/90 dark:bg-slate-900/95 text-slate-900 dark:text-white px-5 py-2.5 rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.25)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-200 dark:border-slate-800 backdrop-blur-xl">
-        <svg class="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+    <div id="toastNotification" class="fixed top-20 left-1/2 -translate-x-1/2 z-[90] bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white px-5 py-2.5 rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.25)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-200 dark:border-slate-800 backdrop-blur-xl">
+        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
         <span id="toastText">Copied to clipboard!</span>
     </div>
 
@@ -254,6 +207,28 @@
             <h3 id="alertTitle" class="text-base font-bold text-slate-900 dark:text-white">Security Notice</h3>
             <p id="alertMessage" class="text-xs text-slate-500 dark:text-slate-400 font-normal leading-relaxed"></p>
             <button onclick="closeModernAlert()" class="w-full h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-sm">Acknowledge</button>
+        </div>
+    </div>
+
+    <!-- Live Camera Scanner Modal -->
+    <div id="cameraModal" class="fixed inset-0 z-[75] flex items-center justify-center px-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onclick="stopCameraScanner()"></div>
+        <div class="relative w-full max-w-md panel-glass rounded-3xl p-6 z-10 flex flex-col items-center space-y-4 animate-pop shadow-2xl">
+            <div class="w-full flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white">Live Camera QR Scanner</h3>
+                </div>
+                <button onclick="stopCameraScanner()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
+            </div>
+            
+            <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-black flex items-center justify-center border border-slate-800">
+                <video id="cameraVideo" class="w-full h-full object-cover" playsinline></video>
+                <canvas id="cameraCanvas" class="hidden"></canvas>
+                <div class="absolute inset-8 border-2 border-dashed border-brand-400/80 rounded-2xl pointer-events-none animate-pulse"></div>
+            </div>
+            
+            <p class="text-[11px] text-slate-400 text-center">Center the 2FA QR code inside the viewfinder to scan instantly.</p>
         </div>
     </div>
 
@@ -289,38 +264,12 @@
         </div>
     </div>
 
-    <!-- Complete Guide & Notes Modal -->
-    <div id="notesModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeNotesModal()"></div>
-        <div class="relative w-full max-w-2xl max-h-[85vh] panel-glass rounded-3xl p-6 sm:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
-            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-500 flex items-center justify-center">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    </div>
-                    <div>
-                        <h3 id="notesHeading" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Platform Guide & Documentation</h3>
-                        <p class="text-[11px] text-slate-400 font-mono">Architecture & Operational Workflow</p>
-                    </div>
-                </div>
-                <button onclick="closeNotesModal()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
-            </div>
-
-            <div id="notesContainer" class="flex-grow overflow-y-auto pr-1 space-y-4 text-xs leading-relaxed text-slate-600 dark:text-slate-300"></div>
-
-            <div class="pt-2 border-t border-slate-200/80 dark:border-slate-800 flex justify-end">
-                <button onclick="closeNotesModal()" class="px-5 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">Close</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Header Navigation -->
     <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-            <!-- Brand Logo -->
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 flex items-center justify-center shrink-0">
-                    <svg class="w-full h-full drop-shadow transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <div class="w-9 h-9 flex items-center justify-center shrink-0">
+                    <svg class="w-full h-full drop-shadow" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="navLg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
                             <linearGradient id="navLg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
@@ -337,41 +286,26 @@
                 <div class="flex flex-col">
                     <div class="flex items-center gap-2">
                         <span class="font-extrabold tracking-tight text-base sm:text-lg text-slate-900 dark:text-white leading-none">GlobalAuth</span>
-                        <span class="text-[10px] font-mono font-bold tracking-wider px-1.5 py-0.5 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 rounded border border-brand-500/20 uppercase">Core</span>
+                        <span class="text-[10px] font-mono font-bold tracking-wider px-1.5 py-0.5 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 rounded border border-brand-500/20 uppercase">Enterprise</span>
                     </div>
-                    <span class="text-[11px] text-slate-400 font-medium">Enterprise 2FA Platform</span>
+                    <span class="text-[11px] text-slate-400 font-medium">Safe Zero-Knowledge Authenticator</span>
                 </div>
             </div>
 
             <!-- Toolbar Controls -->
             <div class="flex items-center gap-1.5 sm:gap-2">
-                <button onclick="triggerUniversalTabRefresh()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Refresh Tab & State">
-                    <svg id="refreshIcon" class="w-3.5 h-3.5 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                </button>
-
-                <button onclick="openNotesModal()" class="h-8 px-2.5 rounded-lg card-inner text-slate-700 dark:text-slate-300 hover:text-amber-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <span class="hidden sm:inline" data-i18n="navNotes">Guide</span>
-                </button>
-
                 <button onclick="openMultiAccountDashboard()" class="h-8 px-2.5 rounded-lg card-inner text-slate-700 dark:text-slate-300 hover:text-emerald-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
                     <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-                    <span class="hidden sm:inline" data-i18n="navGrid">Live Grid</span>
+                    <span class="hidden sm:inline">Live Grid</span>
                 </button>
 
                 <button onclick="openVaultModal()" class="h-8 px-2.5 rounded-lg card-inner text-slate-700 dark:text-slate-300 hover:text-cyan-500 text-xs font-semibold btn-modern flex items-center gap-1.5 relative">
                     <svg class="w-3.5 h-3.5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                    <span data-i18n="vault">Vault</span>
+                    <span>Vault</span>
                     <span id="vaultStatusDot" class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600" title="Locked"></span>
                 </button>
 
-                <button onclick="openAdminPasswordModal()" class="h-8 px-2.5 rounded-lg card-inner text-slate-700 dark:text-slate-300 hover:text-brand-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span class="hidden sm:inline" data-i18n="admin">Admin</span>
-                </button>
-
                 <button onclick="toggleLanguage()" class="h-8 px-2.5 rounded-lg card-inner text-slate-700 dark:text-slate-300 text-xs font-semibold btn-modern flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
                     <span id="langText">EN</span>
                 </button>
 
@@ -383,17 +317,25 @@
         </div>
     </header>
 
+    <!-- Top Banner Ad Unit -->
+    <div class="w-full max-w-5xl mx-auto px-4 pt-4 pb-1">
+        <div class="w-full h-20 rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/40 flex flex-col items-center justify-center text-center p-2 text-xs text-slate-400">
+            <span class="font-bold text-[10px] uppercase tracking-widest text-slate-500">Sponsored Ad Space</span>
+            <span class="text-[11px]">Clean banner ad slot (Place your ad script here)</span>
+        </div>
+    </div>
+
     <!-- Main Workspace -->
-    <main class="flex-grow w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-20">
+    <main class="flex-grow w-full flex items-center justify-center p-4 sm:p-6 relative z-20">
         <div id="mainTabContainer" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
             
             <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800/80">
                 
                 <!-- Left Configurator Column -->
-                <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between gap-6">
+                <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between gap-6">
                     <div>
                         <div class="flex items-center justify-between pb-2">
-                            <span class="text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase">RFC 6238 Standard</span>
+                            <span class="text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase">RFC 6238 Protocol</span>
                             <span class="text-[11px] text-slate-400 font-mono">Shortcuts: Ctrl+V / Ctrl+C</span>
                         </div>
                         <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication Gateway</h1>
@@ -405,91 +347,90 @@
                         <div class="flex items-center justify-between">
                             <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider" data-i18n="labelKey">Secret Token</label>
                             
-                            <label class="px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-500/20 text-xs font-bold cursor-pointer flex items-center gap-1.5 transition-all border border-brand-500/20 shadow-sm btn-modern">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                                <span data-i18n="btnUpload">Upload QR</span>
-                                <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
-                            </label>
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="startCameraScanner()" class="px-2.5 py-1.5 rounded-xl bg-cyan-50 dark:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-500/20 text-xs font-bold flex items-center gap-1.5 border border-cyan-500/20 btn-modern">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    <span>Scan Camera</span>
+                                </button>
+                                
+                                <label class="px-2.5 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-500/20 text-xs font-bold cursor-pointer flex items-center gap-1.5 border border-brand-500/20 btn-modern">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                                    <span data-i18n="btnUpload">Upload QR</span>
+                                    <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
+                                </label>
+                            </div>
                         </div>
 
                         <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="Paste key or otpauth:// link..." 
                             class="w-full h-12 card-inner rounded-xl px-4 text-xs sm:text-sm font-mono font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal shadow-inner">
 
-                        <!-- Modern Custom Floating Dropdowns -->
+                        <!-- Cryptographic Parameters -->
                         <div class="p-4 card-inner rounded-2xl space-y-3">
                             <div class="flex items-center justify-between">
                                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cryptographic Parameters</span>
-                                <span class="text-[10px] text-slate-400 font-mono">Auto-detected from URIs</span>
+                                <span class="text-[10px] text-slate-400 font-mono">Auto-detected</span>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <!-- Algorithm Dropdown -->
+                                <!-- Algorithm -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Algorithm</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
                                         <span id="selectedAlgoLabel">SHA-1 (Default)</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                        <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                                     </button>
                                     <input type="hidden" id="otpAlgorithmSelect" value="SHA-1">
 
                                     <div id="dropdownMenuAlgo" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
                                         <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-1', 'SHA-1 (Default)', 'dropdownMenuAlgo')">
                                             <span>SHA-1 (Default)</span>
-                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                         <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-256', 'SHA-256', 'dropdownMenuAlgo')">
                                             <span>SHA-256</span>
-                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                         <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-512', 'SHA-512', 'dropdownMenuAlgo')">
                                             <span>SHA-512</span>
-                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Code Length Dropdown -->
+                                <!-- Code Length -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Code Length</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
                                         <span id="selectedDigitsLabel">6 Digits</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                        <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                                     </button>
                                     <input type="hidden" id="otpDigitsSelect" value="6">
 
                                     <div id="dropdownMenuDigits" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
                                         <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '6', '6 Digits', 'dropdownMenuDigits')">
                                             <span>6 Digits</span>
-                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                         <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '7', '7 Digits', 'dropdownMenuDigits')">
                                             <span>7 Digits</span>
-                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                         <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '8', '8 Digits', 'dropdownMenuDigits')">
                                             <span>8 Digits</span>
-                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Cycle Period Dropdown -->
+                                <!-- Cycle Period -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cycle Period</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-10 px-3.5 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
                                         <span id="selectedPeriodLabel">30 Seconds</span>
-                                        <svg class="w-3.5 h-3.5 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                        <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                                     </button>
                                     <input type="hidden" id="otpPeriodSelect" value="30">
 
                                     <div id="dropdownMenuPeriod" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
                                         <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '30', '30 Seconds', 'dropdownMenuPeriod')">
                                             <span>30 Seconds</span>
-                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                         <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '60', '60 Seconds', 'dropdownMenuPeriod')">
                                             <span>60 Seconds</span>
-                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                     </div>
                                 </div>
@@ -499,16 +440,9 @@
 
                     <!-- Primary Action Row -->
                     <div class="grid grid-cols-2 gap-3 pt-2">
-                        <button id="genBtn" onclick="initiateGenerateFlow()" class="h-12 bg-gradient-to-r from-blue-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2 relative overflow-hidden group">
-                            <div class="btn-shimmer-beam"></div>
-                            <span id="genBtnText" class="flex items-center gap-2 relative z-10">
-                                <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                                <span data-i18n="btnGen">Generate Token</span>
-                            </span>
-                            <div id="genBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-2 bg-brand-600 z-20">
-                                <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
-                                <span class="text-xs font-semibold text-white">Analyzing Key...</span>
-                            </div>
+                        <button id="genBtn" onclick="generateTokenNow()" class="h-12 bg-gradient-to-r from-blue-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            <span data-i18n="btnGen">Generate Token</span>
                         </button>
                         
                         <button onclick="saveAccountToVault()" class="h-12 card-inner hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200 rounded-xl text-xs sm:text-sm font-bold btn-modern flex items-center justify-center gap-2 shadow-sm">
@@ -519,7 +453,7 @@
                 </div>
 
                 <!-- Right Verification Display -->
-                <div class="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
+                <div class="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
                     
                     <div id="codeCardBox" class="relative p-6 sm:p-8 rounded-2xl card-inner overflow-hidden shadow-sm">
                         <div id="laserScanner" class="laser-sweep"></div>
@@ -547,28 +481,6 @@
                                 <span id="copyText" data-i18n="btnCopy">Copy Code</span>
                             </button>
                         </div>
-
-                        <div id="verificationGateSection" class="hidden py-4 text-center space-y-3 animate-swap-down">
-                            <div class="w-12 h-12 bg-brand-500/10 text-brand-500 rounded-2xl flex items-center justify-center mx-auto border border-brand-500/20 shadow-inner">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                            </div>
-                            <div>
-                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="verifyTitle">Security Clearance Required</h3>
-                                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 max-w-xs mx-auto" data-i18n="verifyDesc">Complete 1-click verification to reveal your live TOTP security code.</p>
-                            </div>
-                            <button id="monetagVerifyBtn" onclick="executeVerificationAndReveal()" class="w-full h-12 bg-gradient-to-r from-emerald-500 via-teal-600 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-white rounded-xl text-xs sm:text-sm font-bold btn-modern shadow-md shadow-emerald-600/25 flex items-center justify-center gap-2 relative overflow-hidden group">
-                                <div class="btn-shimmer-beam"></div>
-                                <span id="verifyBtnContent" class="flex items-center gap-1.5">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    <span data-i18n="btnVerify">Verify & Reveal Code (Free)</span>
-                                </span>
-                                <div id="verifyBtnLoading" class="hidden absolute inset-0 flex items-center justify-center gap-2 bg-emerald-600 z-20">
-                                    <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
-                                    <span class="text-xs font-semibold text-white">Decrypting Token...</span>
-                                </div>
-                            </button>
-                            <button onclick="cancelVerification()" class="text-[11px] font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" data-i18n="btnBack">← Return to Key Input</button>
-                        </div>
                     </div>
 
                     <div class="card-inner p-4 rounded-2xl space-y-2.5">
@@ -593,7 +505,14 @@
         </div>
     </main>
 
-    <!-- Account Vault Modal with Dedicated Create Master Password Flow & Save Button -->
+    <!-- Bottom Secondary Ad Space -->
+    <div class="w-full max-w-5xl mx-auto px-4 pb-6">
+        <div class="w-full h-16 rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/40 flex items-center justify-center text-center p-2 text-xs text-slate-400">
+            <span class="text-[11px]">Footer Ad Unit / Sponsorship Spot</span>
+        </div>
+    </div>
+
+    <!-- Encrypted Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeVaultModal()"></div>
         <div class="relative w-full max-w-2xl panel-glass rounded-3xl p-6 sm:p-8 z-10 space-y-5 animate-pop shadow-2xl">
@@ -610,7 +529,7 @@
                 <button onclick="closeVaultModal()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
-            <!-- Custom Password Setup Flow with Save Button -->
+            <!-- Custom Password Setup Flow -->
             <div id="vaultAuthSection" class="space-y-4 py-4 text-center">
                 <div class="w-10 h-10 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center mx-auto border border-brand-500/20">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
@@ -683,59 +602,12 @@
         </div>
     </div>
 
-    <!-- Admin Modals -->
-    <div id="adminPasswordModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeAdminPasswordModal()"></div>
-        <div class="relative w-full max-w-xs panel-glass rounded-2xl p-6 z-10 space-y-4 animate-pop shadow-2xl">
-            <div class="text-center space-y-1">
-                <div class="w-9 h-9 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                </div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Admin Authentication</h3>
-            </div>
-            <input type="password" id="adminPinInput" placeholder="Passcode..." 
-                class="w-full h-10 card-inner rounded-xl px-3 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100">
-            <p id="adminPasswordError" class="text-[11px] text-rose-500 text-center font-semibold hidden">Invalid Passcode</p>
-            <div class="grid grid-cols-2 gap-2">
-                <button onclick="closeAdminPasswordModal()" class="h-9 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern">Cancel</button>
-                <button onclick="verifyAdminPasscode()" class="h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern">Authenticate</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="adminModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeAdminPanel()"></div>
-        <div class="relative w-full max-w-2xl panel-glass rounded-2xl p-6 sm:p-8 z-10 space-y-4 animate-pop shadow-2xl">
-            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-slate-900 dark:text-white">Telemetry & Access Logs</h3>
-                <button onclick="closeAdminPanel()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="card-inner p-4 rounded-xl text-center">
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase">Unique Visitors</span>
-                    <h4 id="statVisitors" class="text-2xl font-black text-brand-500 mt-1">0</h4>
-                </div>
-                <div class="card-inner p-4 rounded-xl text-center">
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase">Tokens Generated</span>
-                    <h4 id="statGenerations" class="text-2xl font-black text-emerald-500 mt-1">0</h4>
-                </div>
-            </div>
-            <div class="space-y-2">
-                <span class="text-xs font-bold text-slate-400 uppercase">Audit Records</span>
-                <div id="adminLogsList" class="card-inner p-3 rounded-xl max-h-40 overflow-y-auto space-y-1.5 font-mono text-xs">
-                    <span class="text-slate-500 italic">No telemetry recorded yet...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Production JavaScript Logic -->
     <script>
-        const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
         let sessionHistory = [];
         let dashboardInterval = null;
         let timerInterval = null;
-        let scrambleInterval = null;
+        let cameraStream = null;
+        let cameraScanActive = false;
 
         let currentLang = 'en';
         let currentTheme = localStorage.getItem('theme') || 'dark';
@@ -744,161 +616,36 @@
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
 
-        /* Automatic IP Geolocation & Admin Alert Telemetry */
-        async function trackVisitorIP() {
-            try {
-                const res = await fetch('https://ipapi.co/json/');
-                const data = await res.json();
-                if (data && data.ip) {
-                    const visitorInfo = `${data.ip} (${data.city || 'Unknown City'}, ${data.country_name || 'Unknown Country'})`;
-                    await fetch('/api/admin/visitor', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ visitor: visitorInfo, time: new Date().toLocaleTimeString() })
-                    }).catch(() => {});
-                }
-            } catch (err) {}
-        }
-        window.addEventListener('load', () => { trackVisitorIP(); });
+        /* Auto-Lock Watchdog (Locks after 5 minutes of idle time) */
+        let idleTimer = null;
+        const IDLE_TIMEOUT_MS = 5 * 60 * 1000;
 
-        /* Universal Browser & In-App Tab Refresh */
-        function triggerUniversalTabRefresh() {
-            const icon = document.getElementById('refreshIcon');
-            const container = document.getElementById('mainTabContainer');
-
-            if (icon) {
-                icon.style.transform = 'rotate(360deg)';
-                icon.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
+            if (activeMasterPassword) {
+                idleTimer = setTimeout(() => {
+                    lockVault();
+                    showToast("Vault automatically locked due to inactivity.");
+                }, IDLE_TIMEOUT_MS);
             }
+        }
+        ['mousemove', 'keydown', 'click', 'touchstart'].forEach(evt => {
+            window.addEventListener(evt, resetIdleTimer, { passive: true });
+        });
 
-            if (container) {
-                container.classList.remove('tab-refreshing-enter');
-                container.classList.add('tab-refreshing-exit');
-            }
-
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(regs => {
-                    for (let reg of regs) reg.unregister();
-                }).catch(() => {});
-            }
-
-            setTimeout(() => {
-                window.location.reload();
-            }, 300);
+        /* HTML Escaping to prevent XSS injection from imported files */
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
         }
 
-        /* Documentation & Guide Notes Engine */
-        const platformNotesData = {
-            en: [
-                {
-                    title: "1. Token Ingestion & QR Code Scanning",
-                    desc: "Paste any standard Base32 secret string (with or without spaces) or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR' in the top right to automatically detect and extract provisioned keys from account setup screenshots."
-                },
-                {
-                    title: "2. Cryptographic Parameters",
-                    desc: "Customize your hash algorithm (SHA-1 for standard accounts, SHA-256 / SHA-512 for enterprise tokens), code length (6, 7, or 8 digits), and cycle duration (30s or 60s). These settings are auto-detected from valid otpauth:// URIs."
-                },
-                {
-                    title: "3. Generating & Copying Security Codes",
-                    desc: "Click 'Generate Token' to run client-side HMAC cryptographic signing with a 2-second analyzing delay. Complete the one-click clearance step (with a 2-second decryption delay) to reveal the live counter and swap-down code digits. Click the full-width Copy Code button to morph it into 'Copied!' instantly."
-                },
-                {
-                    title: "4. Zero-Knowledge Client-Side Encrypted Vault",
-                    desc: "Click 'Vault' in the top navigation or press Ctrl+K. Set your custom master password to initialize local PBKDF2/AES-GCM encryption. Save accounts, pin top accounts, or click 'Use' to load secrets directly back to the generator."
-                },
-                {
-                    title: "5. Backup Export, Restore & Hotkeys",
-                    desc: "Click 'Backup' inside the unlocked vault to export your encrypted database as a .json file. Restore it anywhere using 'Restore'. Use shortcuts: Ctrl+V (paste token), Ctrl+C (copy code), Ctrl+K (open vault), and Escape (close modals)."
-                },
-                {
-                    title: "6. Multi-Account Live Grid",
-                    desc: "Click 'Live Grid' in the header to view and monitor all your stored accounts in real time with synchronized 30-second countdown timers."
-                }
-            ],
-            km: [
-                {
-                    title: "១. ការបញ្ចូលលេខកូដ និងស្កេន QR Code",
-                    desc: "សូមចម្លង និងបិទភ្ជាប់លេខកូដ Base32 ឬតំណភ្ជាប់ otpauth:// ទៅក្នុងប្រអប់ Secret Token។ អ្នកក៏អាចចុច 'ស្កេន QR' ដើម្បីទាញយកលេខកូដដោយស្វ័យប្រវត្តពីកូដ QR ផងដែរ។"
-                },
-                {
-                    title: "២. ការកំណត់ក្បួនដោះស្រាយ និងខ្ទង់លេខ",
-                    desc: "កំណត់ប្រភេទ Hash Algorithm (SHA-1, SHA-256, SHA-512) ចំនួនខ្ទង់លេខ (៦, ៧ ឬ ៨ ខ្ទង់) និងរយៈពេល (៣០ វិនាទី ឬ ៦០ វិនាទី) តាមតម្រូវការគណនីរបស់អ្នក។"
-                },
-                {
-                    title: "៣. ការបង្កើត និងចម្លងលេខកូដសម្ងាត់",
-                    desc: "ចុច 'បង្កើតកូដ' ជាមួយពេលពន្យាពេល ២វិនាទីដើម្បីវិភាគ។ បន្ទាប់ពីការផ្ទៀងផ្ទាត់ (ពន្យាពេល ២វិនាទី) លេខកូដសុវត្ថិភាពនឹងទម្លាក់ចុះមកក្រោមយ៉ាងរលូន។ ចុចប៊ូតុងចម្លងដើម្បីប្តូរទៅជា 'Copied!' ភ្លាមៗ។"
-                },
-                {
-                    title: "៤. ប្រព័ន្ធរក្សាទុកសុវត្ថិភាព Vault (AES-GCM)",
-                    desc: "ចុចប៊ូតុង 'Vault' ឬចុច Ctrl+K ដើម្បីបង្កើត និងដោះសោរកន្លែងផ្ទុកគណនីដោយប្រើ Master Password ផ្ទាល់ខ្លួនរបស់អ្នក។ អ្នកអាចរក្សាទុក ដាក់ផ្កាយ ឬចុច 'Use' ដើម្បីទាញយកគណនីមកប្រើភ្លាមៗ។"
-                },
-                {
-                    title: "៥. ការទាញយកទុក ការបញ្ចូលឡើងវិញ និងផ្លូវកាត់ក្តារចុច",
-                    desc: "ចុច 'Backup' ដើម្បីទាញយកឯកសារ .json ដែលបានអ៊ិនគ្រីបទុកជាឯកសារជំនួយ។ ផ្លូវកាត់ក្តារចុច៖ Ctrl+V (បិទភ្ជាប់), Ctrl+C (ចម្លងកូដ), Ctrl+K (បើក Vault), និង Esc (បិទផ្ទាំង)។"
-                },
-                {
-                    title: "៦. ផ្ទាំងបង្ហាញកូដបន្តផ្ទាល់ (Live Grid)",
-                    desc: "ចុចលើ 'Live Grid' នៅផ្នែកខាងលើដើម្បីមើលលេខកូដ OTP នៃគ្រប់គណនីរបស់អ្នកដែលដំណើរការដំណាលគ្នាក្នុងពេលជាក់ស្តែង។"
-                }
-            ],
-            zh: [
-                {
-                    title: "1. 密钥输入与二维码解析",
-                    desc: "在密钥框输入 Base32 密钥字符串或完整的 otpauth:// 协议链接。也可点击右上角“上传二维码”直接从截图中自动识别并导入密钥。"
-                },
-                {
-                    title: "2. 加密参数与位数自定义",
-                    desc: "自由配置哈希算法（SHA-1、SHA-256、SHA-512）、验证码位数（6、7 或 8 位）以及更新周期（30秒或60秒），系统将自动从 URI 中同步解析。"
-                },
-                {
-                    title: "3. 动态验证码生成与复制",
-                    desc: "点击“生成动态验证码”将触发 2 秒平滑分析延迟。完成授权后经过 2 秒解密过渡，动态码将以优雅的下拉动画呈现。点击复制按钮会即刻切换为“Copied!”成功状态。"
-                },
-                {
-                    title: "4. 端到端零知识加密密码库 (Vault)",
-                    desc: "点击顶部“密码库”或按下快捷键 Ctrl+K，可自定义并设置您自己的主密码以初始化 AES-GCM 加密库。支持保存、置顶、重命名并快速载入密钥。"
-                },
-                {
-                    title: "5. 备份导出恢复与全局快捷键",
-                    desc: "在密码库中点击“备份”可导出受密码保护的 .json 备份文件，随时点击“恢复”导入。快捷键：Ctrl+V（粘贴）、Ctrl+C（复制动态码）、Ctrl+K（打开密码库）、Esc（退出弹窗）。"
-                },
-                {
-                    title: "6. 多账户实时仪表盘 (Live Grid)",
-                    desc: "点击导航栏中的“实时仪表盘”可同时监控密码库中所有账户的实时动态口令与 30 秒倒计时同步进度。"
-                }
-            ]
-        };
-
-        function renderNotesContent() {
-            const container = document.getElementById('notesContainer');
-            if (!container) return;
-
-            const notes = platformNotesData[currentLang] || platformNotesData['en'];
-            container.innerHTML = notes.map(item => `
-                <div class="card-inner p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
-                    <h4 class="font-bold text-xs text-brand-600 dark:text-brand-400">${item.title}</h4>
-                    <p class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300">${item.desc}</p>
-                </div>
-            `).join('');
-        }
-
-        function openNotesModal() {
-            renderNotesContent();
-            document.getElementById('notesModal').classList.remove('hidden');
-        }
-
-        function closeNotesModal() {
-            document.getElementById('notesModal').classList.add('hidden');
-        }
-
-        /* Custom Floating Dropdown Menu Handler */
+        /* Dropdown Control */
         function toggleDropdownMenu(menuId) {
             const menu = document.getElementById(menuId);
             const isHidden = menu.classList.contains('hidden');
             closeAllCustomDropdowns();
-            if (isHidden) {
-                menu.classList.remove('hidden');
-            }
+            if (isHidden) menu.classList.remove('hidden');
         }
 
         function closeAllCustomDropdowns() {
@@ -906,51 +653,30 @@
         }
 
         window.addEventListener('click', (e) => {
-            if (!e.target.closest('.space-y-1\\.5.relative')) {
-                closeAllCustomDropdowns();
-            }
+            if (!e.target.closest('.space-y-1\\.5.relative')) closeAllCustomDropdowns();
         });
 
         function chooseOption(hiddenInputId, labelId, value, displayLabel, menuId) {
             document.getElementById(hiddenInputId).value = value;
             document.getElementById(labelId).innerText = displayLabel;
-
-            const menu = document.getElementById(menuId);
-            menu.querySelectorAll('.dropdown-item').forEach(item => {
-                const check = item.querySelector('.checkmark');
-                if (item.innerText.includes(displayLabel) || item.innerText.trim() === value) {
-                    item.classList.add('selected');
-                    item.classList.remove('text-slate-700', 'dark:text-slate-300');
-                    if (check) check.classList.remove('hidden');
-                } else {
-                    item.classList.remove('selected');
-                    item.classList.add('text-slate-700', 'dark:text-slate-300');
-                    if (check) check.classList.add('hidden');
-                }
-            });
             closeAllCustomDropdowns();
         }
 
-        /* Base64 Serialization Helpers */
+        /* Cryptographic Base64 Helpers */
         function bufferToBase64(buf) {
             const bytes = new Uint8Array(buf);
             let binary = '';
-            for (let i = 0; i < bytes.byteLength; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
+            for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
             return window.btoa(binary);
         }
 
         function base64ToBuffer(b64) {
             const binary = window.atob(b64);
             const bytes = new Uint8Array(binary.length);
-            for (let i = 0; i < binary.length; i++) {
-                bytes[i] = binary.charCodeAt(i);
-            }
+            for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
             return bytes.buffer;
         }
 
-        /* Web Crypto Key Derivation */
         async function deriveKey(password, salt) {
             const enc = new TextEncoder();
             const keyMaterial = await window.crypto.subtle.importKey(
@@ -990,7 +716,7 @@
             return JSON.parse(new TextDecoder().decode(decrypted));
         }
 
-        /* Vault Modal Lifecycle with "Create Master Password" & "Save Password" button */
+        /* Vault Lifecycle */
         function openVaultModal() {
             document.getElementById('vaultModal').classList.remove('hidden');
             const hasStoredVault = localStorage.getItem('globalauth_vault');
@@ -1021,6 +747,7 @@
                 }
                 updateVaultDot(false);
             }
+            resetIdleTimer();
         }
 
         function closeVaultModal() {
@@ -1046,9 +773,7 @@
                     showModernAlert("Mismatch", "Master passwords do not match. Please re-enter.");
                     return;
                 }
-            }
 
-            if (!hasStoredVault) {
                 try {
                     const emptyEncrypted = await encryptData(password, []);
                     localStorage.setItem('globalauth_vault', JSON.stringify(emptyEncrypted));
@@ -1058,7 +783,7 @@
                     document.getElementById('vaultContentSection').classList.remove('hidden');
                     renderVaultAccounts();
                     updateVaultDot(true);
-                    showToast("Custom password created and vault unlocked!");
+                    showToast("Vault initialized!");
                 } catch (e) {
                     showModernAlert("Error", "Could not initialize secure vault container.");
                 }
@@ -1067,14 +792,6 @@
 
             try {
                 let encryptedObj = JSON.parse(localStorage.getItem('globalauth_vault'));
-                if (Array.isArray(encryptedObj.ciphertext)) {
-                    encryptedObj = {
-                        ciphertext: bufferToBase64(new Uint8Array(encryptedObj.ciphertext)),
-                        iv: bufferToBase64(new Uint8Array(encryptedObj.iv)),
-                        salt: bufferToBase64(new Uint8Array(encryptedObj.salt))
-                    };
-                }
-
                 const result = await decryptData(password, encryptedObj);
                 activeMasterPassword = password;
                 decryptedVaultAccounts = Array.isArray(result) ? result : [];
@@ -1083,7 +800,7 @@
                 document.getElementById('vaultContentSection').classList.remove('hidden');
                 renderVaultAccounts();
                 updateVaultDot(true);
-                showToast("Vault decrypted successfully!");
+                showToast("Vault unlocked!");
             } catch (err) {
                 showModernAlert("Access Denied", "Incorrect master password!");
             }
@@ -1095,10 +812,7 @@
             document.getElementById('vaultAuthSection').classList.remove('hidden');
             document.getElementById('vaultContentSection').classList.add('hidden');
             document.getElementById('masterPasswordInput').value = '';
-            const confirmInput = document.getElementById('confirmPasswordInput');
-            if (confirmInput) confirmInput.value = '';
             updateVaultDot(false);
-            showToast("Vault locked.");
         }
 
         function updateVaultDot(unlocked) {
@@ -1106,10 +820,8 @@
             if (!dot) return;
             if (unlocked) {
                 dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]";
-                dot.title = "Unlocked";
             } else {
                 dot.className = "w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600";
-                dot.title = "Locked";
             }
         }
 
@@ -1168,30 +880,22 @@
             );
             filtered.sort((a, b) => (b.pinned === true) - (a.pinned === true));
 
-            if (filtered.length === 0) {
-                listEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-400 italic">No credentials match your filter</div>`;
-                return;
-            }
-
             listEl.innerHTML = filtered.map(acc => {
                 const realIndex = decryptedVaultAccounts.indexOf(acc);
-                const algo = acc.algorithm || 'SHA-1';
-                const digits = acc.digits || '6';
                 return `
                     <div class="flex items-center justify-between p-2.5 rounded-xl card-inner hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
                         <div class="min-w-0 pr-2">
                             <div class="flex items-center gap-1.5">
-                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
-                                <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${escapeHTML(acc.name)}</span>
+                                <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${escapeHTML(acc.algorithm || 'SHA-1')}/${escapeHTML(acc.digits || '6')}D</span>
                                 ${acc.pinned ? '<span class="text-[9px] px-1 rounded bg-amber-500/10 text-amber-500 font-bold">Pinned</span>' : ''}
                             </div>
-                            <span class="text-[10px] font-mono text-slate-400 block truncate mt-0.5">${acc.secret}</span>
+                            <span class="text-[10px] font-mono text-slate-400 block truncate mt-0.5">${escapeHTML(acc.secret)}</span>
                         </div>
                         <div class="flex items-center gap-1 shrink-0">
-                            <button onclick="togglePinAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center text-xs btn-modern" title="Pin">📌</button>
-                            <button onclick="renameAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-brand-500 flex items-center justify-center text-xs btn-modern" title="Rename">✏️</button>
+                            <button onclick="togglePinAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center text-xs btn-modern">📌</button>
                             <button onclick="loadVaultAccount(${realIndex})" class="px-2 h-7 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">Use</button>
-                            <button onclick="deleteVaultAccount(${realIndex})" class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 flex items-center justify-center text-xs btn-modern" title="Delete">🗑️</button>
+                            <button onclick="deleteVaultAccount(${realIndex})" class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 flex items-center justify-center text-xs btn-modern">🗑️</button>
                         </div>
                     </div>
                 `;
@@ -1204,24 +908,10 @@
             renderVaultAccounts();
         }
 
-        function renameAccount(index) {
-            showModernPrompt({
-                title: "Rename Account",
-                defaultValue: decryptedVaultAccounts[index].name,
-                onConfirm: async (val) => {
-                    if (val && val.trim().length > 0) {
-                        decryptedVaultAccounts[index].name = val.trim();
-                        await updateVaultStorage();
-                        renderVaultAccounts();
-                    }
-                }
-            });
-        }
-
         function deleteVaultAccount(index) {
             showModernConfirm({
                 title: "Purge Key?",
-                desc: `Are you sure you want to permanently delete "${decryptedVaultAccounts[index].name}"?`,
+                desc: `Are you sure you want to delete this token?`,
                 onConfirm: async () => {
                     decryptedVaultAccounts.splice(index, 1);
                     await updateVaultStorage();
@@ -1234,141 +924,99 @@
         function loadVaultAccount(index) {
             const acc = decryptedVaultAccounts[index];
             document.getElementById('secretInput').value = acc.secret;
-            if (acc.algorithm) {
-                chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', acc.algorithm, acc.algorithm === 'SHA-1' ? 'SHA-1 (Default)' : acc.algorithm, 'dropdownMenuAlgo');
-            }
-            if (acc.digits) {
-                chooseOption('otpDigitsSelect', 'selectedDigitsLabel', acc.digits.toString(), `${acc.digits} Digits`, 'dropdownMenuDigits');
-            }
-            if (acc.period) {
-                chooseOption('otpPeriodSelect', 'selectedPeriodLabel', acc.period.toString(), `${acc.period} Seconds`, 'dropdownMenuPeriod');
-            }
+            if (acc.algorithm) chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', acc.algorithm, acc.algorithm, 'dropdownMenuAlgo');
+            if (acc.digits) chooseOption('otpDigitsSelect', 'selectedDigitsLabel', acc.digits.toString(), `${acc.digits} Digits`, 'dropdownMenuDigits');
+            if (acc.period) chooseOption('otpPeriodSelect', 'selectedPeriodLabel', acc.period.toString(), `${acc.period} Seconds`, 'dropdownMenuPeriod');
             closeVaultModal();
-            initiateGenerateFlow();
+            generateTokenNow();
         }
 
-        /* Backup & Restore Functionality */
         function exportVaultBackupFile() {
             const raw = localStorage.getItem('globalauth_vault');
-            if (!raw) {
-                showModernAlert("Empty Store", "No vault data exists to export.");
-                return;
-            }
+            if (!raw) return;
             const blob = new Blob([raw], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = `GlobalAuth_Backup_${new Date().toISOString().slice(0, 10)}.json`;
-            document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            showToast("Backup exported successfully!");
         }
 
         function importVaultBackupFile(event) {
             const file = event.target.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = async function(e) {
+            reader.onload = function(e) {
                 try {
                     const parsed = JSON.parse(e.target.result);
                     if (parsed.ciphertext && parsed.iv && parsed.salt) {
-                        showModernConfirm({
-                            title: "Restore Backup Database?",
-                            desc: "This will replace your current local vault storage with the selected backup file.",
-                            onConfirm: () => {
-                                localStorage.setItem('globalauth_vault', JSON.stringify(parsed));
-                                lockVault();
-                                showModernAlert("Success", "Backup restored. Please enter that backup's master password to unlock.", false);
-                            }
-                        });
-                    } else {
-                        showModernAlert("Format Error", "Selected file is not a valid encrypted GlobalAuth backup.");
+                        localStorage.setItem('globalauth_vault', JSON.stringify(parsed));
+                        lockVault();
+                        showModernAlert("Success", "Backup restored. Unlock with the backup's master password.");
                     }
                 } catch (err) {
-                    showModernAlert("Import Error", "Could not parse JSON payload.");
+                    showModernAlert("Error", "Invalid backup format.");
                 }
             };
             reader.readAsText(file);
             event.target.value = '';
         }
 
-        /* Multi-Account Dashboard Live Stream */
-        function openMultiAccountDashboard() {
-            if (!activeMasterPassword || !decryptedVaultAccounts) {
-                openVaultModal();
-                showModernAlert("Authentication Required", "Unlock your vault to generate simultaneous live account streams.");
-                return;
+        /* Live Camera Scanner via getUserMedia */
+        async function startCameraScanner() {
+            const modal = document.getElementById('cameraModal');
+            const video = document.getElementById('cameraVideo');
+            modal.classList.remove('hidden');
+
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                video.srcObject = cameraStream;
+                video.setAttribute("playsinline", true);
+                video.play();
+                cameraScanActive = true;
+                requestAnimationFrame(tickCameraScan);
+            } catch (err) {
+                stopCameraScanner();
+                showModernAlert("Camera Error", "Could not access video camera feed.");
             }
-            document.getElementById('dashboardModal').classList.remove('hidden');
-            renderDashboardLiveGrid();
-            startDashboardTimer();
         }
 
-        function closeMultiAccountDashboard() {
-            document.getElementById('dashboardModal').classList.add('hidden');
-            if (dashboardInterval) clearInterval(dashboardInterval);
-        }
-
-        async function renderDashboardLiveGrid() {
-            const container = document.getElementById('dashboardGridContainer');
-            if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
-                container.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-slate-400">No accounts stored in vault.</div>`;
-                return;
+        function stopCameraScanner() {
+            cameraScanActive = false;
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
             }
-
-            container.innerHTML = (await Promise.all(decryptedVaultAccounts.map(async (acc, idx) => {
-                const period = parseInt(acc.period || '30', 10);
-                const digits = parseInt(acc.digits || '6', 10);
-                const algo = acc.algorithm || 'SHA-1';
-                const code = await generateTOTP(acc.secret, period, digits, algo) || '------';
-                return `
-                    <div class="card-inner p-3.5 rounded-xl flex flex-col justify-between space-y-2 border border-slate-200/80 dark:border-slate-800">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
-                            <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
-                        </div>
-                        <div class="text-center py-1">
-                            <span class="font-mono text-2xl font-black tracking-widest text-slate-900 dark:text-white select-all">${code}</span>
-                        </div>
-                        <div class="flex items-center justify-between pt-1 border-t border-slate-200/50 dark:border-slate-800/80">
-                            <button onclick="copyExplicit('${code}')" class="text-[11px] font-semibold text-brand-500 hover:text-brand-400">Copy</button>
-                            <button onclick="loadVaultAccount(${idx}); closeMultiAccountDashboard();" class="text-[11px] font-semibold text-slate-400 hover:text-slate-200">Load</button>
-                        </div>
-                    </div>
-                `;
-            }))).join('');
+            document.getElementById('cameraModal').classList.add('hidden');
         }
 
-        function startDashboardTimer() {
-            if (dashboardInterval) clearInterval(dashboardInterval);
-            const progressBar = document.getElementById('dashboardGlobalProgress');
-            const badge = document.getElementById('dashboardTimerBadge');
+        function tickCameraScan() {
+            if (!cameraScanActive) return;
+            const video = document.getElementById('cameraVideo');
+            const canvas = document.getElementById('cameraCanvas');
+            const ctx = canvas.getContext('2d');
 
-            dashboardInterval = setInterval(async () => {
-                const epoch = 30;
-                const now = Math.floor(Date.now() / 1000);
-                const left = epoch - (now % epoch);
-                const pct = (left / epoch) * 100;
-                
-                progressBar.style.width = `${pct}%`;
-                badge.innerText = left + 's';
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                canvas.height = video.videoHeight;
+                canvas.width = video.videoWidth;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
 
-                if (left === epoch) {
-                    renderDashboardLiveGrid();
+                if (code) {
+                    document.getElementById('secretInput').value = code.data;
+                    parseSecretUriParams();
+                    stopCameraScanner();
+                    showToast("QR code captured!");
+                    generateTokenNow();
+                    return;
                 }
-            }, 1000);
-        }
-
-        function copyExplicit(code) {
-            if (code && !code.includes('-')) {
-                navigator.clipboard.writeText(code);
-                showToast("Code copied to clipboard!");
             }
+            requestAnimationFrame(tickCameraScan);
         }
 
-        /* TOTP RFC 6238 Engine */
+        /* TOTP Generation Engine */
         function getSecretBytes(secret) {
             const base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
             let cleaned = secret.replace(/=+$/, '').toUpperCase().replace(/0/g, 'O').replace(/1/g, 'I');
@@ -1415,127 +1063,43 @@
             }
         }
 
-        /* Generate Flow with 2-Second Analyzing Delay */
-        function initiateGenerateFlow() {
+        /* Instant Clean Generate Flow */
+        async function generateTokenNow() {
             const secret = getSanitizedSecret();
             if (!secret) {
                 showModernAlert("Required", translations[currentLang].errEmpty);
                 return;
             }
 
-            const genBtn = document.getElementById('genBtn');
-            const genBtnText = document.getElementById('genBtnText');
-            const genBtnLoading = document.getElementById('genBtnLoading');
+            currentActiveSecret = secret;
+            const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
+            const algo = document.getElementById('otpAlgorithmSelect').value;
+            const period = parseInt(document.getElementById('otpPeriodSelect').value, 10);
 
-            genBtn.disabled = true;
-            genBtnText.classList.add('opacity-0');
-            genBtnLoading.classList.remove('hidden');
+            const token = await generateTOTP(secret, period, digits, algo);
+            const codeEl = document.getElementById('resultCode');
 
-            setTimeout(() => {
-                genBtn.disabled = false;
-                genBtnText.classList.remove('opacity-0');
-                genBtnLoading.classList.add('hidden');
-
-                document.getElementById('codeDisplaySection').classList.add('hidden');
-                const gate = document.getElementById('verificationGateSection');
-                gate.classList.remove('hidden');
-                gate.classList.remove('animate-swap-down');
-                void gate.offsetWidth;
-                gate.classList.add('animate-swap-down');
-            }, 2000);
-        }
-
-        function cancelVerification() {
-            document.getElementById('verificationGateSection').classList.add('hidden');
-            document.getElementById('codeDisplaySection').classList.remove('hidden');
-        }
-
-        /* Verification Flow with 2-Second Decryption Delay & Swap-Down Code Digits */
-        function executeVerificationAndReveal() {
-            const secret = getSanitizedSecret();
-            if (!secret) return;
-
-            const verifyBtn = document.getElementById('monetagVerifyBtn');
-            const verifyContent = document.getElementById('verifyBtnContent');
-            const verifyLoading = document.getElementById('verifyBtnLoading');
-
-            verifyBtn.disabled = true;
-            verifyContent.classList.add('opacity-0');
-            verifyLoading.classList.remove('hidden');
-
-            if (MONETAG_DIRECT_LINK) {
-                try {
-                    const silentFrame = document.getElementById('silentAdFrame');
-                    if (silentFrame) silentFrame.src = MONETAG_DIRECT_LINK;
-                } catch (err) {}
+            if (!token) {
+                codeEl.innerText = "-".repeat(digits);
+                showModernAlert("Format Error", "Invalid secret key string.");
+                return;
             }
 
-            setTimeout(() => {
-                verifyBtn.disabled = false;
-                verifyContent.classList.remove('opacity-0');
-                verifyLoading.classList.add('hidden');
+            codeEl.innerText = token;
+            document.getElementById('verifiedStatusBadge').classList.remove('hidden');
 
-                document.getElementById('verificationGateSection').classList.add('hidden');
-                
-                const codeDisplay = document.getElementById('codeDisplaySection');
-                codeDisplay.classList.remove('hidden');
-                codeDisplay.classList.remove('animate-swap-down');
-                void codeDisplay.offsetWidth;
-                codeDisplay.classList.add('animate-swap-down');
+            const laser = document.getElementById('laserScanner');
+            laser.classList.remove('laser-active');
+            void laser.offsetWidth;
+            laser.classList.add('laser-active');
 
-                document.getElementById('verifiedStatusBadge').classList.remove('hidden');
-
-                const laser = document.getElementById('laserScanner');
-                laser.classList.remove('laser-active');
-                void laser.offsetWidth;
-                laser.classList.add('laser-active');
-
-                const codeEl = document.getElementById('resultCode');
-                codeEl.style.opacity = '0.35';
-
-                const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
-                const algo = document.getElementById('otpAlgorithmSelect').value;
-                const period = parseInt(document.getElementById('otpPeriodSelect').value, 10);
-
-                if (scrambleInterval) clearInterval(scrambleInterval);
-                scrambleInterval = setInterval(() => {
-                    const min = Math.pow(10, digits - 1);
-                    const max = Math.pow(10, digits) - 1;
-                    codeEl.innerText = Math.floor(min + Math.random() * (max - min)).toString();
-                }, 35);
-
-                setTimeout(async () => {
-                    clearInterval(scrambleInterval);
-                    currentActiveSecret = secret;
-                    const token = await generateTOTP(secret, period, digits, algo);
-
-                    if (!token) {
-                        codeEl.innerText = "-".repeat(digits);
-                        showModernAlert("Format Error", "Invalid secret key format.");
-                        return;
-                    }
-
-                    codeEl.innerText = token;
-                    codeEl.style.opacity = '1';
-
-                    startTimer();
-
-                    try {
-                        await fetch('/api/generate-code', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ secret, algorithm: algo, digits, period })
-                        });
-                    } catch (e) {}
-
-                    sessionHistory.unshift({
-                        token: token,
-                        time: new Date().toLocaleTimeString(),
-                        meta: `${algo} • ${digits}D`
-                    });
-                    renderHistoryList();
-                }, 500);
-            }, 2000);
+            sessionHistory.unshift({
+                token: token,
+                time: new Date().toLocaleTimeString(),
+                meta: `${algo} • ${digits}D`
+            });
+            renderHistoryList();
+            startTimer();
         }
 
         function startTimer() {
@@ -1555,97 +1119,17 @@
                 progressBar.style.width = `${percent}%`;
                 timerText.innerText = currentLeft + 's';
 
+                if (currentLeft <= 5) {
+                    progressBar.className = "bg-rose-500 h-full rounded-full transition-all duration-1000 ease-linear";
+                } else {
+                    progressBar.className = "bg-gradient-to-r from-cyan-400 to-brand-500 h-full rounded-full transition-all duration-1000 ease-linear";
+                }
+
                 if (currentLeft === epoch && currentActiveSecret) {
                     const newToken = await generateTOTP(currentActiveSecret, epoch, digits, algo);
-                    if (newToken) {
-                        document.getElementById('resultCode').innerText = newToken;
-                    }
+                    if (newToken) document.getElementById('resultCode').innerText = newToken;
                 }
             }, 1000);
-        }
-
-        /* History Operations with Smooth Live Pop Up Animation */
-        function renderHistoryList(term = '') {
-            const list = document.getElementById('historyList');
-            const filtered = sessionHistory.filter(item => 
-                item.token.toLowerCase().includes(term.toLowerCase()) || 
-                item.meta.toLowerCase().includes(term.toLowerCase())
-            );
-
-            if (filtered.length === 0) {
-                list.innerHTML = `<li class="text-xs text-slate-400 italic py-1 text-center">${translations[currentLang].noHistory}</li>`;
-                return;
-            }
-
-            list.innerHTML = filtered.map((item, idx) => `
-                <li class="flex items-center justify-between py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 last:border-0 ${idx === 0 ? 'animate-history-pop' : ''}">
-                    <div class="flex items-center gap-1.5">
-                        <span class="font-mono font-bold text-xs text-slate-800 dark:text-slate-200">${item.token}</span>
-                        <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-semibold">${item.meta}</span>
-                    </div>
-                    <span class="text-[10px] text-slate-400 font-mono">${item.time}</span>
-                </li>
-            `).join('');
-        }
-
-        function filterHistoryList() {
-            renderHistoryList(document.getElementById('historySearchInput').value);
-        }
-
-        function clearHistoryEntries() {
-            sessionHistory = [];
-            document.getElementById('historySearchInput').value = '';
-            renderHistoryList();
-            showToast("Session history cleared");
-        }
-
-        /* Clipboard Copy Hook with "Copied!" Morphed State */
-        document.getElementById('copyBtn').addEventListener('click', () => {
-            const code = document.getElementById('resultCode').innerText;
-            if (code && !code.includes('-')) {
-                navigator.clipboard.writeText(code);
-                showToast(translations[currentLang].toastMsg);
-
-                const btn = document.getElementById('copyBtn');
-                const textSpan = document.getElementById('copyText');
-                const iconSvg = document.getElementById('copyIcon');
-
-                btn.classList.add('bg-emerald-500/10', 'text-emerald-600', 'dark:text-emerald-400', 'border-emerald-500/30');
-                iconSvg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>`;
-                textSpan.innerText = "Copied!";
-
-                setTimeout(() => {
-                    btn.classList.remove('bg-emerald-500/10', 'text-emerald-600', 'dark:text-emerald-400', 'border-emerald-500/30');
-                    iconSvg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>`;
-                    textSpan.innerText = translations[currentLang].btnCopy;
-                }, 2000);
-            }
-        });
-
-        /* URI Parameter Detection */
-        function parseSecretUriParams() {
-            const rawVal = document.getElementById('secretInput').value.trim();
-            if (rawVal.toUpperCase().startsWith('OTPAUTH://')) {
-                try {
-                    const url = new URL(rawVal);
-                    const algo = url.searchParams.get('algorithm');
-                    const digits = url.searchParams.get('digits');
-                    const period = url.searchParams.get('period');
-
-                    if (algo) {
-                        const nAlgo = algo.toUpperCase();
-                        if (['SHA-1', 'SHA-256', 'SHA-512'].includes(nAlgo)) {
-                            chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', nAlgo, nAlgo === 'SHA-1' ? 'SHA-1 (Default)' : nAlgo, 'dropdownMenuAlgo');
-                        }
-                    }
-                    if (digits && ['6', '7', '8'].includes(digits)) {
-                        chooseOption('otpDigitsSelect', 'selectedDigitsLabel', digits, `${digits} Digits`, 'dropdownMenuDigits');
-                    }
-                    if (period && ['30', '60'].includes(period)) {
-                        chooseOption('otpPeriodSelect', 'selectedPeriodLabel', period, `${period} Seconds`, 'dropdownMenuPeriod');
-                    }
-                } catch (e) {}
-            }
         }
 
         function getSanitizedSecret() {
@@ -1665,7 +1149,28 @@
             return cleaned.replace(/=+$/, '');
         }
 
-        /* QR Upload Reader */
+        function parseSecretUriParams() {
+            const rawVal = document.getElementById('secretInput').value.trim();
+            if (rawVal.toUpperCase().startsWith('OTPAUTH://')) {
+                try {
+                    const url = new URL(rawVal);
+                    const algo = url.searchParams.get('algorithm');
+                    const digits = url.searchParams.get('digits');
+                    const period = url.searchParams.get('period');
+
+                    if (algo && ['SHA-1', 'SHA-256', 'SHA-512'].includes(algo.toUpperCase())) {
+                        chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', algo.toUpperCase(), algo.toUpperCase(), 'dropdownMenuAlgo');
+                    }
+                    if (digits && ['6', '7', '8'].includes(digits)) {
+                        chooseOption('otpDigitsSelect', 'selectedDigitsLabel', digits, `${digits} Digits`, 'dropdownMenuDigits');
+                    }
+                    if (period && ['30', '60'].includes(period)) {
+                        chooseOption('otpPeriodSelect', 'selectedPeriodLabel', period, `${period} Seconds`, 'dropdownMenuPeriod');
+                    }
+                } catch (e) {}
+            }
+        }
+
         function handleQRCodeUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1682,9 +1187,10 @@
                     if (code) {
                         document.getElementById('secretInput').value = code.data;
                         parseSecretUriParams();
-                        showToast("QR code detected and parsed!");
+                        showToast("QR code detected!");
+                        generateTokenNow();
                     } else {
-                        showModernAlert("Scan Failed", "No valid QR code was located in this image.");
+                        showModernAlert("Scan Failed", "No valid QR code was located.");
                     }
                 };
                 img.src = e.target.result;
@@ -1692,62 +1198,128 @@
             reader.readAsDataURL(file);
         }
 
-        /* Keyboard Shortcuts */
-        window.addEventListener('keydown', (e) => {
-            const tag = document.activeElement.tagName.toLowerCase();
-            const isTyping = tag === 'input' || tag === 'textarea';
+        /* History */
+        function renderHistoryList(term = '') {
+            const list = document.getElementById('historyList');
+            const filtered = sessionHistory.filter(item => 
+                item.token.toLowerCase().includes(term.toLowerCase()) || 
+                item.meta.toLowerCase().includes(term.toLowerCase())
+            );
 
-            if (e.key === 'Escape') {
-                closeVaultModal();
-                closeMultiAccountDashboard();
-                closeModernAlert();
-                closeModernPrompt();
-                closeModernConfirm();
-                closeAdminPasswordModal();
-                closeAdminPanel();
-                closeNotesModal();
-                closeAllCustomDropdowns();
+            if (filtered.length === 0) {
+                list.innerHTML = `<li class="text-xs text-slate-400 italic py-1 text-center">${translations[currentLang].noHistory}</li>`;
                 return;
             }
 
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c' && !isTyping) {
-                const code = document.getElementById('resultCode').innerText;
-                if (code && !code.includes('-')) {
-                    navigator.clipboard.writeText(code);
-                    showToast("Code copied to clipboard!");
-                }
-            }
+            list.innerHTML = filtered.map((item, idx) => `
+                <li class="flex items-center justify-between py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 last:border-0 ${idx === 0 ? 'animate-history-pop' : ''}">
+                    <div class="flex items-center gap-1.5">
+                        <span class="font-mono font-bold text-xs text-slate-800 dark:text-slate-200">${escapeHTML(item.token)}</span>
+                        <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-semibold">${escapeHTML(item.meta)}</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 font-mono">${escapeHTML(item.time)}</span>
+                </li>
+            `).join('');
+        }
 
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v' && !isTyping) {
-                navigator.clipboard.readText().then(text => {
-                    if (text) {
-                        document.getElementById('secretInput').value = text.trim();
-                        parseSecretUriParams();
-                        showToast("Secret pasted!");
-                    }
-                }).catch(() => {});
-            }
+        function filterHistoryList() {
+            renderHistoryList(document.getElementById('historySearchInput').value);
+        }
 
-            if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'k' || e.key.toLowerCase() === 'b') && !isTyping) {
-                e.preventDefault();
+        function clearHistoryEntries() {
+            sessionHistory = [];
+            renderHistoryList();
+            showToast("History cleared");
+        }
+
+        /* Multi-Account Dashboard */
+        function openMultiAccountDashboard() {
+            if (!activeMasterPassword || !decryptedVaultAccounts) {
                 openVaultModal();
+                showModernAlert("Authentication Required", "Unlock your vault to generate live account streams.");
+                return;
+            }
+            document.getElementById('dashboardModal').classList.remove('hidden');
+            renderDashboardLiveGrid();
+            startDashboardTimer();
+        }
+
+        function closeMultiAccountDashboard() {
+            document.getElementById('dashboardModal').classList.add('hidden');
+            if (dashboardInterval) clearInterval(dashboardInterval);
+        }
+
+        async function renderDashboardLiveGrid() {
+            const container = document.getElementById('dashboardGridContainer');
+            if (!decryptedVaultAccounts || decryptedVaultAccounts.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-slate-400">No accounts stored in vault.</div>`;
+                return;
+            }
+
+            container.innerHTML = (await Promise.all(decryptedVaultAccounts.map(async (acc, idx) => {
+                const period = parseInt(acc.period || '30', 10);
+                const digits = parseInt(acc.digits || '6', 10);
+                const algo = acc.algorithm || 'SHA-1';
+                const code = await generateTOTP(acc.secret, period, digits, algo) || '------';
+                return `
+                    <div class="card-inner p-3.5 rounded-xl flex flex-col justify-between space-y-2 border border-slate-200/80 dark:border-slate-800">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${escapeHTML(acc.name)}</span>
+                            <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${escapeHTML(algo)}/${escapeHTML(digits)}D</span>
+                        </div>
+                        <div class="text-center py-1">
+                            <span class="font-mono text-2xl font-black tracking-widest text-slate-900 dark:text-white select-all">${code}</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-1 border-t border-slate-200/50 dark:border-slate-800/80">
+                            <button onclick="navigator.clipboard.writeText('${code}'); showToast('Copied!');" class="text-[11px] font-semibold text-brand-500">Copy</button>
+                            <button onclick="loadVaultAccount(${idx}); closeMultiAccountDashboard();" class="text-[11px] font-semibold text-slate-400">Load</button>
+                        </div>
+                    </div>
+                `;
+            }))).join('');
+        }
+
+        function startDashboardTimer() {
+            if (dashboardInterval) clearInterval(dashboardInterval);
+            const progressBar = document.getElementById('dashboardGlobalProgress');
+            const badge = document.getElementById('dashboardTimerBadge');
+
+            dashboardInterval = setInterval(async () => {
+                const epoch = 30;
+                const now = Math.floor(Date.now() / 1000);
+                const left = epoch - (now % epoch);
+                const pct = (left / epoch) * 100;
+                
+                progressBar.style.width = `${pct}%`;
+                badge.innerText = left + 's';
+
+                if (left === epoch) renderDashboardLiveGrid();
+            }, 1000);
+        }
+
+        /* Clipboard Copy */
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const code = document.getElementById('resultCode').innerText;
+            if (code && !code.includes('-')) {
+                navigator.clipboard.writeText(code);
+                showToast(translations[currentLang].toastMsg);
+
+                const textSpan = document.getElementById('copyText');
+                textSpan.innerText = "Copied!";
+                setTimeout(() => { textSpan.innerText = translations[currentLang].btnCopy; }, 2000);
             }
         });
 
         /* Modals & Alerts */
         let promptCallback = null;
         function showModernPrompt({ title, defaultValue = '', onConfirm }) {
-            document.getElementById('promptTitle').innerText = title || "Account Identifier";
+            document.getElementById('promptTitle').innerText = title;
             const input = document.getElementById('promptInput');
             input.value = defaultValue;
             promptCallback = onConfirm;
             document.getElementById('modernPromptModal').classList.remove('hidden');
-            setTimeout(() => { input.focus(); input.select(); }, 50);
         }
-        function closeModernPrompt() {
-            document.getElementById('modernPromptModal').classList.add('hidden');
-            promptCallback = null;
-        }
+        function closeModernPrompt() { document.getElementById('modernPromptModal').classList.add('hidden'); }
         document.getElementById('promptConfirmBtn').addEventListener('click', () => {
             if (promptCallback) promptCallback(document.getElementById('promptInput').value);
             closeModernPrompt();
@@ -1755,32 +1327,23 @@
 
         let confirmCallback = null;
         function showModernConfirm({ title, desc, onConfirm }) {
-            document.getElementById('confirmTitle').innerText = title || "Confirm Action";
-            document.getElementById('confirmDesc').innerText = desc || "Are you sure you want to proceed?";
+            document.getElementById('confirmTitle').innerText = title;
+            document.getElementById('confirmDesc').innerText = desc;
             confirmCallback = onConfirm;
             document.getElementById('modernConfirmModal').classList.remove('hidden');
         }
-        function closeModernConfirm() {
-            document.getElementById('modernConfirmModal').classList.add('hidden');
-            confirmCallback = null;
-        }
+        function closeModernConfirm() { document.getElementById('modernConfirmModal').classList.add('hidden'); }
         document.getElementById('confirmActionBtn').addEventListener('click', () => {
             if (confirmCallback) confirmCallback();
             closeModernConfirm();
         });
 
-        function showModernAlert(title, message, isError = true) {
+        function showModernAlert(title, message) {
             document.getElementById('alertTitle').innerText = title;
             document.getElementById('alertMessage').innerText = message;
-            const icon = document.getElementById('alertIconContainer');
-            icon.className = isError 
-                ? "w-10 h-10 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto border border-rose-500/20"
-                : "w-10 h-10 bg-emerald-500/10 text-emerald-500 rounded-xl flex items-center justify-center mx-auto border border-emerald-500/20";
             document.getElementById('modernAlertModal').classList.remove('hidden');
         }
-        function closeModernAlert() {
-            document.getElementById('modernAlertModal').classList.add('hidden');
-        }
+        function closeModernAlert() { document.getElementById('modernAlertModal').classList.add('hidden'); }
 
         function showToast(text) {
             const toast = document.getElementById('toastNotification');
@@ -1791,53 +1354,6 @@
                 toast.classList.add('opacity-0');
                 setTimeout(() => toast.classList.add('hidden'), 250);
             }, 2000);
-        }
-
-        /* Admin Dashboard Functions */
-        function openAdminPasswordModal() {
-            document.getElementById('adminPinInput').value = '';
-            document.getElementById('adminPasswordError').classList.add('hidden');
-            document.getElementById('adminPasswordModal').classList.remove('hidden');
-            document.getElementById('adminPinInput').focus();
-        }
-        function closeAdminPasswordModal() { document.getElementById('adminPasswordModal').classList.add('hidden'); }
-        async function verifyAdminPasscode() {
-            const pin = document.getElementById('adminPinInput').value;
-            try {
-                const res = await fetch('/api/admin/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ passcode: pin })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    closeAdminPasswordModal();
-                    document.getElementById('adminModal').classList.remove('hidden');
-                    fetchAdminStats();
-                } else {
-                    document.getElementById('adminPasswordError').classList.remove('hidden');
-                }
-            } catch (err) {
-                showModernAlert("Error", "Backend gateway unreachable.");
-            }
-        }
-        function closeAdminPanel() { document.getElementById('adminModal').classList.add('hidden'); }
-        async function fetchAdminStats() {
-            try {
-                const res = await fetch('/api/admin/stats');
-                const data = await res.json();
-                document.getElementById('statVisitors').innerText = data.totalVisitors;
-                document.getElementById('statGenerations').innerText = data.totalGenerations;
-                const container = document.getElementById('adminLogsList');
-                if (data.generationLogs && data.generationLogs.length > 0) {
-                    container.innerHTML = data.generationLogs.map(log => `
-                        <div class="flex justify-between items-center py-1 px-2.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800">
-                            <span class="font-bold text-brand-500">TOKEN: ${log.code}</span>
-                            <span class="text-slate-400 text-[10px]">${log.time}</span>
-                        </div>
-                    `).join('');
-                }
-            } catch (err) {}
         }
 
         /* Theme & Localization */
@@ -1878,14 +1394,7 @@
                 noHistory: "No entries recorded in current session",
                 btnClearHistory: "Clear All",
                 errEmpty: "Please enter a valid base32 key.",
-                toastMsg: "Copied to clipboard!",
-                verifyTitle: "Security Clearance Required",
-                verifyDesc: "Complete 1-click verification to decrypt this TOTP token.",
-                btnVerify: "Verify & Reveal Code (Free)",
-                btnBack: "← Return to Key Input",
-                navNotes: "Guide",
-                notesHeading: "Platform Guide & Documentation",
-                refreshedToast: "Tab refreshed successfully"
+                toastMsg: "Copied to clipboard!"
             },
             km: {
                 title: "ច្រកផ្ទៀងផ្ទាត់សុវត្ថិភាព",
@@ -1900,14 +1409,7 @@
                 noHistory: "មិនទាន់មានទិន្នន័យត្រូវបានកត់ត្រា",
                 btnClearHistory: "សម្អាតទាំងអស់",
                 errEmpty: "សូមបញ្ចូលលេខកូដសម្ងាត់ជាមុនសិន។",
-                toastMsg: "បានចម្លងជោគជ័យ!",
-                verifyTitle: "ត្រូវការការអនុញ្ញាតសុវត្ថិភាព",
-                verifyDesc: "ចុចប៊ូតុងខាងក្រោមដើម្បីដោះសោរបង្ហាញលេខកូដសុវត្ថិភាពរបស់អ្នក។",
-                btnVerify: "ផ្ទៀងផ្ទាត់ និងបើកបង្ហាញ (ឥតគិតថ្លៃ)",
-                btnBack: "← ត្រឡប់ក្រោយ",
-                navNotes: "សៀវភៅណែនាំ",
-                notesHeading: "សៀវភៅណែនាំអំពីរបៀបប្រើប្រាស់",
-                refreshedToast: "បានធ្វើឱ្យថេបស្រស់ថ្លាឡើងវិញ"
+                toastMsg: "បានចម្លងជោគជ័យ!"
             },
             zh: {
                 title: "双重身份验证网关",
@@ -1922,28 +1424,16 @@
                 noHistory: "当前会话暂无生成记录",
                 btnClearHistory: "清除所有记录",
                 errEmpty: "请输入有效的密钥字符串。",
-                toastMsg: "已成功复制到剪贴板！",
-                verifyTitle: "需要安全授权访问",
-                verifyDesc: "请点击下方进行一键赞助商验证，即可安全解密实时 TOTP 动态码。",
-                btnVerify: "免费验证并显示动态码",
-                btnBack: "← 返回输入密钥",
-                navNotes: "使用指南",
-                notesHeading: "平台使用指南与说明文档",
-                refreshedToast: "标签页已成功刷新"
+                toastMsg: "已成功复制到剪贴板！"
             }
         };
 
         function toggleLanguage() {
-            if (currentLang === 'en') {
-                currentLang = 'km';
-                document.getElementById('langText').innerText = 'ខ្មែរ';
-            } else if (currentLang === 'km') {
-                currentLang = 'zh';
-                document.getElementById('langText').innerText = '中文';
-            } else {
-                currentLang = 'en';
-                document.getElementById('langText').innerText = 'EN';
-            }
+            if (currentLang === 'en') currentLang = 'km';
+            else if (currentLang === 'km') currentLang = 'zh';
+            else currentLang = 'en';
+
+            document.getElementById('langText').innerText = currentLang.toUpperCase();
             document.getElementById('htmlRoot').setAttribute('lang', currentLang);
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -1951,12 +1441,6 @@
                     el.innerText = translations[currentLang][key];
                 }
             });
-
-            const notesHeading = document.getElementById('notesHeading');
-            if (notesHeading && translations[currentLang].notesHeading) {
-                notesHeading.innerText = translations[currentLang].notesHeading;
-            }
-            renderNotesContent();
         }
     </script>
 </body>
