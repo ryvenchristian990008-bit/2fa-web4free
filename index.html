@@ -207,13 +207,22 @@
             backface-visibility: hidden;
         }
 
-        @keyframes smoothSiteRefresh {
-            0% { opacity: 0.2; transform: translate3d(0, -12px, 0) scale(0.995); filter: blur(2px); }
-            100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0px); }
+        /* Silky Smooth Full Tab Refresh Transition */
+        @keyframes fullTabFadeOut {
+            0% { opacity: 1; transform: scale(1); filter: blur(0px); }
+            100% { opacity: 0; transform: scale(0.98); filter: blur(6px); }
         }
-        .animate-smooth-refresh {
-            animation: smoothSiteRefresh 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            backface-visibility: hidden;
+        @keyframes fullTabFadeIn {
+            0% { opacity: 0; transform: scale(0.98); filter: blur(6px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+        }
+        .tab-refreshing-exit {
+            animation: fullTabFadeOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+            will-change: transform, opacity, filter;
+        }
+        .tab-refreshing-enter {
+            animation: fullTabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            will-change: transform, opacity, filter;
         }
     </style>
 </head>
@@ -222,9 +231,9 @@
     <div class="vignette-overlay"></div>
     <iframe id="silentAdFrame" class="hidden" style="display:none;width:0;height:0;border:0;"></iframe>
 
-    <!-- Modern Pill Toast Notification -->
-    <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-[90] bg-slate-900/95 dark:bg-white/95 text-white dark:text-slate-950 px-5 py-2.5 rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.3)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-700/60 dark:border-slate-200 backdrop-blur-xl">
-        <svg class="w-4 h-4 text-emerald-400 dark:text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+    <!-- Modern Theme-Aware Pill Toast Notification -->
+    <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-[90] bg-white/90 dark:bg-slate-900/95 text-slate-900 dark:text-white px-5 py-2.5 rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.25)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-200 dark:border-slate-800 backdrop-blur-xl">
+        <svg class="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
         <span id="toastText">Copied to clipboard!</span>
     </div>
 
@@ -329,7 +338,8 @@
 
             <!-- Toolbar Controls -->
             <div class="flex items-center gap-1.5 sm:gap-2">
-                <button onclick="triggerSmoothAppRefresh()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Smooth Animated Refresh">
+                <!-- Smooth Tab Refresh Button -->
+                <button onclick="triggerSmoothTabRefresh()" class="w-8 h-8 flex items-center justify-center rounded-lg card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Smooth Animated Tab Refresh">
                     <svg id="refreshIcon" class="w-3.5 h-3.5 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 </button>
 
@@ -367,9 +377,9 @@
         </div>
     </header>
 
-    <!-- Main Workspace (Horizontally & Vertically Centered) -->
-    <main class="flex-grow w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-25">
-        <div id="mainWorkspace" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
+    <!-- Main Workspace (Horizontally & Vertically Centered with Smooth Tab Refresh Target) -->
+    <main class="flex-grow w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 relative z-20">
+        <div id="mainTabContainer" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
             
             <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800/80">
                 
@@ -519,8 +529,7 @@
                             </div>
 
                             <div class="text-center py-6">
-                                <!-- Dynamic Sizing Code Display to Fit 6, 7, and 8 Digits -->
-                                <div id="resultCode" class="text-3xl sm:text-4xl lg:text-5xl font-mono font-extrabold tracking-[0.15em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm truncate">
+                                <div id="resultCode" class="text-4xl sm:text-5xl lg:text-6xl font-mono font-extrabold tracking-[0.2em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm truncate">
                                     ------
                                 </div>
                                 <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden mt-6">
@@ -710,7 +719,7 @@
         </div>
     </div>
 
-    <!-- Production JavaScript Logic with 2s Delay Delays & Swap-Downs -->
+    <!-- Production JavaScript Logic -->
     <script>
         const MONETAG_DIRECT_LINK = "https://omg10.com/4/11711747";
         let sessionHistory = [];
@@ -725,20 +734,23 @@
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
 
-        /* Hardware-Accelerated Smooth Animated In-App Refresh */
-        function triggerSmoothAppRefresh() {
+        /* Silky Smooth Tab Refresh Animation */
+        let isTabRefreshing = false;
+        function triggerSmoothTabRefresh() {
+            if (isTabRefreshing) return;
+            isTabRefreshing = true;
+
             const icon = document.getElementById('refreshIcon');
-            const mainContainer = document.getElementById('mainWorkspace');
+            const container = document.getElementById('mainTabContainer');
 
             if (icon) {
                 icon.style.transform = 'rotate(360deg)';
                 icon.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
             }
 
-            if (mainContainer) {
-                mainContainer.classList.remove('animate-smooth-refresh');
-                void mainContainer.offsetWidth; // Force Reflow
-                mainContainer.classList.add('animate-smooth-refresh');
+            if (container) {
+                container.classList.remove('tab-refreshing-enter');
+                container.classList.add('tab-refreshing-exit');
             }
 
             if ('serviceWorker' in navigator) {
@@ -748,12 +760,22 @@
             }
 
             setTimeout(() => {
-                if (icon) {
-                    icon.style.transform = 'rotate(0deg)';
-                    icon.style.transition = 'none';
+                if (container) {
+                    container.classList.remove('tab-refreshing-exit');
+                    container.classList.add('tab-refreshing-enter');
                 }
-                showToast(translations[currentLang].refreshedToast || "Interface refreshed smoothly");
-            }, 650);
+
+                showToast(translations[currentLang].refreshedToast || "Tab refreshed successfully");
+
+                setTimeout(() => {
+                    if (icon) {
+                        icon.style.transform = 'rotate(0deg)';
+                        icon.style.transition = 'none';
+                    }
+                    if (container) container.classList.remove('tab-refreshing-enter');
+                    isTabRefreshing = false;
+                }, 400);
+            }, 300);
         }
 
         /* Documentation & Process Guide Notes Engine */
@@ -1381,7 +1403,6 @@
             genBtnText.classList.add('opacity-0');
             genBtnLoading.classList.remove('hidden');
 
-            // Exact 2-second delay for analyzing/deriving key
             setTimeout(() => {
                 genBtn.disabled = false;
                 genBtnText.classList.remove('opacity-0');
@@ -1391,7 +1412,7 @@
                 const gate = document.getElementById('verificationGateSection');
                 gate.classList.remove('hidden');
                 gate.classList.remove('animate-swap-down');
-                void gate.offsetWidth; // reflow
+                void gate.offsetWidth;
                 gate.classList.add('animate-swap-down');
             }, 2000);
         }
@@ -1421,7 +1442,6 @@
                 } catch (err) {}
             }
 
-            // Exact 2-second decryption delay
             setTimeout(() => {
                 verifyBtn.disabled = false;
                 verifyContent.classList.remove('opacity-0');
@@ -1432,7 +1452,7 @@
                 const codeDisplay = document.getElementById('codeDisplaySection');
                 codeDisplay.classList.remove('hidden');
                 codeDisplay.classList.remove('animate-swap-down');
-                void codeDisplay.offsetWidth; // reflow
+                void codeDisplay.offsetWidth;
                 codeDisplay.classList.add('animate-swap-down');
 
                 document.getElementById('verifiedStatusBadge').classList.remove('hidden');
@@ -1837,7 +1857,7 @@
                 btnBack: "← Return to Key Input",
                 navNotes: "Guide",
                 notesHeading: "Platform Guide & Documentation",
-                refreshedToast: "Interface refreshed smoothly"
+                refreshedToast: "Tab refreshed successfully"
             },
             km: {
                 title: "ច្រកផ្ទៀងផ្ទាត់សុវត្ថិភាព",
@@ -1859,7 +1879,7 @@
                 btnBack: "← ត្រឡប់ក្រោយ",
                 navNotes: "សៀវភៅណែនាំ",
                 notesHeading: "សៀវភៅណែនាំអំពីរបៀបប្រើប្រាស់",
-                refreshedToast: "បានធ្វើឱ្យចំណុចប្រទាក់ស្រស់ថ្លាឡើងវិញ"
+                refreshedToast: "បានធ្វើឱ្យថេបស្រស់ថ្លាឡើងវិញ"
             },
             zh: {
                 title: "双重身份验证网关",
@@ -1881,7 +1901,7 @@
                 btnBack: "← 返回输入密钥",
                 navNotes: "使用指南",
                 notesHeading: "平台使用指南与说明文档",
-                refreshedToast: "界面已平滑刷新"
+                refreshedToast: "标签页已成功刷新"
             }
         };
 
