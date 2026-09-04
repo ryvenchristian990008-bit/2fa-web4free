@@ -84,7 +84,6 @@
         ::-webkit-scrollbar-thumb { background: #64748b44; border-radius: 9999px; }
         .dark ::-webkit-scrollbar-thumb { background: #33415566; }
         
-        /* Neutralize Browser Autofill / Paste White Box Background */
         input:-webkit-autofill,
         input:-webkit-autofill:hover, 
         input:-webkit-autofill:focus, 
@@ -352,13 +351,12 @@
     <header class="sticky top-0 z-50 bg-white/85 dark:bg-[#060a17]/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
             
-            <!-- Brand Logo & Title -->
             <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
                 <div class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
                     <svg class="w-full h-full drop-shadow transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="navLg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
-                            <linearGradient id="navLg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
+                            <linearGradient id="navLg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
                             <linearGradient id="navLg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
                         </defs>
                         <g stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -378,7 +376,6 @@
                 </div>
             </div>
 
-            <!-- Toolbar Controls -->
             <div class="flex items-center gap-1 sm:gap-1.5 md:gap-2">
                 <button onclick="triggerUniversalTabRefresh()" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-xl card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Refresh Tab & State">
                     <svg id="refreshIcon" class="w-3.5 h-3.5 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
@@ -398,11 +395,6 @@
                     <svg class="w-3.5 h-3.5 text-cyan-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     <span class="hidden sm:inline" data-i18n="vault">Vault</span>
                     <span id="vaultStatusDot" class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600 shrink-0" title="Locked"></span>
-                </button>
-
-                <button onclick="openAdminPasswordModal()" class="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-brand-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span class="hidden md:inline" data-i18n="admin">Admin</span>
                 </button>
 
                 <button onclick="toggleLanguage()" class="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl card-inner text-slate-700 dark:text-slate-300 text-xs font-semibold btn-modern flex items-center gap-1.5">
@@ -450,7 +442,6 @@
                             </label>
                         </div>
 
-                        <!-- Hero Input with Complete Autofill Suppression -->
                         <div class="relative flex items-center input-hero-wrapper rounded-2xl p-1 shadow-sm">
                             <div class="pl-3.5 pr-1.5 text-slate-400 dark:text-slate-500 pointer-events-none">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -463,7 +454,7 @@
                             </button>
                         </div>
 
-                        <!-- Custom Floating Dropdowns -->
+                        <!-- Dropdown Parameters -->
                         <div class="p-4 card-inner rounded-2xl space-y-3">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="cryptoParamsTitle">Cryptographic Parameters</span>
@@ -471,7 +462,7 @@
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <!-- Algorithm Dropdown -->
+                                <!-- Algorithm -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelAlgo">Algorithm</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
@@ -496,7 +487,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Code Length Dropdown -->
+                                <!-- Digits -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelDigits">Code Length</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
@@ -521,7 +512,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Cycle Period Dropdown -->
+                                <!-- Period -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelPeriod">Cycle Period</label>
                                     <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
@@ -545,7 +536,7 @@
                         </div>
                     </div>
 
-                    <!-- Primary Action Row -->
+                    <!-- Primary Actions -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                         <button id="genBtn" onclick="generateTokenWithDelay()" class="h-12 bg-gradient-to-r from-blue-600 via-indigo-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-2xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-indigo-500/25 flex items-center justify-center relative overflow-hidden group border border-white/10">
                             <div class="btn-shimmer-beam" id="genBtnShimmer"></div>
@@ -621,7 +612,6 @@
 
         </div>
 
-        <!-- Passive Crypto/Ad Banner Integration Card -->
         <div class="w-full max-w-5xl mt-5 sm:mt-6 panel-glass rounded-2xl p-3.5 sm:p-4 text-center border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
             <div class="flex items-center justify-between mb-2 px-1">
                 <span class="text-[10px] uppercase font-mono text-slate-400 tracking-widest">Sponsored Placement</span>
@@ -629,11 +619,9 @@
             </div>
             
             <div class="flex justify-center items-center min-h-[70px] bg-slate-900/30 rounded-xl overflow-hidden border border-slate-800/50 p-1 sm:p-2">
-                <!-- BEGIN AADS AD UNIT 2454352 -->
                 <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 50;">
                     <iframe data-aa='2454352' src='//acceptable.a-ads.com/2454352/?size=Adaptive' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display:block; margin:auto; background-color: transparent;'></iframe>
                 </div>
-                <!-- END AADS AD UNIT 2454352 -->
             </div>
         </div>
     </main>
@@ -736,53 +724,6 @@
         </div>
     </div>
 
-    <!-- Admin Password Modal -->
-    <div id="adminPasswordModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeAdminPasswordModal()"></div>
-        <div class="relative w-full max-w-xs panel-glass rounded-2xl p-6 z-10 space-y-4 animate-pop shadow-2xl">
-            <div class="text-center space-y-1">
-                <div class="w-9 h-9 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                </div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="adminAuthTitle">Admin Authentication</h3>
-            </div>
-            <input type="password" id="adminPinInput" placeholder="Passcode..." data-i18n-placeholder="adminPinPlaceholder"
-                class="w-full h-10 card-inner rounded-xl px-3 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100">
-            <p id="adminPasswordError" class="text-[11px] text-rose-500 text-center font-semibold hidden" data-i18n="adminPinError">Invalid Passcode</p>
-            <div class="grid grid-cols-2 gap-2">
-                <button onclick="closeAdminPasswordModal()" class="h-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern" data-i18n="btnCancel">Cancel</button>
-                <button onclick="verifyAdminPasscode()" class="h-10 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern" data-i18n="btnAuthenticate">Authenticate</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Panel Modal -->
-    <div id="adminModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeAdminPanel()"></div>
-        <div class="relative w-full max-w-4xl panel-glass rounded-3xl p-6 sm:p-9 z-10 space-y-6 animate-pop shadow-2xl">
-            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-4">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="telemetryTitle">Telemetry & Access Logs</h3>
-                <button onclick="closeAdminPanel()" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="card-inner p-5 rounded-2xl text-center">
-                    <span class="text-xs font-semibold text-slate-400 uppercase" data-i18n="statVisitors">Unique Visitors</span>
-                    <h4 id="statVisitors" class="text-3xl font-black text-brand-500 mt-1.5">0</h4>
-                </div>
-                <div class="card-inner p-5 rounded-2xl text-center">
-                    <span class="text-xs font-semibold text-slate-400 uppercase" data-i18n="statGenerations">Tokens Generated</span>
-                    <h4 id="statGenerations" class="text-3xl font-black text-emerald-500 mt-1.5">0</h4>
-                </div>
-            </div>
-            <div class="space-y-2.5">
-                <span class="text-xs font-bold text-slate-400 uppercase" data-i18n="storedIpLogs">Stored IP Access Audit Logs</span>
-                <div id="adminLogsList" class="card-inner p-4 rounded-2xl max-h-80 overflow-y-auto space-y-2 font-mono text-xs">
-                    <span class="text-slate-500 italic" data-i18n="noTelemetry">No telemetry recorded yet...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         let sessionHistory = [];
         let dashboardInterval = null;
@@ -830,7 +771,6 @@
                 navNotes: "Guide",
                 navGrid: "Live Grid",
                 vault: "Vault",
-                admin: "Admin",
                 alertNotice: "Security Notice",
                 btnAcknowledge: "Acknowledge",
                 promptAccountLabel: "Account Label",
@@ -858,15 +798,6 @@
                 btnLock: "Lock",
                 dashboardTitle: "Multi-Account Live Stream",
                 cycleLabel: "Cycle:",
-                adminAuthTitle: "Admin Authentication",
-                adminPinPlaceholder: "Passcode...",
-                adminPinError: "Invalid Passcode",
-                btnAuthenticate: "Authenticate",
-                telemetryTitle: "Telemetry & Access Logs",
-                statVisitors: "Unique Visitors",
-                statGenerations: "Tokens Generated",
-                storedIpLogs: "Stored IP Access Audit Logs",
-                noTelemetry: "No telemetry recorded yet...",
                 toastMsg: "Copied to clipboard!",
                 toastCopiedMorphed: "Copied!",
                 toastSecretPasted: "Secret pasted!",
@@ -918,7 +849,6 @@
                 navNotes: "សៀវភៅណែនាំ",
                 navGrid: "Live Grid",
                 vault: "Vault",
-                admin: "Admin",
                 alertNotice: "ដំណឹងសុវត្ថិភាព",
                 btnAcknowledge: "យល់ព្រម",
                 promptAccountLabel: "ឈ្មោះគណនី",
@@ -946,15 +876,6 @@
                 btnLock: "ចាក់សោរ",
                 dashboardTitle: "ផ្ទាំងបង្ហាញកូដបន្តផ្ទាល់ (Live Grid)",
                 cycleLabel: "វដ្ត៖",
-                adminAuthTitle: "ការផ្ទៀងផ្ទាត់ Admin",
-                adminPinPlaceholder: "លេខកូដសម្ងាត់...",
-                adminPinError: "លេខកូដសម្ងាត់មិនត្រឹមត្រូវ",
-                btnAuthenticate: "ផ្ទៀងផ្ទាត់",
-                telemetryTitle: "កំណត់ត្រា និងការចូលប្រើប្រាស់",
-                statVisitors: "ចំនួនអ្នកទស្សនា",
-                statGenerations: "កូដដែលបានបង្កើត",
-                storedIpLogs: "កំណត់ត្រាអាសយដ្ឋាន IP ចូលប្រើ",
-                noTelemetry: "មិនទាន់មានកំណត់ត្រាត្រូវបានរក្សាទុក...",
                 toastMsg: "បានចម្លងជោគជ័យ!",
                 toastCopiedMorphed: "បានចម្លង!",
                 toastSecretPasted: "បានបិទភ្ជាប់កូដ!",
@@ -1006,7 +927,6 @@
                 navNotes: "指南",
                 navGrid: "实时网格",
                 vault: "密码库",
-                admin: "管理后台",
                 alertNotice: "安全提示",
                 btnAcknowledge: "确认",
                 promptAccountLabel: "账户标识",
@@ -1034,15 +954,6 @@
                 btnLock: "锁定",
                 dashboardTitle: "多账户实时监控网格",
                 cycleLabel: "周期：",
-                adminAuthTitle: "管理员身份验证",
-                adminPinPlaceholder: "输入口令...",
-                adminPinError: "通行口令错误",
-                btnAuthenticate: "验证登录",
-                telemetryTitle: "访问日志与遥测监控",
-                statVisitors: "独立访客数",
-                statGenerations: "生成动态码总数",
-                storedIpLogs: "IP 访问与操作审计日志",
-                noTelemetry: "暂无审计日志...",
                 toastMsg: "已成功复制到剪贴板！",
                 toastCopiedMorphed: "已复制！",
                 toastSecretPasted: "已粘贴密钥！",
@@ -1068,7 +979,7 @@
             return (translations[currentLang] && translations[currentLang][key]) || (translations['en'][key] || key);
         }
 
-        /* Quick-Paste Helper */
+        /* Clipboard Helper */
         async function pasteFromClipboard() {
             try {
                 const text = await navigator.clipboard.readText();
@@ -1082,30 +993,7 @@
             }
         }
 
-        /* IP Telemetry Logger */
-        async function logVisitorAccess(action = "Page Visit") {
-            try {
-                const res = await fetch('https://api.ipify.org?format=json');
-                const data = await res.json();
-                if (data && data.ip) {
-                    const logs = JSON.parse(localStorage.getItem('admin_ip_logs') || '[]');
-                    logs.unshift({
-                        ip: data.ip,
-                        action: action,
-                        time: new Date().toLocaleString()
-                    });
-                    localStorage.setItem('admin_ip_logs', JSON.stringify(logs.slice(0, 50)));
-
-                    let visitors = parseInt(localStorage.getItem('stat_visitors') || '0', 10);
-                    if (action === "Page Visit") {
-                        localStorage.setItem('stat_visitors', (visitors + 1).toString());
-                    }
-                }
-            } catch (err) {}
-        }
-        window.addEventListener('load', () => logVisitorAccess("Page Visit"));
-
-        /* In-App Tab Refresh */
+        /* Refresh Window */
         function triggerUniversalTabRefresh() {
             const icon = document.getElementById('refreshIcon');
             const container = document.getElementById('mainTabContainer');
@@ -1123,12 +1011,12 @@
             }, 300);
         }
 
-        /* Platform Guide Modal Content */
+        /* Guide */
         const platformNotesData = {
             en: [
                 {
                     title: "1. Token Ingestion & QR Code Scanning",
-                    desc: "Paste any standard Base32 secret string or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR' to automatically extract provisioned keys from account setup screenshots."
+                    desc: "Paste any standard Base32 secret string or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR' to automatically extract provisioned keys from screenshots."
                 },
                 {
                     title: "2. Cryptographic Parameters",
@@ -1148,7 +1036,7 @@
                 },
                 {
                     title: "6. Multi-Account Live Grid",
-                    desc: "Click 'Live Grid' in the header to view and monitor all your stored accounts in real time with synchronized 30-second countdown timers."
+                    desc: "Click 'Live Grid' in the header to view and monitor all your stored accounts in real time with synchronized countdown timers."
                 }
             ],
             km: [
@@ -1263,7 +1151,7 @@
             closeAllCustomDropdowns();
         }
 
-        /* Base64 & Web Crypto Helpers */
+        /* Cryptography (PBKDF2 + AES-GCM 256-bit) */
         function bufferToBase64(buf) {
             const bytes = new Uint8Array(buf);
             let binary = '';
@@ -1379,8 +1267,6 @@
                     localStorage.setItem('globalauth_vault', JSON.stringify(emptyEncrypted));
                     activeMasterPassword = password;
                     decryptedVaultAccounts = [];
-                    
-                    logVisitorAccess("Created Master Password");
 
                     document.getElementById('vaultAuthSection').classList.add('hidden');
                     document.getElementById('vaultContentSection').classList.remove('hidden');
@@ -1406,8 +1292,6 @@
                 const result = await decryptData(password, encryptedObj);
                 activeMasterPassword = password;
                 decryptedVaultAccounts = Array.isArray(result) ? result : [];
-
-                logVisitorAccess("Unlocked Vault");
 
                 document.getElementById('vaultAuthSection').classList.add('hidden');
                 document.getElementById('vaultContentSection').classList.remove('hidden');
@@ -1505,6 +1389,8 @@
                 const realIndex = decryptedVaultAccounts.indexOf(acc);
                 const algo = acc.algorithm || 'SHA-1';
                 const digits = acc.digits || '6';
+                const maskedSecret = acc.secret.length > 6 ? acc.secret.substring(0, 4) + '••••••••' : '••••••••';
+
                 return `
                     <div class="flex items-center justify-between p-2.5 rounded-xl card-inner hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
                         <div class="min-w-0 pr-2">
@@ -1513,7 +1399,7 @@
                                 <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
                                 ${acc.pinned ? '<span class="text-[9px] px-1 rounded bg-amber-500/10 text-amber-500 font-bold">Pinned</span>' : ''}
                             </div>
-                            <span class="text-[10px] font-mono text-slate-400 block truncate mt-0.5">${acc.secret}</span>
+                            <span class="text-[10px] font-mono text-slate-400 block truncate mt-0.5">${maskedSecret}</span>
                         </div>
                         <div class="flex items-center gap-1 shrink-0">
                             <button onclick="togglePinAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center text-xs btn-modern" title="Pin">📌</button>
@@ -1594,27 +1480,31 @@
             const file = event.target.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = async function(e) {
+            reader.onload = function(e) {
                 try {
                     const parsed = JSON.parse(e.target.result);
-                    if (parsed.ciphertext && parsed.iv && parsed.salt) {
+                    if (parsed && parsed.ciphertext && parsed.iv && parsed.salt) {
                         showModernConfirm({
                             title: getTranslatedText('vaultModalTitle'),
-                            desc: "This will restore your database from backup.",
+                            desc: "This will overwrite your existing vault and restore from backup.",
                             onConfirm: () => {
                                 localStorage.setItem('globalauth_vault', JSON.stringify(parsed));
                                 lockVault();
-                                showModernAlert(getTranslatedText('alertNotice'), "Database restored.");
+                                showModernAlert(getTranslatedText('alertNotice'), "Database restored successfully.");
                             }
                         });
+                    } else {
+                        showModernAlert(getTranslatedText('alertNotice'), "Invalid backup file structure.");
                     }
-                } catch (err) {}
+                } catch (err) {
+                    showModernAlert(getTranslatedText('alertNotice'), "Corrupted or non-JSON file provided.");
+                }
             };
             reader.readAsText(file);
             event.target.value = '';
         }
 
-        /* Multi-Account Dashboard Live Stream */
+        /* Live Stream Dashboard */
         function openMultiAccountDashboard() {
             if (!activeMasterPassword || !decryptedVaultAccounts) {
                 openVaultModal();
@@ -1735,7 +1625,6 @@
             }
         }
 
-        /* 2-Second Delay Token Generation with Smooth Progress Bar & Scramble Decoding Animation */
         async function generateTokenWithDelay() {
             const secret = getSanitizedSecret();
             if (!secret) {
@@ -1749,12 +1638,10 @@
             const codeEl = document.getElementById('resultCode');
             const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
 
-            // Prevent multiple clicks while maintaining responsive state
             btn.disabled = true;
             btn.style.opacity = '0.92';
             btn.style.pointerEvents = 'none';
 
-            // Start Linear Button Loading Animation
             progressBar.style.transition = 'none';
             progressBar.style.width = '0%';
             void progressBar.offsetWidth;
@@ -1766,7 +1653,6 @@
                 <span>Generating...</span>
             `;
 
-            // High-Tech Cipher Decryptor Loading Animation on Security Code
             codeEl.className = 'text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] cursor-pointer select-all drop-shadow-sm min-h-[52px] flex items-center justify-center token-decoding';
             
             const matrixChars = "0123456789ABCDEF";
@@ -1780,7 +1666,6 @@
                 codeEl.innerText = scrambled;
             }, 60);
 
-            // Exactly 2-Second Delay
             setTimeout(async () => {
                 if (cipherScrambleInterval) clearInterval(cipherScrambleInterval);
                 await generateTokenDirectly();
@@ -1797,7 +1682,6 @@
             }, 2000);
         }
 
-        /* Direct Instant Token Generation */
         async function generateTokenDirectly() {
             const secret = getSanitizedSecret();
             if (!secret) return;
@@ -1818,7 +1702,6 @@
 
             currentActiveSecret = secret;
             
-            // Smooth reveal transition
             codeEl.className = 'text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm min-h-[52px] flex items-center justify-center token-revealed';
             codeEl.innerText = token;
 
@@ -1828,9 +1711,6 @@
             laser.classList.remove('laser-active');
             void laser.offsetWidth;
             laser.classList.add('laser-active');
-
-            let gens = parseInt(localStorage.getItem('stat_generations') || '0', 10);
-            localStorage.setItem('stat_generations', (gens + 1).toString());
 
             sessionHistory.unshift({
                 token: token,
@@ -1871,7 +1751,7 @@
             }, 1000);
         }
 
-        /* History Operations */
+        /* History */
         function renderHistoryList(term = '') {
             const list = document.getElementById('historyList');
             const filtered = sessionHistory.filter(item => 
@@ -1906,7 +1786,7 @@
             showToast(getTranslatedText('toastHistoryCleared'));
         }
 
-        /* Clipboard Copy Hook with Micro-Interaction */
+        /* Copy Action */
         document.getElementById('copyBtn').addEventListener('click', () => {
             const code = document.getElementById('resultCode').innerText;
             if (code && !code.includes('-')) {
@@ -1929,7 +1809,7 @@
             }
         });
 
-        /* URI Parameter Detection */
+        /* Secret / URI Parsing */
         function parseSecretUriParams() {
             const rawVal = document.getElementById('secretInput').value.trim();
             if (rawVal.toUpperCase().startsWith('OTPAUTH://')) {
@@ -1972,35 +1852,57 @@
             return cleaned.replace(/=+$/, '');
         }
 
-        /* QR Upload Reader */
+        /* Fast & Optimized QR Upload */
         function handleQRCodeUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 const img = new Image();
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.width = img.width; canvas.height = img.height;
-                    context.drawImage(img, 0, 0, img.width, img.height);
-                    const imgData = context.getImageData(0, 0, canvas.width, canvas.height);
-                    const code = jsQR(imgData.data, imgData.width, imgData.height);
-                    if (code) {
-                        document.getElementById('secretInput').value = code.data;
-                        parseSecretUriParams();
-                        showToast(getTranslatedText('toastQrDetected'));
-                        generateTokenWithDelay();
-                    } else {
-                        showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errScanFailed'));
+                    const context = canvas.getContext('2d', { willReadFrequently: true });
+                    
+                    let width = img.width;
+                    let height = img.height;
+                    const maxDim = 1000;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+
+                    canvas.width = width; 
+                    canvas.height = height;
+                    context.drawImage(img, 0, 0, width, height);
+
+                    try {
+                        const imgData = context.getImageData(0, 0, width, height);
+                        const code = jsQR(imgData.data, width, height);
+                        if (code && code.data) {
+                            document.getElementById('secretInput').value = code.data;
+                            parseSecretUriParams();
+                            showToast(getTranslatedText('toastQrDetected'));
+                            generateTokenWithDelay();
+                        } else {
+                            showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errScanFailed'));
+                        }
+                    } catch (err) {
+                        showModernAlert(getTranslatedText('alertNotice'), "Error processing QR image.");
                     }
                 };
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
+            event.target.value = '';
         }
 
-        /* Responsive Keyboard Shortcuts */
+        /* Keyboard Hotkeys */
         window.addEventListener('keydown', (e) => {
             const tag = document.activeElement.tagName.toLowerCase();
             const isTyping = tag === 'input' || tag === 'textarea';
@@ -2011,8 +1913,6 @@
                 closeModernAlert();
                 closeModernPrompt();
                 closeModernConfirm();
-                closeAdminPasswordModal();
-                closeAdminPanel();
                 closeNotesModal();
                 closeAllCustomDropdowns();
                 return;
@@ -2024,16 +1924,6 @@
                     navigator.clipboard.writeText(code);
                     showToast(getTranslatedText('toastMsg'));
                 }
-            }
-
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v' && !isTyping) {
-                navigator.clipboard.readText().then(text => {
-                    if (text) {
-                        document.getElementById('secretInput').value = text.trim();
-                        parseSecretUriParams();
-                        showToast(getTranslatedText('toastSecretPasted'));
-                    }
-                }).catch(() => {});
             }
 
             if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'k' || e.key.toLowerCase() === 'b') && !isTyping) {
@@ -2097,44 +1987,7 @@
             }, 2000);
         }
 
-        /* Admin Dashboard Verification */
-        function openAdminPasswordModal() {
-            document.getElementById('adminPinInput').value = '';
-            document.getElementById('adminPasswordError').classList.add('hidden');
-            document.getElementById('adminPasswordModal').classList.remove('hidden');
-            document.getElementById('adminPinInput').focus();
-        }
-        function closeAdminPasswordModal() { document.getElementById('adminPasswordModal').classList.add('hidden'); }
-        function verifyAdminPasscode() {
-            const pin = document.getElementById('adminPinInput').value;
-            if (pin === "171204") {
-                closeAdminPasswordModal();
-                document.getElementById('adminModal').classList.remove('hidden');
-                fetchAdminStats();
-            } else {
-                document.getElementById('adminPasswordError').classList.remove('hidden');
-            }
-        }
-        function closeAdminPanel() { document.getElementById('adminModal').classList.add('hidden'); }
-        function fetchAdminStats() {
-            document.getElementById('statVisitors').innerText = localStorage.getItem('stat_visitors') || '1';
-            document.getElementById('statGenerations').innerText = localStorage.getItem('stat_generations') || '0';
-            const container = document.getElementById('adminLogsList');
-            const logs = JSON.parse(localStorage.getItem('admin_ip_logs') || '[]');
-            if (logs.length > 0) {
-                container.innerHTML = logs.map(log => `
-                    <div class="flex justify-between items-center py-1.5 px-3 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800">
-                        <div>
-                            <span class="font-bold text-brand-500">${log.ip}</span>
-                            <span class="text-slate-500 text-[10px] ml-2 font-sans">(${log.action})</span>
-                        </div>
-                        <span class="text-slate-400 text-[10px]">${log.time}</span>
-                    </div>
-                `).join('');
-            }
-        }
-
-        /* Theme & Complete Dynamic Localization */
+        /* Themes & Localization */
         function updateThemeClasses() {
             const iconSun = document.getElementById('icon-sun');
             const iconMoon = document.getElementById('icon-moon');
