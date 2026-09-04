@@ -468,7 +468,7 @@
 
                     <!-- Primary Action Row -->
                     <div class="grid grid-cols-2 gap-3 pt-2">
-                        <button id="genBtn" onclick="generateTokenDirectly()" class="h-12 bg-gradient-to-r from-blue-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2 relative overflow-hidden group">
+                        <button id="genBtn" onclick="generateTokenWithDelay()" class="h-12 bg-gradient-to-r from-blue-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-brand-500/25 flex items-center justify-center gap-2 relative overflow-hidden group">
                             <div class="btn-shimmer-beam"></div>
                             <span id="genBtnText" class="flex items-center gap-2 relative z-10">
                                 <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -1632,13 +1632,38 @@
             }
         }
 
-        /* Direct Instant Token Generation */
-        async function generateTokenDirectly() {
+        /* 2-Second Delay Token Generation (ตามคำขอ) */
+        async function generateTokenWithDelay() {
             const secret = getSanitizedSecret();
             if (!secret) {
                 showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errEmpty'));
                 return;
             }
+
+            const btn = document.getElementById('genBtn');
+            const btnText = document.getElementById('genBtnText');
+            const codeEl = document.getElementById('resultCode');
+            const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
+
+            // ล็อคปุ่มและแสดงสถานะกำลังประมวลผล (Delay 2 Seconds)
+            btn.disabled = true;
+            btnText.innerHTML = `<span class="animate-pulse">Generating...</span>`;
+            codeEl.innerText = ". . . . . .";
+
+            setTimeout(async () => {
+                await generateTokenDirectly();
+                btn.disabled = false;
+                btnText.innerHTML = `
+                    <svg class="w-4 h-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span data-i18n="btnGen">Generate Token</span>
+                `;
+            }, 2000);
+        }
+
+        /* Direct Instant Token Generation */
+        async function generateTokenDirectly() {
+            const secret = getSanitizedSecret();
+            if (!secret) return;
 
             const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
             const algo = document.getElementById('otpAlgorithmSelect').value;
@@ -1819,7 +1844,7 @@
                         document.getElementById('secretInput').value = code.data;
                         parseSecretUriParams();
                         showToast(getTranslatedText('toastQrDetected'));
-                        generateTokenDirectly();
+                        generateTokenWithDelay();
                     } else {
                         showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errScanFailed'));
                     }
