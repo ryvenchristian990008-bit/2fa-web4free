@@ -155,9 +155,9 @@
 
         .laser-sweep {
             position: absolute;
-            left: 0; right: 0; height: 2px;
+            left: 0; right: 0; height: 3px;
             background: linear-gradient(90deg, transparent 5%, #38bdf8 35%, #6366f1 65%, transparent 95%);
-            box-shadow: 0 0 16px #38bdf8, 0 0 30px #6366f1;
+            box-shadow: 0 0 20px #38bdf8, 0 0 40px #6366f1;
             opacity: 0; pointer-events: none; z-index: 20;
         }
         .laser-active {
@@ -174,14 +174,14 @@
             will-change: transform;
             transform: translateZ(0);
         }
-        .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4); }
+        .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -5px rgba(99, 102, 241, 0.5); }
         .btn-modern:active { transform: translateY(1px) scale(0.98); }
 
         .btn-shimmer-beam {
             position: absolute;
             top: 0; left: 0; width: 60%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-            animation: shimmerBeam 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmerBeam 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             pointer-events: none;
         }
         @keyframes shimmerBeam {
@@ -203,12 +203,14 @@
             animation: historyPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Premium Cyber Matrix Loader */
-        @keyframes matrixPulse {
-            0%, 100% { opacity: 0.3; transform: scale(0.98); }
-            50% { opacity: 1; transform: scale(1.02); text-shadow: 0 0 15px rgba(56, 189, 248, 0.8); }
-        .animate-matrix {
-            animation: matrixPulse 1.2s ease-in-out infinite;
+        /* Modern Code Reveal Glow Effect */
+        @keyframes codeRevealGlow {
+            0% { filter: blur(8px); opacity: 0; transform: scale(0.95); }
+            50% { filter: blur(2px); opacity: 0.8; transform: scale(1.02); }
+            100% { filter: blur(0px); opacity: 1; transform: scale(1); }
+        }
+        .animate-code-reveal {
+            animation: codeRevealGlow 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
     </style>
 </head>
@@ -677,7 +679,7 @@
         </div>
     </div>
 
-    <!-- Admin Panel Modal (Expanded Size) -->
+    <!-- Admin Panel Modal -->
     <div id="adminModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeAdminPanel()"></div>
         <div class="relative w-full max-w-4xl panel-glass rounded-3xl p-8 sm:p-10 z-10 space-y-6 animate-pop shadow-2xl border border-slate-700/60">
@@ -1641,7 +1643,7 @@
             }
         }
 
-        /* Ultra-Modern 2-Second Cyber Pulse Generation Animation */
+        /* Ultra-Modern Cyber Decrypt & Scramble Animation for Token Generation */
         async function generateTokenWithDelay() {
             const secret = getSanitizedSecret();
             if (!secret) {
@@ -1654,18 +1656,24 @@
             const codeEl = document.getElementById('resultCode');
             const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
 
-            // Modern loading state with cyber pulse effect
+            // Modern loading state with cyber spinner and glowing text
             btn.disabled = true;
             btnText.innerHTML = `
                 <svg class="w-5 h-5 animate-spin text-cyan-300" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <span class="animate-pulse tracking-wider">COMPUTING HASH...</span>
+                <span class="animate-pulse tracking-widest text-cyan-200">DECRYPTING HASH...</span>
             `;
-            codeEl.innerHTML = `<span class="text-cyan-400 font-mono text-2xl sm:text-3xl animate-matrix tracking-widest">[ SECURING... ]</span>`;
+
+            // High-tech number scrambling effect during the 2-second delay
+            let scrambleInterval = setInterval(() => {
+                let randomScramble = Math.floor(Math.random() * Math.pow(10, digits)).toString().padStart(digits, '0');
+                codeEl.innerHTML = `<span class="text-brand-400 font-mono opacity-60 tracking-[0.14em]">${randomScramble}</span>`;
+            }, 80);
 
             setTimeout(async () => {
+                clearInterval(scrambleInterval);
                 await generateTokenDirectly();
                 btn.disabled = false;
                 btnText.innerHTML = `
@@ -1675,7 +1683,7 @@
             }, 2000);
         }
 
-        /* Direct Instant Token Generation */
+        /* Direct Instant Token Generation with Reveal Animation */
         async function generateTokenDirectly() {
             const secret = getSanitizedSecret();
             if (!secret) return;
@@ -1694,7 +1702,7 @@
             }
 
             currentActiveSecret = secret;
-            codeEl.innerText = token;
+            codeEl.innerHTML = `<span class="animate-code-reveal text-slate-900 dark:text-white">${token}</span>`;
             document.getElementById('verifiedStatusBadge').classList.remove('hidden');
 
             const laser = document.getElementById('laserScanner');
@@ -1734,7 +1742,7 @@
                 if (currentLeft === epoch && currentActiveSecret) {
                     const newToken = await generateTOTP(currentActiveSecret, epoch, digits, algo);
                     if (newToken) {
-                        document.getElementById('resultCode').innerText = newToken;
+                        document.getElementById('resultCode').innerHTML = `<span class="animate-code-reveal text-slate-900 dark:text-white">${newToken}</span>`;
                     }
                 }
             }, 1000);
@@ -1786,7 +1794,7 @@
                 const textSpan = document.getElementById('copyText');
                 const iconSvg = document.getElementById('copyIcon');
 
-                btn.classList.add('bg-emerald-500/2output', 'text-emerald-400', 'border-emerald-500/40');
+                btn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/40');
                 iconSvg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>`;
                 textSpan.innerText = getTranslatedText('toastCopiedMorphed');
 
