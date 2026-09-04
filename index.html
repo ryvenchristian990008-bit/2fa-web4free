@@ -2,7 +2,7 @@
 <html lang="en" id="htmlRoot" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -35,7 +35,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&family=Kantumruy+Pro:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Kantumruy+Pro:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
@@ -54,6 +54,13 @@
                             600: '#4f46e5',
                             700: '#4338ca',
                         }
+                    },
+                    screens: {
+                        'xs': '420px',
+                        'sm': '640px',
+                        'md': '768px',
+                        'lg': '1024px',
+                        'xl': '1280px'
                     }
                 }
             }
@@ -63,6 +70,7 @@
         * {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            box-sizing: border-box;
         }
         body, button, input, span, div, h1, h2, h3, h4, p, label {
             font-family: 'Plus Jakarta Sans', 'Kantumruy Pro', 'Noto Sans SC', sans-serif !important;
@@ -71,17 +79,17 @@
         .font-mono {
             font-family: 'JetBrains Mono', monospace !important;
         }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 9999px; }
-        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        ::-webkit-scrollbar-thumb { background: #64748b44; border-radius: 9999px; }
+        .dark ::-webkit-scrollbar-thumb { background: #33415566; }
         
         .bg-mesh-dark {
-            background-color: #030712;
+            background-color: #050814;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.18) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 45%),
-                radial-gradient(at 50% 100%, rgba(15, 23, 42, 0.9) 0px, transparent 60%);
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.14) 0px, transparent 45%),
+                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 40%),
+                radial-gradient(at 50% 100%, rgba(15, 23, 42, 0.85) 0px, transparent 60%);
         }
         .bg-mesh-light {
             background-color: #f8fafc;
@@ -91,54 +99,67 @@
                 radial-gradient(at 50% 100%, rgba(241, 245, 249, 0.95) 0px, transparent 60%);
         }
 
-        .vignette-overlay {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            transition: opacity 0.5s ease;
-        }
-        body.dark .vignette-overlay {
-            background: radial-gradient(ellipse at 50% 65%, transparent 45%, rgba(0, 0, 0, 0.65) 85%, rgba(0, 0, 0, 0.95) 100%);
-        }
-        body:not(.dark) .vignette-overlay {
-            background: radial-gradient(ellipse at 50% 65%, transparent 50%, rgba(15, 23, 42, 0.15) 85%, rgba(15, 23, 42, 0.35) 100%);
-        }
-
         .panel-glass {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(226, 232, 240, 0.85);
-            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
         }
         .dark .panel-glass {
-            background: rgba(13, 20, 35, 0.82);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 1px 0 0 rgba(255, 255, 255, 0.08) inset;
+            background: rgba(11, 17, 33, 0.82);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
         }
 
         .card-inner {
-            background: rgba(248, 250, 252, 0.85);
+            background: rgba(248, 250, 252, 0.8);
             border: 1px solid rgba(226, 232, 240, 0.95);
         }
         .dark .card-inner {
-            background: rgba(8, 12, 20, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Modern Security Code Display Card Styling */
+        .security-stage-card {
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 70%), rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
+        }
+        .dark .security-stage-card {
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%), rgba(12, 18, 34, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(99, 102, 241, 0.1) inset;
+        }
+
+        /* Input Container Field */
+        .input-hero-wrapper {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .dark .input-hero-wrapper {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(13, 19, 36, 0.7);
+        }
+        .input-hero-wrapper:focus-within {
+            border-color: rgba(99, 102, 241, 0.85);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), 0 8px 24px -6px rgba(99, 102, 241, 0.2);
         }
 
         .custom-dropdown-panel {
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(226, 232, 240, 0.95);
-            box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.16);
+            box-shadow: 0 18px 36px -8px rgba(15, 23, 42, 0.14);
         }
         .dark .custom-dropdown-panel {
             background: rgba(15, 23, 42, 0.98);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.85);
+            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85);
         }
         .dropdown-item {
             transition: background-color 0.15s ease, color 0.15s ease;
@@ -155,9 +176,9 @@
 
         .laser-sweep {
             position: absolute;
-            left: 0; right: 0; height: 3px;
+            left: 0; right: 0; height: 2px;
             background: linear-gradient(90deg, transparent 5%, #38bdf8 35%, #6366f1 65%, transparent 95%);
-            box-shadow: 0 0 20px #38bdf8, 0 0 40px #6366f1;
+            box-shadow: 0 0 14px #38bdf8, 0 0 26px #6366f1;
             opacity: 0; pointer-events: none; z-index: 20;
         }
         .laser-active {
@@ -170,23 +191,55 @@
         }
 
         .btn-modern {
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.16s, border-color 0.16s, box-shadow 0.16s, color 0.16s;
             will-change: transform;
             transform: translateZ(0);
         }
-        .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -5px rgba(99, 102, 241, 0.5); }
-        .btn-modern:active { transform: translateY(1px) scale(0.98); }
+        .btn-modern:hover { transform: translateY(-1px); }
+        .btn-modern:active { transform: translateY(1px) scale(0.985); }
 
+        /* Premium Shimmer and Loading Animation */
         .btn-shimmer-beam {
             position: absolute;
             top: 0; left: 0; width: 60%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmerBeam 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            animation: shimmerBeam 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             pointer-events: none;
         }
         @keyframes shimmerBeam {
-            0% { transform: translateX(-180%) skewX(-20deg); }
-            50%, 100% { transform: translateX(280%) skewX(-20deg); }
+            0% { transform: translateX(-160%) skewX(-20deg); }
+            40%, 100% { transform: translateX(240%) skewX(-20deg); }
+        }
+
+        /* Generation Progress Indicator */
+        .btn-loading-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #a855f7);
+            width: 0%;
+            transition: width 2s cubic-bezier(0.2, 0.8, 0.25, 1);
+            border-radius: 9999px;
+        }
+
+        /* Token Text Decryption and Transition Effect */
+        .token-decoding {
+            filter: blur(2px);
+            opacity: 0.85;
+            letter-spacing: 0.25em;
+            color: #818cf8 !important;
+            transition: filter 0.25s ease, opacity 0.25s ease;
+        }
+        .token-revealed {
+            filter: blur(0px);
+            opacity: 1;
+            letter-spacing: 0.14em;
+            animation: tokenPopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes tokenPopIn {
+            0% { transform: scale(0.92); opacity: 0.7; filter: blur(4px); }
+            100% { transform: scale(1); opacity: 1; filter: blur(0px); }
         }
 
         @keyframes popIn {
@@ -202,80 +255,68 @@
         .animate-history-pop {
             animation: historyPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-
-        /* Modern Code Reveal Glow Effect */
-        @keyframes codeRevealGlow {
-            0% { filter: blur(8px); opacity: 0; transform: scale(0.95); }
-            50% { filter: blur(2px); opacity: 0.8; transform: scale(1.02); }
-            100% { filter: blur(0px); opacity: 1; transform: scale(1); }
-        }
-        .animate-code-reveal {
-            animation: codeRevealGlow 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
     </style>
 </head>
-<body id="bodyRoot" class="bg-mesh-dark text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/25 selection:text-brand-400">
-
-    <div class="vignette-overlay"></div>
+<body id="bodyRoot" class="bg-mesh-dark text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500">
 
     <!-- Toast Notification -->
-    <div id="toastNotification" class="fixed top-24 left-1/2 -translate-x-1/2 z-[90] bg-white/90 dark:bg-slate-900/95 text-slate-900 dark:text-white px-5 py-2.5 rounded-full shadow-[0_15px_40px_rgba(0,0,0,0.3)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-200 dark:border-slate-800 backdrop-blur-xl">
+    <div id="toastNotification" class="fixed top-20 sm:top-24 left-1/2 -translate-x-1/2 z-[90] bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white px-4 sm:px-5 py-2.5 rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.25)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-200 dark:border-slate-800 backdrop-blur-xl">
         <svg class="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
         <span id="toastText">Copied to clipboard!</span>
     </div>
 
     <!-- Alert Modal -->
-    <div id="modernAlertModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeModernAlert()"></div>
+    <div id="modernAlertModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeModernAlert()"></div>
         <div class="relative w-full max-w-sm panel-glass rounded-3xl p-6 z-10 text-center space-y-4 animate-pop shadow-2xl">
-            <div id="alertIconContainer" class="w-12 h-12 bg-brand-500/10 text-brand-500 rounded-2xl flex items-center justify-center mx-auto border border-brand-500/20 shadow-inner">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div id="alertIconContainer" class="w-10 h-10 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
             <h3 id="alertTitle" class="text-base font-bold text-slate-900 dark:text-white" data-i18n="alertNotice">Security Notice</h3>
             <p id="alertMessage" class="text-xs text-slate-500 dark:text-slate-400 font-normal leading-relaxed"></p>
-            <button onclick="closeModernAlert()" class="w-full h-10 bg-gradient-to-r from-blue-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-lg shadow-brand-500/25" data-i18n="btnAcknowledge">Acknowledge</button>
+            <button onclick="closeModernAlert()" class="w-full h-10 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-sm" data-i18n="btnAcknowledge">Acknowledge</button>
         </div>
     </div>
 
     <!-- Prompt Modal -->
-    <div id="modernPromptModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeModernPrompt()"></div>
+    <div id="modernPromptModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeModernPrompt()"></div>
         <div class="relative w-full max-w-sm panel-glass rounded-3xl p-6 z-10 space-y-4 animate-pop shadow-2xl">
             <div class="text-center space-y-1">
                 <h3 id="promptTitle" class="text-base font-bold text-slate-900 dark:text-white" data-i18n="promptAccountLabel">Account Label</h3>
                 <p id="promptDesc" class="text-xs text-slate-500 dark:text-slate-400" data-i18n="promptSpecifyId">Specify an identifier for this key pair.</p>
             </div>
-            <input type="text" id="promptInput" class="w-full h-11 card-inner rounded-xl px-4 text-xs font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner border border-slate-700/50">
-            <div class="grid grid-cols-2 gap-2.5 pt-1">
+            <input type="text" id="promptInput" class="w-full h-10 card-inner rounded-xl px-3.5 text-xs font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
+            <div class="grid grid-cols-2 gap-2 pt-1">
                 <button onclick="closeModernPrompt()" class="h-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern" data-i18n="btnCancel">Cancel</button>
-                <button id="promptConfirmBtn" class="h-10 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-md shadow-brand-500/20" data-i18n="btnConfirm">Confirm</button>
+                <button id="promptConfirmBtn" class="h-10 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern" data-i18n="btnConfirm">Confirm</button>
             </div>
         </div>
     </div>
 
     <!-- Confirm Modal -->
-    <div id="modernConfirmModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeModernConfirm()"></div>
+    <div id="modernConfirmModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeModernConfirm()"></div>
         <div class="relative w-full max-w-xs panel-glass rounded-3xl p-6 z-10 text-center space-y-4 animate-pop shadow-2xl">
-            <div class="w-12 h-12 bg-rose-500/10 text-rose-500 rounded-2xl flex items-center justify-center mx-auto border border-rose-500/20 shadow-inner">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            <div class="w-10 h-10 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto border border-rose-500/20">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </div>
             <h3 id="confirmTitle" class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="confirmDeleteTitle">Delete Account?</h3>
             <p id="confirmDesc" class="text-xs text-slate-500 dark:text-slate-400" data-i18n="confirmDeleteDesc">This key will be permanently purged.</p>
-            <div class="grid grid-cols-2 gap-2.5 pt-1">
+            <div class="grid grid-cols-2 gap-2 pt-1">
                 <button onclick="closeModernConfirm()" class="h-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern" data-i18n="btnCancel">Cancel</button>
-                <button id="confirmActionBtn" class="h-10 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-md shadow-rose-500/20" data-i18n="btnDelete">Delete</button>
+                <button id="confirmActionBtn" class="h-10 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-semibold btn-modern" data-i18n="btnDelete">Delete</button>
             </div>
         </div>
     </div>
 
-    <!-- Complete Guide & Notes Modal -->
-    <div id="notesModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
+    <!-- Complete Guide Modal -->
+    <div id="notesModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeNotesModal()"></div>
-        <div class="relative w-full max-w-2xl max-h-[85vh] panel-glass rounded-3xl p-6 sm:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
+        <div class="relative w-full max-w-2xl max-h-[85vh] panel-glass rounded-3xl p-5 sm:p-7 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center border border-brand-500/20">
+                    <div class="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-500 flex items-center justify-center">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     </div>
                     <div>
@@ -283,23 +324,25 @@
                         <p class="text-[11px] text-slate-400 font-mono" data-i18n="notesSubHeading">Architecture & Operational Workflow</p>
                     </div>
                 </div>
-                <button onclick="closeNotesModal()" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs btn-modern">✕</button>
+                <button onclick="closeNotesModal()" class="w-8 h-8 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
             <div id="notesContainer" class="flex-grow overflow-y-auto pr-1 space-y-3.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300"></div>
 
-            <div class="pt-3 border-t border-slate-200/80 dark:border-slate-800 flex justify-end">
-                <button onclick="closeNotesModal()" class="px-6 h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-md shadow-brand-500/20" data-i18n="btnClose">Close</button>
+            <div class="pt-2 border-t border-slate-200/80 dark:border-slate-800 flex justify-end">
+                <button onclick="closeNotesModal()" class="px-5 h-9 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern" data-i18n="btnClose">Close</button>
             </div>
         </div>
     </div>
 
     <!-- Header Navigation -->
-    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
-            <div class="flex items-center gap-3.5">
-                <div class="w-11 h-11 flex items-center justify-center shrink-0">
-                    <svg class="w-full h-full drop-shadow-lg transition-transform hover:scale-110 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <header class="sticky top-0 z-50 bg-white/85 dark:bg-[#060a17]/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
+            
+            <!-- Brand Logo & Title -->
+            <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
+                    <svg class="w-full h-full drop-shadow transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="navLg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
                             <linearGradient id="navLg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
@@ -314,115 +357,128 @@
                     </svg>
                 </div>
                 <div class="flex flex-col">
-                    <div class="flex items-center gap-2">
-                        <span class="font-extrabold tracking-tight text-base sm:text-lg text-slate-900 dark:text-white leading-none">GlobalAuth</span>
-                        <span class="text-[10px] font-mono font-bold tracking-wider px-2 py-0.5 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/15 rounded-md border border-brand-500/30 uppercase shadow-xs">Core</span>
+                    <div class="flex items-center gap-1.5 sm:gap-2">
+                        <span class="font-black tracking-tight text-base sm:text-lg text-slate-900 dark:text-white leading-none">GlobalAuth</span>
+                        <span class="text-[9px] sm:text-[10px] font-mono font-bold tracking-wider px-1.5 py-0.5 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 rounded border border-brand-500/20 uppercase">Core</span>
                     </div>
-                    <span class="text-[11px] text-slate-400 font-medium mt-0.5" data-i18n="appSubtitle">Enterprise 2FA Platform</span>
+                    <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium truncate" data-i18n="appSubtitle">Enterprise 2FA Platform</span>
                 </div>
             </div>
 
             <!-- Toolbar Controls -->
-            <div class="flex items-center gap-2">
-                <button onclick="triggerUniversalTabRefresh()" class="w-9 h-9 flex items-center justify-center rounded-xl card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern border border-slate-700/40" title="Refresh Tab & State">
-                    <svg id="refreshIcon" class="w-4 h-4 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <div class="flex items-center gap-1 sm:gap-1.5 md:gap-2">
+                <button onclick="triggerUniversalTabRefresh()" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-xl card-inner text-slate-600 dark:text-slate-400 hover:text-brand-500 btn-modern" title="Refresh Tab & State">
+                    <svg id="refreshIcon" class="w-3.5 h-3.5 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                 </button>
 
-                <button onclick="openNotesModal()" class="h-9 px-3 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-amber-500 text-xs font-semibold btn-modern flex items-center gap-2 border border-slate-700/40">
-                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <span class="hidden sm:inline" data-i18n="navNotes">Guide</span>
+                <button onclick="openNotesModal()" class="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-amber-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span class="hidden md:inline" data-i18n="navNotes">Guide</span>
                 </button>
 
-                <button onclick="openMultiAccountDashboard()" class="h-9 px-3 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-emerald-500 text-xs font-semibold btn-modern flex items-center gap-2 border border-slate-700/40">
-                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-                    <span class="hidden sm:inline" data-i18n="navGrid">Live Grid</span>
+                <button onclick="openMultiAccountDashboard()" class="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-emerald-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                    <span class="hidden md:inline" data-i18n="navGrid">Live Grid</span>
                 </button>
 
-                <button onclick="openVaultModal()" class="h-9 px-3 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-cyan-500 text-xs font-semibold btn-modern flex items-center gap-2 border border-slate-700/40 relative">
-                    <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                    <span data-i18n="vault">Vault</span>
-                    <span id="vaultStatusDot" class="w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-600 shadow-sm" title="Locked"></span>
+                <button onclick="openVaultModal()" class="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-cyan-500 text-xs font-semibold btn-modern flex items-center gap-1.5 relative">
+                    <svg class="w-3.5 h-3.5 text-cyan-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    <span class="hidden sm:inline" data-i18n="vault">Vault</span>
+                    <span id="vaultStatusDot" class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600 shrink-0" title="Locked"></span>
                 </button>
 
-                <button onclick="openAdminPasswordModal()" class="h-9 px-3 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-brand-500 text-xs font-semibold btn-modern flex items-center gap-2 border border-slate-700/40">
-                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span class="hidden sm:inline" data-i18n="admin">Admin</span>
+                <button onclick="openAdminPasswordModal()" class="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl card-inner text-slate-700 dark:text-slate-300 hover:text-brand-500 text-xs font-semibold btn-modern flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span class="hidden md:inline" data-i18n="admin">Admin</span>
                 </button>
 
-                <button onclick="toggleLanguage()" class="h-9 px-3 rounded-xl card-inner text-slate-700 dark:text-slate-300 text-xs font-semibold btn-modern flex items-center gap-2 border border-slate-700/40">
-                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                <button onclick="toggleLanguage()" class="h-8 sm:h-9 px-2 sm:px-2.5 rounded-xl card-inner text-slate-700 dark:text-slate-300 text-xs font-semibold btn-modern flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
                     <span id="langText">EN</span>
                 </button>
 
-                <button onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center rounded-xl card-inner text-slate-600 dark:text-slate-400 hover:text-amber-500 btn-modern border border-slate-700/40">
-                    <svg id="icon-sun" class="w-4 h-4 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    <svg id="icon-moon" class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                <button onclick="toggleTheme()" class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-xl card-inner text-slate-600 dark:text-slate-400 hover:text-amber-500 btn-modern" title="Toggle Visual Theme">
+                    <svg id="icon-sun" class="w-3.5 h-3.5 hidden text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg id="icon-moon" class="w-3.5 h-3.5 text-brand-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Workspace -->
-    <main class="flex-grow w-full flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 relative z-20">
-        <div id="mainTabContainer" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 border border-slate-700/50">
+    <!-- Main Responsive Workspace -->
+    <main class="flex-grow w-full flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 py-5 sm:py-8 relative z-20">
+        <div id="mainTabContainer" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
             
             <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800/80">
                 
                 <!-- Left Configurator Column -->
-                <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between gap-6">
+                <div class="lg:col-span-7 p-5 sm:p-8 lg:p-9 flex flex-col justify-between gap-6">
                     <div>
-                        <div class="flex items-center justify-between pb-2">
-                            <span class="text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase" data-i18n="standardTag">RFC 6238 Standard</span>
-                            <span class="text-[11px] text-slate-400 font-mono" data-i18n="shortcutHints">Shortcuts: Ctrl+V / Ctrl+C</span>
+                        <div class="flex flex-wrap items-center justify-between gap-2 pb-2">
+                            <span class="text-[10px] sm:text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase" data-i18n="standardTag">RFC 6238 Standard</span>
+                            <span class="text-[10px] sm:text-[11px] text-slate-400 font-mono" data-i18n="shortcutHints">Shortcuts: Ctrl+V / Ctrl+C</span>
                         </div>
-                        <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication Gateway</h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="desc">Enter an encryption token or scan standard OTP provisioning parameters.</p>
+                        <h1 class="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication Gateway</h1>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1" data-i18n="desc">Enter an encryption token or scan standard OTP provisioning parameters.</p>
                     </div>
 
-                    <!-- Input Field -->
+                    <!-- Input Field & Configuration (SECTION 1 REDESIGN) -->
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
-                            <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider" data-i18n="labelKey">Secret Token</label>
+                            <label for="secretInput" class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+                                <span data-i18n="labelKey">Secret Token</span>
+                            </label>
                             
-                            <label class="px-3.5 py-2 rounded-xl bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-500/20 text-xs font-bold cursor-pointer flex items-center gap-2 transition-all border border-brand-500/30 shadow-sm btn-modern">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                            <label class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 dark:bg-brand-500/10 dark:hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-bold cursor-pointer flex items-center gap-1.5 transition-all border border-brand-500/20 shadow-sm btn-modern">
+                                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
                                 <span data-i18n="btnUpload">Upload QR</span>
                                 <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
                             </label>
                         </div>
 
-                        <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="Paste key or otpauth:// link..." data-i18n-placeholder="secretPlaceholder"
-                            class="w-full h-13 card-inner rounded-2xl px-4 text-xs sm:text-sm font-mono font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 uppercase tracking-wider transition-all placeholder:normal-case placeholder:font-sans placeholder:tracking-normal shadow-inner border border-slate-700/50">
+                        <!-- Modernized Hero Input Container with Quick-Paste Action -->
+                        <div class="relative flex items-center input-hero-wrapper rounded-2xl p-1 shadow-sm">
+                            <div class="pl-3.5 pr-1.5 text-slate-400 dark:text-slate-500 pointer-events-none">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            </div>
+                            <input type="text" id="secretInput" oninput="parseSecretUriParams()" placeholder="Paste key or otpauth:// link..." data-i18n-placeholder="secretPlaceholder"
+                                class="w-full h-11 bg-transparent px-2 text-xs sm:text-sm font-mono font-medium focus:outline-none text-slate-900 dark:text-slate-100 uppercase tracking-wider placeholder:normal-case placeholder:font-sans placeholder:tracking-normal">
+                            <button type="button" onclick="pasteFromClipboard()" class="mr-1.5 h-8 px-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-[11px] font-semibold flex items-center gap-1 shrink-0 btn-modern transition-colors" title="Paste from clipboard">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                                <span class="hidden xs:inline">Paste</span>
+                            </button>
+                        </div>
 
                         <!-- Custom Floating Dropdowns -->
-                        <div class="p-4 card-inner rounded-2xl space-y-3 border border-slate-700/40">
+                        <div class="p-4 card-inner rounded-2xl space-y-3">
                             <div class="flex items-center justify-between">
-                                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="cryptoParamsTitle">Cryptographic Parameters</span>
-                                <span class="text-[10px] text-slate-400 font-mono" data-i18n="autoDetectedHint">Auto-detected from URIs</span>
+                                <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="cryptoParamsTitle">Cryptographic Parameters</span>
+                                <span class="text-[9px] sm:text-[10px] text-slate-400 font-mono" data-i18n="autoDetectedHint">Auto-detected from URIs</span>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 <!-- Algorithm Dropdown -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelAlgo">Algorithm</label>
-                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-11 px-3.5 rounded-xl card-inner border border-slate-700/60 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
-                                        <span id="selectedAlgoLabel">SHA-1 (Default)</span>
-                                        <svg class="w-4 h-4 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuAlgo')" class="w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                        <span id="selectedAlgoLabel" class="truncate">SHA-1 (Default)</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                                     </button>
                                     <input type="hidden" id="otpAlgorithmSelect" value="SHA-1">
 
-                                    <div id="dropdownMenuAlgo" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop border border-slate-700/80">
-                                        <div class="dropdown-item selected px-3.5 py-2.5 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-1', 'SHA-1 (Default)', 'dropdownMenuAlgo')">
+                                    <div id="dropdownMenuAlgo" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-1', 'SHA-1 (Default)', 'dropdownMenuAlgo')">
                                             <span data-i18n="optSha1">SHA-1 (Default)</span>
-                                            <svg class="w-4 h-4 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <div class="dropdown-item px-3.5 py-2.5 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-256', 'SHA-256', 'dropdownMenuAlgo')">
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-256', 'SHA-256', 'dropdownMenuAlgo')">
                                             <span>SHA-256</span>
-                                            <svg class="w-4 h-4 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <div class="dropdown-item px-3.5 py-2.5 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-512', 'SHA-512', 'dropdownMenuAlgo')">
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpAlgorithmSelect', 'selectedAlgoLabel', 'SHA-512', 'SHA-512', 'dropdownMenuAlgo')">
                                             <span>SHA-512</span>
-                                            <svg class="w-4 h-4 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                     </div>
                                 </div>
@@ -430,24 +486,24 @@
                                 <!-- Code Length Dropdown -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelDigits">Code Length</label>
-                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-11 px-3.5 rounded-xl card-inner border border-slate-700/60 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
-                                        <span id="selectedDigitsLabel" data-i18n="opt6Digits">6 Digits</span>
-                                        <svg class="w-4 h-4 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuDigits')" class="w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                        <span id="selectedDigitsLabel" class="truncate" data-i18n="opt6Digits">6 Digits</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                                     </button>
                                     <input type="hidden" id="otpDigitsSelect" value="6">
 
-                                    <div id="dropdownMenuDigits" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop border border-slate-700/80">
-                                        <div class="dropdown-item selected px-3.5 py-2.5 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '6', getTranslatedText('opt6Digits'), 'dropdownMenuDigits')">
+                                    <div id="dropdownMenuDigits" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '6', getTranslatedText('opt6Digits'), 'dropdownMenuDigits')">
                                             <span data-i18n="opt6Digits">6 Digits</span>
-                                            <svg class="w-4 h-4 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <div class="dropdown-item px-3.5 py-2.5 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '7', getTranslatedText('opt7Digits'), 'dropdownMenuDigits')">
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '7', getTranslatedText('opt7Digits'), 'dropdownMenuDigits')">
                                             <span data-i18n="opt7Digits">7 Digits</span>
-                                            <svg class="w-4 h-4 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <div class="dropdown-item px-3.5 py-2.5 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '8', getTranslatedText('opt8Digits'), 'dropdownMenuDigits')">
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpDigitsSelect', 'selectedDigitsLabel', '8', getTranslatedText('opt8Digits'), 'dropdownMenuDigits')">
                                             <span data-i18n="opt8Digits">8 Digits</span>
-                                            <svg class="w-4 h-4 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                     </div>
                                 </div>
@@ -455,20 +511,20 @@
                                 <!-- Cycle Period Dropdown -->
                                 <div class="space-y-1.5 relative">
                                     <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="labelPeriod">Cycle Period</label>
-                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-11 px-3.5 rounded-xl card-inner border border-slate-700/60 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
-                                        <span id="selectedPeriodLabel" data-i18n="opt30s">30 Seconds</span>
-                                        <svg class="w-4 h-4 text-brand-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                                    <button type="button" onclick="toggleDropdownMenu('dropdownMenuPeriod')" class="w-full h-10 px-3 rounded-xl card-inner border border-slate-300/80 dark:border-slate-800 text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center justify-between shadow-sm hover:border-brand-500 transition-colors">
+                                        <span id="selectedPeriodLabel" class="truncate" data-i18n="opt30s">30 Seconds</span>
+                                        <svg class="w-3.5 h-3.5 text-brand-500 shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                                     </button>
                                     <input type="hidden" id="otpPeriodSelect" value="30">
 
-                                    <div id="dropdownMenuPeriod" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop border border-slate-700/80">
-                                        <div class="dropdown-item selected px-3.5 py-2.5 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '30', getTranslatedText('opt30s'), 'dropdownMenuPeriod')">
+                                    <div id="dropdownMenuPeriod" class="hidden absolute left-0 right-0 top-full mt-1.5 rounded-xl custom-dropdown-panel py-1 z-30 animate-pop">
+                                        <div class="dropdown-item selected px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '30', getTranslatedText('opt30s'), 'dropdownMenuPeriod')">
                                             <span data-i18n="opt30s">30 Seconds</span>
-                                            <svg class="w-4 h-4 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
-                                        <div class="dropdown-item px-3.5 py-2.5 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '60', getTranslatedText('opt60s'), 'dropdownMenuPeriod')">
+                                        <div class="dropdown-item px-3.5 py-2 text-xs cursor-pointer flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60" onclick="chooseOption('otpPeriodSelect', 'selectedPeriodLabel', '60', getTranslatedText('opt60s'), 'dropdownMenuPeriod')">
                                             <span data-i18n="opt60s">60 Seconds</span>
-                                            <svg class="w-4 h-4 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            <svg class="w-3.5 h-3.5 text-brand-500 checkmark hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                         </div>
                                     </div>
                                 </div>
@@ -476,64 +532,78 @@
                         </div>
                     </div>
 
-                    <!-- Primary Ultra-Premium Action Row -->
-                    <div class="grid grid-cols-2 gap-3.5 pt-2">
-                        <button id="genBtn" onclick="generateTokenWithDelay()" class="h-14 bg-gradient-to-r from-blue-600 via-indigo-600 to-brand-600 hover:from-blue-500 hover:via-indigo-500 hover:to-brand-500 text-white rounded-2xl text-xs sm:text-sm font-extrabold btn-modern shadow-xl shadow-brand-500/30 flex items-center justify-center gap-2.5 relative overflow-hidden group border border-indigo-400/30">
-                            <div class="btn-shimmer-beam"></div>
-                            <span id="genBtnText" class="flex items-center gap-2.5 relative z-10 tracking-wide">
-                                <svg class="w-5 h-5 text-cyan-300 drop-shadow animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <!-- Primary Action Row (SECTION 2 REDESIGN) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        <!-- Premium Generate Button with Progress Track & Shimmer -->
+                        <button id="genBtn" onclick="generateTokenWithDelay()" class="h-12 bg-gradient-to-r from-blue-600 via-indigo-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-2xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-indigo-500/25 flex items-center justify-center relative overflow-hidden group border border-white/10">
+                            <div class="btn-shimmer-beam" id="genBtnShimmer"></div>
+                            <div id="genProgressBar" class="btn-loading-bar"></div>
+                            <span id="genBtnText" class="flex items-center gap-2 relative z-10 transition-transform duration-200">
+                                <svg class="w-4 h-4 text-cyan-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                                 <span data-i18n="btnGen">Generate Token</span>
                             </span>
                         </button>
                         
-                        <button onclick="saveAccountToVault()" class="h-14 card-inner hover:bg-slate-800/80 text-slate-800 dark:text-slate-100 rounded-2xl text-xs sm:text-sm font-bold btn-modern flex items-center justify-center gap-2.5 shadow-md border border-slate-700/60 hover:border-cyan-500/40">
-                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                        <button onclick="saveAccountToVault()" class="h-12 card-inner hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-800 dark:text-slate-200 rounded-2xl text-xs sm:text-sm font-bold btn-modern flex items-center justify-center gap-2 shadow-sm border border-slate-200 dark:border-white/5">
+                            <svg class="w-4 h-4 text-cyan-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
                             <span data-i18n="btnSaveVault">Save to Vault</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Right Verification Display -->
-                <div class="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between gap-6 bg-slate-50/40 dark:bg-slate-950/40">
-                    <div id="codeCardBox" class="relative p-6 sm:p-8 rounded-2xl card-inner overflow-hidden shadow-md border border-slate-700/50">
+                <!-- Right Verification Display (SECTION 3 REDESIGN) -->
+                <div class="lg:col-span-5 p-5 sm:p-8 lg:p-9 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
+                    <!-- Redesigned Security Code Display Container -->
+                    <div id="codeCardBox" class="relative p-5 sm:p-7 rounded-3xl security-stage-card overflow-hidden shadow-md flex flex-col justify-between min-h-[220px]">
                         <div id="laserScanner" class="laser-sweep"></div>
 
-                        <div id="codeDisplaySection">
-                            <div class="flex items-center justify-between pb-3.5">
+                        <div id="codeDisplaySection" class="flex flex-col h-full justify-between space-y-4">
+                            <!-- Card Header Details -->
+                            <div class="flex items-center justify-between pb-1 border-b border-slate-200/50 dark:border-slate-800/60">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400" data-i18n="labelCode">Security Code</span>
-                                    <span id="verifiedStatusBadge" class="hidden px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-[10px] font-bold border border-emerald-500/30 shadow-xs" data-i18n="badgeActive">Active</span>
+                                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400" data-i18n="labelCode">Security Code</span>
+                                    <span id="verifiedStatusBadge" class="hidden px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 text-[10px] font-bold border border-emerald-500/20 flex items-center gap-1" data-i18n="badgeActive">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                                        Active
+                                    </span>
                                 </div>
-                                <span id="timerText" class="text-xs font-mono font-bold text-brand-400 bg-brand-500/15 px-2.5 py-1 rounded-lg border border-brand-500/30">--s</span>
+                                
+                                <div class="flex items-center gap-1 bg-brand-500/10 px-2.5 py-1 rounded-lg border border-brand-500/20">
+                                    <svg class="w-3 h-3 text-brand-500 animate-spin" style="animation-duration: 8s;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span id="timerText" class="text-xs font-mono font-bold text-brand-600 dark:text-brand-400">--s</span>
+                                </div>
                             </div>
 
-                            <div class="text-center py-6">
-                                <div id="resultCode" class="text-3xl sm:text-4xl lg:text-5xl font-mono font-extrabold tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-md truncate">
+                            <!-- Central Cryptographic Code Visualizer -->
+                            <div class="text-center py-2 sm:py-3 flex flex-col items-center justify-center">
+                                <div id="resultCode" class="text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm transition-all duration-300 min-h-[52px] flex items-center justify-center">
                                     ------
                                 </div>
-                                <div class="w-full h-2 bg-slate-200 dark:bg-slate-800/80 rounded-full overflow-hidden mt-6 shadow-inner border border-slate-700/30">
-                                    <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-indigo-500 to-brand-500 h-full rounded-full transition-all duration-1000 ease-linear shadow-sm" style="width: 0%;"></div>
+                                <div class="w-full max-w-[280px] h-1.5 bg-slate-200 dark:bg-slate-800/80 rounded-full overflow-hidden mt-3 shadow-inner">
+                                    <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-brand-500 to-indigo-500 h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_8px_rgba(99,102,241,0.5)]" style="width: 0%;"></div>
                                 </div>
                             </div>
 
-                            <button id="copyBtn" class="w-full h-12 mt-3 flex items-center justify-center gap-2.5 bg-slate-100/90 hover:bg-slate-200/90 dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-xl text-xs sm:text-sm font-bold btn-modern border border-slate-700/50 shadow-sm transition-all duration-200">
-                                <svg id="copyIcon" class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            <!-- Integrated Modern Action Button -->
+                            <button id="copyBtn" class="w-full h-11 flex items-center justify-center gap-2 bg-slate-100/90 hover:bg-slate-200/90 dark:bg-slate-800/70 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-xl text-xs sm:text-sm font-bold btn-modern border border-slate-200 dark:border-white/5 shadow-sm transition-all duration-200">
+                                <svg id="copyIcon" class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                                 <span id="copyText" data-i18n="btnCopy">Copy Code</span>
                             </button>
                         </div>
                     </div>
 
-                    <div class="card-inner p-4 rounded-2xl space-y-2.5 border border-slate-700/40">
+                    <!-- Recent Activity / Session History Component -->
+                    <div class="card-inner p-4 rounded-2xl space-y-2.5">
                         <div class="flex items-center justify-between">
                             <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5" data-i18n="historyTitle">
-                                <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                 Recent History
                             </span>
-                            <button onclick="clearHistoryEntries()" class="text-[10px] font-semibold text-rose-400 hover:text-rose-300 transition-colors" data-i18n="btnClearHistory">Clear All</button>
+                            <button onclick="clearHistoryEntries()" class="text-[10px] font-semibold text-rose-500 hover:text-rose-600 transition-colors" data-i18n="btnClearHistory">Clear All</button>
                         </div>
 
                         <input type="text" id="historySearchInput" oninput="filterHistoryList()" placeholder="Filter history..." data-i18n-placeholder="historySearchPlaceholder"
-                            class="w-full h-9 bg-white dark:bg-slate-900 border border-slate-700/60 rounded-xl px-3 text-xs font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
+                            class="w-full h-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 text-xs font-medium focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner">
 
                         <ul id="historyList" class="space-y-1.5 max-h-24 overflow-y-auto pr-1">
                             <li class="text-xs text-slate-400 italic py-1 text-center" data-i18n="noHistory">No entries recorded in current session</li>
@@ -545,15 +615,15 @@
         </div>
 
         <!-- Passive Crypto/Ad Banner Integration Card -->
-        <div class="w-full max-w-5xl mt-6 panel-glass rounded-2xl p-4 text-center border border-slate-700/50 shadow-lg">
+        <div class="w-full max-w-5xl mt-5 sm:mt-6 panel-glass rounded-2xl p-3.5 sm:p-4 text-center border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
             <div class="flex items-center justify-between mb-2 px-1">
                 <span class="text-[10px] uppercase font-mono text-slate-400 tracking-widest">Sponsored Placement</span>
-                <span class="text-[10px] text-brand-400 font-mono">Supports Free Access</span>
+                <span class="text-[10px] text-brand-500 font-mono">Supports Free Access</span>
             </div>
             
-            <div class="flex justify-center items-center min-h-[70px] bg-slate-900/40 rounded-xl overflow-hidden border border-slate-800/80 p-2 shadow-inner">
+            <div class="flex justify-center items-center min-h-[70px] bg-slate-900/30 rounded-xl overflow-hidden border border-slate-800/50 p-1 sm:p-2">
                 <!-- BEGIN AADS AD UNIT 2454352 -->
-                <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 99998;">
+                <div id="frame" style="width: 100%; margin: auto; position: relative; z-index: 50;">
                     <iframe data-aa='2454352' src='//acceptable.a-ads.com/2454352/?size=Adaptive' style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display:block; margin:auto; background-color: transparent;'></iframe>
                 </div>
                 <!-- END AADS AD UNIT 2454352 -->
@@ -562,13 +632,13 @@
     </main>
 
     <!-- Account Vault Modal -->
-    <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onclick="closeVaultModal()"></div>
-        <div class="relative w-full max-w-xl bg-[#090f20] border border-slate-700/80 rounded-3xl p-6 sm:p-8 z-10 space-y-6 animate-pop shadow-2xl text-slate-100">
+    <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeVaultModal()"></div>
+        <div class="relative w-full max-w-xl bg-[#090f20] border border-slate-800 rounded-3xl p-6 sm:p-8 z-10 space-y-6 animate-pop shadow-2xl text-slate-100">
             
-            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-2xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-400 flex items-center justify-center shadow-inner">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     </div>
                     <div>
@@ -576,12 +646,12 @@
                         <p class="text-[11px] text-slate-400 font-mono">AES-GCM 256-Bit Standard</p>
                     </div>
                 </div>
-                <button onclick="closeVaultModal()" class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs btn-modern">✕</button>
+                <button onclick="closeVaultModal()" class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
             <!-- Master Password Form -->
             <div id="vaultAuthSection" class="space-y-6 py-4 text-center">
-                <div class="w-14 h-14 rounded-2xl bg-indigo-950/50 border border-indigo-500/40 text-indigo-400 flex items-center justify-center mx-auto shadow-inner">
+                <div class="w-14 h-14 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-indigo-400 flex items-center justify-center mx-auto shadow-inner">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 
@@ -592,15 +662,15 @@
                 
                 <div class="relative w-full max-w-sm mx-auto space-y-3">
                     <input type="password" id="masterPasswordInput" placeholder="Enter custom master password..." data-i18n-placeholder="vaultMasterPassPlaceholder"
-                        class="w-full h-12 bg-[#050914] border border-slate-700/80 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
+                        class="w-full h-12 bg-[#050914] border border-slate-800 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
                     
                     <input type="password" id="confirmPasswordInput" placeholder="Confirm custom master password..." data-i18n-placeholder="vaultConfirmPassPlaceholder"
-                        class="w-full h-12 bg-[#050914] border border-slate-700/80 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
+                        class="w-full h-12 bg-[#050914] border border-slate-800 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
                 </div>
 
                 <div>
                     <button id="vaultAuthBtn" onclick="handleVaultAuth()" 
-                        class="px-8 h-12 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold rounded-xl text-xs shadow-lg shadow-indigo-600/40 btn-modern" data-i18n="btnSavePassword">
+                        class="px-8 h-11 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold rounded-xl text-xs shadow-lg shadow-indigo-600/30 btn-modern" data-i18n="btnSavePassword">
                         Save Password
                     </button>
                 </div>
@@ -610,96 +680,96 @@
             <div id="vaultContentSection" class="space-y-4 hidden">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search stored accounts..." data-i18n-placeholder="vaultSearchPlaceholder"
-                        class="flex-grow min-w-[200px] h-10 bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 text-xs font-medium focus:outline-none focus:border-indigo-500 text-slate-100 shadow-inner">
+                        class="flex-grow min-w-[180px] h-9 bg-slate-900 border border-slate-800 rounded-xl px-3 text-xs font-medium focus:outline-none focus:border-indigo-500 text-slate-100">
 
-                    <div class="flex items-center gap-2">
-                        <button onclick="exportVaultBackupFile()" class="h-9 px-3 rounded-xl card-inner hover:text-emerald-400 text-xs font-semibold flex items-center gap-1.5 btn-modern border border-slate-700/60" title="Export encrypted JSON backup">
-                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="exportVaultBackupFile()" class="h-8 px-2.5 rounded-lg card-inner hover:text-emerald-500 text-xs font-semibold flex items-center gap-1.5 btn-modern" title="Export encrypted JSON backup">
+                            <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                             <span data-i18n="btnBackup">Backup</span>
                         </button>
                         
-                        <label class="h-9 px-3 rounded-xl card-inner hover:text-blue-400 text-xs font-semibold flex items-center gap-1.5 btn-modern cursor-pointer border border-slate-700/60" title="Restore encrypted JSON backup">
-                            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                        <label class="h-8 px-2.5 rounded-lg card-inner hover:text-blue-500 text-xs font-semibold flex items-center gap-1.5 btn-modern cursor-pointer" title="Restore encrypted JSON backup">
+                            <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                             <span data-i18n="btnRestore">Restore</span>
                             <input type="file" id="backupFileInput" accept=".json" class="hidden" onchange="importVaultBackupFile(event)">
                         </label>
 
-                        <button onclick="lockVault()" class="h-9 px-3 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-400 text-xs font-semibold btn-modern border border-rose-500/30" data-i18n="btnLock">Lock</button>
+                        <button onclick="lockVault()" class="h-8 px-2.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 text-xs font-semibold btn-modern" data-i18n="btnLock">Lock</button>
                     </div>
                 </div>
 
-                <div id="vaultAccountsList" class="space-y-2.5 max-h-64 overflow-y-auto pr-1"></div>
+                <div id="vaultAccountsList" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
             </div>
         </div>
     </div>
 
     <!-- Live Multi-Account Dashboard -->
-    <div id="dashboardModal" class="fixed inset-0 z-[60] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onclick="closeMultiAccountDashboard()"></div>
-        <div class="relative w-full max-w-4xl max-h-[85vh] panel-glass rounded-3xl p-6 sm:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden border border-slate-700/60">
-            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3.5">
+    <div id="dashboardModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeMultiAccountDashboard()"></div>
+        <div class="relative w-full max-w-4xl max-h-[85vh] panel-glass rounded-3xl p-5 sm:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
+            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
                 <div class="flex items-center gap-2.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white" data-i18n="dashboardTitle">Multi-Account Live Stream</h3>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="flex items-center gap-1.5 font-mono text-xs text-brand-600 dark:text-brand-400 bg-brand-500/15 px-2.5 py-1 rounded-lg border border-brand-500/30">
+                    <div class="flex items-center gap-1.5 font-mono text-xs text-brand-600 dark:text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded">
                         <span data-i18n="cycleLabel">Cycle:</span>
                         <span id="dashboardTimerBadge">--s</span>
                     </div>
-                    <button onclick="closeMultiAccountDashboard()" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs btn-modern border border-slate-700/50">✕</button>
+                    <button onclick="closeMultiAccountDashboard()" class="w-8 h-8 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
                 </div>
             </div>
 
-            <div class="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
-                <div id="dashboardGlobalProgress" class="bg-gradient-to-r from-cyan-400 via-indigo-500 to-brand-500 h-full rounded-full transition-all duration-1000 ease-linear shadow-sm" style="width: 0%;"></div>
+            <div class="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div id="dashboardGlobalProgress" class="bg-gradient-to-r from-cyan-400 to-brand-500 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%;"></div>
             </div>
 
-            <div id="dashboardGridContainer" class="flex-grow overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pr-1 py-1"></div>
+            <div id="dashboardGridContainer" class="flex-grow overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pr-1 py-1"></div>
         </div>
     </div>
 
-    <!-- Admin Modals -->
-    <div id="adminPasswordModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeAdminPasswordModal()"></div>
-        <div class="relative w-full max-w-xs panel-glass rounded-3xl p-6 z-10 space-y-4 animate-pop shadow-2xl border border-slate-700/60">
-            <div class="text-center space-y-1.5">
-                <div class="w-11 h-11 bg-brand-500/15 text-brand-400 rounded-2xl flex items-center justify-center mx-auto border border-brand-500/30 shadow-inner">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+    <!-- Admin Password Modal -->
+    <div id="adminPasswordModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeAdminPasswordModal()"></div>
+        <div class="relative w-full max-w-xs panel-glass rounded-2xl p-6 z-10 space-y-4 animate-pop shadow-2xl">
+            <div class="text-center space-y-1">
+                <div class="w-9 h-9 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 <h3 class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="adminAuthTitle">Admin Authentication</h3>
             </div>
             <input type="password" id="adminPinInput" placeholder="Passcode..." data-i18n-placeholder="adminPinPlaceholder"
-                class="w-full h-11 card-inner rounded-xl px-3 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100 shadow-inner border border-slate-700/60">
-            <p id="adminPasswordError" class="text-[11px] text-rose-400 text-center font-semibold hidden" data-i18n="adminPinError">Invalid Passcode</p>
-            <div class="grid grid-cols-2 gap-2.5">
+                class="w-full h-10 card-inner rounded-xl px-3 text-xs font-semibold text-center focus:outline-none focus:border-brand-500 text-slate-900 dark:text-slate-100">
+            <p id="adminPasswordError" class="text-[11px] text-rose-500 text-center font-semibold hidden" data-i18n="adminPinError">Invalid Passcode</p>
+            <div class="grid grid-cols-2 gap-2">
                 <button onclick="closeAdminPasswordModal()" class="h-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern" data-i18n="btnCancel">Cancel</button>
-                <button onclick="verifyAdminPasscode()" class="h-10 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-md shadow-brand-500/20" data-i18n="btnAuthenticate">Authenticate</button>
+                <button onclick="verifyAdminPasscode()" class="h-10 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern" data-i18n="btnAuthenticate">Authenticate</button>
             </div>
         </div>
     </div>
 
     <!-- Admin Panel Modal -->
-    <div id="adminModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeAdminPanel()"></div>
-        <div class="relative w-full max-w-4xl panel-glass rounded-3xl p-8 sm:p-10 z-10 space-y-6 animate-pop shadow-2xl border border-slate-700/60">
+    <div id="adminModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeAdminPanel()"></div>
+        <div class="relative w-full max-w-4xl panel-glass rounded-3xl p-6 sm:p-9 z-10 space-y-6 animate-pop shadow-2xl">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-4">
                 <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="telemetryTitle">Telemetry & Access Logs</h3>
-                <button onclick="closeAdminPanel()" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs btn-modern border border-slate-700/50">✕</button>
+                <button onclick="closeAdminPanel()" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="card-inner p-5 rounded-2xl text-center border border-slate-700/50 shadow-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="card-inner p-5 rounded-2xl text-center">
                     <span class="text-xs font-semibold text-slate-400 uppercase" data-i18n="statVisitors">Unique Visitors</span>
-                    <h4 id="statVisitors" class="text-3xl font-black text-brand-400 mt-1.5">0</h4>
+                    <h4 id="statVisitors" class="text-3xl font-black text-brand-500 mt-1.5">0</h4>
                 </div>
-                <div class="card-inner p-5 rounded-2xl text-center border border-slate-700/50 shadow-sm">
+                <div class="card-inner p-5 rounded-2xl text-center">
                     <span class="text-xs font-semibold text-slate-400 uppercase" data-i18n="statGenerations">Tokens Generated</span>
-                    <h4 id="statGenerations" class="text-3xl font-black text-emerald-400 mt-1.5">0</h4>
+                    <h4 id="statGenerations" class="text-3xl font-black text-emerald-500 mt-1.5">0</h4>
                 </div>
             </div>
             <div class="space-y-2.5">
                 <span class="text-xs font-bold text-slate-400 uppercase" data-i18n="storedIpLogs">Stored IP Access Audit Logs</span>
-                <div id="adminLogsList" class="card-inner p-4 rounded-2xl max-h-96 overflow-y-auto space-y-2 font-mono text-xs border border-slate-700/50 shadow-inner">
+                <div id="adminLogsList" class="card-inner p-4 rounded-2xl max-h-80 overflow-y-auto space-y-2 font-mono text-xs">
                     <span class="text-slate-500 italic" data-i18n="noTelemetry">No telemetry recorded yet...</span>
                 </div>
             </div>
@@ -710,6 +780,7 @@
         let sessionHistory = [];
         let dashboardInterval = null;
         let timerInterval = null;
+        let cipherScrambleInterval = null;
 
         let currentLang = 'en';
         let currentTheme = localStorage.getItem('theme') || 'dark';
@@ -990,6 +1061,20 @@
             return (translations[currentLang] && translations[currentLang][key]) || (translations['en'][key] || key);
         }
 
+        /* Quick-Paste Helper */
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    document.getElementById('secretInput').value = text.trim();
+                    parseSecretUriParams();
+                    showToast(getTranslatedText('toastSecretPasted'));
+                }
+            } catch (err) {
+                document.getElementById('secretInput').focus();
+            }
+        }
+
         /* IP Telemetry Logger */
         async function logVisitorAccess(action = "Page Visit") {
             try {
@@ -1023,15 +1108,15 @@
                 icon.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
             }
             if (container) {
-                container.classList.remove('tab-refreshing-enter');
-                container.classList.add('tab-refreshing-exit');
+                container.style.opacity = '0.4';
+                container.style.transform = 'scale(0.985)';
             }
             setTimeout(() => {
                 window.location.reload();
             }, 300);
         }
 
-        /* Notes Modal Content */
+        /* Platform Guide Modal Content */
         const platformNotesData = {
             en: [
                 {
@@ -1119,7 +1204,7 @@
 
             const notes = platformNotesData[currentLang] || platformNotesData['en'];
             container.innerHTML = notes.map(item => `
-                <div class="card-inner p-4 rounded-xl border border-slate-700/60 space-y-1 shadow-xs">
+                <div class="card-inner p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
                     <h4 class="font-bold text-xs text-brand-600 dark:text-brand-400">${item.title}</h4>
                     <p class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300">${item.desc}</p>
                 </div>
@@ -1343,9 +1428,9 @@
             const dot = document.getElementById('vaultStatusDot');
             if (!dot) return;
             if (unlocked) {
-                dot.className = "w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.9)]";
+                dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]";
             } else {
-                dot.className = "w-2 h-2 rounded-full bg-slate-400 dark:bg-slate-600 shadow-sm";
+                dot.className = "w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600";
             }
         }
 
@@ -1414,20 +1499,20 @@
                 const algo = acc.algorithm || 'SHA-1';
                 const digits = acc.digits || '6';
                 return `
-                    <div class="flex items-center justify-between p-3 rounded-xl card-inner hover:border-slate-600 transition-colors border border-slate-700/50 shadow-xs">
+                    <div class="flex items-center justify-between p-2.5 rounded-xl card-inner hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
                         <div class="min-w-0 pr-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${acc.name}</span>
-                                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-500/15 text-brand-400 font-bold border border-brand-500/30">${algo}/${digits}D</span>
-                                ${acc.pinned ? '<span class="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 font-bold border border-amber-500/30">Pinned</span>' : ''}
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
+                                <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
+                                ${acc.pinned ? '<span class="text-[9px] px-1 rounded bg-amber-500/10 text-amber-500 font-bold">Pinned</span>' : ''}
                             </div>
-                            <span class="text-[10px] font-mono text-slate-400 block truncate mt-1">${acc.secret}</span>
+                            <span class="text-[10px] font-mono text-slate-400 block truncate mt-0.5">${acc.secret}</span>
                         </div>
-                        <div class="flex items-center gap-1.5 shrink-0">
-                            <button onclick="togglePinAccount(${realIndex})" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-amber-400 flex items-center justify-center text-xs btn-modern border border-slate-700/50" title="Pin">📌</button>
-                            <button onclick="renameAccount(${realIndex})" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-brand-400 flex items-center justify-center text-xs btn-modern border border-slate-700/50" title="Rename">✏️</button>
-                            <button onclick="loadVaultAccount(${realIndex})" class="px-3 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-xs">${getTranslatedText('btnUse')}</button>
-                            <button onclick="deleteVaultAccount(${realIndex})" class="w-8 h-8 rounded-xl bg-rose-500/15 text-rose-400 hover:bg-rose-500/25 flex items-center justify-center text-xs btn-modern border border-rose-500/30" title="Delete">🗑️</button>
+                        <div class="flex items-center gap-1 shrink-0">
+                            <button onclick="togglePinAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center text-xs btn-modern" title="Pin">📌</button>
+                            <button onclick="renameAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-brand-500 flex items-center justify-center text-xs btn-modern" title="Rename">✏️</button>
+                            <button onclick="loadVaultAccount(${realIndex})" class="px-2.5 h-7 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">${getTranslatedText('btnUse')}</button>
+                            <button onclick="deleteVaultAccount(${realIndex})" class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 flex items-center justify-center text-xs btn-modern" title="Delete">🗑️</button>
                         </div>
                     </div>
                 `;
@@ -1480,7 +1565,7 @@
                 chooseOption('otpPeriodSelect', 'selectedPeriodLabel', acc.period.toString(), getTranslatedText(`opt${acc.period}s`), 'dropdownMenuPeriod');
             }
             closeVaultModal();
-            generateTokenWithDelay();
+            generateTokenDirectly();
         }
 
         function exportVaultBackupFile() {
@@ -1552,17 +1637,17 @@
                 const algo = acc.algorithm || 'SHA-1';
                 const code = await generateTOTP(acc.secret, period, digits, algo) || '------';
                 return `
-                    <div class="card-inner p-4 rounded-2xl flex flex-col justify-between space-y-3 border border-slate-700/60 shadow-xs">
+                    <div class="card-inner p-3.5 rounded-2xl flex flex-col justify-between space-y-2 border border-slate-200/80 dark:border-slate-800">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">${acc.name}</span>
-                            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-500/15 text-brand-400 font-bold border border-brand-500/30">${algo}/${digits}D</span>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
+                            <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
                         </div>
                         <div class="text-center py-1">
                             <span class="font-mono text-2xl font-black tracking-widest text-slate-900 dark:text-white select-all">${code}</span>
                         </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-slate-700/50">
-                            <button onclick="copyExplicit('${code}')" class="text-xs font-semibold text-brand-400 hover:text-brand-300 flex items-center gap-1">📋 Copy</button>
-                            <button onclick="loadVaultAccount(${idx}); closeMultiAccountDashboard();" class="text-xs font-semibold text-slate-400 hover:text-slate-200">${getTranslatedText('btnUse')} ➔</button>
+                        <div class="flex items-center justify-between pt-1 border-t border-slate-200/50 dark:border-slate-800/80">
+                            <button onclick="copyExplicit('${code}')" class="text-[11px] font-semibold text-brand-500 hover:text-brand-400">${getTranslatedText('btnCopy')}</button>
+                            <button onclick="loadVaultAccount(${idx}); closeMultiAccountDashboard();" class="text-[11px] font-semibold text-slate-400 hover:text-slate-200">${getTranslatedText('btnUse')}</button>
                         </div>
                     </div>
                 `;
@@ -1643,7 +1728,7 @@
             }
         }
 
-        /* Ultra-Modern Cyber Decrypt & Scramble Animation for Token Generation */
+        /* 2-Second Delay Token Generation with Smooth Progress Bar & Scramble Decoding Animation */
         async function generateTokenWithDelay() {
             const secret = getSanitizedSecret();
             if (!secret) {
@@ -1653,37 +1738,59 @@
 
             const btn = document.getElementById('genBtn');
             const btnText = document.getElementById('genBtnText');
+            const progressBar = document.getElementById('genProgressBar');
             const codeEl = document.getElementById('resultCode');
             const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
 
-            // Modern loading state with cyber spinner and glowing text
+            // Prevent multiple clicks while maintaining responsive state
             btn.disabled = true;
+            btn.style.opacity = '0.92';
+            btn.style.pointerEvents = 'none';
+
+            // Start Linear Button Loading Animation
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+            void progressBar.offsetWidth;
+            progressBar.style.transition = 'width 2s cubic-bezier(0.16, 1, 0.3, 1)';
+            progressBar.style.width = '100%';
+
             btnText.innerHTML = `
-                <svg class="w-5 h-5 animate-spin text-cyan-300" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                <span class="animate-pulse tracking-widest text-cyan-200">DECRYPTING HASH...</span>
+                <svg class="w-4 h-4 animate-spin text-cyan-300" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <span>Generating...</span>
             `;
 
-            // High-tech number scrambling effect during the 2-second delay
-            let scrambleInterval = setInterval(() => {
-                let randomScramble = Math.floor(Math.random() * Math.pow(10, digits)).toString().padStart(digits, '0');
-                codeEl.innerHTML = `<span class="text-brand-400 font-mono opacity-60 tracking-[0.14em]">${randomScramble}</span>`;
-            }, 80);
+            // High-Tech Cipher Decryptor Loading Animation on Security Code
+            codeEl.className = 'text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] cursor-pointer select-all drop-shadow-sm min-h-[52px] flex items-center justify-center token-decoding';
+            
+            const matrixChars = "0123456789ABCDEF";
+            if (cipherScrambleInterval) clearInterval(cipherScrambleInterval);
+            
+            cipherScrambleInterval = setInterval(() => {
+                let scrambled = "";
+                for (let i = 0; i < digits; i++) {
+                    scrambled += matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                }
+                codeEl.innerText = scrambled;
+            }, 60);
 
+            // Exactly 2-Second Delay
             setTimeout(async () => {
-                clearInterval(scrambleInterval);
+                if (cipherScrambleInterval) clearInterval(cipherScrambleInterval);
                 await generateTokenDirectly();
+                
+                progressBar.style.width = '0%';
                 btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+
                 btnText.innerHTML = `
-                    <svg class="w-5 h-5 text-cyan-300 drop-shadow animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    <span data-i18n="btnGen">Generate Token</span>
+                    <svg class="w-4 h-4 text-cyan-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span data-i18n="btnGen">${getTranslatedText('btnGen')}</span>
                 `;
             }, 2000);
         }
 
-        /* Direct Instant Token Generation with Reveal Animation */
+        /* Direct Instant Token Generation */
         async function generateTokenDirectly() {
             const secret = getSanitizedSecret();
             if (!secret) return;
@@ -1697,12 +1804,17 @@
 
             if (!token) {
                 codeEl.innerText = "-".repeat(digits);
+                codeEl.className = 'text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm min-h-[52px] flex items-center justify-center';
                 showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errFormat'));
                 return;
             }
 
             currentActiveSecret = secret;
-            codeEl.innerHTML = `<span class="animate-code-reveal text-slate-900 dark:text-white">${token}</span>`;
+            
+            // Smooth reveal transition
+            codeEl.className = 'text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm min-h-[52px] flex items-center justify-center token-revealed';
+            codeEl.innerText = token;
+
             document.getElementById('verifiedStatusBadge').classList.remove('hidden');
 
             const laser = document.getElementById('laserScanner');
@@ -1742,7 +1854,11 @@
                 if (currentLeft === epoch && currentActiveSecret) {
                     const newToken = await generateTOTP(currentActiveSecret, epoch, digits, algo);
                     if (newToken) {
-                        document.getElementById('resultCode').innerHTML = `<span class="animate-code-reveal text-slate-900 dark:text-white">${newToken}</span>`;
+                        const codeEl = document.getElementById('resultCode');
+                        codeEl.classList.remove('token-revealed');
+                        void codeEl.offsetWidth;
+                        codeEl.classList.add('token-revealed');
+                        codeEl.innerText = newToken;
                     }
                 }
             }, 1000);
@@ -1762,10 +1878,10 @@
             }
 
             list.innerHTML = filtered.map((item, idx) => `
-                <li class="flex items-center justify-between py-2 px-2.5 rounded-xl card-inner border border-slate-700/40 mb-1.5 last:mb-0 ${idx === 0 ? 'animate-history-pop' : ''}">
-                    <div class="flex items-center gap-2">
-                        <span class="font-mono font-bold text-xs text-slate-800 dark:text-slate-100">${item.token}</span>
-                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-brand-500/15 text-brand-400 font-semibold border border-brand-500/30">${item.meta}</span>
+                <li class="flex items-center justify-between py-1.5 border-b border-slate-200/40 dark:border-slate-800/40 last:border-0 ${idx === 0 ? 'animate-history-pop' : ''}">
+                    <div class="flex items-center gap-1.5">
+                        <span class="font-mono font-bold text-xs text-slate-800 dark:text-slate-200">${item.token}</span>
+                        <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-semibold">${item.meta}</span>
                     </div>
                     <span class="text-[10px] text-slate-400 font-mono">${item.time}</span>
                 </li>
@@ -1783,10 +1899,10 @@
             showToast(getTranslatedText('toastHistoryCleared'));
         }
 
-        /* Clipboard Copy Hook */
+        /* Clipboard Copy Hook with Micro-Interaction */
         document.getElementById('copyBtn').addEventListener('click', () => {
             const code = document.getElementById('resultCode').innerText;
-            if (code && !code.includes('-') && !code.includes('[')) {
+            if (code && !code.includes('-')) {
                 navigator.clipboard.writeText(code);
                 showToast(getTranslatedText('toastMsg'));
 
@@ -1794,12 +1910,12 @@
                 const textSpan = document.getElementById('copyText');
                 const iconSvg = document.getElementById('copyIcon');
 
-                btn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/40');
+                btn.classList.add('bg-emerald-500/15', 'text-emerald-600', 'dark:text-emerald-400', 'border-emerald-500/30');
                 iconSvg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>`;
                 textSpan.innerText = getTranslatedText('toastCopiedMorphed');
 
                 setTimeout(() => {
-                    btn.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/40');
+                    btn.classList.remove('bg-emerald-500/15', 'text-emerald-600', 'dark:text-emerald-400', 'border-emerald-500/30');
                     iconSvg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>`;
                     textSpan.innerText = getTranslatedText('btnCopy');
                 }, 2000);
@@ -1877,7 +1993,7 @@
             reader.readAsDataURL(file);
         }
 
-        /* Keyboard Shortcuts */
+        /* Responsive Keyboard Shortcuts */
         window.addEventListener('keydown', (e) => {
             const tag = document.activeElement.tagName.toLowerCase();
             const isTyping = tag === 'input' || tag === 'textarea';
@@ -1897,7 +2013,7 @@
 
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c' && !isTyping) {
                 const code = document.getElementById('resultCode').innerText;
-                if (code && !code.includes('-') && !code.includes('[')) {
+                if (code && !code.includes('-')) {
                     navigator.clipboard.writeText(code);
                     showToast(getTranslatedText('toastMsg'));
                 }
@@ -1974,7 +2090,7 @@
             }, 2000);
         }
 
-        /* Admin Dashboard */
+        /* Admin Dashboard Verification */
         function openAdminPasswordModal() {
             document.getElementById('adminPinInput').value = '';
             document.getElementById('adminPasswordError').classList.add('hidden');
@@ -2000,10 +2116,10 @@
             const logs = JSON.parse(localStorage.getItem('admin_ip_logs') || '[]');
             if (logs.length > 0) {
                 container.innerHTML = logs.map(log => `
-                    <div class="flex justify-between items-center py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-700/50 shadow-xs">
+                    <div class="flex justify-between items-center py-1.5 px-3 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800">
                         <div>
-                            <span class="font-bold text-brand-400">${log.ip}</span>
-                            <span class="text-slate-400 text-[10px] ml-2 font-sans font-medium">(${log.action})</span>
+                            <span class="font-bold text-brand-500">${log.ip}</span>
+                            <span class="text-slate-500 text-[10px] ml-2 font-sans">(${log.action})</span>
                         </div>
                         <span class="text-slate-400 text-[10px]">${log.time}</span>
                     </div>
@@ -2017,12 +2133,12 @@
             const iconMoon = document.getElementById('icon-moon');
             if (currentTheme === 'dark') {
                 document.documentElement.classList.add('dark');
-                document.getElementById('bodyRoot').className = "bg-mesh-dark text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/25 selection:text-brand-400";
+                document.getElementById('bodyRoot').className = "bg-mesh-dark text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500";
                 iconSun?.classList.remove('hidden');
                 iconMoon?.classList.add('hidden');
             } else {
                 document.documentElement.classList.remove('dark');
-                document.getElementById('bodyRoot').className = "bg-mesh-light text-slate-800 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/25 selection:text-brand-400";
+                document.getElementById('bodyRoot').className = "bg-mesh-light text-slate-800 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500";
                 iconMoon?.classList.remove('hidden');
                 iconSun?.classList.add('hidden');
             }
