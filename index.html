@@ -669,26 +669,27 @@
         </div>
     </div>
 
+    <!-- Admin Panel Modal (Expanded Size) -->
     <div id="adminModal" class="fixed inset-0 z-[70] flex items-center justify-center px-4 hidden">
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeAdminPanel()"></div>
-        <div class="relative w-full max-w-2xl panel-glass rounded-2xl p-6 sm:p-8 z-10 space-y-4 animate-pop shadow-2xl">
-            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-slate-900 dark:text-white" data-i18n="telemetryTitle">Telemetry & Access Logs</h3>
-                <button onclick="closeAdminPanel()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
+        <div class="relative w-full max-w-4xl panel-glass rounded-3xl p-8 sm:p-10 z-10 space-y-6 animate-pop shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-4">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white" data-i18n="telemetryTitle">Telemetry & Access Logs</h3>
+                <button onclick="closeAdminPanel()" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="card-inner p-4 rounded-xl text-center">
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase" data-i18n="statVisitors">Unique Visitors</span>
-                    <h4 id="statVisitors" class="text-2xl font-black text-brand-500 mt-1">0</h4>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="card-inner p-5 rounded-2xl text-center">
+                    <span class="text-xs font-semibold text-slate-400 uppercase" data-i18n="statVisitors">Unique Visitors</span>
+                    <h4 id="statVisitors" class="text-3xl font-black text-brand-500 mt-1.5">0</h4>
                 </div>
-                <div class="card-inner p-4 rounded-xl text-center">
-                    <span class="text-[11px] font-semibold text-slate-400 uppercase" data-i18n="statGenerations">Tokens Generated</span>
-                    <h4 id="statGenerations" class="text-2xl font-black text-emerald-500 mt-1">0</h4>
+                <div class="card-inner p-5 rounded-2xl text-center">
+                    <span class="text-xs font-semibold text-slate-400 uppercase" data-i18n="statGenerations">Tokens Generated</span>
+                    <h4 id="statGenerations" class="text-3xl font-black text-emerald-500 mt-1.5">0</h4>
                 </div>
             </div>
-            <div class="space-y-2">
+            <div class="space-y-2.5">
                 <span class="text-xs font-bold text-slate-400 uppercase" data-i18n="storedIpLogs">Stored IP Access Audit Logs</span>
-                <div id="adminLogsList" class="card-inner p-3 rounded-xl max-h-48 overflow-y-auto space-y-1.5 font-mono text-xs">
+                <div id="adminLogsList" class="card-inner p-4 rounded-2xl max-h-96 overflow-y-auto space-y-2 font-mono text-xs">
                     <span class="text-slate-500 italic" data-i18n="noTelemetry">No telemetry recorded yet...</span>
                 </div>
             </div>
@@ -1632,7 +1633,7 @@
             }
         }
 
-        /* 2-Second Delay Token Generation (ตามคำขอ) */
+        /* 2-Second Delay Token Generation */
         async function generateTokenWithDelay() {
             const secret = getSanitizedSecret();
             if (!secret) {
@@ -1645,7 +1646,6 @@
             const codeEl = document.getElementById('resultCode');
             const digits = parseInt(document.getElementById('otpDigitsSelect').value, 10);
 
-            // ล็อคปุ่มและแสดงสถานะกำลังประมวลผล (Delay 2 Seconds)
             btn.disabled = true;
             btnText.innerHTML = `<span class="animate-pulse">Generating...</span>`;
             codeEl.innerText = ". . . . . .";
@@ -2026,7 +2026,6 @@
             
             document.getElementById('htmlRoot').setAttribute('lang', currentLang);
 
-            // Translate all standard text nodes
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang] && translations[currentLang][key]) {
@@ -2034,7 +2033,6 @@
                 }
             });
 
-            // Translate all input placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-i18n-placeholder');
                 if (translations[currentLang] && translations[currentLang][key]) {
@@ -2042,7 +2040,6 @@
                 }
             });
 
-            // Synchronize active select button labels
             const algoVal = document.getElementById('otpAlgorithmSelect').value;
             document.getElementById('selectedAlgoLabel').innerText = algoVal === 'SHA-1' ? getTranslatedText('optSha1') : algoVal;
             
@@ -2052,7 +2049,6 @@
             const periodVal = document.getElementById('otpPeriodSelect').value;
             document.getElementById('selectedPeriodLabel').innerText = getTranslatedText(`opt${periodVal}s`);
 
-            // Re-render sub-components in current language
             renderNotesContent();
             renderVaultAccounts();
             renderHistoryList();
