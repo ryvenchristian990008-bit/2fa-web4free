@@ -13,7 +13,6 @@
     <meta name="keywords" content="2fa, two-factor authentication, globalauth, totp generator, security app, authenticator, enterprise 2fa">
     <meta name="author" content="GlobalAuth">
     
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#030712">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -347,6 +346,29 @@
         </div>
     </div>
 
+    <!-- Live Camera Scanner Modal -->
+    <div id="cameraModal" class="fixed inset-0 z-[75] flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onclick="stopCameraScanner()"></div>
+        <div class="relative w-full max-w-sm panel-glass rounded-3xl p-5 z-10 space-y-4 animate-pop shadow-2xl text-center">
+            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white" data-i18n="cameraModalTitle">Scan 2FA QR Code</h3>
+                </div>
+                <button onclick="stopCameraScanner()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
+            </div>
+            
+            <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-black border border-slate-700/60 shadow-inner flex items-center justify-center">
+                <video id="cameraVideo" class="w-full h-full object-cover" playsinline></video>
+                <div class="absolute inset-8 border-2 border-brand-400/80 rounded-xl pointer-events-none shadow-[0_0_15px_rgba(99,102,241,0.5)]"></div>
+                <div class="laser-sweep laser-active"></div>
+            </div>
+
+            <p class="text-[11px] text-slate-400 font-mono" data-i18n="cameraTip">Align the QR code within the framing square</p>
+            <button onclick="stopCameraScanner()" class="w-full h-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold btn-modern" data-i18n="btnClose">Close</button>
+        </div>
+    </div>
+
     <!-- Header Navigation -->
     <header class="sticky top-0 z-50 bg-white/85 dark:bg-[#060a17]/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
@@ -356,7 +378,7 @@
                     <svg class="w-full h-full drop-shadow transition-transform hover:scale-105 duration-300" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="navLg1" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="100%" stop-color="#3a7bd5"/></linearGradient>
-                            <linearGradient id="navLg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
+                            <linearGradient id="navLg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#2563eb"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
                             <linearGradient id="navLg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
                         </defs>
                         <g stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -429,17 +451,24 @@
 
                     <!-- Input Field & Configuration -->
                     <div class="space-y-4">
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
                             <label for="secretInput" class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
                                 <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
                                 <span data-i18n="labelKey">Secret Token</span>
                             </label>
                             
-                            <label class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 dark:bg-brand-500/10 dark:hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-bold cursor-pointer flex items-center gap-1.5 transition-all border border-brand-500/20 shadow-sm btn-modern">
-                                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
-                                <span data-i18n="btnUpload">Upload QR</span>
-                                <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
-                            </label>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="startCameraScanner()" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 text-xs font-bold flex items-center gap-1.5 transition-all border border-cyan-500/20 shadow-sm btn-modern">
+                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    <span data-i18n="btnCameraScan">Live Scan</span>
+                                </button>
+
+                                <label class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 dark:bg-brand-500/10 dark:hover:bg-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-bold cursor-pointer flex items-center gap-1.5 transition-all border border-brand-500/20 shadow-sm btn-modern">
+                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+                                    <span data-i18n="btnUpload">Upload QR</span>
+                                    <input type="file" id="qrInput" accept="image/*" class="hidden" onchange="handleQRCodeUpload(event)">
+                                </label>
+                            </div>
                         </div>
 
                         <div class="relative flex items-center input-hero-wrapper rounded-2xl p-1 shadow-sm">
@@ -454,7 +483,7 @@
                             </button>
                         </div>
 
-                        <!-- Dropdown Parameters -->
+                        <!-- Cryptographic Parameters Dropdowns -->
                         <div class="p-4 card-inner rounded-2xl space-y-3">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="cryptoParamsTitle">Cryptographic Parameters</span>
@@ -737,6 +766,10 @@
         let activeMasterPassword = null;
         let decryptedVaultAccounts = null;
 
+        let cameraStream = null;
+        let cameraAnimationId = null;
+        let inactivityTimer = null;
+
         /* Dictionary Translations */
         const translations = {
             en: {
@@ -747,6 +780,9 @@
                 desc: "Enter an encryption token or scan standard OTP provisioning parameters.",
                 labelKey: "Secret Token",
                 btnUpload: "Upload QR",
+                btnCameraScan: "Live Scan",
+                cameraModalTitle: "Scan 2FA QR Code",
+                cameraTip: "Align the QR code within the framing square",
                 secretPlaceholder: "Paste key or otpauth:// link...",
                 cryptoParamsTitle: "Cryptographic Parameters",
                 autoDetectedHint: "Auto-detected from URIs",
@@ -806,6 +842,7 @@
                 toastVaultUnlocked: "Vault decrypted successfully!",
                 toastPassCreated: "Custom password created and vault unlocked!",
                 toastVaultLocked: "Vault locked.",
+                toastAutoLocked: "Vault auto-locked due to inactivity.",
                 toastAccountSaved: "Account saved to encrypted vault!",
                 toastAccountRemoved: "Account removed.",
                 toastQrDetected: "QR code detected and parsed!",
@@ -814,6 +851,7 @@
                 errScanFailed: "No valid QR code was located in this image.",
                 errAccessDenied: "Incorrect master password!",
                 errMismatch: "Master passwords do not match. Please re-enter.",
+                errCameraAccess: "Unable to access camera. Check device permissions.",
                 btnUse: "Use",
                 emptyVaultMsg: "No saved credentials in vault"
             },
@@ -825,6 +863,9 @@
                 desc: "បញ្ចូលលេខកូដសម្ងាត់ ឬស្កេន QR Code ដើម្បីទទួលបានលេខកូដសុវត្ថិភាព។",
                 labelKey: "លេខកូដសម្ងាត់ (Secret Key)",
                 btnUpload: "ស្កេន QR",
+                btnCameraScan: "ស្កេនកាមេរ៉ា",
+                cameraModalTitle: "ស្កេនកូដ QR 2FA",
+                cameraTip: "តម្រង់កូដ QR ឱ្យចំប្រអប់កណ្តាល",
                 secretPlaceholder: "បិទភ្ជាប់កូដ ឬតំណភ្ជាប់ otpauth://...",
                 cryptoParamsTitle: "ប៉ារ៉ាម៉ែត្រកូដសម្ងាត់",
                 autoDetectedHint: "ស្វែងរកស្វ័យប្រវត្តពី URI",
@@ -884,6 +925,7 @@
                 toastVaultUnlocked: "ដោះសោរ Vault ជោគជ័យ!",
                 toastPassCreated: "បានបង្កើតពាក្យសម្ងាត់ និងដោះសោរ Vault!",
                 toastVaultLocked: "បានចាក់សោរ Vault",
+                toastAutoLocked: "Vault បានចាក់សោរស្វ័យប្រវត្តដោយសារអសកម្ម",
                 toastAccountSaved: "បានរក្សាទុកគណនីក្នុង Vault!",
                 toastAccountRemoved: "បានលុបគណនីចេញ",
                 toastQrDetected: "បានស្កេន និងរកឃើញកូដ QR!",
@@ -892,6 +934,7 @@
                 errScanFailed: "មិនអាចស្វែងរកកូដ QR ក្នុងរូបភាពនេះទេ។",
                 errAccessDenied: "ពាក្យសម្ងាត់មិនត្រឹមត្រូវ!",
                 errMismatch: "ពាក្យសម្ងាត់ទាំងពីរមិនដូចគ្នាទេ។",
+                errCameraAccess: "មិនអាចបើកកាមេរ៉ាបានទេ។ សូមពិនិត្យសិទ្ធិកាមេរ៉ា។",
                 btnUse: "ប្រើប្រាស់",
                 emptyVaultMsg: "មិនទាន់មានទិន្នន័យក្នុង Vault ទេ"
             },
@@ -903,6 +946,9 @@
                 desc: "输入 Base32 密钥或扫描二维码即可生成安全动态验证码。",
                 labelKey: "密钥 (Secret Token)",
                 btnUpload: "上传二维码",
+                btnCameraScan: "实时扫码",
+                cameraModalTitle: "扫描 2FA 二维码",
+                cameraTip: "将二维码对准中心方框",
                 secretPlaceholder: "粘贴密钥或 otpauth:// 协议链接...",
                 cryptoParamsTitle: "加密哈希参数",
                 autoDetectedHint: "自动从协议链接中识别",
@@ -962,6 +1008,7 @@
                 toastVaultUnlocked: "密码库解密成功！",
                 toastPassCreated: "主密码创建成功，密码库已解锁！",
                 toastVaultLocked: "密码库已锁定。",
+                toastAutoLocked: "长时间无操作，密码库已自动锁定",
                 toastAccountSaved: "已加密保存到密码库！",
                 toastAccountRemoved: "账户已移除。",
                 toastQrDetected: "成功识别并解析二维码！",
@@ -970,6 +1017,7 @@
                 errScanFailed: "未能在图片中定位有效的二维码。",
                 errAccessDenied: "主密码错误！",
                 errMismatch: "两次输入的密码不一致，请重新输入。",
+                errCameraAccess: "无法调用摄像头，请检查权限设置。",
                 btnUse: "使用",
                 emptyVaultMsg: "密码库中暂无保存的账户"
             }
@@ -978,6 +1026,23 @@
         function getTranslatedText(key) {
             return (translations[currentLang] && translations[currentLang][key]) || (translations['en'][key] || key);
         }
+
+        /* 5-Minute Inactivity Auto-Lock Monitor */
+        function resetInactivityTimer() {
+            if (inactivityTimer) clearTimeout(inactivityTimer);
+            if (activeMasterPassword) {
+                inactivityTimer = setTimeout(() => {
+                    if (activeMasterPassword) {
+                        lockVault();
+                        showToast(getTranslatedText('toastAutoLocked'));
+                    }
+                }, 5 * 60 * 1000);
+            }
+        }
+
+        ['mousemove', 'keydown', 'click', 'touchstart'].forEach(evt => {
+            window.addEventListener(evt, resetInactivityTimer, { passive: true });
+        });
 
         /* Clipboard Helper */
         async function pasteFromClipboard() {
@@ -1016,7 +1081,7 @@
             en: [
                 {
                     title: "1. Token Ingestion & QR Code Scanning",
-                    desc: "Paste any standard Base32 secret string or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR' to automatically extract provisioned keys from screenshots."
+                    desc: "Paste any standard Base32 secret string or complete otpauth:// URI scheme into the Secret Token field. Click 'Upload QR' or 'Live Scan' to extract provisioned keys directly with your camera."
                 },
                 {
                     title: "2. Cryptographic Parameters",
@@ -1028,7 +1093,7 @@
                 },
                 {
                     title: "4. Zero-Knowledge Client-Side Encrypted Vault",
-                    desc: "Click 'Vault' in the top navigation or press Ctrl+K. Set your custom master password to initialize local PBKDF2/AES-GCM encryption. Save accounts, pin top accounts, or click 'Use' to load secrets directly back to the generator."
+                    desc: "Click 'Vault' in the top navigation or press Ctrl+K. Set your custom master password to initialize local PBKDF2/AES-GCM encryption. Vault auto-locks after 5 minutes of inactivity for optimal security."
                 },
                 {
                     title: "5. Backup Export, Restore & Hotkeys",
@@ -1042,7 +1107,7 @@
             km: [
                 {
                     title: "១. ការបញ្ចូលលេខកូដ និងស្កេន QR Code",
-                    desc: "សូមចម្លង និងបិទភ្ជាប់លេខកូដ Base32 ឬតំណភ្ជាប់ otpauth:// ទៅក្នុងប្រអប់ Secret Token។ អ្នកក៏អាចចុច 'ស្កេន QR' ដើម្បីទាញយកលេខកូដដោយស្វ័យប្រវត្តពីកូដ QR ផងដែរ។"
+                    desc: "សូមចម្លង និងបិទភ្ជាប់លេខកូដ Base32 ឬតំណភ្ជាប់ otpauth:// ទៅក្នុងប្រអប់ Secret Token។ អ្នកក៏អាចចុច 'ស្កេន QR' ឬ 'ស្កេនកាមេរ៉ា' ដើម្បីទាញយកលេខកូដដោយផ្ទាល់ពីកាមេរ៉ាទូរស័ព្ទផងដែរ។"
                 },
                 {
                     title: "២. ការកំណត់ក្បួនដោះស្រាយ និងខ្ទង់លេខ",
@@ -1054,7 +1119,7 @@
                 },
                 {
                     title: "៤. ប្រព័ន្ធរក្សាទុកសុវត្ថិភាព Vault (AES-GCM)",
-                    desc: "ចុចប៊ូតុង 'Vault' ឬចុច Ctrl+K ដើម្បីបង្កើត និងដោះសោរកន្លែងផ្ទុកគណនីដោយប្រើ Master Password ផ្ទាល់ខ្លួនរបស់អ្នក។"
+                    desc: "ចុចប៊ូតុង 'Vault' ឬចុច Ctrl+K ដើម្បីបង្កើត និងដោះសោរកន្លែងផ្ទុកគណនី។ ប្រព័ន្ធនឹងចាក់សោរដោយស្វ័យប្រវត្តប្រសិនបើគ្មានសកម្មភាពលើសពី ៥ នាទី។"
                 },
                 {
                     title: "៥. ការទាញយកទុក ការបញ្ចូលឡើងវិញ និងផ្លូវកាត់ក្តារចុច",
@@ -1068,7 +1133,7 @@
             zh: [
                 {
                     title: "1. 密钥输入与二维码解析",
-                    desc: "在密钥框输入 Base32 密钥字符串或完整的 otpauth:// 协议链接。也可点击右上角“上传二维码”直接从截图中自动识别并导入密钥。"
+                    desc: "在密钥框输入 Base32 密钥字符串或完整的 otpauth:// 协议链接。可点击右上角“上传二维码”或“实时扫码”直接调用摄像头扫描。"
                 },
                 {
                     title: "2. 加密参数与位数自定义",
@@ -1080,7 +1145,7 @@
                 },
                 {
                     title: "4. 端到端零知识加密密码库 (Vault)",
-                    desc: "点击顶部“密码库”或按下快捷键 Ctrl+K，自定义设置主密码以初始化 AES-GCM 本地加密库。"
+                    desc: "点击顶部“密码库”或按下快捷键 Ctrl+K，初始化 AES-GCM 本地加密库。系统支持 5 分钟无操作自动锁定以强化安全防护。"
                 },
                 {
                     title: "5. 备份导出恢复与全局快捷键",
@@ -1267,6 +1332,7 @@
                     localStorage.setItem('globalauth_vault', JSON.stringify(emptyEncrypted));
                     activeMasterPassword = password;
                     decryptedVaultAccounts = [];
+                    resetInactivityTimer();
 
                     document.getElementById('vaultAuthSection').classList.add('hidden');
                     document.getElementById('vaultContentSection').classList.remove('hidden');
@@ -1292,6 +1358,7 @@
                 const result = await decryptData(password, encryptedObj);
                 activeMasterPassword = password;
                 decryptedVaultAccounts = Array.isArray(result) ? result : [];
+                resetInactivityTimer();
 
                 document.getElementById('vaultAuthSection').classList.add('hidden');
                 document.getElementById('vaultContentSection').classList.remove('hidden');
@@ -1306,6 +1373,7 @@
         function lockVault() {
             activeMasterPassword = null;
             decryptedVaultAccounts = null;
+            if (inactivityTimer) clearTimeout(inactivityTimer);
             document.getElementById('vaultAuthSection').classList.remove('hidden');
             document.getElementById('vaultContentSection').classList.add('hidden');
             document.getElementById('masterPasswordInput').value = '';
@@ -1353,6 +1421,7 @@
                 const encrypted = await encryptData(activeMasterPassword, accounts);
                 localStorage.setItem('globalauth_vault', JSON.stringify(encrypted));
                 decryptedVaultAccounts = accounts;
+                resetInactivityTimer();
                 renderVaultAccounts();
                 showToast(getTranslatedText('toastAccountSaved'));
             } catch (err) {
@@ -1364,6 +1433,7 @@
             if (!activeMasterPassword || !decryptedVaultAccounts) return;
             const encrypted = await encryptData(activeMasterPassword, decryptedVaultAccounts);
             localStorage.setItem('globalauth_vault', JSON.stringify(encrypted));
+            resetInactivityTimer();
         }
 
         function renderVaultAccounts() {
@@ -1852,6 +1922,56 @@
             return cleaned.replace(/=+$/, '');
         }
 
+        /* Live Camera Scanner */
+        async function startCameraScanner() {
+            const modal = document.getElementById('cameraModal');
+            const video = document.getElementById('cameraVideo');
+            
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 640 } }
+                });
+                video.srcObject = cameraStream;
+                video.setAttribute('playsinline', 'true');
+                video.play();
+                modal.classList.remove('hidden');
+                
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                
+                function tick() {
+                    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const code = jsQR(imgData.data, canvas.width, canvas.height);
+                        if (code && code.data) {
+                            document.getElementById('secretInput').value = code.data;
+                            parseSecretUriParams();
+                            stopCameraScanner();
+                            showToast(getTranslatedText('toastQrDetected'));
+                            generateTokenWithDelay();
+                            return;
+                        }
+                    }
+                    cameraAnimationId = requestAnimationFrame(tick);
+                }
+                cameraAnimationId = requestAnimationFrame(tick);
+            } catch (err) {
+                showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errCameraAccess'));
+            }
+        }
+
+        function stopCameraScanner() {
+            if (cameraAnimationId) cancelAnimationFrame(cameraAnimationId);
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+            }
+            document.getElementById('cameraModal').classList.add('hidden');
+        }
+
         /* Fast & Optimized QR Upload */
         function handleQRCodeUpload(event) {
             const file = event.target.files[0];
@@ -1914,6 +2034,7 @@
                 closeModernPrompt();
                 closeModernConfirm();
                 closeNotesModal();
+                stopCameraScanner();
                 closeAllCustomDropdowns();
                 return;
             }
@@ -2051,6 +2172,36 @@
             renderNotesContent();
             renderVaultAccounts();
             renderHistoryList();
+        }
+
+        /* Inline Self-Contained Offline Service Worker (Zero Extra Files) */
+        if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'globalauth-cache-v1';
+                    self.addEventListener('install', (e) => {
+                        self.skipWaiting();
+                    });
+                    self.addEventListener('activate', (e) => {
+                        e.waitUntil(clients.claim());
+                    });
+                    self.addEventListener('fetch', (e) => {
+                        if (e.request.method !== 'GET') return;
+                        e.respondWith(
+                            fetch(e.request).then((res) => {
+                                const resClone = res.clone();
+                                caches.open(CACHE_NAME).then((cache) => cache.put(e.request, resClone));
+                                return res;
+                            }).catch(() => caches.match(e.request))
+                        );
+                    });
+                `;
+                try {
+                    const blob = new Blob([swCode], { type: 'application/javascript' });
+                    const swUrl = URL.createObjectURL(blob);
+                    navigator.serviceWorker.register(swUrl).catch(() => {});
+                } catch (e) {}
+            });
         }
     </script>
 </body>
