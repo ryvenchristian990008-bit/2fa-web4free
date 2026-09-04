@@ -13,6 +13,9 @@
     <meta name="keywords" content="2fa, two-factor authentication, globalauth, totp generator, security app, authenticator, enterprise 2fa">
     <meta name="author" content="GlobalAuth">
     
+    <!-- Real-Time Global Analytics (Cloudflare Web Analytics lightweight beacon) -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_CLOUDFLARE_ANALYTICS_TOKEN_HERE"}'></script>
+
     <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22GlobalAuth%20Enterprise%202FA%22%2C%22short_name%22%3A%22GlobalAuth%22%2C%22description%22%3A%22Enterprise%20RFC%206238%202FA%20Authenticator%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23030712%22%2C%22theme_color%22%3A%22%23030712%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20120%20120'%253E%253Cdefs%253E%253ClinearGradient%20id%3D'g'%20x1%3D'0%25'%20y1%3D'0%25'%20x2%3D'100%25'%20y2%3D'100%25'%253E%253Cstop%20offset%3D'0%25'%20stop-color%3D'%2300f2fe'%2F%253E%253Cstop%20offset%3D'100%25'%20stop-color%3D'%232563eb'%2F%253E%253C%2FlinearGradient%253E%253C%2Fdefs%253E%253Crect%20width%3D'120'%20height%3D'120'%20rx%3D'24'%20fill%3D'%23030712'%2F%253E%253Cpath%20d%3D'M60%2025l25%2055H40l10-25H30'%20stroke%3D'url(%23g)'%20stroke-width%3D'12'%20fill%3D'none'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
     <meta name="theme-color" content="#030712">
     <meta name="mobile-web-app-capable" content="yes">
@@ -281,7 +284,7 @@
     <!-- Mobile Drawer Backdrop Overlay -->
     <div id="mobileDrawerBackdrop" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-[95] hidden opacity-0 transition-opacity duration-300 md:hidden" onclick="toggleMobileMenu()"></div>
 
-    <!-- Mobile Slide-In Navigation Drawer (Solid Luxury Surface) -->
+    <!-- Mobile Slide-In Navigation Drawer -->
     <div id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-72 max-w-[85vw] bg-white dark:bg-[#070b18] border-l border-slate-200 dark:border-slate-800/80 z-[100] translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between p-5 md:hidden shadow-2xl">
         <div class="space-y-4">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
@@ -501,7 +504,7 @@
                 </button>
             </div>
 
-            <!-- Mobile Action Bar (Padlock with Micro-Dot + Hamburger Drawer Button) -->
+            <!-- Mobile Action Bar -->
             <div class="flex md:hidden items-center gap-2">
                 <button onclick="openVaultModal()" class="w-9 h-9 flex items-center justify-center rounded-xl card-inner text-cyan-500 btn-modern relative" title="Vault">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -726,7 +729,7 @@
 
         </div>
 
-        <!-- Passive Crypto/Ad Banner Integration Card -->
+        <!-- Ad Placement Card -->
         <div class="w-full max-w-5xl mt-5 sm:mt-6 panel-glass rounded-2xl p-3.5 sm:p-4 text-center border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
             <div class="flex items-center justify-between mb-2 px-1">
                 <span class="text-[10px] uppercase font-mono text-slate-400 tracking-widest">Sponsored Placement</span>
@@ -965,6 +968,24 @@
         }
         ['mousemove', 'keydown', 'click', 'touchstart'].forEach(e => window.addEventListener(e, resetInactivityTimer, { passive: true }));
 
+        /* Brand Logo Recognition Helper */
+        function getBrandBadge(name) {
+            const lower = name.toLowerCase();
+            let brandColor = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+            let brandName = name;
+
+            if (lower.includes('google')) { brandColor = 'bg-blue-500/10 text-blue-400 border-blue-500/20'; brandName = 'Google'; }
+            else if (lower.includes('github')) { brandColor = 'bg-purple-500/10 text-purple-400 border-purple-500/20'; brandName = 'GitHub'; }
+            else if (lower.includes('discord')) { brandColor = 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'; brandName = 'Discord'; }
+            else if (lower.includes('facebook') || lower.includes('meta')) { brandColor = 'bg-blue-600/10 text-blue-500 border-blue-600/20'; brandName = 'Facebook'; }
+            else if (lower.includes('aws') || lower.includes('amazon')) { brandColor = 'bg-amber-500/10 text-amber-500 border-amber-500/20'; brandName = 'AWS'; }
+            else if (lower.includes('binance')) { brandColor = 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'; brandName = 'Binance'; }
+            else if (lower.includes('telegram')) { brandColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20'; brandName = 'Telegram'; }
+            else if (lower.includes('microsoft')) { brandColor = 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'; brandName = 'Microsoft'; }
+
+            return `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded border font-bold ${brandColor}">${brandName}</span>`;
+        }
+
         /* Translations */
         const translations = {
             en: {
@@ -1198,7 +1219,7 @@
                 confirmDeleteTitle: "删除账户？",
                 confirmDeleteDesc: "该密钥将被永久清除，无法恢复。",
                 btnDelete: "删除",
-                notesHeading: "平台使用指南与文档",
+                notesHeading: "使用指南与文档",
                 notesSubHeading: "系统架构与使用流程",
                 btnClose: "关闭",
                 vaultModalTitle: "零知识加密密码库 (Vault)",
@@ -1700,12 +1721,14 @@
                 const algo = acc.algorithm || 'SHA-1';
                 const digits = acc.digits || '6';
                 const maskedSecret = acc.secret.length > 6 ? acc.secret.substring(0, 4) + '••••••••' : '••••••••';
+                const brandBadge = getBrandBadge(acc.name);
 
                 return `
                     <div class="flex items-center justify-between p-2.5 rounded-xl card-inner hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
                         <div class="min-w-0 pr-2">
-                            <div class="flex items-center gap-1.5">
+                            <div class="flex items-center gap-1.5 flex-wrap">
                                 <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
+                                ${brandBadge}
                                 <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
                                 ${acc.pinned ? '<span class="text-[9px] px-1 rounded bg-amber-500/10 text-amber-500 font-bold">Pinned</span>' : ''}
                             </div>
@@ -1839,11 +1862,15 @@
                 const digits = parseInt(acc.digits || '6', 10);
                 const algo = acc.algorithm || 'SHA-1';
                 const code = await generateTOTP(acc.secret, period, digits, algo) || '------';
+                const brandBadge = getBrandBadge(acc.name);
                 return `
                     <div class="card-inner p-3.5 rounded-2xl flex flex-col justify-between space-y-2 border border-slate-200/80 dark:border-slate-800">
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between gap-1">
                             <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
-                            <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
+                            <div class="flex items-center gap-1 shrink-0">
+                                ${brandBadge}
+                                <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
+                            </div>
                         </div>
                         <div class="text-center py-1">
                             <span class="font-mono text-2xl font-black tracking-widest text-slate-900 dark:text-white select-all">${code}</span>
