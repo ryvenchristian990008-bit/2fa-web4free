@@ -118,14 +118,14 @@
         }
 
         .panel-glass {
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(226, 232, 240, 0.9);
             box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
         }
         .dark .panel-glass {
-            background: rgba(11, 17, 33, 0.82);
+            background: rgba(11, 17, 33, 0.9);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.07);
@@ -133,11 +133,11 @@
         }
 
         .card-inner {
-            background: rgba(248, 250, 252, 0.8);
+            background: rgba(248, 250, 252, 0.85);
             border: 1px solid rgba(226, 232, 240, 0.95);
         }
         .dark .card-inner {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
@@ -147,7 +147,7 @@
             box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
         }
         .dark .security-stage-card {
-            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%), rgba(12, 18, 34, 0.75);
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%), rgba(12, 18, 34, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(99, 102, 241, 0.1) inset;
         }
@@ -273,13 +273,70 @@
 <body id="bodyRoot" class="bg-mesh-dark text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500">
 
     <!-- Toast Notification -->
-    <div id="toastNotification" class="fixed top-20 sm:top-24 left-1/2 -translate-x-1/2 z-[90] bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white px-4 sm:px-5 py-2.5 rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.25)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-200 dark:border-slate-800 backdrop-blur-xl">
+    <div id="toastNotification" class="fixed top-20 sm:top-24 left-1/2 -translate-x-1/2 z-[110] bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white px-4 sm:px-5 py-2.5 rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.25)] flex items-center gap-2.5 text-xs font-bold hidden transition-all duration-300 opacity-0 border border-slate-200 dark:border-slate-800 backdrop-blur-xl">
         <svg class="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
         <span id="toastText">Copied to clipboard!</span>
     </div>
 
+    <!-- Mobile Drawer Backdrop Overlay -->
+    <div id="mobileDrawerBackdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[95] hidden opacity-0 transition-opacity duration-300 md:hidden" onclick="toggleMobileMenu()"></div>
+
+    <!-- Mobile Slide-In Navigation Drawer (Solid Surface, Zero Glitch) -->
+    <div id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-72 max-w-[85vw] bg-white dark:bg-[#090e1c] border-l border-slate-200 dark:border-slate-800/80 z-[100] translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between p-5 md:hidden shadow-2xl">
+        <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 font-mono">Navigation Menu</span>
+                </div>
+                <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <button onclick="openMultiAccountDashboard(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors">
+                    <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                    <span data-i18n="navGrid">Live Grid</span>
+                </button>
+
+                <button onclick="openNotesModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors">
+                    <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span data-i18n="navNotes">Guide</span>
+                </button>
+
+                <button onclick="openAdminPasswordModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors">
+                    <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span data-i18n="admin">Admin</span>
+                </button>
+
+                <button onclick="triggerUniversalTabRefresh(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors">
+                    <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    <span>Refresh App</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="space-y-2 pt-4 border-t border-slate-200/80 dark:border-slate-800">
+            <button id="pwaInstallBtnMobile" onclick="installAppDirectly()" class="hidden w-full h-11 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>Install GlobalAuth PWA</span>
+            </button>
+
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="toggleLanguage()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5 hover:border-brand-500 transition-colors">
+                    <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                    <span id="langTextMobile">EN</span>
+                </button>
+
+                <button onclick="toggleTheme()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5 hover:border-brand-500 transition-colors">
+                    <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <span>Theme</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Alert Modal -->
-    <div id="modernAlertModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+    <div id="modernAlertModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeModernAlert()"></div>
         <div class="relative w-full max-w-sm panel-glass rounded-3xl p-6 z-10 text-center space-y-4 animate-pop shadow-2xl">
             <div id="alertIconContainer" class="w-10 h-10 bg-brand-500/10 text-brand-500 rounded-xl flex items-center justify-center mx-auto border border-brand-500/20">
@@ -292,7 +349,7 @@
     </div>
 
     <!-- Prompt Modal -->
-    <div id="modernPromptModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+    <div id="modernPromptModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeModernPrompt()"></div>
         <div class="relative w-full max-w-sm panel-glass rounded-3xl p-6 z-10 space-y-4 animate-pop shadow-2xl">
             <div class="text-center space-y-1">
@@ -308,7 +365,7 @@
     </div>
 
     <!-- Confirm Modal -->
-    <div id="modernConfirmModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+    <div id="modernConfirmModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeModernConfirm()"></div>
         <div class="relative w-full max-w-xs panel-glass rounded-3xl p-6 z-10 text-center space-y-4 animate-pop shadow-2xl">
             <div class="w-10 h-10 bg-rose-500/10 text-rose-500 rounded-xl flex items-center justify-center mx-auto border border-rose-500/20">
@@ -324,7 +381,7 @@
     </div>
 
     <!-- Complete Guide Modal -->
-    <div id="notesModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+    <div id="notesModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-md" onclick="closeNotesModal()"></div>
         <div class="relative w-full max-w-2xl max-h-[85vh] panel-glass rounded-3xl p-5 sm:p-7 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
@@ -349,7 +406,7 @@
     </div>
 
     <!-- Live Camera Scanner Modal -->
-    <div id="cameraModal" class="fixed inset-0 z-[75] flex items-center justify-center p-4 hidden">
+    <div id="cameraModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onclick="stopCameraScanner()"></div>
         <div class="relative w-full max-w-sm panel-glass rounded-3xl p-5 z-10 space-y-4 animate-pop shadow-2xl text-center">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
@@ -401,7 +458,7 @@
                 </div>
             </div>
 
-            <!-- Desktop Toolbar Controls (Visible on md screens and up) -->
+            <!-- Desktop Controls (Visible on md and larger screens) -->
             <div class="hidden md:flex items-center gap-1.5 lg:gap-2">
                 <button id="pwaInstallBtn" onclick="installAppDirectly()" class="hidden h-9 px-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold btn-modern flex items-center gap-1.5 shadow-sm">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -444,7 +501,7 @@
                 </button>
             </div>
 
-            <!-- Mobile Quick Controls (Padlock with Tiny 4px Dot & Hamburger Trigger) -->
+            <!-- Mobile Action Bar (Padlock with Micro-Dot + Hamburger Drawer Button) -->
             <div class="flex md:hidden items-center gap-2">
                 <button onclick="openVaultModal()" class="w-9 h-9 flex items-center justify-center rounded-xl card-inner text-cyan-500 btn-modern relative" title="Vault">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -457,65 +514,9 @@
             </div>
 
         </div>
-
-        <!-- Mobile Right-to-Left Slide-In Drawer Backdrop -->
-        <div id="mobileDrawerBackdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[80] hidden opacity-0 transition-opacity duration-300 md:hidden" onclick="toggleMobileMenu()"></div>
-
-        <!-- Mobile Drawer Sidebar (Slides Right-to-Left) -->
-        <div id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-72 max-w-[80vw] bg-white/95 dark:bg-[#060a17]/95 backdrop-blur-2xl border-l border-slate-200/80 dark:border-slate-800 z-[85] translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between p-5 md:hidden shadow-2xl">
-            
-            <div class="space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">Navigation Menu</span>
-                    <button onclick="toggleMobileMenu()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <button onclick="openMultiAccountDashboard(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500">
-                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-                        <span data-i18n="navGrid">Live Grid</span>
-                    </button>
-
-                    <button onclick="openNotesModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500">
-                        <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        <span data-i18n="navNotes">Guide</span>
-                    </button>
-
-                    <button onclick="openAdminPasswordModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500">
-                        <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span data-i18n="admin">Admin</span>
-                    </button>
-
-                    <button onclick="triggerUniversalTabRefresh(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500">
-                        <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                        <span>Refresh App</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="space-y-2 pt-3 border-t border-slate-200/80 dark:border-slate-800">
-                <button id="pwaInstallBtnMobile" onclick="installAppDirectly()" class="hidden w-full h-10 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    <span>Install App</span>
-                </button>
-
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="toggleLanguage()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5">
-                        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
-                        <span id="langTextMobile">EN</span>
-                    </button>
-
-                    <button onclick="toggleTheme()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5">
-                        <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                        <span>Theme</span>
-                    </button>
-                </div>
-            </div>
-
-        </div>
     </header>
 
-    <!-- Main Responsive Workspace -->
+    <!-- Main Workspace -->
     <main class="flex-grow w-full flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 py-5 sm:py-8 relative z-20">
         <div id="mainTabContainer" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
             
@@ -554,7 +555,7 @@
                             </div>
                         </div>
 
-                        <!-- Hero Input with Complete Autofill Suppression -->
+                        <!-- Hero Input -->
                         <div class="relative flex items-center input-hero-wrapper rounded-2xl p-1 shadow-sm">
                             <div class="pl-3.5 pr-1.5 text-slate-400 dark:text-slate-500 pointer-events-none">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -567,7 +568,7 @@
                             </button>
                         </div>
 
-                        <!-- Custom Floating Dropdowns -->
+                        <!-- Dropdowns -->
                         <div class="p-4 card-inner rounded-2xl space-y-3">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="cryptoParamsTitle">Cryptographic Parameters</span>
@@ -649,7 +650,7 @@
                         </div>
                     </div>
 
-                    <!-- Primary Action Row -->
+                    <!-- Primary Actions -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                         <button id="genBtn" onclick="generateTokenWithDelay()" class="h-12 bg-gradient-to-r from-blue-600 via-indigo-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-2xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-indigo-500/25 flex items-center justify-center relative overflow-hidden group border border-white/10">
                             <div class="btn-shimmer-beam" id="genBtnShimmer"></div>
@@ -667,7 +668,7 @@
                     </div>
                 </div>
 
-                <!-- Right Verification Display -->
+                <!-- Right Display Column -->
                 <div class="lg:col-span-5 p-5 sm:p-8 lg:p-9 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
                     <div id="codeCardBox" class="relative p-5 sm:p-7 rounded-3xl security-stage-card overflow-hidden shadow-md flex flex-col justify-between min-h-[220px]">
                         <div id="laserScanner" class="laser-sweep"></div>
@@ -725,7 +726,7 @@
 
         </div>
 
-        <!-- Passive Crypto/Ad Banner Integration Card -->
+        <!-- Ad Placement Card -->
         <div class="w-full max-w-5xl mt-5 sm:mt-6 panel-glass rounded-2xl p-3.5 sm:p-4 text-center border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
             <div class="flex items-center justify-between mb-2 px-1">
                 <span class="text-[10px] uppercase font-mono text-slate-400 tracking-widest">Sponsored Placement</span>
@@ -743,7 +744,7 @@
     </main>
 
     <!-- Account Vault Modal -->
-    <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 hidden">
+    <div id="vaultModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeVaultModal()"></div>
         <div class="relative w-full max-w-xl bg-[#090f20] border border-slate-800 rounded-3xl p-6 sm:p-8 z-10 space-y-6 animate-pop shadow-2xl text-slate-100">
             
@@ -815,7 +816,7 @@
     </div>
 
     <!-- Live Multi-Account Dashboard -->
-    <div id="dashboardModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 hidden">
+    <div id="dashboardModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeMultiAccountDashboard()"></div>
         <div class="relative w-full max-w-4xl max-h-[85vh] panel-glass rounded-3xl p-5 sm:p-8 z-10 flex flex-col space-y-4 animate-pop shadow-2xl overflow-hidden">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
@@ -841,7 +842,7 @@
     </div>
 
     <!-- Admin Password Modal -->
-    <div id="adminPasswordModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+    <div id="adminPasswordModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeAdminPasswordModal()"></div>
         <div class="relative w-full max-w-xs panel-glass rounded-2xl p-6 z-10 space-y-4 animate-pop shadow-2xl">
             <div class="text-center space-y-1">
@@ -861,7 +862,7 @@
     </div>
 
     <!-- Admin Panel Modal -->
-    <div id="adminModal" class="fixed inset-0 z-[70] flex items-center justify-center p-4 hidden">
+    <div id="adminModal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeAdminPanel()"></div>
         <div class="relative w-full max-w-4xl panel-glass rounded-3xl p-6 sm:p-9 z-10 space-y-6 animate-pop shadow-2xl">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-4">
@@ -928,7 +929,7 @@
             deferredPrompt = null;
         }
 
-        /* Mobile Drawer Right-to-Left Slide Toggle */
+        /* Smooth Right-to-Left Slide Drawer Toggle */
         function toggleMobileMenu() {
             const drawer = document.getElementById('mobileDrawer');
             const backdrop = document.getElementById('mobileDrawerBackdrop');
@@ -964,7 +965,7 @@
         }
         ['mousemove', 'keydown', 'click', 'touchstart'].forEach(e => window.addEventListener(e, resetInactivityTimer, { passive: true }));
 
-        /* Dictionary Translations */
+        /* Translations */
         const translations = {
             en: {
                 appSubtitle: "Enterprise 2FA Platform",
@@ -1620,10 +1621,11 @@
         function updateVaultDot(unlocked) {
             const dot = document.getElementById('vaultStatusDot');
             const dotMobile = document.getElementById('vaultStatusDotMobile');
-            const className = unlocked 
-                ? "w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" 
-                : "w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600";
-            if (dot) dot.className = className + " shrink-0";
+            if (dot) {
+                dot.className = unlocked 
+                    ? "w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] shrink-0" 
+                    : "w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600 shrink-0";
+            }
             if (dotMobile) {
                 dotMobile.className = unlocked 
                     ? "w-1 h-1 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.9)] absolute top-2 right-2" 
@@ -2220,7 +2222,8 @@
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d', { willReadFrequently: true });
-                    let width = img.width, height = img.height;
+                    let width = img.width;
+                    let height = img.height;
                     const maxDim = 1000;
                     if (width > maxDim || height > maxDim) {
                         if (width > height) { height = Math.round((height * maxDim) / width); width = maxDim; }
@@ -2446,7 +2449,7 @@
             renderHistoryList();
         }
 
-        /* Self-Contained Offline Service Worker Registration */
+        /* Inline Self-Contained Offline Service Worker */
         if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
             window.addEventListener('load', () => {
                 const swCode = `
