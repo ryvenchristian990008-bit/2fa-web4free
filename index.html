@@ -444,75 +444,89 @@
                 </button>
             </div>
 
-            <!-- Mobile Quick Actions & Hamburger Trigger (Hidden on Desktop) -->
-            <div class="flex md:hidden items-center gap-1.5">
+            <!-- Mobile Quick Controls (Padlock with Tiny 4px Dot & Hamburger Trigger) -->
+            <div class="flex md:hidden items-center gap-2">
                 <button onclick="openVaultModal()" class="w-9 h-9 flex items-center justify-center rounded-xl card-inner text-cyan-500 btn-modern relative" title="Vault">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                    <span id="vaultStatusDotMobile" class="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600 absolute top-2 right-2"></span>
+                    <span id="vaultStatusDotMobile" class="w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-600 absolute top-2 right-2"></span>
                 </button>
 
-                <button onclick="toggleMobileMenu()" class="w-9 h-9 flex items-center justify-center rounded-xl card-inner text-slate-700 dark:text-slate-200 btn-modern" title="Menu">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+                <button onclick="toggleMobileMenu()" class="w-9 h-9 flex items-center justify-center rounded-xl card-inner text-slate-700 dark:text-slate-200 btn-modern" title="Open Navigation">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
             </div>
 
         </div>
 
-        <!-- Mobile Drawer / Dropdown Panel -->
-        <div id="mobileDrawer" class="md:hidden hidden border-t border-slate-200/80 dark:border-slate-800 bg-white/95 dark:bg-[#060a17]/95 backdrop-blur-2xl px-4 py-3 space-y-2 animate-pop shadow-2xl">
-            <div class="grid grid-cols-2 gap-2">
-                <button onclick="openMultiAccountDashboard(); toggleMobileMenu();" class="h-10 px-3 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
-                    <span data-i18n="navGrid">Live Grid</span>
-                </button>
+        <!-- Mobile Right-to-Left Slide-In Drawer Backdrop -->
+        <div id="mobileDrawerBackdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[80] hidden opacity-0 transition-opacity duration-300 md:hidden" onclick="toggleMobileMenu()"></div>
 
-                <button onclick="openNotesModal(); toggleMobileMenu();" class="h-10 px-3 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <span data-i18n="navNotes">Guide</span>
-                </button>
+        <!-- Mobile Drawer Sidebar (Slides Right-to-Left) -->
+        <div id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-72 max-w-[80vw] bg-white/95 dark:bg-[#060a17]/95 backdrop-blur-2xl border-l border-slate-200/80 dark:border-slate-800 z-[85] translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between p-5 md:hidden shadow-2xl">
+            
+            <div class="space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">Navigation Menu</span>
+                    <button onclick="toggleMobileMenu()" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
+                </div>
 
-                <button onclick="openAdminPasswordModal(); toggleMobileMenu();" class="h-10 px-3 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span data-i18n="admin">Admin</span>
-                </button>
+                <div class="flex flex-col gap-2">
+                    <button onclick="openMultiAccountDashboard(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500">
+                        <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                        <span data-i18n="navGrid">Live Grid</span>
+                    </button>
 
-                <button onclick="triggerUniversalTabRefresh()" class="h-10 px-3 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    <span>Refresh Tab</span>
-                </button>
+                    <button onclick="openNotesModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500">
+                        <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        <span data-i18n="navNotes">Guide</span>
+                    </button>
+
+                    <button onclick="openAdminPasswordModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500">
+                        <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span data-i18n="admin">Admin</span>
+                    </button>
+
+                    <button onclick="triggerUniversalTabRefresh(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500">
+                        <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        <span>Refresh App</span>
+                    </button>
+                </div>
             </div>
 
-            <div class="flex items-center justify-between pt-1 border-t border-slate-200/50 dark:border-slate-800/80 gap-2">
-                <button onclick="toggleLanguage()" class="flex-1 h-9 rounded-xl card-inner text-xs font-bold flex items-center justify-center gap-1.5 text-slate-700 dark:text-slate-300">
-                    <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
-                    <span id="langTextMobile">Language: EN</span>
+            <div class="space-y-2 pt-3 border-t border-slate-200/80 dark:border-slate-800">
+                <button id="pwaInstallBtnMobile" onclick="installAppDirectly()" class="hidden w-full h-10 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    <span>Install App</span>
                 </button>
 
-                <button onclick="toggleTheme()" class="flex-1 h-9 rounded-xl card-inner text-xs font-bold flex items-center justify-center gap-1.5 text-slate-700 dark:text-slate-300">
-                    <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    <span>Theme</span>
-                </button>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="toggleLanguage()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                        <span id="langTextMobile">EN</span>
+                    </button>
+
+                    <button onclick="toggleTheme()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5">
+                        <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <span>Theme</span>
+                    </button>
+                </div>
             </div>
 
-            <button id="pwaInstallBtnMobile" onclick="installAppDirectly()" class="hidden w-full h-10 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold flex items-center justify-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                <span>Install GlobalAuth PWA</span>
-            </button>
         </div>
     </header>
 
     <!-- Main Responsive Workspace -->
-    <main class="flex-grow w-full flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 py-4 sm:py-8 relative z-20">
+    <main class="flex-grow w-full flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 py-5 sm:py-8 relative z-20">
         <div id="mainTabContainer" class="w-full max-w-5xl panel-glass rounded-3xl overflow-hidden shadow-2xl transition-all duration-300">
             
             <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800/80">
                 
                 <!-- Left Configurator Column -->
-                <div class="lg:col-span-7 p-4 sm:p-8 lg:p-9 flex flex-col justify-between gap-5 sm:gap-6">
+                <div class="lg:col-span-7 p-5 sm:p-8 lg:p-9 flex flex-col justify-between gap-6">
                     <div>
-                        <div class="flex flex-wrap items-center justify-between gap-2 pb-1.5">
+                        <div class="flex flex-wrap items-center justify-between gap-2 pb-2">
                             <span class="text-[10px] sm:text-[11px] font-bold font-mono tracking-widest text-brand-600 dark:text-brand-400 uppercase" data-i18n="standardTag">RFC 6238 Standard</span>
-                            <span class="text-[10px] sm:text-[11px] text-slate-400 font-mono hidden xs:inline" data-i18n="shortcutHints">Shortcuts: Ctrl+V / Ctrl+C</span>
+                            <span class="text-[10px] sm:text-[11px] text-slate-400 font-mono" data-i18n="shortcutHints">Shortcuts: Ctrl+V / Ctrl+C</span>
                         </div>
                         <h1 class="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 dark:text-white tracking-tight" data-i18n="title">Authentication Gateway</h1>
                         <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1" data-i18n="desc">Enter an encryption token or scan standard OTP provisioning parameters.</p>
@@ -540,21 +554,21 @@
                             </div>
                         </div>
 
-                        <!-- Input Wrapper -->
+                        <!-- Hero Input with Complete Autofill Suppression -->
                         <div class="relative flex items-center input-hero-wrapper rounded-2xl p-1 shadow-sm">
-                            <div class="pl-3 sm:pl-3.5 pr-1.5 text-slate-400 dark:text-slate-500 pointer-events-none">
+                            <div class="pl-3.5 pr-1.5 text-slate-400 dark:text-slate-500 pointer-events-none">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                             </div>
                             <input type="text" id="secretInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" oninput="parseSecretUriParams()" placeholder="Paste key or otpauth:// link..." data-i18n-placeholder="secretPlaceholder"
-                                class="w-full h-10 sm:h-11 bg-transparent px-2 text-xs sm:text-sm font-mono font-medium focus:outline-none text-slate-900 dark:text-slate-100 uppercase tracking-wider placeholder:normal-case placeholder:font-sans placeholder:tracking-normal">
-                            <button type="button" onclick="pasteFromClipboard()" class="mr-1 sm:mr-1.5 h-8 px-2 sm:px-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-[11px] font-semibold flex items-center gap-1 shrink-0 btn-modern transition-colors" title="Paste from clipboard">
+                                class="w-full h-11 bg-transparent px-2 text-xs sm:text-sm font-mono font-medium focus:outline-none text-slate-900 dark:text-slate-100 uppercase tracking-wider placeholder:normal-case placeholder:font-sans placeholder:tracking-normal">
+                            <button type="button" onclick="pasteFromClipboard()" class="mr-1.5 h-8 px-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-[11px] font-semibold flex items-center gap-1 shrink-0 btn-modern transition-colors" title="Paste from clipboard">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                                <span>Paste</span>
+                                <span class="hidden xs:inline">Paste</span>
                             </button>
                         </div>
 
                         <!-- Custom Floating Dropdowns -->
-                        <div class="p-3 sm:p-4 card-inner rounded-2xl space-y-3">
+                        <div class="p-4 card-inner rounded-2xl space-y-3">
                             <div class="flex items-center justify-between">
                                 <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="cryptoParamsTitle">Cryptographic Parameters</span>
                                 <span class="text-[9px] sm:text-[10px] text-slate-400 font-mono" data-i18n="autoDetectedHint">Auto-detected from URIs</span>
@@ -636,7 +650,7 @@
                     </div>
 
                     <!-- Primary Action Row -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 sm:pt-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                         <button id="genBtn" onclick="generateTokenWithDelay()" class="h-12 bg-gradient-to-r from-blue-600 via-indigo-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-2xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-indigo-500/25 flex items-center justify-center relative overflow-hidden group border border-white/10">
                             <div class="btn-shimmer-beam" id="genBtnShimmer"></div>
                             <div id="genProgressBar" class="btn-loading-bar"></div>
@@ -654,8 +668,8 @@
                 </div>
 
                 <!-- Right Verification Display -->
-                <div class="lg:col-span-5 p-4 sm:p-8 lg:p-9 flex flex-col justify-between gap-5 sm:gap-6 bg-slate-50/50 dark:bg-slate-950/40">
-                    <div id="codeCardBox" class="relative p-5 sm:p-7 rounded-3xl security-stage-card overflow-hidden shadow-md flex flex-col justify-between min-h-[200px] sm:min-h-[220px]">
+                <div class="lg:col-span-5 p-5 sm:p-8 lg:p-9 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
+                    <div id="codeCardBox" class="relative p-5 sm:p-7 rounded-3xl security-stage-card overflow-hidden shadow-md flex flex-col justify-between min-h-[220px]">
                         <div id="laserScanner" class="laser-sweep"></div>
 
                         <div id="codeDisplaySection" class="flex flex-col h-full justify-between space-y-4">
@@ -675,7 +689,7 @@
                             </div>
 
                             <div class="text-center py-2 sm:py-3 flex flex-col items-center justify-center">
-                                <div id="resultCode" class="text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm transition-all duration-300 min-h-[48px] sm:min-h-[52px] flex items-center justify-center">
+                                <div id="resultCode" class="text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm transition-all duration-300 min-h-[52px] flex items-center justify-center">
                                     ------
                                 </div>
                                 <div class="w-full max-w-[280px] h-1.5 bg-slate-200 dark:bg-slate-800/80 rounded-full overflow-hidden mt-3 shadow-inner">
@@ -690,7 +704,7 @@
                         </div>
                     </div>
 
-                    <div class="card-inner p-3.5 sm:p-4 rounded-2xl space-y-2.5">
+                    <div class="card-inner p-4 rounded-2xl space-y-2.5">
                         <div class="flex items-center justify-between">
                             <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5" data-i18n="historyTitle">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -711,8 +725,8 @@
 
         </div>
 
-        <!-- Ad Placement Card -->
-        <div class="w-full max-w-5xl mt-4 sm:mt-6 panel-glass rounded-2xl p-3 sm:p-4 text-center border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
+        <!-- Passive Crypto/Ad Banner Integration Card -->
+        <div class="w-full max-w-5xl mt-5 sm:mt-6 panel-glass rounded-2xl p-3.5 sm:p-4 text-center border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
             <div class="flex items-center justify-between mb-2 px-1">
                 <span class="text-[10px] uppercase font-mono text-slate-400 tracking-widest">Sponsored Placement</span>
                 <span class="text-[10px] text-brand-500 font-mono">Supports Free Access</span>
@@ -731,7 +745,7 @@
     <!-- Account Vault Modal -->
     <div id="vaultModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 hidden">
         <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-md" onclick="closeVaultModal()"></div>
-        <div class="relative w-full max-w-xl bg-[#090f20] border border-slate-800 rounded-3xl p-5 sm:p-8 z-10 space-y-5 sm:space-y-6 animate-pop shadow-2xl text-slate-100">
+        <div class="relative w-full max-w-xl bg-[#090f20] border border-slate-800 rounded-3xl p-6 sm:p-8 z-10 space-y-6 animate-pop shadow-2xl text-slate-100">
             
             <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
                 <div class="flex items-center gap-3">
@@ -747,22 +761,22 @@
             </div>
 
             <!-- Master Password Form -->
-            <div id="vaultAuthSection" class="space-y-5 sm:space-y-6 py-2 sm:py-4 text-center">
-                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-indigo-400 flex items-center justify-center mx-auto shadow-inner">
-                    <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <div id="vaultAuthSection" class="space-y-6 py-4 text-center">
+                <div class="w-14 h-14 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 text-indigo-400 flex items-center justify-center mx-auto shadow-inner">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
                 
                 <div>
-                    <h4 id="vaultAuthTitle" class="text-base sm:text-lg font-bold text-white" data-i18n="vaultCreateTitle">Create Master Password</h4>
+                    <h4 id="vaultAuthTitle" class="text-lg font-bold text-white" data-i18n="vaultCreateTitle">Create Master Password</h4>
                     <p id="vaultAuthDesc" class="text-xs text-slate-400 mt-1" data-i18n="vaultCreateDesc">Set your own custom password to protect your database.</p>
                 </div>
                 
-                <div class="relative w-full max-w-sm mx-auto space-y-2.5 sm:space-y-3">
+                <div class="relative w-full max-w-sm mx-auto space-y-3">
                     <input type="password" id="masterPasswordInput" placeholder="Enter custom master password..." data-i18n-placeholder="vaultMasterPassPlaceholder"
-                        class="w-full h-11 sm:h-12 bg-[#050914] border border-slate-800 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
+                        class="w-full h-12 bg-[#050914] border border-slate-800 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
                     
                     <input type="password" id="confirmPasswordInput" placeholder="Confirm custom master password..." data-i18n-placeholder="vaultConfirmPassPlaceholder"
-                        class="w-full h-11 sm:h-12 bg-[#050914] border border-slate-800 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
+                        class="w-full h-12 bg-[#050914] border border-slate-800 focus:border-indigo-500 rounded-xl px-4 text-xs font-medium text-center text-white placeholder-slate-500 outline-none transition-all shadow-inner">
                 </div>
 
                 <div>
@@ -777,17 +791,17 @@
             <div id="vaultContentSection" class="space-y-4 hidden">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <input type="text" id="vaultSearchInput" oninput="renderVaultAccounts()" placeholder="Search stored accounts..." data-i18n-placeholder="vaultSearchPlaceholder"
-                        class="flex-grow min-w-[140px] h-9 bg-slate-900 border border-slate-800 rounded-xl px-3 text-xs font-medium focus:outline-none focus:border-indigo-500 text-slate-100">
+                        class="flex-grow min-w-[180px] h-9 bg-slate-900 border border-slate-800 rounded-xl px-3 text-xs font-medium focus:outline-none focus:border-indigo-500 text-slate-100">
 
                     <div class="flex items-center gap-1.5">
                         <button onclick="exportVaultBackupFile()" class="h-8 px-2.5 rounded-lg card-inner hover:text-emerald-500 text-xs font-semibold flex items-center gap-1.5 btn-modern" title="Export encrypted JSON backup">
                             <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                            <span class="hidden xs:inline" data-i18n="btnBackup">Backup</span>
+                            <span data-i18n="btnBackup">Backup</span>
                         </button>
                         
                         <label class="h-8 px-2.5 rounded-lg card-inner hover:text-blue-500 text-xs font-semibold flex items-center gap-1.5 btn-modern cursor-pointer" title="Restore encrypted JSON backup">
                             <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                            <span class="hidden xs:inline" data-i18n="btnRestore">Restore</span>
+                            <span data-i18n="btnRestore">Restore</span>
                             <input type="file" id="backupFileInput" accept=".json" class="hidden" onchange="importVaultBackupFile(event)">
                         </label>
 
@@ -914,10 +928,26 @@
             deferredPrompt = null;
         }
 
-        /* Mobile Menu Toggle */
+        /* Mobile Drawer Right-to-Left Slide Toggle */
         function toggleMobileMenu() {
             const drawer = document.getElementById('mobileDrawer');
-            if (drawer) drawer.classList.toggle('hidden');
+            const backdrop = document.getElementById('mobileDrawerBackdrop');
+            if (!drawer || !backdrop) return;
+
+            const isClosed = drawer.classList.contains('translate-x-full');
+            if (isClosed) {
+                backdrop.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    backdrop.classList.remove('opacity-0');
+                    drawer.classList.remove('translate-x-full');
+                });
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => {
+                    backdrop.classList.add('hidden');
+                }, 300);
+            }
         }
 
         /* 5-Min Idle Session Auto-Lock */
@@ -1594,7 +1624,11 @@
                 ? "w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" 
                 : "w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-600";
             if (dot) dot.className = className + " shrink-0";
-            if (dotMobile) dotMobile.className = className + " absolute top-2 right-2";
+            if (dotMobile) {
+                dotMobile.className = unlocked 
+                    ? "w-1 h-1 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.9)] absolute top-2 right-2" 
+                    : "w-1 h-1 rounded-full bg-slate-400 dark:bg-slate-600 absolute top-2 right-2";
+            }
         }
 
         async function saveAccountToVault() {
@@ -1895,7 +1929,7 @@
             }
         }
 
-        /* 2-Second Delay Token Generation */
+        /* 2-Second Delay Token Generation with Scramble Decoding */
         async function generateTokenWithDelay() {
             const secret = getSanitizedSecret();
             if (!secret) {
@@ -2186,8 +2220,7 @@
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d', { willReadFrequently: true });
-                    let width = img.width;
-                    let height = img.height;
+                    let width = img.width, height = img.height;
                     const maxDim = 1000;
                     if (width > maxDim || height > maxDim) {
                         if (width > height) { height = Math.round((height * maxDim) / width); width = maxDim; }
@@ -2229,7 +2262,12 @@
                 stopCameraScanner();
                 closeAllCustomDropdowns();
                 const drawer = document.getElementById('mobileDrawer');
-                if (drawer) drawer.classList.add('hidden');
+                const backdrop = document.getElementById('mobileDrawerBackdrop');
+                if (drawer && !drawer.classList.contains('translate-x-full')) {
+                    drawer.classList.add('translate-x-full');
+                    if (backdrop) backdrop.classList.add('opacity-0');
+                    setTimeout(() => backdrop && backdrop.classList.add('hidden'), 300);
+                }
                 return;
             }
 
@@ -2367,15 +2405,15 @@
             if (currentLang === 'en') {
                 currentLang = 'km';
                 document.getElementById('langText').innerText = 'ខ្មែរ';
-                document.getElementById('langTextMobile').innerText = 'Language: ខ្មែរ';
+                document.getElementById('langTextMobile').innerText = 'ខ្មែរ';
             } else if (currentLang === 'km') {
                 currentLang = 'zh';
                 document.getElementById('langText').innerText = '中文';
-                document.getElementById('langTextMobile').innerText = 'Language: 中文';
+                document.getElementById('langTextMobile').innerText = '中文';
             } else {
                 currentLang = 'en';
                 document.getElementById('langText').innerText = 'EN';
-                document.getElementById('langTextMobile').innerText = 'Language: EN';
+                document.getElementById('langTextMobile').innerText = 'EN';
             }
             
             document.getElementById('htmlRoot').setAttribute('lang', currentLang);
