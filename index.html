@@ -9,7 +9,7 @@
 
     <title>GlobalAuth - Enterprise 2FA & Security Suite</title>
     
-    <meta name="description" content="GlobalAuth is a high-grade 2FA authenticator suite designed to generate, inspect, and encrypt time-based one-time passwords securely.">
+    <meta name="description" content="GlobalAuth is an enterprise-grade 2FA authenticator suite designed to generate, inspect, and encrypt time-based one-time passwords securely.">
     <meta name="keywords" content="2fa, two-factor authentication, globalauth, totp generator, security app, authenticator, enterprise 2fa">
     <meta name="author" content="GlobalAuth">
     
@@ -19,7 +19,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Anti-Glitch: Zero-Flicker Pre-Render Theme Initialization -->
+    <!-- Zero-Flicker Pre-Render Theme Initialization -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -103,11 +103,11 @@
         }
 
         .bg-mesh-dark {
-            background-color: #050814;
+            background-color: #030611;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.14) 0px, transparent 45%),
-                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 40%),
-                radial-gradient(at 50% 100%, rgba(15, 23, 42, 0.85) 0px, transparent 60%);
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.16) 0px, transparent 48%),
+                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 42%),
+                radial-gradient(at 50% 100%, rgba(15, 23, 42, 0.95) 0px, transparent 65%);
         }
         .bg-mesh-light {
             background-color: #f8fafc;
@@ -119,69 +119,69 @@
 
         .panel-glass {
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-        }
-        .dark .panel-glass {
-            background: rgba(11, 17, 33, 0.9);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+        }
+        .dark .panel-glass {
+            background: rgba(11, 16, 32, 0.88);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 1px 0 0 rgba(255, 255, 255, 0.06) inset;
+            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 1px 0 0 rgba(255, 255, 255, 0.07) inset;
         }
 
         .card-inner {
             background: rgba(248, 250, 252, 0.85);
-            border: 1px solid rgba(226, 232, 240, 0.95);
+            border: 1px solid rgba(226, 232, 240, 0.9);
         }
         .dark .card-inner {
-            background: rgba(15, 23, 42, 0.7);
+            background: rgba(14, 21, 40, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .security-stage-card {
-            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 70%), rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 70%), rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(226, 232, 240, 0.95);
+            box-shadow: 0 12px 32px -10px rgba(0,0,0,0.05);
         }
         .dark .security-stage-card {
-            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 65%), rgba(12, 18, 34, 0.85);
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.16) 0%, transparent 65%), rgba(10, 16, 32, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(99, 102, 241, 0.1) inset;
+            box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(99, 102, 241, 0.15) inset;
         }
 
         .input-hero-wrapper {
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             border: 1px solid rgba(226, 232, 240, 0.9);
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
         }
         .dark .input-hero-wrapper {
             border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(13, 19, 36, 0.7);
+            background: rgba(13, 19, 36, 0.8);
         }
         .input-hero-wrapper:focus-within {
             border-color: rgba(99, 102, 241, 0.85);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), 0 8px 24px -6px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18), 0 10px 28px -6px rgba(99, 102, 241, 0.25);
         }
 
         .custom-dropdown-panel {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(226, 232, 240, 0.95);
-            box-shadow: 0 18px 36px -8px rgba(15, 23, 42, 0.14);
+            box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.16);
         }
         .dark .custom-dropdown-panel {
-            background: rgba(15, 23, 42, 0.98);
+            background: rgba(11, 16, 30, 0.98);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85);
+            box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.9);
         }
         .dropdown-item {
             transition: background-color 0.15s ease, color 0.15s ease;
         }
         .dropdown-item.selected {
-            background: rgba(99, 102, 241, 0.12);
+            background: rgba(99, 102, 241, 0.14);
             color: #4f46e5;
             font-weight: 700;
         }
@@ -217,7 +217,7 @@
         .btn-shimmer-beam {
             position: absolute;
             top: 0; left: 0; width: 60%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
             animation: shimmerBeam 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             pointer-events: none;
         }
@@ -279,36 +279,36 @@
     </div>
 
     <!-- Mobile Drawer Backdrop Overlay -->
-    <div id="mobileDrawerBackdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[95] hidden opacity-0 transition-opacity duration-300 md:hidden" onclick="toggleMobileMenu()"></div>
+    <div id="mobileDrawerBackdrop" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-[95] hidden opacity-0 transition-opacity duration-300 md:hidden" onclick="toggleMobileMenu()"></div>
 
-    <!-- Mobile Slide-In Navigation Drawer (Solid Surface, Zero Glitch) -->
-    <div id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-72 max-w-[85vw] bg-white dark:bg-[#090e1c] border-l border-slate-200 dark:border-slate-800/80 z-[100] translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between p-5 md:hidden shadow-2xl">
+    <!-- Mobile Slide-In Navigation Drawer (Solid Luxury Surface) -->
+    <div id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-72 max-w-[85vw] bg-white dark:bg-[#070b18] border-l border-slate-200 dark:border-slate-800/80 z-[100] translate-x-full transition-transform duration-300 ease-out flex flex-col justify-between p-5 md:hidden shadow-2xl">
         <div class="space-y-4">
             <div class="flex items-center justify-between border-b border-slate-200/80 dark:border-slate-800 pb-3">
                 <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+                    <span class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(99,102,241,0.8)]"></span>
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 font-mono">Navigation Menu</span>
                 </div>
-                <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
+                <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs btn-modern">✕</button>
             </div>
 
             <div class="flex flex-col gap-2">
-                <button onclick="openMultiAccountDashboard(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors">
+                <button onclick="openMultiAccountDashboard(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors btn-modern">
                     <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
                     <span data-i18n="navGrid">Live Grid</span>
                 </button>
 
-                <button onclick="openNotesModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors">
+                <button onclick="openNotesModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors btn-modern">
                     <svg class="w-4 h-4 text-amber-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                     <span data-i18n="navNotes">Guide</span>
                 </button>
 
-                <button onclick="openAdminPasswordModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors">
+                <button onclick="openAdminPasswordModal(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors btn-modern">
                     <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     <span data-i18n="admin">Admin</span>
                 </button>
 
-                <button onclick="triggerUniversalTabRefresh(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors">
+                <button onclick="triggerUniversalTabRefresh(); toggleMobileMenu();" class="w-full h-11 px-3.5 rounded-xl card-inner text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-3 hover:border-brand-500 transition-colors btn-modern">
                     <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                     <span>Refresh App</span>
                 </button>
@@ -316,18 +316,18 @@
         </div>
 
         <div class="space-y-2 pt-4 border-t border-slate-200/80 dark:border-slate-800">
-            <button id="pwaInstallBtnMobile" onclick="installAppDirectly()" class="hidden w-full h-11 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-sm">
+            <button id="pwaInstallBtnMobile" onclick="installAppDirectly()" class="hidden w-full h-11 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 btn-modern">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                 <span>Install GlobalAuth PWA</span>
             </button>
 
             <div class="grid grid-cols-2 gap-2">
-                <button onclick="toggleLanguage()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5 hover:border-brand-500 transition-colors">
+                <button onclick="toggleLanguage()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5 hover:border-brand-500 transition-colors btn-modern">
                     <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
                     <span id="langTextMobile">EN</span>
                 </button>
 
-                <button onclick="toggleTheme()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5 hover:border-brand-500 transition-colors">
+                <button onclick="toggleTheme()" class="h-10 rounded-xl card-inner text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center justify-center gap-1.5 hover:border-brand-500 transition-colors btn-modern">
                     <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                     <span>Theme</span>
                 </button>
@@ -394,7 +394,7 @@
                         <p class="text-[11px] text-slate-400 font-mono" data-i18n="notesSubHeading">Architecture & Operational Workflow</p>
                     </div>
                 </div>
-                <button onclick="closeNotesModal()" class="w-8 h-8 rounded-lg card-inner text-slate-400 hover:text-slate-600 dark:hover:text-white flex items-center justify-center text-xs">✕</button>
+                <button onclick="closeNotesModal()" class="w-8 h-8 rounded-lg card-inner text-slate-400 hover:text-white flex items-center justify-center text-xs">✕</button>
             </div>
 
             <div id="notesContainer" class="flex-grow overflow-y-auto pr-1 space-y-3.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300"></div>
@@ -429,7 +429,7 @@
     </div>
 
     <!-- Header Navigation -->
-    <header class="sticky top-0 z-50 bg-white/85 dark:bg-[#060a17]/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
+    <header class="sticky top-0 z-50 bg-white/85 dark:bg-[#050814]/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
             
             <!-- Brand Logo & Title -->
@@ -452,7 +452,7 @@
                 <div class="flex flex-col">
                     <div class="flex items-center gap-1 sm:gap-2">
                         <span class="font-black tracking-tight text-base sm:text-lg text-slate-900 dark:text-white leading-none">GlobalAuth</span>
-                        <span class="text-[9px] sm:text-[10px] font-mono font-bold tracking-wider px-1.5 py-0.5 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 rounded border border-brand-500/20 uppercase">Core</span>
+                        <span class="text-[9px] sm:text-[10px] font-mono font-bold tracking-wider px-1.5 py-0.5 text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 rounded border border-brand-500/20 uppercase shadow-sm">Core</span>
                     </div>
                     <span class="text-[10px] sm:text-[11px] text-slate-400 font-medium truncate" data-i18n="appSubtitle">Enterprise 2FA Platform</span>
                 </div>
@@ -650,7 +650,7 @@
                         </div>
                     </div>
 
-                    <!-- Primary Actions -->
+                    <!-- Primary Action Row -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                         <button id="genBtn" onclick="generateTokenWithDelay()" class="h-12 bg-gradient-to-r from-blue-600 via-indigo-600 to-brand-600 hover:from-blue-500 hover:to-brand-500 text-white rounded-2xl text-xs sm:text-sm font-bold btn-modern shadow-lg shadow-indigo-500/25 flex items-center justify-center relative overflow-hidden group border border-white/10">
                             <div class="btn-shimmer-beam" id="genBtnShimmer"></div>
@@ -668,7 +668,7 @@
                     </div>
                 </div>
 
-                <!-- Right Display Column -->
+                <!-- Right Verification Display -->
                 <div class="lg:col-span-5 p-5 sm:p-8 lg:p-9 flex flex-col justify-between gap-6 bg-slate-50/50 dark:bg-slate-950/40">
                     <div id="codeCardBox" class="relative p-5 sm:p-7 rounded-3xl security-stage-card overflow-hidden shadow-md flex flex-col justify-between min-h-[220px]">
                         <div id="laserScanner" class="laser-sweep"></div>
@@ -726,7 +726,7 @@
 
         </div>
 
-        <!-- Ad Placement Card -->
+        <!-- Passive Crypto/Ad Banner Integration Card -->
         <div class="w-full max-w-5xl mt-5 sm:mt-6 panel-glass rounded-2xl p-3.5 sm:p-4 text-center border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
             <div class="flex items-center justify-between mb-2 px-1">
                 <span class="text-[10px] uppercase font-mono text-slate-400 tracking-widest">Sponsored Placement</span>
@@ -2449,7 +2449,7 @@
             renderHistoryList();
         }
 
-        /* Inline Self-Contained Offline Service Worker */
+        /* Offline Service Worker Registration */
         if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
             window.addEventListener('load', () => {
                 const swCode = `
