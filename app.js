@@ -114,7 +114,6 @@ function getBrandBadge(name) {
         brandColor = 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'; 
         brandName = 'Microsoft'; 
     } else {
-        // Extract a clean display string if no specific match
         const parts = name.split(/[:\-_/]/);
         if (parts.length > 0 && parts[0].trim().length > 0) {
             brandName = parts[0].trim();
@@ -122,6 +121,13 @@ function getBrandBadge(name) {
     }
 
     return `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded border font-bold shrink-0 ${brandColor}">${brandName}</span>`;
+}
+
+/* Convert Country Code to Emoji Flag */
+function getCountryFlag(code) {
+    if (!code || code.length !== 2) return '🌐';
+    const offset = 127397;
+    return String.fromCodePoint(...code.toUpperCase().split('').map(c => c.charCodeAt(0) + offset));
 }
 
 /* Translations */
@@ -425,26 +431,52 @@ async function pasteFromClipboard() {
     }
 }
 
-/* IP Telemetry Logger */
+/* IP Geolocation Telemetry Logger */
 async function logVisitorAccess(action = "Page Visit") {
     try {
-        const res = await fetch('https://api.ipify.org?format=json');
+        const res = await fetch('https://ipapi.co/json/');
         const data = await res.json();
+        
         if (data && data.ip) {
+            const countryCode = data.country_code || 'UN';
+            const countryName = data.country_name || 'Unknown Region';
+            const flag = getCountryFlag(countryCode);
+
             const logs = JSON.parse(localStorage.getItem('admin_ip_logs') || '[]');
             logs.unshift({
                 ip: data.ip,
+                countryCode: countryCode,
+                countryName: countryName,
+                flag: flag,
                 action: action,
                 time: new Date().toLocaleString()
             });
-            localStorage.setItem('admin_ip_logs', JSON.stringify(logs.slice(0, 50)));
+            
+            localStorage.setItem('admin_ip_logs', JSON.stringify(logs.slice(0, 60)));
 
             let visitors = parseInt(localStorage.getItem('stat_visitors') || '0', 10);
             if (action === "Page Visit") {
                 localStorage.setItem('stat_visitors', (visitors + 1).toString());
             }
         }
-    } catch (err) {}
+    } catch (err) {
+        try {
+            const fallbackRes = await fetch('https://api.ipify.org?format=json');
+            const fallbackData = await fallbackRes.json();
+            if (fallbackData && fallbackData.ip) {
+                const logs = JSON.parse(localStorage.getItem('admin_ip_logs') || '[]');
+                logs.unshift({
+                    ip: fallbackData.ip,
+                    countryCode: 'UN',
+                    countryName: 'Unknown',
+                    flag: '🌐',
+                    action: action,
+                    time: new Date().toLocaleString()
+                });
+                localStorage.setItem('admin_ip_logs', JSON.stringify(logs.slice(0, 60)));
+            }
+        } catch (e) {}
+    }
 }
 window.addEventListener('load', () => logVisitorAccess("Page Visit"));
 
@@ -860,7 +892,6 @@ function renderVaultAccounts() {
         const digits = acc.digits || '6';
         const maskedSecret = acc.secret.length > 6 ? acc.secret.substring(0, 4) + '••••••••' : '••••••••';
         
-        // Clean display name and avoid redundant duplicate strings
         let cleanName = acc.name;
         if (cleanName.includes(':')) {
             const parts = cleanName.split(':');
@@ -1521,7 +1552,88 @@ function showToast(text) {
     }, 2000);
 }
 
-/* Admin Verification */
+/* Categorized Event Badges */
+function getActionBadge(action) {
+    const act = (action || '').toLowerCase();
+    if (act.includes('unlock')) {
+        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Unlocked Vault
+        </span>`;
+    } else if (act.includes('password') || act.includes('created')) {
+        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Master Auth
+        </span>`;
+    } else {
+        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> Page Visit
+        </span>`;
+    }
+}
+
+/* Render Formatted Telemetry Logs */
+function fetchAdminStats(searchTerm = '') {
+    document.getElementById('statVisitors').innerText = localStorage.getItem('stat_visitors') || '1';
+    document.getElementById('statGenerations').innerText = localStorage.getItem('stat_generations') || '0';
+    
+    const container = document.getElementById('adminLogsList');
+    const logs = JSON.parse(localStorage.getItem('admin_ip_logs') || '[]');
+
+    const filtered = logs.filter(log => 
+        (log.ip || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (log.action || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (log.countryName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (log.countryCode || '').toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<div class="card-inner p-4 text-center text-xs text-slate-400 italic rounded-xl">No telemetry matching query</div>`;
+        return;
+    }
+
+    container.innerHTML = filtered.map(log => {
+        const flag = log.flag || getCountryFlag(log.countryCode);
+        const region = log.countryCode && log.countryCode !== 'UN' ? log.countryCode : '';
+
+        return `
+            <div class="grid grid-cols-12 items-center px-4 py-2.5 rounded-xl card-inner border border-slate-200/50 dark:border-slate-800/80 hover:border-brand-500/40 transition-colors group">
+                <div class="col-span-5 flex items-center gap-2 min-w-0 pr-2">
+                    <span class="text-base select-none" title="${log.countryName || 'Region'}">${flag}</span>
+                    <span class="font-bold text-brand-500 dark:text-brand-400 tracking-tight truncate">${log.ip}</span>
+                    ${region ? `<span class="text-[9px] font-mono px-1 rounded bg-slate-500/10 text-slate-400 font-bold shrink-0">${region}</span>` : ''}
+                    <button onclick="copyExplicit('${log.ip}')" class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-white text-[11px] shrink-0" title="Copy IP">
+                        📋
+                    </button>
+                </div>
+
+                <div class="col-span-4 flex items-center">
+                    ${getActionBadge(log.action)}
+                </div>
+
+                <div class="col-span-3 text-right text-[11px] text-slate-400 truncate">
+                    ${log.time}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function filterAdminLogs() {
+    const val = document.getElementById('adminLogSearchInput')?.value || '';
+    fetchAdminStats(val);
+}
+
+function clearAdminLogs() {
+    showModernConfirm({
+        title: "Clear IP Audit Logs?",
+        desc: "All stored telemetry logs will be permanently deleted from local cache.",
+        onConfirm: () => {
+            localStorage.removeItem('admin_ip_logs');
+            fetchAdminStats();
+            showToast("Audit logs cleared.");
+        }
+    });
+}
+
 function openAdminPasswordModal() {
     document.getElementById('adminPinInput').value = '';
     document.getElementById('adminPasswordError').classList.add('hidden');
@@ -1540,23 +1652,6 @@ function verifyAdminPasscode() {
     }
 }
 function closeAdminPanel() { document.getElementById('adminModal').classList.add('hidden'); }
-function fetchAdminStats() {
-    document.getElementById('statVisitors').innerText = localStorage.getItem('stat_visitors') || '1';
-    document.getElementById('statGenerations').innerText = localStorage.getItem('stat_generations') || '0';
-    const container = document.getElementById('adminLogsList');
-    const logs = JSON.parse(localStorage.getItem('admin_ip_logs') || '[]');
-    if (logs.length > 0) {
-        container.innerHTML = logs.map(log => `
-            <div class="flex justify-between items-center py-1.5 px-3 rounded bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800">
-                <div>
-                    <span class="font-bold text-brand-500">${log.ip}</span>
-                    <span class="text-slate-500 text-[10px] ml-2 font-sans">(${log.action})</span>
-                </div>
-                <span class="text-slate-400 text-[10px]">${log.time}</span>
-            </div>
-        `).join('');
-    }
-}
 
 /* Theme & Dynamic Localization */
 function updateThemeClasses() {
