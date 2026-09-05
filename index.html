@@ -726,6 +726,15 @@
         </div>
     </div>
 
+    <!-- Monetag Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(function(err) {
+                console.error('Monetag Service Worker registration failed:', err);
+            });
+        }
+    </script>
+
     <!-- Main JavaScript Execution Engine -->
     <script src="app.js"></script>
 </body>
