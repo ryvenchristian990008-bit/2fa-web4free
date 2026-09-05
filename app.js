@@ -77,41 +77,41 @@ function resetInactivityTimer() {
 /* Clean Social Media & Brand Recognition Helper */
 function getBrandBadge(name) {
     const lower = name.toLowerCase();
-    let brandColor = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+    let brandColor = 'bg-slate-500/10 text-slate-500 dark:text-slate-400 border-slate-500/20';
     let brandName = 'Service';
 
     if (lower.includes('facebook') || lower.includes('meta')) { 
-        brandColor = 'bg-blue-600/10 text-blue-500 border-blue-600/20'; 
+        brandColor = 'bg-blue-600/10 text-blue-600 dark:text-blue-500 border-blue-600/20'; 
         brandName = 'Facebook'; 
     } else if (lower.includes('instagram') || lower.includes('ig')) { 
-        brandColor = 'bg-pink-500/10 text-pink-500 border-pink-500/20'; 
+        brandColor = 'bg-pink-500/10 text-pink-600 dark:text-pink-500 border-pink-500/20'; 
         brandName = 'Instagram'; 
     } else if (lower.includes('google') || lower.includes('gmail')) { 
-        brandColor = 'bg-blue-500/10 text-blue-400 border-blue-500/20'; 
+        brandColor = 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'; 
         brandName = 'Google'; 
     } else if (lower.includes('github')) { 
-        brandColor = 'bg-purple-500/10 text-purple-400 border-purple-500/20'; 
+        brandColor = 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20'; 
         brandName = 'GitHub'; 
     } else if (lower.includes('discord')) { 
-        brandColor = 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'; 
+        brandColor = 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20'; 
         brandName = 'Discord'; 
     } else if (lower.includes('twitter') || lower.includes('x.com')) { 
-        brandColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20'; 
+        brandColor = 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20'; 
         brandName = 'Twitter/X'; 
     } else if (lower.includes('tiktok')) { 
-        brandColor = 'bg-rose-500/10 text-rose-400 border-rose-500/20'; 
+        brandColor = 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'; 
         brandName = 'TikTok'; 
     } else if (lower.includes('aws') || lower.includes('amazon')) { 
-        brandColor = 'bg-amber-500/10 text-amber-500 border-amber-500/20'; 
+        brandColor = 'bg-amber-500/10 text-amber-600 dark:text-amber-500 border-amber-500/20'; 
         brandName = 'AWS'; 
     } else if (lower.includes('binance')) { 
-        brandColor = 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'; 
+        brandColor = 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-500 border-yellow-500/20'; 
         brandName = 'Binance'; 
     } else if (lower.includes('telegram')) { 
-        brandColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20'; 
+        brandColor = 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20'; 
         brandName = 'Telegram'; 
     } else if (lower.includes('microsoft')) { 
-        brandColor = 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'; 
+        brandColor = 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20'; 
         brandName = 'Microsoft'; 
     } else {
         const parts = name.split(/[:\-_/]/);
@@ -120,14 +120,20 @@ function getBrandBadge(name) {
         }
     }
 
-    return `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded border font-bold shrink-0 ${brandColor}">${brandName}</span>`;
+    return `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded-md border font-bold shrink-0 ${brandColor}">${brandName}</span>`;
 }
 
-/* Convert Country Code to Emoji Flag */
-function getCountryFlag(code) {
-    if (!code || code.length !== 2) return '🌐';
-    const offset = 127397;
-    return String.fromCodePoint(...code.toUpperCase().split('').map(c => c.charCodeAt(0) + offset));
+/* High-Resolution SVG Country Flag Renderer */
+function getCountryFlagElement(code) {
+    if (!code || code === 'UN' || code.length !== 2) {
+        return `<span class="w-5 h-3.5 inline-flex items-center justify-center rounded-sm bg-slate-200 dark:bg-slate-800 text-[10px] text-slate-500 shrink-0">🌐</span>`;
+    }
+    const lower = code.toLowerCase();
+    return `<img src="https://flagcdn.com/w40/${lower}.png" 
+                 srcset="https://flagcdn.com/w80/${lower}.png 2x" 
+                 alt="${code}" 
+                 class="w-5 h-3.5 object-cover rounded-sm border border-slate-200 dark:border-slate-700 shadow-sm shrink-0" 
+                 onerror="this.outerHTML='<span class=\\'text-xs shrink-0\\'>🌐</span>'">`;
 }
 
 /* Translations */
@@ -440,14 +446,12 @@ async function logVisitorAccess(action = "Page Visit") {
         if (data && data.ip) {
             const countryCode = data.country_code || 'UN';
             const countryName = data.country_name || 'Unknown Region';
-            const flag = getCountryFlag(countryCode);
 
             const logs = JSON.parse(localStorage.getItem('admin_ip_logs') || '[]');
             logs.unshift({
                 ip: data.ip,
                 countryCode: countryCode,
                 countryName: countryName,
-                flag: flag,
                 action: action,
                 time: new Date().toLocaleString()
             });
@@ -469,7 +473,6 @@ async function logVisitorAccess(action = "Page Visit") {
                     ip: fallbackData.ip,
                     countryCode: 'UN',
                     countryName: 'Unknown',
-                    flag: '🌐',
                     action: action,
                     time: new Date().toLocaleString()
                 });
@@ -867,6 +870,7 @@ async function updateVaultStorage() {
     resetInactivityTimer();
 }
 
+/* Modern Vector-Based Account Card Renderer */
 function renderVaultAccounts() {
     const listEl = document.getElementById('vaultAccountsList');
     const search = (document.getElementById('vaultSearchInput')?.value || '').toLowerCase();
@@ -900,21 +904,27 @@ function renderVaultAccounts() {
         const brandBadge = getBrandBadge(acc.name);
 
         return `
-            <div class="flex items-center justify-between p-3 rounded-xl card-inner hover:border-slate-300 dark:hover:border-slate-700 transition-colors gap-2">
+            <div class="flex items-center justify-between p-3 rounded-2xl card-inner hover:border-brand-500/40 transition-colors gap-2 shadow-sm">
                 <div class="min-w-0 flex-grow pr-2">
                     <div class="flex items-center gap-2 flex-wrap">
                         ${brandBadge}
                         <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${cleanName}</span>
-                        <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
-                        ${acc.pinned ? '<span class="text-[9px] px-1 rounded bg-amber-500/10 text-amber-500 font-bold">Pinned</span>' : ''}
+                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded-md bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20">${algo}/${digits}D</span>
+                        ${acc.pinned ? '<span class="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20">Pinned</span>' : ''}
                     </div>
-                    <span class="text-[10px] font-mono text-slate-400 block truncate mt-1">${maskedSecret}</span>
+                    <span class="text-[10px] font-mono text-slate-400 dark:text-slate-500 block truncate mt-1">${maskedSecret}</span>
                 </div>
                 <div class="flex items-center gap-1.5 shrink-0">
-                    <button onclick="togglePinAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center text-xs btn-modern" title="Pin">📌</button>
-                    <button onclick="renameAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-brand-500 flex items-center justify-center text-xs btn-modern" title="Rename">✏️</button>
-                    <button onclick="loadVaultAccount(${realIndex})" class="px-2.5 h-7 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">${getTranslatedText('btnUse')}</button>
-                    <button onclick="deleteVaultAccount(${realIndex})" class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 flex items-center justify-center text-xs btn-modern" title="Delete">🗑️</button>
+                    <button onclick="togglePinAccount(${realIndex})" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center btn-modern" title="Pin">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                    </button>
+                    <button onclick="renameAccount(${realIndex})" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-brand-500 flex items-center justify-center btn-modern" title="Rename">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    </button>
+                    <button onclick="loadVaultAccount(${realIndex})" class="px-3 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-sm">${getTranslatedText('btnUse')}</button>
+                    <button onclick="deleteVaultAccount(${realIndex})" class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 flex items-center justify-center btn-modern" title="Delete">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
                 </div>
             </div>
         `;
@@ -1556,16 +1566,16 @@ function showToast(text) {
 function getActionBadge(action) {
     const act = (action || '').toLowerCase();
     if (act.includes('unlock')) {
-        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Unlocked Vault
         </span>`;
     } else if (act.includes('password') || act.includes('created')) {
-        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Master Auth
+        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Master Auth
         </span>`;
     } else {
-        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
-            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> Page Visit
+        return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> Page Visit
         </span>`;
     }
 }
@@ -1591,17 +1601,17 @@ function fetchAdminStats(searchTerm = '') {
     }
 
     container.innerHTML = filtered.map(log => {
-        const flag = log.flag || getCountryFlag(log.countryCode);
+        const flagEl = getCountryFlagElement(log.countryCode);
         const region = log.countryCode && log.countryCode !== 'UN' ? log.countryCode : '';
 
         return `
-            <div class="grid grid-cols-12 items-center px-4 py-2.5 rounded-xl card-inner border border-slate-200/50 dark:border-slate-800/80 hover:border-brand-500/40 transition-colors group">
+            <div class="grid grid-cols-12 items-center px-4 py-2.5 rounded-xl card-inner border border-slate-200/60 dark:border-slate-800/80 hover:border-brand-500/40 transition-colors group shadow-sm">
                 <div class="col-span-5 flex items-center gap-2 min-w-0 pr-2">
-                    <span class="text-base select-none" title="${log.countryName || 'Region'}">${flag}</span>
-                    <span class="font-bold text-brand-500 dark:text-brand-400 tracking-tight truncate">${log.ip}</span>
-                    ${region ? `<span class="text-[9px] font-mono px-1 rounded bg-slate-500/10 text-slate-400 font-bold shrink-0">${region}</span>` : ''}
-                    <button onclick="copyExplicit('${log.ip}')" class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-white text-[11px] shrink-0" title="Copy IP">
-                        📋
+                    ${flagEl}
+                    <span class="font-bold text-brand-600 dark:text-brand-400 tracking-tight truncate">${log.ip}</span>
+                    ${region ? `<span class="text-[9px] font-mono px-1 rounded bg-slate-500/10 text-slate-500 dark:text-slate-400 font-bold shrink-0">${region}</span>` : ''}
+                    <button onclick="copyExplicit('${log.ip}')" class="opacity-0 group-hover:opacity-100 transition-opacity text-slate-400 hover:text-brand-500 text-xs shrink-0" title="Copy IP">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                     </button>
                 </div>
 
@@ -1609,7 +1619,7 @@ function fetchAdminStats(searchTerm = '') {
                     ${getActionBadge(log.action)}
                 </div>
 
-                <div class="col-span-3 text-right text-[11px] text-slate-400 truncate">
+                <div class="col-span-3 text-right text-[11px] text-slate-500 dark:text-slate-400 truncate">
                     ${log.time}
                 </div>
             </div>
