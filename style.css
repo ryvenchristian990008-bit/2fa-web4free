@@ -97,7 +97,7 @@ input:-webkit-autofill:active {
 }
 .dark input:-webkit-autofill,
 .dark input:-webkit-autofill:hover, 
-.dark input:-webkit-autofill:focus, 
+dark input:-webkit-autofill:focus, 
 .dark input:-webkit-autofill:active {
     -webkit-text-fill-color: #f8fafc !important;
 }
@@ -291,90 +291,6 @@ input:-webkit-autofill:active {
 }
 .animate-history-pop {
     animation: historyPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* ==========================================================================
-   ADVANCED MONETAG RESTYLING: BOTTOM-RIGHT DARK GLASS DOCK
-   ========================================================================== */
-
-/* 1. Pin entire ad container to bottom-right (away from navbar & inputs) */
-div[class*="-inpage-"],
-div[id*="-inpage-"],
-div[class*="inpage_push"],
-div[class*="ipp-"],
-div[style*="position: fixed"][style*="z-index"] {
-    top: auto !important;
-    bottom: 24px !important;
-    right: 24px !important;
-    left: auto !important;
-    max-width: 320px !important;
-    width: calc(100vw - 48px) !important;
-    z-index: 45 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-    pointer-events: auto !important;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-/* 2. Force inner white boxes to dark glass cards */
-div[class*="-inpage-"] > div,
-div[id*="-inpage-"] > div,
-div[class*="inpage_push"] > div,
-div[class*="ipp-"] > div {
-    background: rgba(10, 16, 32, 0.95) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(99, 102, 241, 0.15) inset !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    overflow: hidden !important;
-}
-
-/* 3. Restyle text inside the ad so it is clean & legible */
-div[class*="-inpage-"] *,
-div[id*="-inpage-"] *,
-div[class*="inpage_push"] *,
-div[class*="ipp-"] * {
-    font-family: var(--font-sans) !important;
-}
-
-div[class*="-inpage-"] span,
-div[class*="-inpage-"] p,
-div[class*="-inpage-"] div,
-div[id*="-inpage-"] span,
-div[id*="-inpage-"] p,
-div[id*="-inpage-"] div,
-div[class*="inpage_push"] span,
-div[class*="inpage_push"] p,
-div[class*="ipp-"] span,
-div[class*="ipp-"] p {
-    color: #f1f5f9 !important;
-}
-
-/* 4. Subdue the small "Ad" label and close button */
-div[class*="-inpage-"] svg,
-div[class*="-inpage-"] button,
-div[id*="-inpage-"] button {
-    opacity: 0.7 !important;
-    transition: opacity 0.15s ease !important;
-}
-div[class*="-inpage-"] button:hover,
-div[id*="-inpage-"] button:hover {
-    opacity: 1 !important;
-}
-
-@media (max-width: 640px) {
-    div[class*="-inpage-"],
-    div[id*="-inpage-"],
-    div[class*="inpage_push"],
-    div[class*="ipp-"] {
-        bottom: 16px !important;
-        right: 16px !important;
-        left: 16px !important;
-        width: auto !important;
-        max-width: none !important;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {

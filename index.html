@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" id="htmlRoot" class="dark">
 <head>
-    <!-- Monetag In-Page Push Script -->
-    <script>(function(s){s.dataset.zone='11735267',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -534,7 +531,7 @@
 
         </div>
 
-        <!-- Refined Native Sponsored Column -->
+        <!-- Refined Clean A-Ads Sponsored Section -->
         <section class="w-full max-w-5xl mt-6 panel-glass rounded-2xl p-4 sm:p-5 border border-slate-200/80 dark:border-slate-800/80 shadow-lg relative overflow-hidden transition-all duration-200">
             <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -744,42 +741,7 @@
         </div>
     </div>
 
-    <!-- Monetag Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(function(err) {
-                console.error('Monetag Service Worker registration failed:', err);
-            });
-        }
-    </script>
-
-    <!-- Monetag Dark Theme Sanitizer MutationObserver -->
-    <script>
-        (function() {
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    mutation.addedNodes.forEach((node) => {
-                        if (node.nodeType === 1) {
-                            const isMonetag = node.className && (
-                                node.className.includes('inpage') || 
-                                node.className.includes('ipp') ||
-                                (node.id && node.id.includes('inpage'))
-                            );
-                            if (isMonetag) {
-                                node.style.setProperty('top', 'auto', 'important');
-                                node.style.setProperty('bottom', '24px', 'important');
-                                node.style.setProperty('right', '24px', 'important');
-                                node.style.setProperty('left', 'auto', 'important');
-                            }
-                        }
-                    });
-                });
-            });
-            observer.observe(document.body, { childList: true, subtree: true });
-        })();
-    </script>
-
-    <!-- Main JS Engine -->
+    <!-- Main JavaScript Execution Engine -->
     <script src="app.js"></script>
 </body>
 </html>
