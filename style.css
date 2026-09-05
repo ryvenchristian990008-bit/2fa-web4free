@@ -103,7 +103,7 @@ input:-webkit-autofill:active {
 }
 
 /* --------------------------------------------------------------------------
-   Subtle Mesh & Surfaces
+   Mesh & Dynamic Glass Panels
    -------------------------------------------------------------------------- */
 .bg-mesh-dark {
     background-color: #030712;
@@ -208,7 +208,7 @@ input:-webkit-autofill:active {
 }
 
 /* --------------------------------------------------------------------------
-   Modern Button Micro-Interactions
+   Buttons & Micro-Interactions
    -------------------------------------------------------------------------- */
 .btn-modern {
     transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -257,7 +257,7 @@ input:-webkit-autofill:active {
 }
 
 /* --------------------------------------------------------------------------
-   Token Scramble / Pop Animations
+   Token Animations
    -------------------------------------------------------------------------- */
 .token-decoding {
     filter: blur(2px);
@@ -291,6 +291,50 @@ input:-webkit-autofill:active {
 }
 .animate-history-pop {
     animation: historyPopIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   MONETAG IN-PAGE PUSH RIGHT-DOCK COLUMN
+   ========================================================================== */
+div[class*="-inpage-"],
+div[id*="-inpage-"],
+div[class*="inpage_push"],
+div[class*="ipp-"],
+div[style*="position: fixed"][style*="z-index"] {
+    top: 76px !important;        /* Directly below the 64px header */
+    right: 20px !important;       /* Neatly docked to the right edge */
+    left: auto !important;
+    bottom: auto !important;
+    max-width: 320px !important;  /* Compact column format */
+    width: calc(100vw - 40px) !important;
+    z-index: 45 !important;       /* Below modals (z-[130]) so popups never get blocked */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    pointer-events: auto !important;
+    transition: transform 0.25s ease, opacity 0.25s ease !important;
+}
+
+div[class*="-inpage-"] > div,
+div[id*="-inpage-"] > div,
+div[class*="inpage_push"] > div {
+    border-radius: 14px !important;
+    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+@media (max-width: 640px) {
+    div[class*="-inpage-"],
+    div[id*="-inpage-"],
+    div[class*="inpage_push"],
+    div[class*="ipp-"] {
+        top: 70px !important;
+        right: 12px !important;
+        left: 12px !important;
+        width: auto !important;
+        max-width: none !important;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
