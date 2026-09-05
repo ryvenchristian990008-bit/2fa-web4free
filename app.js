@@ -74,22 +74,54 @@ function resetInactivityTimer() {
 }
 ['mousemove', 'keydown', 'click', 'touchstart'].forEach(e => window.addEventListener(e, resetInactivityTimer, { passive: true }));
 
-/* Brand Logo Recognition Helper */
+/* Clean Social Media & Brand Recognition Helper */
 function getBrandBadge(name) {
     const lower = name.toLowerCase();
     let brandColor = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
-    let brandName = name;
+    let brandName = 'Service';
 
-    if (lower.includes('google')) { brandColor = 'bg-blue-500/10 text-blue-400 border-blue-500/20'; brandName = 'Google'; }
-    else if (lower.includes('github')) { brandColor = 'bg-purple-500/10 text-purple-400 border-purple-500/20'; brandName = 'GitHub'; }
-    else if (lower.includes('discord')) { brandColor = 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'; brandName = 'Discord'; }
-    else if (lower.includes('facebook') || lower.includes('meta')) { brandColor = 'bg-blue-600/10 text-blue-500 border-blue-600/20'; brandName = 'Facebook'; }
-    else if (lower.includes('aws') || lower.includes('amazon')) { brandColor = 'bg-amber-500/10 text-amber-500 border-amber-500/20'; brandName = 'AWS'; }
-    else if (lower.includes('binance')) { brandColor = 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'; brandName = 'Binance'; }
-    else if (lower.includes('telegram')) { brandColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20'; brandName = 'Telegram'; }
-    else if (lower.includes('microsoft')) { brandColor = 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'; brandName = 'Microsoft'; }
+    if (lower.includes('facebook') || lower.includes('meta')) { 
+        brandColor = 'bg-blue-600/10 text-blue-500 border-blue-600/20'; 
+        brandName = 'Facebook'; 
+    } else if (lower.includes('instagram') || lower.includes('ig')) { 
+        brandColor = 'bg-pink-500/10 text-pink-500 border-pink-500/20'; 
+        brandName = 'Instagram'; 
+    } else if (lower.includes('google') || lower.includes('gmail')) { 
+        brandColor = 'bg-blue-500/10 text-blue-400 border-blue-500/20'; 
+        brandName = 'Google'; 
+    } else if (lower.includes('github')) { 
+        brandColor = 'bg-purple-500/10 text-purple-400 border-purple-500/20'; 
+        brandName = 'GitHub'; 
+    } else if (lower.includes('discord')) { 
+        brandColor = 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'; 
+        brandName = 'Discord'; 
+    } else if (lower.includes('twitter') || lower.includes('x.com')) { 
+        brandColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20'; 
+        brandName = 'Twitter/X'; 
+    } else if (lower.includes('tiktok')) { 
+        brandColor = 'bg-rose-500/10 text-rose-400 border-rose-500/20'; 
+        brandName = 'TikTok'; 
+    } else if (lower.includes('aws') || lower.includes('amazon')) { 
+        brandColor = 'bg-amber-500/10 text-amber-500 border-amber-500/20'; 
+        brandName = 'AWS'; 
+    } else if (lower.includes('binance')) { 
+        brandColor = 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'; 
+        brandName = 'Binance'; 
+    } else if (lower.includes('telegram')) { 
+        brandColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20'; 
+        brandName = 'Telegram'; 
+    } else if (lower.includes('microsoft')) { 
+        brandColor = 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'; 
+        brandName = 'Microsoft'; 
+    } else {
+        // Extract a clean display string if no specific match
+        const parts = name.split(/[:\-_/]/);
+        if (parts.length > 0 && parts[0].trim().length > 0) {
+            brandName = parts[0].trim();
+        }
+    }
 
-    return `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded border font-bold ${brandColor}">${brandName}</span>`;
+    return `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded border font-bold shrink-0 ${brandColor}">${brandName}</span>`;
 }
 
 /* Translations */
@@ -827,20 +859,27 @@ function renderVaultAccounts() {
         const algo = acc.algorithm || 'SHA-1';
         const digits = acc.digits || '6';
         const maskedSecret = acc.secret.length > 6 ? acc.secret.substring(0, 4) + '••••••••' : '••••••••';
+        
+        // Clean display name and avoid redundant duplicate strings
+        let cleanName = acc.name;
+        if (cleanName.includes(':')) {
+            const parts = cleanName.split(':');
+            cleanName = parts[1].trim() || parts[0].trim();
+        }
         const brandBadge = getBrandBadge(acc.name);
 
         return `
-            <div class="flex items-center justify-between p-2.5 rounded-xl card-inner hover:border-slate-300 dark:hover:border-slate-700 transition-colors">
-                <div class="min-w-0 pr-2">
-                    <div class="flex items-center gap-1.5 flex-wrap">
-                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
+            <div class="flex items-center justify-between p-3 rounded-xl card-inner hover:border-slate-300 dark:hover:border-slate-700 transition-colors gap-2">
+                <div class="min-w-0 flex-grow pr-2">
+                    <div class="flex items-center gap-2 flex-wrap">
                         ${brandBadge}
+                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${cleanName}</span>
                         <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
                         ${acc.pinned ? '<span class="text-[9px] px-1 rounded bg-amber-500/10 text-amber-500 font-bold">Pinned</span>' : ''}
                     </div>
-                    <span class="text-[10px] font-mono text-slate-400 block truncate mt-0.5">${maskedSecret}</span>
+                    <span class="text-[10px] font-mono text-slate-400 block truncate mt-1">${maskedSecret}</span>
                 </div>
-                <div class="flex items-center gap-1 shrink-0">
+                <div class="flex items-center gap-1.5 shrink-0">
                     <button onclick="togglePinAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center text-xs btn-modern" title="Pin">📌</button>
                     <button onclick="renameAccount(${realIndex})" class="w-7 h-7 rounded-lg card-inner text-slate-400 hover:text-brand-500 flex items-center justify-center text-xs btn-modern" title="Rename">✏️</button>
                     <button onclick="loadVaultAccount(${realIndex})" class="px-2.5 h-7 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern">${getTranslatedText('btnUse')}</button>
@@ -969,14 +1008,20 @@ async function renderDashboardLiveGrid() {
         const algo = acc.algorithm || 'SHA-1';
         const code = await generateTOTP(acc.secret, period, digits, algo) || '------';
         const brandBadge = getBrandBadge(acc.name);
+        let cleanName = acc.name;
+        if (cleanName.includes(':')) {
+            const parts = cleanName.split(':');
+            cleanName = parts[1].trim() || parts[0].trim();
+        }
+
         return `
             <div class="card-inner p-3.5 rounded-2xl flex flex-col justify-between space-y-2 border border-slate-200/80 dark:border-slate-800">
                 <div class="flex items-center justify-between gap-1">
-                    <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${acc.name}</span>
-                    <div class="flex items-center gap-1 shrink-0">
+                    <div class="flex items-center gap-1.5 truncate">
                         ${brandBadge}
-                        <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold">${algo}/${digits}D</span>
+                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">${cleanName}</span>
                     </div>
+                    <span class="text-[9px] font-mono px-1 rounded bg-brand-500/10 text-brand-500 font-bold shrink-0">${algo}/${digits}D</span>
                 </div>
                 <div class="text-center py-1">
                     <span class="font-mono text-2xl font-black tracking-widest text-slate-900 dark:text-white select-all">${code}</span>
