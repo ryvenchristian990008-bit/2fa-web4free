@@ -1,3 +1,7 @@
+/* ==========================================================================
+   GLOBALAUTH CORE CLIENT ENGINE
+   ========================================================================== */
+
 let sessionHistory = [];
 let dashboardInterval = null;
 let timerInterval = null;
@@ -38,7 +42,7 @@ async function installAppDirectly() {
     deferredPrompt = null;
 }
 
-/* Smooth Right-to-Left Slide Drawer Toggle */
+/* Smooth Slide Drawer Toggle */
 function toggleMobileMenu() {
     const drawer = document.getElementById('mobileDrawer');
     const backdrop = document.getElementById('mobileDrawerBackdrop');
@@ -60,7 +64,7 @@ function toggleMobileMenu() {
     }
 }
 
-/* 5-Min Idle Session Auto-Lock */
+/* 5-Min Inactivity Auto-Lock */
 function resetInactivityTimer() {
     if (inactivityTimer) clearTimeout(inactivityTimer);
     if (activeMasterPassword) {
@@ -72,12 +76,14 @@ function resetInactivityTimer() {
         }, 5 * 60 * 1000);
     }
 }
-['mousemove', 'keydown', 'click', 'touchstart'].forEach(e => window.addEventListener(e, resetInactivityTimer, { passive: true }));
+['mousemove', 'keydown', 'click', 'touchstart'].forEach(e => 
+    window.addEventListener(e, resetInactivityTimer, { passive: true })
+);
 
-/* Clean Social Media & Brand Recognition Helper */
+/* Clean Social Media & Provider Identifier */
 function getBrandBadge(name) {
     const lower = name.toLowerCase();
-    let brandColor = 'bg-slate-500/10 text-slate-500 dark:text-slate-400 border-slate-500/20';
+    let brandColor = 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20';
     let brandName = 'Service';
 
     if (lower.includes('facebook') || lower.includes('meta')) { 
@@ -123,7 +129,7 @@ function getBrandBadge(name) {
     return `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded-md border font-bold shrink-0 ${brandColor}">${brandName}</span>`;
 }
 
-/* High-Resolution SVG Country Flag Renderer */
+/* High-Resolution SVG Country Flag Element */
 function getCountryFlagElement(code) {
     if (!code || code === 'UN' || code.length !== 2) {
         return `<span class="w-5 h-3.5 inline-flex items-center justify-center rounded-sm bg-slate-200 dark:bg-slate-800 text-[10px] text-slate-500 shrink-0">🌐</span>`;
@@ -136,7 +142,7 @@ function getCountryFlagElement(code) {
                  onerror="this.outerHTML='<span class=\\'text-xs shrink-0\\'>🌐</span>'">`;
 }
 
-/* Translations */
+/* Localization Records */
 const translations = {
     en: {
         appSubtitle: "Enterprise 2FA Platform",
@@ -148,17 +154,17 @@ const translations = {
         btnUpload: "Upload QR",
         btnCameraScan: "Live Scan",
         cameraModalTitle: "Scan 2FA QR Code",
-        cameraTip: "Align the QR code within the framing square",
+        cameraTip: "Center QR provisioning code inside the optical guide",
         secretPlaceholder: "Paste key or otpauth:// link...",
         cryptoParamsTitle: "Cryptographic Parameters",
         autoDetectedHint: "Auto-detected from URIs",
         labelAlgo: "Algorithm",
         optSha1: "SHA-1 (Default)",
-        labelDigits: "Code Length",
+        labelDigits: "Digits",
         opt6Digits: "6 Digits",
         opt7Digits: "7 Digits",
         opt8Digits: "8 Digits",
-        labelPeriod: "Cycle Period",
+        labelPeriod: "Cycle Window",
         opt30s: "30 Seconds",
         opt60s: "60 Seconds",
         btnGen: "Generate Token",
@@ -176,21 +182,21 @@ const translations = {
         admin: "Admin",
         alertNotice: "Security Notice",
         btnAcknowledge: "Acknowledge",
-        promptAccountLabel: "Account Label",
-        promptSpecifyId: "Specify an identifier for this key pair.",
+        promptAccountLabel: "Account Identifier",
+        promptSpecifyId: "Assign a recognizable label for this key pair.",
         btnCancel: "Cancel",
         btnConfirm: "Confirm",
-        confirmDeleteTitle: "Delete Account?",
-        confirmDeleteDesc: "This key will be permanently purged.",
+        confirmDeleteTitle: "Delete Entry?",
+        confirmDeleteDesc: "This key will be permanently removed.",
         btnDelete: "Delete",
-        notesHeading: "Platform Guide & Documentation",
-        notesSubHeading: "Architecture & Operational Workflow",
+        notesHeading: "Platform Documentation",
+        notesSubHeading: "Architecture & Operational Manual",
         btnClose: "Close",
         vaultModalTitle: "Encrypted Account Vault",
         vaultCreateTitle: "Create Master Password",
-        vaultCreateDesc: "Set your own custom password to protect your database.",
+        vaultCreateDesc: "Set a master passphrase to secure your local encrypted database.",
         vaultUnlockTitle: "Unlock Your Vault",
-        vaultUnlockDesc: "Enter your custom master password to decrypt saved keys.",
+        vaultUnlockDesc: "Enter your master password to decrypt saved keys.",
         vaultMasterPassPlaceholder: "Enter custom master password...",
         vaultConfirmPassPlaceholder: "Confirm custom master password...",
         btnSavePassword: "Save Password",
@@ -208,28 +214,29 @@ const translations = {
         telemetryTitle: "Telemetry & Access Logs",
         statVisitors: "Unique Visitors",
         statGenerations: "Tokens Generated",
-        storedIpLogs: "Stored IP Access Audit Logs",
+        storedIpLogs: "Audit Log Stream",
         noTelemetry: "No telemetry recorded yet...",
         toastMsg: "Copied to clipboard!",
         toastCopiedMorphed: "Copied!",
-        toastSecretPasted: "Secret pasted!",
+        toastSecretPasted: "Secret token pasted",
         toastHistoryCleared: "Session history cleared",
-        toastBackupExported: "Backup exported successfully!",
-        toastVaultUnlocked: "Vault decrypted successfully!",
-        toastPassCreated: "Custom password created and vault unlocked!",
-        toastVaultLocked: "Vault locked.",
-        toastAutoLocked: "Vault auto-locked due to inactivity.",
-        toastAccountSaved: "Account saved to encrypted vault!",
-        toastAccountRemoved: "Account removed.",
-        toastQrDetected: "QR code detected and parsed!",
-        errEmpty: "Please enter a valid Base32 key.",
-        errFormat: "Invalid secret key format.",
-        errScanFailed: "No valid QR code was located in this image.",
-        errAccessDenied: "Incorrect master password!",
+        toastBackupExported: "Backup exported successfully",
+        toastVaultUnlocked: "Vault decrypted successfully",
+        toastPassCreated: "Vault master password initialized",
+        toastVaultLocked: "Vault locked",
+        toastAutoLocked: "Vault auto-locked due to inactivity",
+        toastAccountSaved: "Account encrypted & saved to vault",
+        toastAccountRemoved: "Account removed",
+        toastQrDetected: "QR parameters parsed successfully",
+        errEmpty: "Please provide a valid Base32 secret string.",
+        errFormat: "Invalid secret token format.",
+        errScanFailed: "No valid 2FA QR code was recognized.",
+        errAccessDenied: "Incorrect master password provided.",
         errMismatch: "Master passwords do not match. Please re-enter.",
-        errCameraAccess: "Unable to access camera. Check device permissions.",
+        errCameraAccess: "Unable to access camera. Verify device permissions.",
         btnUse: "Use",
-        emptyVaultMsg: "No saved credentials in vault"
+        emptyVaultMsg: "No credentials stored in vault",
+        welcomeMsg: "Welcome"
     },
     km: {
         appSubtitle: "កម្មវិធីផ្ទៀងផ្ទាត់កម្រិតខ្ពស់ 2FA",
@@ -322,7 +329,8 @@ const translations = {
         errMismatch: "ពាក្យសម្ងាត់ទាំងពីរមិនដូចគ្នាទេ។",
         errCameraAccess: "មិនអាចបើកកាមេរ៉ាបានទេ។ សូមពិនិត្យសិទ្ធិកាមេរ៉ា។",
         btnUse: "ប្រើប្រាស់",
-        emptyVaultMsg: "មិនទាន់មានទិន្នន័យក្នុង Vault ទេ"
+        emptyVaultMsg: "មិនទាន់មានទិន្នន័យក្នុង Vault ទេ",
+        welcomeMsg: "សូមស្វាគមន៍"
     },
     zh: {
         appSubtitle: "企业级 2FA 身份验证平台",
@@ -415,7 +423,8 @@ const translations = {
         errMismatch: "两次输入的密码不一致，请重新输入。",
         errCameraAccess: "无法调用摄像头，请检查权限设置。",
         btnUse: "使用",
-        emptyVaultMsg: "密码库中暂无保存的账户"
+        emptyVaultMsg: "密码库中暂无保存的账户",
+        welcomeMsg: "欢迎"
     }
 };
 
@@ -423,7 +432,7 @@ function getTranslatedText(key) {
     return (translations[currentLang] && translations[currentLang][key]) || (translations['en'][key] || key);
 }
 
-/* Quick-Paste Helper */
+/* Quick Clipboard Helper */
 async function pasteFromClipboard() {
     try {
         const text = await navigator.clipboard.readText();
@@ -483,25 +492,25 @@ async function logVisitorAccess(action = "Page Visit") {
 }
 window.addEventListener('load', () => logVisitorAccess("Page Visit"));
 
-/* In-App Tab Refresh */
+/* Tab Refresh Utility */
 function triggerUniversalTabRefresh() {
     const icon = document.getElementById('refreshIcon');
     const container = document.getElementById('mainTabContainer');
 
     if (icon) {
         icon.style.transform = 'rotate(360deg)';
-        icon.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        icon.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
     }
     if (container) {
-        container.style.opacity = '0.4';
-        container.style.transform = 'scale(0.985)';
+        container.style.opacity = '0.5';
+        container.style.transform = 'scale(0.99)';
     }
     setTimeout(() => {
         window.location.reload();
-    }, 300);
+    }, 250);
 }
 
-/* Platform Guide Modal Content */
+/* Platform Guide Documentation Content */
 const platformNotesData = {
     en: [
         {
@@ -589,7 +598,7 @@ function renderNotesContent() {
 
     const notes = platformNotesData[currentLang] || platformNotesData['en'];
     container.innerHTML = notes.map(item => `
-        <div class="card-inner p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
+        <div class="card-inner p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1">
             <h4 class="font-bold text-xs text-brand-600 dark:text-brand-400">${item.title}</h4>
             <p class="text-[11px] leading-relaxed text-slate-600 dark:text-slate-300">${item.desc}</p>
         </div>
@@ -605,7 +614,7 @@ function closeNotesModal() {
     document.getElementById('notesModal').classList.add('hidden');
 }
 
-/* Dropdown Handlers */
+/* Custom Selection Dropdowns */
 function toggleDropdownMenu(menuId) {
     const menu = document.getElementById(menuId);
     const isHidden = menu.classList.contains('hidden');
@@ -618,7 +627,7 @@ function closeAllCustomDropdowns() {
 }
 
 window.addEventListener('click', (e) => {
-    if (!e.target.closest('.space-y-1\\.5.relative')) closeAllCustomDropdowns();
+    if (!e.target.closest('.space-y-1.relative')) closeAllCustomDropdowns();
 });
 
 function chooseOption(hiddenInputId, labelId, value, displayLabel, menuId) {
@@ -641,7 +650,7 @@ function chooseOption(hiddenInputId, labelId, value, displayLabel, menuId) {
     closeAllCustomDropdowns();
 }
 
-/* Base64 & Web Crypto Helpers */
+/* Cryptographic Storage Primitives (PBKDF2 / AES-GCM 256) */
 function bufferToBase64(buf) {
     const bytes = new Uint8Array(buf);
     let binary = '';
@@ -695,7 +704,7 @@ async function decryptData(password, encryptedObj) {
     return JSON.parse(new TextDecoder().decode(decrypted));
 }
 
-/* Vault Lifecycle */
+/* Vault Management Lifecycle */
 function openVaultModal() {
     document.getElementById('vaultModal').classList.remove('hidden');
     const hasStoredVault = localStorage.getItem('globalauth_vault');
@@ -743,11 +752,7 @@ async function handleVaultAuth() {
     }
 
     if (!hasStoredVault) {
-        if (!confirmPass || confirmPass.trim().length === 0) {
-            showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errMismatch'));
-            return;
-        }
-        if (password !== confirmPass) {
+        if (!confirmPass || confirmPass.trim().length === 0 || password !== confirmPass) {
             showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errMismatch'));
             return;
         }
@@ -759,7 +764,7 @@ async function handleVaultAuth() {
             decryptedVaultAccounts = [];
             resetInactivityTimer();
             
-            logVisitorAccess("Created Master Password");
+            logVisitorAccess("Initialized Master Password");
 
             document.getElementById('vaultAuthSection').classList.add('hidden');
             document.getElementById('vaultContentSection').classList.remove('hidden');
@@ -767,7 +772,7 @@ async function handleVaultAuth() {
             updateVaultDot(true);
             showToast(getTranslatedText('toastPassCreated'));
         } catch (e) {
-            showModernAlert(getTranslatedText('alertNotice'), "Could not initialize secure vault.");
+            showModernAlert(getTranslatedText('alertNotice'), "Could not initialize encrypted vault.");
         }
         return;
     }
@@ -870,7 +875,6 @@ async function updateVaultStorage() {
     resetInactivityTimer();
 }
 
-/* Modern Vector-Based Account Card Renderer */
 function renderVaultAccounts() {
     const listEl = document.getElementById('vaultAccountsList');
     const search = (document.getElementById('vaultSearchInput')?.value || '').toLowerCase();
@@ -904,7 +908,7 @@ function renderVaultAccounts() {
         const brandBadge = getBrandBadge(acc.name);
 
         return `
-            <div class="flex items-center justify-between p-3 rounded-2xl card-inner hover:border-brand-500/40 transition-colors gap-2 shadow-sm">
+            <div class="flex items-center justify-between p-3 rounded-xl card-inner hover:border-brand-500/40 transition-colors gap-2 shadow-sm">
                 <div class="min-w-0 flex-grow pr-2">
                     <div class="flex items-center gap-2 flex-wrap">
                         ${brandBadge}
@@ -915,14 +919,14 @@ function renderVaultAccounts() {
                     <span class="text-[10px] font-mono text-slate-400 dark:text-slate-500 block truncate mt-1">${maskedSecret}</span>
                 </div>
                 <div class="flex items-center gap-1.5 shrink-0">
-                    <button onclick="togglePinAccount(${realIndex})" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center btn-modern" title="Pin">
+                    <button onclick="togglePinAccount(${realIndex})" class="w-8 h-8 rounded-lg card-inner text-slate-400 hover:text-amber-500 flex items-center justify-center btn-modern" title="Pin">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
                     </button>
-                    <button onclick="renameAccount(${realIndex})" class="w-8 h-8 rounded-xl card-inner text-slate-400 hover:text-brand-500 flex items-center justify-center btn-modern" title="Rename">
+                    <button onclick="renameAccount(${realIndex})" class="w-8 h-8 rounded-lg card-inner text-slate-400 hover:text-brand-500 flex items-center justify-center btn-modern" title="Rename">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     </button>
-                    <button onclick="loadVaultAccount(${realIndex})" class="px-3 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-semibold btn-modern shadow-sm">${getTranslatedText('btnUse')}</button>
-                    <button onclick="deleteVaultAccount(${realIndex})" class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 flex items-center justify-center btn-modern" title="Delete">
+                    <button onclick="loadVaultAccount(${realIndex})" class="px-3 h-8 bg-brand-600 hover:bg-brand-500 text-white rounded-lg text-xs font-semibold btn-modern shadow-sm">${getTranslatedText('btnUse')}</button>
+                    <button onclick="deleteVaultAccount(${realIndex})" class="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 flex items-center justify-center btn-modern" title="Delete">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                     </button>
                 </div>
@@ -1019,7 +1023,7 @@ function importVaultBackupFile(event) {
     event.target.value = '';
 }
 
-/* Multi-Account Dashboard Live Stream */
+/* Multi-Account Dashboard Stream */
 function openMultiAccountDashboard() {
     if (!activeMasterPassword || !decryptedVaultAccounts) {
         openVaultModal();
@@ -1056,7 +1060,7 @@ async function renderDashboardLiveGrid() {
         }
 
         return `
-            <div class="card-inner p-3.5 rounded-2xl flex flex-col justify-between space-y-2 border border-slate-200/80 dark:border-slate-800">
+            <div class="card-inner p-3.5 rounded-xl flex flex-col justify-between space-y-2 border border-slate-200/80 dark:border-slate-800">
                 <div class="flex items-center justify-between gap-1">
                     <div class="flex items-center gap-1.5 truncate">
                         ${brandBadge}
@@ -1150,7 +1154,7 @@ async function generateTOTP(secret, epoch = 30, digits = 6, algo = "SHA-1") {
     }
 }
 
-/* 2-Second Delay Token Generation with Scramble Decoding */
+/* 2-Second Verification Animation with Scramble Decoding */
 async function generateTokenWithDelay() {
     const secret = getSanitizedSecret();
     if (!secret) {
@@ -1179,7 +1183,7 @@ async function generateTokenWithDelay() {
         <span>Generating...</span>
     `;
 
-    codeEl.className = 'text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] cursor-pointer select-all drop-shadow-sm min-h-[48px] sm:min-h-[52px] flex items-center justify-center token-decoding';
+    codeEl.className = 'text-3xl sm:text-4xl lg:text-[40px] font-mono font-black tracking-[0.14em] cursor-pointer select-all drop-shadow-sm min-h-[48px] flex items-center justify-center token-decoding';
     
     const matrixChars = "0123456789ABCDEF";
     if (cipherScrambleInterval) clearInterval(cipherScrambleInterval);
@@ -1208,7 +1212,7 @@ async function generateTokenWithDelay() {
     }, 2000);
 }
 
-/* Direct Instant Token Generation */
+/* Instant Token Generation */
 async function generateTokenDirectly() {
     const secret = getSanitizedSecret();
     if (!secret) return;
@@ -1222,14 +1226,14 @@ async function generateTokenDirectly() {
 
     if (!token) {
         codeEl.innerText = "-".repeat(digits);
-        codeEl.className = 'text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm min-h-[48px] sm:min-h-[52px] flex items-center justify-center';
+        codeEl.className = 'text-3xl sm:text-4xl lg:text-[40px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm min-h-[48px] flex items-center justify-center';
         showModernAlert(getTranslatedText('alertNotice'), getTranslatedText('errFormat'));
         return;
     }
 
     currentActiveSecret = secret;
     
-    codeEl.className = 'text-3xl sm:text-4xl lg:text-[42px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm min-h-[48px] sm:min-h-[52px] flex items-center justify-center token-revealed';
+    codeEl.className = 'text-3xl sm:text-4xl lg:text-[40px] font-mono font-black tracking-[0.14em] text-slate-900 dark:text-white cursor-pointer select-all drop-shadow-sm min-h-[48px] flex items-center justify-center token-revealed';
     codeEl.innerText = token;
 
     document.getElementById('verifiedStatusBadge').classList.remove('hidden');
@@ -1339,7 +1343,7 @@ document.getElementById('copyBtn').addEventListener('click', () => {
     }
 });
 
-/* URI Parameter Detection */
+/* URI Detection Helper */
 function parseSecretUriParams() {
     const rawVal = document.getElementById('secretInput').value.trim();
     if (rawVal.toUpperCase().startsWith('OTPAUTH://')) {
@@ -1382,7 +1386,7 @@ function getSanitizedSecret() {
     return cleaned.replace(/=+$/, '');
 }
 
-/* Live Camera Scanner */
+/* Camera Scanner Operations */
 async function startCameraScanner() {
     const modal = document.getElementById('cameraModal');
     const video = document.getElementById('cameraVideo');
@@ -1431,7 +1435,7 @@ function stopCameraScanner() {
     document.getElementById('cameraModal').classList.add('hidden');
 }
 
-/* QR Upload Reader */
+/* Upload QR Code Image */
 function handleQRCodeUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -1467,7 +1471,7 @@ function handleQRCodeUpload(event) {
     event.target.value = '';
 }
 
-/* Keyboard Shortcuts */
+/* Keyboard System Hooks */
 window.addEventListener('keydown', (e) => {
     const tag = document.activeElement.tagName.toLowerCase();
     const isTyping = tag === 'input' || tag === 'textarea';
@@ -1507,7 +1511,7 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-/* Modals & Alerts */
+/* Modal Trigger Engine */
 let promptCallback = null;
 function showModernPrompt({ title, defaultValue = '', onConfirm }) {
     document.getElementById('promptTitle').innerText = title || getTranslatedText('promptAccountLabel');
@@ -1558,18 +1562,18 @@ function showToast(text) {
     requestAnimationFrame(() => { toast.classList.remove('opacity-0'); });
     setTimeout(() => {
         toast.classList.add('opacity-0');
-        setTimeout(() => toast.classList.add('hidden'), 250);
-    }, 2000);
+        setTimeout(() => toast.classList.add('hidden'), 200);
+    }, 1800);
 }
 
-/* Categorized Event Badges */
+/* Event Badges */
 function getActionBadge(action) {
     const act = (action || '').toLowerCase();
     if (act.includes('unlock')) {
         return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Unlocked Vault
         </span>`;
-    } else if (act.includes('password') || act.includes('created')) {
+    } else if (act.includes('password') || act.includes('created') || act.includes('init')) {
         return `<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
             <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> Master Auth
         </span>`;
@@ -1580,7 +1584,7 @@ function getActionBadge(action) {
     }
 }
 
-/* Render Formatted Telemetry Logs */
+/* Telemetry Stats Display */
 function fetchAdminStats(searchTerm = '') {
     document.getElementById('statVisitors').innerText = localStorage.getItem('stat_visitors') || '1';
     document.getElementById('statGenerations').innerText = localStorage.getItem('stat_generations') || '0';
@@ -1605,7 +1609,7 @@ function fetchAdminStats(searchTerm = '') {
         const region = log.countryCode && log.countryCode !== 'UN' ? log.countryCode : '';
 
         return `
-            <div class="grid grid-cols-12 items-center px-4 py-2.5 rounded-xl card-inner border border-slate-200/60 dark:border-slate-800/80 hover:border-brand-500/40 transition-colors group shadow-sm">
+            <div class="grid grid-cols-12 items-center px-4 py-2 rounded-xl card-inner border border-slate-200/60 dark:border-slate-800/80 hover:border-brand-500/40 transition-colors group shadow-sm">
                 <div class="col-span-5 flex items-center gap-2 min-w-0 pr-2">
                     ${flagEl}
                     <span class="font-bold text-brand-600 dark:text-brand-400 tracking-tight truncate">${log.ip}</span>
@@ -1650,31 +1654,55 @@ function openAdminPasswordModal() {
     document.getElementById('adminPasswordModal').classList.remove('hidden');
     document.getElementById('adminPinInput').focus();
 }
-function closeAdminPasswordModal() { document.getElementById('adminPasswordModal').classList.add('hidden'); }
-function verifyAdminPasscode() {
-    const pin = document.getElementById('adminPinInput').value;
-    if (pin === "171204") {
-        closeAdminPasswordModal();
-        document.getElementById('adminModal').classList.remove('hidden');
-        fetchAdminStats();
-    } else {
-        document.getElementById('adminPasswordError').classList.remove('hidden');
-    }
-}
-function closeAdminPanel() { document.getElementById('adminModal').classList.add('hidden'); }
 
-/* Theme & Dynamic Localization */
+function closeAdminPasswordModal() { 
+    document.getElementById('adminPasswordModal').classList.add('hidden'); 
+}
+
+/* Secure Admin Authentication Request */
+async function verifyAdminPasscode() {
+    const pin = document.getElementById('adminPinInput').value;
+    try {
+        const response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ passcode: pin })
+        });
+        const resData = await response.json();
+        if (resData && resData.success) {
+            closeAdminPasswordModal();
+            document.getElementById('adminModal').classList.remove('hidden');
+            fetchAdminStats();
+            return;
+        }
+    } catch (e) {
+        // Fallback check if working purely statically
+        if (pin === "171204") {
+            closeAdminPasswordModal();
+            document.getElementById('adminModal').classList.remove('hidden');
+            fetchAdminStats();
+            return;
+        }
+    }
+    document.getElementById('adminPasswordError').classList.remove('hidden');
+}
+
+function closeAdminPanel() { 
+    document.getElementById('adminModal').classList.add('hidden'); 
+}
+
+/* Theme Management */
 function updateThemeClasses() {
     const iconSun = document.getElementById('icon-sun');
     const iconMoon = document.getElementById('icon-moon');
     if (currentTheme === 'dark') {
         document.documentElement.classList.add('dark');
-        document.getElementById('bodyRoot').className = "bg-mesh-dark text-slate-100 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500";
+        document.getElementById('bodyRoot').className = "bg-mesh-dark text-slate-100 min-h-screen flex flex-col transition-colors duration-300 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500";
         iconSun?.classList.remove('hidden');
         iconMoon?.classList.add('hidden');
     } else {
         document.documentElement.classList.remove('dark');
-        document.getElementById('bodyRoot').className = "bg-mesh-light text-slate-800 min-h-screen flex flex-col transition-colors duration-500 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500";
+        document.getElementById('bodyRoot').className = "bg-mesh-light text-slate-800 min-h-screen flex flex-col transition-colors duration-300 overflow-x-hidden selection:bg-brand-500/20 selection:text-brand-500";
         iconMoon?.classList.remove('hidden');
         iconSun?.classList.add('hidden');
     }
@@ -1687,6 +1715,7 @@ function toggleTheme() {
     updateThemeClasses();
 }
 
+/* Language Selection Handling */
 function toggleLanguage() {
     if (currentLang === 'en') {
         currentLang = 'km';
@@ -1732,11 +1761,11 @@ function toggleLanguage() {
     renderHistoryList();
 }
 
-/* Offline Service Worker Registration */
+/* Offline PWA Service Worker Registration */
 if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
     window.addEventListener('load', () => {
         const swCode = `
-            const CACHE_NAME = 'globalauth-cache-v3';
+            const CACHE_NAME = 'globalauth-cache-v4';
             self.addEventListener('install', e => self.skipWaiting());
             self.addEventListener('activate', e => e.waitUntil(clients.claim()));
             self.addEventListener('fetch', e => {
